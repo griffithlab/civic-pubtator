@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Repo specific
+tmvar/tm
+tmvar/Database
+
