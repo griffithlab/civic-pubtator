@@ -1,15 +1,19 @@
 # tmvar-arm
 Version of tmvar working on ARM with detailed instructions and examples
 
-## Installing CRF++
+## macOS Setup
 
-The pipeline shells out to `crf_test` (part of CRF++) for sequence labeling. On macOS (including Apple Silicon), install it via Homebrew:
+The tmVar3 archive ships with Linux CRF++ binaries that do not run on macOS. After downloading the data files (see below), run the macOS setup script once to install CRF++ via Homebrew and replace the Linux binaries with shims that call the native macOS binaries:
 
 ```bash
-brew install crf++
+./scripts/setup_macos.sh
 ```
 
-On Linux, pre-compiled binaries are included in `tmvar/CRF/`, so no separate installation is needed.
+This script will:
+1. Install `crf++` via Homebrew if not already present
+2. Write macOS-compatible shims for `crf_test` and `crf_learn` into `tmvar/CRF/`
+
+On Linux, the pre-compiled binaries in `tmvar/CRF/` are used directly — no setup script needed.
 
 ## Downloading Large Data Files
 
@@ -25,6 +29,8 @@ This script will:
 3. Delete the temporary archive and all other extracted files
 
 Expect the download to take some time depending on your connection speed.
+
+**macOS users:** after this download completes, run `./scripts/setup_macos.sh` to configure the CRF++ binaries.
 
 ## PDF to BioC XML Conversion
 
@@ -76,10 +82,9 @@ GROBID listens on `http://localhost:8070` by default. Confirm it is running befo
 
 The following shows the full pipeline using the included example publication (PMID 36922589).
 
-### Step 1 — Install dependencies
+### Step 1 — Install Python dependencies
 
 ```bash
-brew install crf++
 pip3 install -r requirements.txt
 ```
 
@@ -89,7 +94,13 @@ pip3 install -r requirements.txt
 ./scripts/download_tmvar_data.sh
 ```
 
-### Step 3 — (Optional) Convert PDF to BioC XML
+### Step 3 — macOS only: configure CRF++ binaries
+
+```bash
+./scripts/setup_macos.sh
+```
+
+### Step 4 — (Optional) Convert PDF to BioC XML
 
 If starting from a PDF, convert it first. Skip this step if you already have BioC XML input.
 
@@ -103,7 +114,7 @@ docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
     example_data/02_publications_tmvar_format/36922589
 ```
 
-### Step 4 — Run tmVar
+### Step 5 — Run tmVar
 
 ```bash
 cd tmvar
