@@ -1,0 +1,324 @@
+1	ablt
+1-1	315
+1-1-1	i	ProteinMutation	p|SUB|T|315|I;RS#:121913459
+2	agtm
+2-1	235
+2-1-1	t	ProteinMutation	p|SUB|M|235|T;RS#:699
+3	agtt
+3-1	174
+3-1-1	m	ProteinMutation	p|SUB|T|174|M;RS#:4762
+4	aipr
+4-1	304
+4-1-1	x	ProteinMutation	p|SUB|R|304|X;RS#:104894195
+5	alkf
+5-1	1174
+5-1-1	l	ProteinMutation	p|SUB|F|1174|L;RS#:281864719
+6	alkg
+6-1	1202
+6-1-1	r	ProteinMutation	p|SUB|G|1202|R;RS#:1057519783
+7	alkl
+7-1	1196
+7-1-1	m	ProteinMutation	p|SUB|L|1196|M;RS#:1057519784
+8	alppe
+8-1	451
+8-1-1	g	ProteinMutation	p|SUB|E|451|G;RS#:1048994
+9	anlnr
+9-1	431
+9-1-1	c	ProteinMutation	p|SUB|R|431|C;RS#:587777741
+10	apci
+10-1	1307
+10-1-1	k	ProteinMutation	p|SUB|I|1307|K;RS#:1801155
+11	apct
+11-1	1493
+11-1-1	c	ProteinMutation	c|SUB|T|1493|C;RS#:368434773
+12	appd
+12-1	678
+12-1-1	h	ProteinMutation	p|SUB|D|678|H;RS#:63750064
+13	appe
+13-1	693
+13-1-1	g	ProteinMutation	p|SUB|E|693|G;RS#:63751039
+14	appk
+14-1	670
+14-1-1	n	ProteinMutation	p|SUB|K|670|N;RS#:371425292
+15	appv
+15-1	717
+15-1-1	f	ProteinMutation	p|SUB|V|717|F;RS#:63750264
+15-1-2	g	ProteinMutation	p|SUB|V|717|G;RS#:63749964
+15-1-3	i	ProteinMutation	p|SUB|V|717|I;RS#:63750264
+16	arafs
+16-1	214
+16-1-1	f	ProteinMutation	p|SUB|S|214|F;RS#:1057519786
+17	arsan
+17-1	350
+17-1-1	s	ProteinMutation	p|SUB|N|350|S;RS#:2071421
+18	attrv
+18-1	122
+18-1-1	i	ProteinMutation	p|SUB|V|122|I;RS#:76992529
+19	attry
+19-1	114
+19-1-1	c	ProteinMutation	p|SUB|Y|114|C;RS#:121918075
+20	brafd
+20-1	594
+20-1-1	n	ProteinMutation	p|SUB|D|594|N;RS#:397516896
+21	brafg
+21-1	469
+21-1-1	a	ProteinMutation	c|SUB|G|469|A;RS#:121913355
+22	brafq
+22-1	257
+22-1-1	r	ProteinMutation	p|SUB|Q|257|R;RS#:180177035
+23	braft
+23-1	1799
+23-1-1	a	ProteinMutation	c|SUB|T|1799|A;RS#:113488022
+24	brafv
+24-1	600
+24-1-1	e	ProteinMutation	p|SUB|V|600|E;RS#:113488022
+24-1-2	k	ProteinMutation	p|SUB|V|600|K;RS#:121913227
+25	btkc
+25-1	481
+25-1-1	s	ProteinMutation	p|SUB|C|481|S;RS#:1057519825
+26	cfhy
+26-1	402
+26-1-1	h	ProteinMutation	p|SUB|Y|402|H;RS#:10801555
+27	cftra
+27-1	455
+27-1-1	e	ProteinMutation	p|SUB|A|455|E;RS#:74551128
+28	cftrg
+28-1	551
+28-1-1	d	ProteinMutation	p|SUB|G|551|D;RS#:75527207
+29	cftrv
+29-1	232
+29-1-1	d	ProteinMutation	p|SUB|V|232|D;RS#:397508783
+30	chgbp
+30-1	413
+30-1-1	l	ProteinMutation	p|SUB|P|413|L;RS#:742710
+31	cjde
+31-1	200
+31-1-1	k	ProteinMutation	p|SUB|E|200|K;RS#:28933385
+32	crafp
+32-1	261
+32-1-1	a	ProteinMutation	p|SUB|P|261|A;RS#:121434594
+33	ctnsw
+33-1	138
+33-1-1	x	ProteinMutation	p|SUB|W|138|X;RS#:113994205
+34	daor
+34-1	199
+34-1-1	w	ProteinMutation	p|SUB|R|199|W;RS#:139166976
+35	edarv
+35-1	370
+35-1-1	a	ProteinMutation	p|SUB|V|370|A;RS#:3827760
+36	egfra
+36-1	289
+36-1-1	d	ProteinMutation	p|SUB|A|289|D;RS#:149840192
+37	egfrc
+37-1	797
+37-1-1	s	ProteinMutation	p|SUB|C|797|S;RS#:1057519861
+38	egfrg
+38-1	724
+38-1-1	s	ProteinMutation	p|SUB|G|724|S;RS#:748011710
+39	egfrl
+39-1	858
+39-1-1	r	ProteinMutation	p|SUB|L|858|R;RS#:121434568
+40	egfrs
+40-1	492
+40-1-1	r	ProteinMutation	p|SUB|S|492|R;RS#:1057519860
+41	egfrt
+41-1	790
+41-1-1	m	ProteinMutation	p|SUB|T|790|M;RS#:121434569
+42	fixr
+42-1	333
+42-1-1	q	ProteinMutation	p|SUB|R|333|Q;RS#:137852259
+42-2	338
+42-2-1	l	ProteinMutation	p|SUB|R|338|L;RS#:137852283
+43	fkrpp
+43-1	448
+43-1-1	l	ProteinMutation	p|SUB|P|448|L;RS#:104894681
+44	flnbg
+44-1	1586
+44-1-1	r	ProteinMutation	p|SUB|G|1586|R;RS#:80356513
+45	fusp
+45-1	525
+45-1-1	l	ProteinMutation	p|SUB|P|525|L;RS#:886041390
+46	fusr
+46-1	521
+46-1-1	c	ProteinMutation	p|SUB|R|521|C;RS#:121909668
+47	gbad
+47-1	409
+47-1-1	h	ProteinMutation	p|SUB|D|409|H;RS#:1064651
+48	gdhh
+48-1	454
+48-1-1	y	ProteinMutation	p|SUB|H|454|Y;RS#:121909730
+49	gfapr
+49-1	416
+49-1-1	w	ProteinMutation	p|SUB|R|416|W;RS#:121909717
+50	ghrp
+50-1	495
+50-1-1	t	ProteinMutation	p|SUB|P|495|T;RS#:6183
+51	gnaqq
+51-1	209
+51-1-1	p	ProteinMutation	p|SUB|Q|209|P;RS#:121913492
+52	gnev
+52-1	572
+52-1-1	l	ProteinMutation	p|SUB|V|572|L;RS#:121908632
+53	hergn
+53-1	861
+53-1-1	i	ProteinMutation	p|SUB|N|861|I;RS#:121912513
+54	hfec
+54-1	282
+54-1-1	y	ProteinMutation	p|SUB|C|282|Y;RS#:1800562
+55	icosln
+55-1	219
+55-1-1	k	ProteinMutation	p|SUB|N|219|K;RS#:778848090
+56	idhr
+56-1	132
+56-1-1	h	ProteinMutation	p|SUB|R|132|H;RS#:121913500
+57	kitd
+57-1	737
+57-1-1	n	ProteinMutation	p|SUB|D|737|N;RS#:751005114
+57-2	816
+57-2-1	v	ProteinMutation	p|SUB|D|816|V;RS#:121913507
+58	kitt
+58-1	670
+58-1-1	i	ProteinMutation	p|SUB|T|670|I;RS#:121913516
+59	kitv
+59-1	560
+59-1-1	d	ProteinMutation	p|SUB|V|560|D;RS#:121913521
+59-1-2	g	ProteinMutation	p|SUB|V|560|G;RS#:121913521
+60	krasa
+60-1	146
+60-1-1	t	ProteinMutation	c|SUB|A|146|T;RS#:121913527
+61	leprq
+61-1	223
+61-1-1	r	ProteinMutation	p|SUB|Q|223|R;RS#:1137101
+62	lmnad
+62-1	300
+62-1-1	n	ProteinMutation	p|SUB|D|300|N;RS#:267607591
+63	lnke
+63-1	208
+63-1-1	q	ProteinMutation	p|SUB|E|208|Q;RS#:202080221
+64	lpls
+64-1	447
+64-1-1	x	ProteinMutation	p|SUB|S|447|X;RS#:328
+65	maptp
+65-1	301
+65-1-1	l	ProteinMutation	p|SUB|P|301|L;RS#:63751273
+65-1-2	s	ProteinMutation	p|SUB|P|301|S;RS#:63751438
+66	mefve
+66-1	148
+66-1-1	q	ProteinMutation	p|SUB|E|148|Q;RS#:3743930
+67	mitfe
+67-1	318
+67-1-1	k	ProteinMutation	p|SUB|E|318|K;RS#:149617956
+68	mitfr
+68-1	255
+68-1-1	x	ProteinMutation	p|SUB|R|255|X;RS#:1057517966
+69	mpls
+69-1	505
+69-1-1	n	ProteinMutation	p|SUB|S|505|N;RS#:121913614
+70	mplt
+70-1	487
+70-1-1	a	ProteinMutation	c|SUB|T|487|A;RS#:748782091
+71	mplw
+71-1	515
+71-1-1	k	ProteinMutation	p|SUB|W|515|K;RS#:121913616
+71-1-2	l	ProteinMutation	p|SUB|W|515|L;RS#:121913615
+71-1-2-1	k	ProteinMutation	p|SUB|W|515|L,K;RS#:121913615,121913616
+72	mply
+72-1	252
+72-1-1	h	ProteinMutation	p|SUB|Y|252|H;RS#:141311765
+73	mpoy
+73-1	173
+73-1-1	c	ProteinMutation	p|SUB|Y|173|C;RS#:78950939
+74	mthfra
+74-1	1298
+74-1-1	c	ProteinMutation	c|SUB|A|1298|C;RS#:1801131
+75	mthfrc
+75-1	677
+75-1-1	t	ProteinMutation	c|SUB|C|677|T;RS#:1801133
+76	myocy
+76-1	437
+76-1-1	h	ProteinMutation	p|SUB|Y|437|H;RS#:74315328
+77	oprka
+77-1	843
+77-1-1	g	ProteinMutation	c|SUB|A|843|G;RS#:702764
+78	oprma
+78-1	118
+78-1-1	g	ProteinMutation	c|SUB|A|118|G;RS#:1799971
+79	optne
+79-1	478
+79-1-1	g	ProteinMutation	p|SUB|E|478|G;RS#:267606929
+80	pcnas
+80-1	228
+80-1-1	i	ProteinMutation	p|SUB|S|228|I;RS#:369958038
+81	pdgfrad
+81-1	842
+81-1-1	v	ProteinMutation	p|SUB|D|842|V;RS#:121908585
+82	pepdg
+82-1	278
+82-1-1	d	ProteinMutation	p|SUB|G|278|D;RS#:121917723
+83	pmls
+83-1	214
+83-1-1	l	ProteinMutation	p|SUB|S|214|L;RS#:750722602
+84	ponq
+84-1	192
+84-1-1	r	ProteinMutation	p|SUB|Q|192|R;RS#:662
+85	ppardt
+85-1	294
+85-1-1	c	ProteinMutation	c|SUB|T|294|C;RS#:2016520
+86	prlri
+86-1	146
+86-1-1	l	ProteinMutation	p|SUB|I|146|L;RS#:72478580
+87	retc
+87-1	611
+87-1-1	y	ProteinMutation	p|SUB|C|611|Y;RS#:377767397
+87-2	634
+87-2-1	r	ProteinMutation	p|SUB|C|634|R;RS#:75076352
+87-2-2	y	ProteinMutation	p|SUB|C|634|Y;RS#:75996173
+88	retm
+88-1	918
+88-1-1	t	ProteinMutation	p|SUB|M|918|T;RS#:74799832
+89	rhop
+89-1	347
+89-1-1	s	ProteinMutation	p|SUB|P|347|S;RS#:29001637
+90	smol
+90-1	412
+90-1-1	f	ProteinMutation	p|SUB|L|412|F;RS#:879255280
+91	spastc
+91-1	448
+91-1-1	y	ProteinMutation	p|SUB|C|448|Y;RS#:121908510
+92	sryf
+92-1	109
+92-1-1	s	ProteinMutation	p|SUB|F|109|S;RS#:104894956
+93	tardbpm
+93-1	337
+93-1-1	v	ProteinMutation	p|SUB|M|337|V;RS#:80356730
+94	tgfbir
+94-1	124
+94-1-1	h	ProteinMutation	p|SUB|R|124|H;RS#:121909211
+95	thrbp
+95-1	453
+95-1-1	a	ProteinMutation	p|SUB|P|453|A;RS#:28933408
+96	tnfag
+96-1	308
+96-1-1	a	ProteinMutation	c|SUB|G|308|A;RS#:1800629
+97	ttry
+97-1	114
+97-1-1	c	ProteinMutation	p|SUB|Y|114|C;RS#:121918075
+98	vcpa
+98-1	232
+98-1-1	e	ProteinMutation	p|SUB|A|232|E;RS#:121909331
+99	vcpr
+99-1	155
+99-1-1	h	ProteinMutation	p|SUB|R|155|H;RS#:121909329
+100	vhlr
+100-1	200
+100-1-1	w	ProteinMutation	p|SUB|R|200|W;RS#:28940298
+101	yaps
+101-1	127
+101-1-1	a	ProteinMutation	p|SUB|S|127|A;RS#:762471803
+102	k
+102-1	rasa
+102-1-1	146
+102-1-1-1	t	ProteinMutation	p|SUB|A|146|T;RS#:121913527
+102-2	rasg
+102-2-1	12
+102-2-1-1	d	ProteinMutation	p|SUB|G|12|D;RS#:121913529
