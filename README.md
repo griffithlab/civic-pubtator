@@ -1,6 +1,16 @@
 # tmvar-arm
 Version of tmvar working on ARM with detailed instructions and examples
 
+## Installing CRF++
+
+The pipeline shells out to `crf_test` (part of CRF++) for sequence labeling. On macOS (including Apple Silicon), install it via Homebrew:
+
+```bash
+brew install crf++
+```
+
+On Linux, pre-compiled binaries are included in `tmvar/CRF/`, so no separate installation is needed.
+
 ## Downloading Large Data Files
 
 The `tmvar/CRF/` and `tmvar/Database/` directories are not included in this repository because they are too large for GitHub (the CRF models alone are ~1 GB and the SQLite databases total ~550 GB). Download them from NCBI before running the pipeline:
@@ -28,22 +38,26 @@ pip3 install -r requirements.txt
 
 ### Install and run GROBID
 
-GROBID requires Java 11+. The easiest way to run it is via Docker:
+GROBID 0.8.1 requires **Java 17** (not Java 21). The easiest way to run it is via Docker, which avoids Java version issues entirely:
 
 ```bash
 docker pull lfoppiano/grobid:0.8.1
 docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
 ```
 
-Alternatively, install it manually:
+Alternatively, install it manually (requires Java 17 — Java 21 will fail):
 
 ```bash
+# Install Java 17 if needed (macOS)
+brew install openjdk@17
+export JAVA_HOME=$(brew --prefix openjdk@17)
+
 # Download and unzip
 wget https://github.com/kermitt2/grobid/archive/0.8.1.zip
 unzip 0.8.1.zip
 cd grobid-0.8.1
 
-# Build (requires Gradle)
+# Build
 ./gradlew clean install
 
 # Run the service
@@ -57,3 +71,45 @@ GROBID listens on `http://localhost:8070` by default. Confirm it is running befo
 ```bash
 ./scripts/pdf_to_bioc.py <input_pdf_folder> <output_xml_folder>
 ```
+
+## Example Workflow
+
+The following shows the full pipeline using the included example publication (PMID 36922589).
+
+### Step 1 — Install dependencies
+
+```bash
+brew install crf++
+pip3 install -r requirements.txt
+```
+
+### Step 2 — Download CRF models and databases
+
+```bash
+./scripts/download_tmvar_data.sh
+```
+
+### Step 3 — (Optional) Convert PDF to BioC XML
+
+If starting from a PDF, convert it first. Skip this step if you already have BioC XML input.
+
+```bash
+# Start GROBID (in a separate terminal or detached)
+docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
+
+# Convert
+./scripts/pdf_to_bioc.py \
+    example_data/01_publications_source/36922589 \
+    example_data/02_publications_tmvar_format/36922589
+```
+
+### Step 4 — Run tmVar
+
+```bash
+cd tmvar
+java -Xmx5G -Xms5G -jar tmVar.jar \
+    ../example_data/02_publications_tmvar_format/36922589 \
+    ../example_data/03_publications_output/36922589
+```
+
+Output BioC XML and PubTator files will be written to `example_data/03_publications_output/36922589/`.

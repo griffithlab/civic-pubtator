@@ -3,7 +3,18 @@ import os, sys, hashlib, requests
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape
 
-GROBID_URL = "http://localhost:8070/api/processFulltextDocument"
+GROBID_BASE = "http://localhost:8070"
+GROBID_URL = f"{GROBID_BASE}/api/processFulltextDocument"
+
+def check_grobid():
+    try:
+        resp = requests.get(f"{GROBID_BASE}/api/isalive", timeout=5)
+        if resp.status_code == 200:
+            return
+    except requests.ConnectionError:
+        pass
+    sys.exit(f"ERROR: GROBID does not appear to be running at {GROBID_BASE}\n"
+             "Start it with: docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1")
 
 def extract_with_grobid(pdf_path):
     with open(pdf_path, "rb") as f:
@@ -86,4 +97,7 @@ def process_folder(input_dir, output_dir):
         except Exception as e:
             print(f"  ERROR on {fname}: {e}")
 
+if len(sys.argv) != 3:
+    sys.exit("Usage: pdf_to_bioc.py <input_pdf_folder> <output_xml_folder>")
+check_grobid()
 process_folder(sys.argv[1], sys.argv[2])
