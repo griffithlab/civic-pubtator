@@ -36,6 +36,7 @@ def main():
         sys.exit(f"ERROR: Input folder not found: {input_dir}")
 
     os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(os.path.join(TMVAR_DIR, "tmp"), exist_ok=True)
 
     cmd = [
         "java", f"-Xmx{args.xmx}", f"-Xms{args.xms}",
