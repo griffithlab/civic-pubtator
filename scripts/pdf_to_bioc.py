@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os, sys, hashlib, requests
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape
