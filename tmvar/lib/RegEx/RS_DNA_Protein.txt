@@ -1,0 +1,76 @@
+[\(\[][ ]*PP[P]+[ ]*[\/;\-,\:][ ]*DD[D]+[ ]*[\/;\-,\:][ ]*SS[S]+[ ]*[\)\]]
+[\(\[][ ]*DD[D]+[ ]*[\/;\-,\:][ ]*SS[S]+[ ]*[\/;\-,\:][ ]*PP[P]+[ ]*[\)\]]
+[\(\[][ ]*PP[P]+[ ]*[\/;\-,\:][ ]*SS[S]+[ ]*[\/;\-,\:][ ]*DD[D]+[ ]*[\)\]]
+[\(\[][ ]*PP[P]+[ ]*[\/;\-,\:][ ]*DD[D]+[ ]*[\/;\-,\:][ ]*SS[S]+[ ]*[\)\]]
+[\(\[][ ]*SS[S]+[ ]*[\/;\-,\:][ ]*PP[P]+[ ]*[\/;\-,\:][ ]*DD[D]+[ ]*[\)\]]
+[\(\[][ ]*SS[S]+[ ]*[\/;\-,\:][ ]*DD[D]+[ ]*[\/;\-,\:][ ]*PP[P]+[ ]*[\)\]]
+
+PP[P]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]][ ]*[\(\[][ ]*SS[S]+[ ]*[\)\]]
+DD[D]+[ ]*[\(\[][ ]*SS[S]+[ ]*[\)\]][ ]*[\(\[][ ]*PP[P]+[ ]*[\)\]]
+PP[P]+[ ]*[\(\[][ ]*SS[S]+[ ]*[\)\]][ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]]
+PP[P]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]][ ]*[\(\[][ ]*SS[S]+[ ]*[\)\]]
+SS[S]+[ ]*[\(\[][ ]*PP[P]+[ ]*[\)\]][ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]]
+SS[S]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]][ ]*[\(\[][ ]*PP[P]+[ ]*[\)\]]
+
+PP[P]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\/;\-,\:][ ]*SS[S]+[ ]*[\)\]]
+DD[D]+[ ]*[\(\[][ ]*SS[S]+[ ]*[\/;\-,\:][ ]*PP[P]+[ ]*[\)\]]
+PP[P]+[ ]*[\(\[][ ]*SS[S]+[ ]*[\/;\-,\:][ ]*DD[D]+[ ]*[\)\]]
+PP[P]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\/;\-,\:][ ]*SS[S]+[ ]*[\)\]]
+SS[S]+[ ]*[\(\[][ ]*PP[P]+[ ]*[\/;\-,\:][ ]*DD[D]+[ ]*[\)\]]
+SS[S]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\/;\-,\:][ ]*PP[P]+[ ]*[\)\]]
+
+SS[S]+[ ]*[Pp]olymorphism[ ]*[\(\[][ ]*PP[P]+[ ]*[\)\]]
+SS[S]+[ ]*[Pp]olymorphism[ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]]
+DD[D]+[ ]*[Pp]olymorphism[ ]*[\(\[][ ]*SS[S]+[ ]*[\)\]]
+PP[P]+[ ]*[Pp]olymorphism[ ]*[\(\[][ ]*SS[S]+[ ]*[\)\]]
+DD[D]+[ ]*[Pp]olymorphism[ ]*[\(\[][ ]*PP[P]+[ ]*[\)\]]
+PP[P]+[ ]*[Pp]olymorphism[ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]]
+
+PP[P]+[ ]*[\(\[][ ]*DD[D]+[ ]+with[ ]+SS[S]+[ ]*[\)\]]
+DD[D]+[ ]*[\(\[][ ]*SS[S]+[ ]+with[ ]+PP[P]+[ ]*[\)\]]
+PP[P]+[ ]*[\(\[][ ]*SS[S]+[ ]+with[ ]+DD[D]+[ ]*[\)\]]
+PP[P]+[ ]*[\(\[][ ]*DD[D]+[ ]+with[ ]+SS[S]+[ ]*[\)\]]
+SS[S]+[ ]*[\(\[][ ]*PP[P]+[ ]+with[ ]+DD[D]+[ ]*[\)\]]
+SS[S]+[ ]*[\(\[][ ]*DD[D]+[ ]+with[ ]+PP[P]+[ ]*[\)\]]
+
+[\(\[][ ]*SS[S]+[ ]*[\/;\-,\:,]*[ ]*PP[P]+[ ]*[\)\]]
+[\(\[][ ]*SS[S]+[ ]*[\/;\-,\:,]*[ ]*DD[D]+[ ]*[\)\]]
+[\(\[][ ]*DD[D]+[ ]*[\/;\-,\:,]*[ ]*PP[P]+[ ]*[\)\]]
+[\(\[][ ]*PP[P]+[ ]*[\/;\-,\:,]*[ ]*DD[D]+[ ]*[\)\]]
+[\(\[][ ]*PP[P]+[ ]*[\/;\-,\:,]*[ ]*SS[S]+[ ]*[\)\]]
+[\(\[][ ]*DD[D]+[ ]*[\/;\-,\:,]*[ ]*SS[S]+[ ]*[\)\]]
+
+SS[S]+[ ]*[\(\[][ ]*PP[P]+[ ]*[\/;\-,\:]
+SS[S]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\/;\-,\:]
+DD[D]+[ ]*[\(\[][ ]*SS[S]+[ ]*[\/;\-,\:]
+PP[P]+[ ]*[\(\[][ ]*SS[S]+[ ]*[\/;\-,\:]
+
+SS[S]+[ ]*[\(\[][ ]*PP[P]+[ ]*[\)\]]
+SS[S]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]]
+DD[D]+[ ]*[\(\[][ ]*SS[S]+[ ]*[\)\]]
+PP[P]+[ ]*[\(\[][ ]*SS[S]+[ ]*[\)\]]
+DD[D]+[ ]*[\(\[][ ]*PP[P]+[ ]*[\)\]]
+PP[P]+[ ]*[\(\[][ ]*DD[D]+[ ]*[\)\]]
+
+SS[S]+[ ]*[\/;\-,\:,]*[ ]*protein[ ]*PP[P]+
+SS[S]+[ ]*[\/;\-,\:,]*[ ]*gene[ ]*DD[D]+
+PP[P]+[ ]*[\/;\-,\:,]*[ ]*dbSNP[ ]*ID:[ ]*SS[S]+
+PP[P]+[ ]*[\/;\-,\:,]*[ ]*dbSNP[ ]*SS[S]+
+[\(\[][ ]*PP[P]+[ ]*[\)\]][ ]*[\/;\-,\:,]*[ ]*dbSNP[ ]*SS[S]+
+[\(\[][ ]*PP[P]+[ ]*[\)\]][ ]*[\/;\-,\:,]*[ ]*[\(\[][ ]*dbSNP[ ]*SS[S]+[\)\]]
+PP[P]+[ ]*[\(\[][ ]*dbSNP[ ]*SS[S]+[ATCGatcgu]
+DD[D]+[ ]*[\(\[][ ]*dbSNP[ ]*SS[S]+[ATCGatcgu]
+PP[P]+[ ]*5\'UTR[ ]*[\(\[]SS[S]+[\)\]]
+DD[D]+[ ]*5\'UTR[ ]*[\(\[]SS[S]+[\)\]]
+PP[P]+[ ]*3\'UTR[ ]*[\(\[]SS[S]+[\)\]]
+DD[D]+[ ]*3\'UTR[ ]*[\(\[]SS[S]+[\)\]]
+PP[P]+[ ]*polymorphism in exon [0-9]+[ ]*[\(\[]SS[S]+[\)\]]
+DD[D]+[ ]*polymorphism in exon [0-9]+[ ]*[\(\[]SS[S]+[\)\]]
+PP[P]+[ ]*polymorphism in intron [0-9]+[ ]*[\(\[]SS[S]+[\)\]]
+DD[D]+[ ]*polymorphism in intron [0-9]+[ ]*[\(\[]SS[S]+[\)\]]
+PP[P]+[ ]*polymorphism in 5\'UTR[ ]*[\(\[]SS[S]+[\)\]]
+DD[D]+[ ]*polymorphism in 3\'UTR[ ]*[\(\[]SS[S]+[\)\]]
+
+DD[D]+[^\.\,]*?[ ]*(caus(e|es|ed|ing)|lead(s|ing)|encod(e|es|ed|ing)|result(s|ed|ing)|produc(e|es|ing)|chang(e|es|ing)|covert(s|ed|ing)|correspond(s|ed|ing)|predict(s|ed|ing)|cod(e|es|ed|ing)|concordanc(e|es|ed|ing)|concordant(s|ed|ing)|consist(s|ed|ing)|encod(e|es|ed|ing)|represent(s|ed|ing)|led|responsible for|denot(e|es|ed|ing)|designat(e|es|ed|ing)|introduc(e|es|ed|ing)|characteriz(e|es|ed|ing)|bring(s|ed|ing)|involv(e|es|ed|ing)|implicat(e|es|ed|ing)|indicat(e|es|ed|ing)|express(s|ed|ing)|behav(e|es|ed|ing)|suggest(s|ed|ing)|imply(s|ed|ing)|presume(s|ed|ing))[ ]*[^\.\,]*?[ ]*PP[P]+
+DD[D]+[^\.\,]*?[ ]*(which|that|what|where|) (caus(e|es|ed|ing)|lead(s|ing)|encod(e|es|ed|ing)|result(s|ed|ing)|produc(e|es|ing)|chang(e|es|ing)|covert(s|ed|ing)|correspond(s|ed|ing)|predict(s|ed|ing)|cod(e|es|ed|ing)|concordanc(e|es|ed|ing)|concordant(s|ed|ing)|consist(s|ed|ing)|encod(e|es|ed|ing)|represent(s|ed|ing)|led|responsible for|denot(e|es|ed|ing)|designat(e|es|ed|ing)|introduc(e|es|ed|ing)|characteriz(e|es|ed|ing)|bring(s|ed|ing)|involv(e|es|ed|ing)|implicat(e|es|ed|ing)|indicat(e|es|ed|ing)|express(s|ed|ing)|behav(e|es|ed|ing)|suggest(s|ed|ing)|imply(s|ed|ing)|presume(s|ed|ing))[ ]*[^\.\,]*?[ ]*PP[P]+
+DD[D]+[^\.\,]*?[ ]*((this|the|that[s]*) ([a-z]+ |)mutation(s|)|)[^\.\,]*? (caus(e|es|ed|ing)|lead(s|ing)|encod(e|es|ed|ing)|result(s|ed|ing)|produc(e|es|ing)|chang(e|es|ing)|covert(s|ed|ing)|correspond(s|ed|ing)|predict(s|ed|ing)|cod(e|es|ed|ing)|concordanc(e|es|ed|ing)|concordant(s|ed|ing)|consist(s|ed|ing)|encod(e|es|ed|ing)|represent(s|ed|ing)|led|responsible for|denot(e|es|ed|ing)|designat(e|es|ed|ing)|introduc(e|es|ed|ing)|characteriz(e|es|ed|ing)|bring(s|ed|ing)|involv(e|es|ed|ing)|implicat(e|es|ed|ing)|indicat(e|es|ed|ing)|express(s|ed|ing)|behav(e|es|ed|ing)|suggest(s|ed|ing)|imply(s|ed|ing)|presume(s|ed|ing))[ ]*[^\.\,]*?[ ]*PP[P]+

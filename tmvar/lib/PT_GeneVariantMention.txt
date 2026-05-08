@@ -1,0 +1,363 @@
+1	mthfrc
+1-1	677
+1-1-1	t	DNAMutation	c|SUB|C|677|T;CorrespondingGene:4524;RS#:1801133
+2	mefve
+2-1	148
+2-1-1	q	ProteinMutation	p|SUB|E|148|Q;CorrespondingGene:4210;RS#:3743930
+3	cjde
+3-1	200
+3-1-1	k	ProteinMutation	p|SUB|E|200|K;CorrespondingGene:5621;RS#:28933385
+4	mitfe
+4-1	318
+4-1-1	k	ProteinMutation	p|SUB|E|318|K;CorrespondingGene:4286;RS#:149617956
+5	mplw
+5-1	515
+5-1-1	l	ProteinMutation	p|SUB|W|515|L;CorrespondingGene:4352;RS#:121913615
+5-1-1-1	k	ProteinMutation	p|SUB|W|515|L,K;CorrespondingGene:4352;RS#:121913615|121913616
+5-1-2	k	ProteinMutation	p|SUB|W|515|K;CorrespondingGene:4352;RS#:121913616
+6	prlri
+6-1	146
+6-1-1	l	ProteinMutation	p|SUB|I|146|L;CorrespondingGene:5618;RS#:72478580
+7	cfhy
+7-1	402
+7-1-1	h	ProteinMutation	p|SUB|Y|402|H;CorrespondingGene:3075;RS#:10801555
+8	appk
+8-1	670
+8-1-1	n	ProteinMutation	p|SUB|K|670|N;CorrespondingGene:351;RS#:371425292
+9	mthfra
+9-1	1298
+9-1-1	c	DNAMutation	c|SUB|A|1298|C;CorrespondingGene:4524;RS#:1801131
+10	alppe
+10-1	451
+10-1-1	g	ProteinMutation	p|SUB|E|451|G;CorrespondingGene:250;RS#:1048994
+11	mplt
+11-1	487
+11-1-1	a	ProteinMutation	p|SUB|T|487|A;CorrespondingGene:4352;RS#:748782091
+12	fusp
+12-1	525
+12-1-1	l	ProteinMutation	p|SUB|P|525|L;CorrespondingGene:2521;RS#:886041390
+13	ttry
+13-1	114
+13-1-1	c	ProteinMutation	p|SUB|Y|114|C;CorrespondingGene:7276;RS#:121918075
+14	arsan
+14-1	350
+14-1-1	s	ProteinMutation	p|SUB|N|350|S;CorrespondingGene:410;RS#:2071421
+15	chgbp
+15-1	413
+15-1-1	l	ProteinMutation	p|SUB|P|413|L;CorrespondingGene:1114;RS#:742710
+16	fixr
+16-1	338
+16-1-1	l	ProteinMutation	p|SUB|R|338|L;CorrespondingGene:2158;RS#:137852283
+16-2	333
+16-2-1	q	ProteinMutation	p|SUB|R|333|Q;CorrespondingGene:2158;RS#:137852259
+17	alkg
+17-1	1202
+17-1-1	r	ProteinMutation	p|SUB|G|1202|R;CorrespondingGene:238;RS#:1057519783
+18	kitv
+18-1	560
+18-1-1	d	ProteinMutation	p|SUB|V|560|D;CorrespondingGene:3815;RS#:121913521
+18-1-2	g	ProteinMutation	p|SUB|V|560|G;CorrespondingGene:3815;RS#:121913521
+19	daor
+19-1	199
+19-1-1	w	ProteinMutation	p|SUB|R|199|W;CorrespondingGene:1610;RS#:139166976
+20	oprka
+20-1	843
+20-1-1	g	DNAMutation	c|SUB|A|843|G;CorrespondingGene:4986;RS#:702764
+21	retc
+21-1	611
+21-1-1	y	ProteinMutation	p|SUB|C|611|Y;CorrespondingGene:5979;RS#:377767397
+21-2	634
+21-2-1	y	ProteinMutation	p|SUB|C|634|Y;CorrespondingGene:5979;RS#:75996173
+21-2-2	r	ProteinMutation	p|SUB|C|634|R;CorrespondingGene:5979;RS#:75076352
+22	gdhh
+22-1	454
+22-1-1	y	ProteinMutation	p|SUB|H|454|Y;CorrespondingGene:2746;RS#:121909730
+23	fusr
+23-1	521
+23-1-1	c	ProteinMutation	p|SUB|R|521|C;CorrespondingGene:2521;RS#:121909668
+24	oprma
+24-1	118
+24-1-1	g	DNAMutation	c|SUB|A|118|G;CorrespondingGene:4988;RS#:1799971
+25	gbad
+25-1	409
+25-1-1	h	ProteinMutation	p|SUB|D|409|H;CorrespondingGene:2629;RS#:1064651
+26	lnke
+26-1	208
+26-1-1	q	ProteinMutation	p|SUB|E|208|Q;CorrespondingGene:10019;RS#:202080221
+27	egfrt
+27-1	790
+27-1-1	m	ProteinMutation	p|SUB|T|790|M;CorrespondingGene:1956;RS#:121434569
+28	kitd
+28-1	816
+28-1-1	v	ProteinMutation	p|SUB|D|816|V;CorrespondingGene:3815;RS#:121913507
+28-2	737
+28-2-1	n	ProteinMutation	p|SUB|D|737|N;CorrespondingGene:3815;RS#:751005114
+29	mpls
+29-1	505
+29-1-1	n	ProteinMutation	p|SUB|S|505|N;CorrespondingGene:4352;RS#:121913614
+30	tardbpm
+30-1	337
+30-1-1	v	ProteinMutation	p|SUB|M|337|V;CorrespondingGene:23435;RS#:80356730
+31	mply
+31-1	252
+31-1-1	h	ProteinMutation	p|SUB|Y|252|H;CorrespondingGene:4352;RS#:141311765
+32	gfapr
+32-1	416
+32-1-1	w	ProteinMutation	p|SUB|R|416|W;CorrespondingGene:2670;RS#:121909717
+33	maptp
+33-1	301
+33-1-1	l	ProteinMutation	p|SUB|P|301|L;CorrespondingGene:4137;RS#:63751273
+33-1-2	s	ProteinMutation	p|SUB|P|301|S;CorrespondingGene:4137;RS#:63751438
+34	icosln
+34-1	219
+34-1-1	k	ProteinMutation	p|SUB|N|219|K;CorrespondingGene:23308;RS#:778848090
+35	hfec
+35-1	282
+35-1-1	y	ProteinMutation	p|SUB|C|282|Y;CorrespondingGene:3077;RS#:1800562
+36	vcpa
+36-1	232
+36-1-1	e	ProteinMutation	p|SUB|A|232|E;CorrespondingGene:7415;RS#:121909331
+37	myocy
+37-1	437
+37-1-1	h	ProteinMutation	p|SUB|Y|437|H;CorrespondingGene:4653;RS#:74315328
+38	brafv
+38-1	600
+38-1-1	e	ProteinMutation	p|SUB|V|600|E;CorrespondingGene:673;RS#:113488022
+38-1-2	k	ProteinMutation	p|SUB|V|600|K;CorrespondingGene:673;RS#:121913227
+39	ponq
+39-1	192
+39-1-1	r	ProteinMutation	p|SUB|Q|192|R;CorrespondingGene:5444;RS#:662
+40	vcpr
+40-1	155
+40-1-1	h	ProteinMutation	p|SUB|R|155|H;CorrespondingGene:7415;RS#:121909329
+41	kitt
+41-1	670
+41-1-1	i	ProteinMutation	p|SUB|T|670|I;CorrespondingGene:3815;RS#:121913516
+42	lmnad
+42-1	300
+42-1-1	n	ProteinMutation	p|SUB|D|300|N;CorrespondingGene:4000;RS#:267607591
+43	thrbp
+43-1	453
+43-1-1	a	ProteinMutation	p|SUB|P|453|A;CorrespondingGene:7068;RS#:28933408
+44	braft
+44-1	1799
+44-1-1	a	DNAMutation	c|SUB|T|1799|A;CorrespondingGene:673;RS#:113488022
+45	fkrpp
+45-1	448
+45-1-1	l	ProteinMutation	p|SUB|P|448|L;CorrespondingGene:79147;RS#:104894681
+46	idhr
+46-1	132
+46-1-1	h	ProteinMutation	p|SUB|R|132|H;CorrespondingGene:3417;RS#:121913500
+47	alkl
+47-1	1196
+47-1-1	m	ProteinMutation	p|SUB|L|1196|M;CorrespondingGene:238;RS#:1057519784
+48	tnfag
+48-1	308
+48-1-1	a	DNAMutation	c|SUB|G|308|A;CorrespondingGene:7124;RS#:1800629
+49	ppardt
+49-1	294
+49-1-1	c	DNAMutation	c|SUB|T|294|C;CorrespondingGene:5467;RS#:2016520
+50	leprq
+50-1	223
+50-1-1	r	ProteinMutation	p|SUB|Q|223|R;CorrespondingGene:3953;RS#:1137101
+51	cftrg
+51-1	551
+51-1-1	d	ProteinMutation	p|SUB|G|551|D;CorrespondingGene:1080;RS#:75527207
+52	ctnsw
+52-1	138
+52-1-1	x	ProteinMutation	p|SUB|W|138|X;CorrespondingGene:1497;RS#:113994205
+53	retm
+53-1	918
+53-1-1	t	ProteinMutation	p|SUB|M|918|T;CorrespondingGene:5979;RS#:74799832
+54	pmls
+54-1	214
+54-1-1	l	ProteinMutation	p|SUB|S|214|L;CorrespondingGene:5371;RS#:750722602
+55	attry
+55-1	114
+55-1-1	c	ProteinMutation	p|SUB|Y|114|C;CorrespondingGene:7276;RS#:121918075
+56	crafp
+56-1	261
+56-1-1	a	ProteinMutation	p|SUB|P|261|A;CorrespondingGene:5894;RS#:121434594
+57	brafq
+57-1	257
+57-1-1	r	ProteinMutation	p|SUB|Q|257|R;CorrespondingGene:673;RS#:180177035
+58	arafs
+58-1	214
+58-1-1	f	ProteinMutation	p|SUB|S|214|F;CorrespondingGene:369;RS#:1057519786
+59	sryf
+59-1	109
+59-1-1	s	ProteinMutation	p|SUB|F|109|S;CorrespondingGene:6736;RS#:104894956
+60	egfrl
+60-1	858
+60-1-1	r	ProteinMutation	p|SUB|L|858|R;CorrespondingGene:1956;RS#:121434568
+61	tgfbir
+61-1	124
+61-1-1	h	ProteinMutation	p|SUB|R|124|H;CorrespondingGene:7045;RS#:121909211
+62	appd
+62-1	678
+62-1-1	h	ProteinMutation	p|SUB|D|678|H;CorrespondingGene:351;RS#:63750064
+63	lpls
+63-1	447
+63-1-1	x	ProteinMutation	p|SUB|S|447|X;CorrespondingGene:4023;RS#:328
+64	mitfr
+64-1	255
+64-1-1	x	ProteinMutation	p|SUB|R|255|X;CorrespondingGene:4286;RS#:1057517966
+65	apct
+65-1	1493
+65-1-1	c	DNAMutation	c|SUB|T|1493|C;CorrespondingGene:324;RS#:368434773
+66	appe
+66-1	693
+66-1-1	g	ProteinMutation	p|SUB|E|693|G;CorrespondingGene:351;RS#:63751039
+67	btkc
+67-1	481
+67-1-1	s	ProteinMutation	p|SUB|C|481|S;CorrespondingGene:695;RS#:1057519825
+68	edarv
+68-1	370
+68-1-1	a	ProteinMutation	p|SUB|V|370|A;CorrespondingGene:10913;RS#:3827760
+69	pcnas
+69-1	228
+69-1-1	i	ProteinMutation	p|SUB|S|228|I;CorrespondingGene:5111;RS#:369958038
+70	spastc
+70-1	448
+70-1-1	y	ProteinMutation	p|SUB|C|448|Y;CorrespondingGene:6683;RS#:121908510
+71	smol
+71-1	412
+71-1-1	f	ProteinMutation	p|SUB|L|412|F;CorrespondingGene:6608;RS#:879255280
+72	pepdg
+72-1	278
+72-1-1	d	ProteinMutation	p|SUB|G|278|D;CorrespondingGene:5184;RS#:121917723
+73	apci
+73-1	1307
+73-1-1	k	ProteinMutation	p|SUB|I|1307|K;CorrespondingGene:324;RS#:1801155
+74	egfra
+74-1	289
+74-1-1	d	ProteinMutation	p|SUB|A|289|D;CorrespondingGene:1956;RS#:149840192
+75	mpoy
+75-1	173
+75-1-1	c	ProteinMutation	p|SUB|Y|173|C;CorrespondingGene:4353;RS#:78950939
+76	hergn
+76-1	861
+76-1-1	i	ProteinMutation	p|SUB|N|861|I;CorrespondingGene:3757;RS#:121912513
+77	agtt
+77-1	174
+77-1-1	m	ProteinMutation	p|SUB|T|174|M;CorrespondingGene:183;RS#:4762
+78	brafg
+78-1	469
+78-1-1	a	ProteinMutation	p|SUB|G|469|A;CorrespondingGene:673;RS#:121913355
+79	pdgfrad
+79-1	842
+79-1-1	v	ProteinMutation	p|SUB|D|842|V;CorrespondingGene:5156;RS#:121908585
+80	ghrp
+80-1	495
+80-1-1	t	ProteinMutation	p|SUB|P|495|T;CorrespondingGene:2690;RS#:6183
+81	krasa
+81-1	146
+81-1-1	t	ProteinMutation	p|SUB|A|146|T;CorrespondingGene:3845;RS#:121913527
+82	attrv
+82-1	122
+82-1-1	i	ProteinMutation	p|SUB|V|122|I;CorrespondingGene:7276;RS#:76992529
+83	appv
+83-1	717
+83-1-1	g	ProteinMutation	p|SUB|V|717|G;CorrespondingGene:351;RS#:63749964
+83-1-2	i	ProteinMutation	p|SUB|V|717|I;CorrespondingGene:351;RS#:63750264
+83-1-3	f	ProteinMutation	p|SUB|V|717|F;CorrespondingGene:351;RS#:63750264
+84	gnev
+84-1	572
+84-1-1	l	ProteinMutation	p|SUB|V|572|L;CorrespondingGene:10020;RS#:121908632
+85	rhop
+85-1	347
+85-1-1	s	ProteinMutation	p|SUB|P|347|S;CorrespondingGene:6010;RS#:29001637
+86	cftra
+86-1	455
+86-1-1	e	ProteinMutation	p|SUB|A|455|E;CorrespondingGene:1080;RS#:74551128
+87	gnaqq
+87-1	209
+87-1-1	p	ProteinMutation	p|SUB|Q|209|P;CorrespondingGene:2776;RS#:121913492
+88	egfrs
+88-1	492
+88-1-1	r	ProteinMutation	p|SUB|S|492|R;CorrespondingGene:1956;RS#:1057519860
+89	alkf
+89-1	1174
+89-1-1	l	ProteinMutation	p|SUB|F|1174|L;CorrespondingGene:238;RS#:281864719
+90	optne
+90-1	478
+90-1-1	g	ProteinMutation	p|SUB|E|478|G;CorrespondingGene:10133;RS#:267606929
+91	agtm
+91-1	235
+91-1-1	t	ProteinMutation	p|SUB|M|235|T;CorrespondingGene:183;RS#:699
+92	flnbg
+92-1	1586
+92-1-1	r	ProteinMutation	p|SUB|G|1586|R;CorrespondingGene:2317;RS#:80356513
+93	brafd
+93-1	594
+93-1-1	n	ProteinMutation	p|SUB|D|594|N;CorrespondingGene:673;RS#:397516896
+94	aipr
+94-1	304
+94-1-1	x	ProteinMutation	p|SUB|R|304|X;CorrespondingGene:9049;RS#:104894195
+95	yaps
+95-1	127
+95-1-1	a	ProteinMutation	p|SUB|S|127|A;CorrespondingGene:10413;RS#:762471803
+96	egfrg
+96-1	724
+96-1-1	s	ProteinMutation	p|SUB|G|724|S;CorrespondingGene:1956;RS#:748011710
+97	cftrv
+97-1	232
+97-1-1	d	ProteinMutation	p|SUB|V|232|D;CorrespondingGene:1080;RS#:397508783
+98	anlnr
+98-1	431
+98-1-1	c	ProteinMutation	p|SUB|R|431|C;CorrespondingGene:54443;RS#:587777741
+99	ablt
+99-1	315
+99-1-1	i	ProteinMutation	p|SUB|T|315|I;CorrespondingGene:25;RS#:121913459
+100	vhlr
+100-1	200
+100-1-1	w	ProteinMutation	p|SUB|R|200|W;CorrespondingGene:7428;RS#:28940298
+101	egfrc
+101-1	797
+101-1-1	s	ProteinMutation	p|SUB|C|797|S;CorrespondingGene:1956;RS#:1057519861
+102	k
+102-1	rasa
+102-1-1	146
+102-1-1-1	t	ProteinMutation	p|SUB|A|146|T;CorrespondingGene:3845;RS#:121913527
+102-2	rasg
+102-2-1	12
+102-2-1-1	d	ProteinMutation	p|SUB|G|12|D;CorrespondingGene:3845;RS#:121913529
+103	hgralphaf
+103-1	737
+103-1-1	l	ProteinMutation	p|SUB|F|737|L;CorrespondingGene:2908;RS#:121909727
+104	oa
+104-1	1
+104-1-1	t
+104-1-1-1	232
+104-1-1-1-1	k	ProteinMutation	p|SUB|T|232|K;CorrespondingGene:4935;RS#:137852297
+105	ptenk
+105-1	289
+105-1-1	e	ProteinMutation	p|SUB|K|289|E;CorrespondingGene:5728;RS#:562015640
+106	akt
+106-1	1
+106-1-1	e
+106-1-1-1	17
+106-1-1-1-1	k	ProteinMutation	p|SUB|E|17|K;CorrespondingGene:207;RS#:121434592
+107	hgralphad
+107-1	401
+107-1-1	h	ProteinMutation	p|SUB|D|401|H;CorrespondingGene:2908
+108	gralphad
+108-1	401
+108-1-1	h	ProteinMutation	p|SUB|D|401|H;CorrespondingGene:2908
+109	jak
+109-1	2
+109-1-1	v
+109-1-1-1	617
+109-1-1-1-1	f	ProteinMutation	p|SUB|V|61|F;CorrespondingGene:3717
+110	brca
+110-1	1
+110-1-1	m
+110-1-1-1	1775
+110-1-1-1-1	r	ProteinMutation	p|SUB|M|1775|R;CorrespondingGene:672;RS#:41293463
+110-1-2	k
+110-1-2-1	1702
+110-1-2-1-1	m	ProteinMutation	p|SUB|K|1702|M;CorrespondingGene:672
+111	b
+111-1	rafv
+111-1-1	600
+111-1-1-1	e	ProteinMutation	p|SUB|V|600|E;CorrespondingGene:673;RS#:113488022

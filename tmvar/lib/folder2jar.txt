@@ -1,0 +1,2 @@
+jar xf pengyifan-pubtator-0.0.3-SNAPSHOT-jar-with-dependencies.jar
+jar cvf pengyifan-pubtator-0.0.3-SNAPSHOT-jar-with-dependencies_rev.jar -C pengyifan-pubtator-0.0.3-SNAPSHOT-jar-with-dependencies/ .
