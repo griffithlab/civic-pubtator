@@ -72,55 +72,30 @@ cd grobid-0.8.1
 
 GROBID listens on `http://localhost:8070` by default. Confirm it is running before using `scripts/pdf_to_bioc.py`.
 
-### Convert PDFs
-
-```bash
-./scripts/pdf_to_bioc.py <input_pdf_folder> <output_xml_folder>
-```
-
 ## Example Workflow
 
 The following shows the full pipeline using the included example publication (PMID 36922589).
 
-### Step 1 — Install Python dependencies
+### Step 1 — Convert PDF to BioC XML
+
+Convert PDF to format needed for gnorm2 and tmvar3. Using a PDF from PMID: 36922589 as an example
 
 ```bash
-pip3 install -r requirements.txt
-```
-
-### Step 2 — Download CRF models and databases
-
-```bash
-./scripts/download_tmvar_data.sh
-```
-
-### Step 3 — macOS only: configure CRF++ binaries
-
-```bash
-./scripts/setup_macos.sh
-```
-
-### Step 4 — (Optional) Convert PDF to BioC XML
-
-If starting from a PDF, convert it first. Skip this step if you already have BioC XML input.
-
-```bash
-# Start GROBID (in a separate terminal or detached)
-docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
-
-# Convert
 ./scripts/pdf_to_bioc.py \
     example_data/01_publications_source/36922589 \
-    example_data/02_publications_tmvar_format/36922589
+    example_data/02_publications_grobid/36922589
 ```
 
-### Step 5 — Run tmVar
+### Step 2 - Run GNorm2
+...
+
+### Step 3 — Run tmVar
 
 ```bash
 cd tmvar
 java -Xmx5G -Xms5G -jar tmVar.jar \
-    ../example_data/02_publications_tmvar_format/36922589 \
-    ../example_data/03_publications_output/36922589
+    ../example_data/03_publications_gnorm2/36922589 \
+    ../example_data/04_publications_tmvar3/36922589
 ```
 
 Output BioC XML and PubTator files will be written to `example_data/03_publications_output/36922589/`.

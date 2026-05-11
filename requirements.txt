@@ -1,1 +1,10 @@
 requests
+tensorflow
+transformers
+stanza
+spacy
+bioc
+spacy
+protobuf
+tf-keras
+

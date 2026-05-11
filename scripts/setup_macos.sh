@@ -47,3 +47,19 @@ EOF
 chmod +x "$CRF_DIR/crf_learn"
 
 echo "Done. tmVar is ready to run on macOS."
+
+# ── 5. Patch GNorm2.sh for Keras compatibility ────────────────────────────────
+GNORM2_SH="$REPO_DIR/GNorm2/GNorm2.sh"
+
+if [[ ! -f "$GNORM2_SH" ]]; then
+    echo "WARNING: $GNORM2_SH not found. Run scripts/download_data_files.sh first." >&2
+elif grep -q "TF_USE_LEGACY_KERAS" "$GNORM2_SH"; then
+    echo "GNorm2.sh already has TF_USE_LEGACY_KERAS set."
+else
+    echo "Patching $GNORM2_SH to set TF_USE_LEGACY_KERAS=1 ..."
+    sed -i '' '1a\
+\
+export TF_USE_LEGACY_KERAS=1
+' "$GNORM2_SH"
+    echo "Patched."
+fi
