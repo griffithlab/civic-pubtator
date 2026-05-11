@@ -1,0 +1,26 @@
+#Download the package that has not just the code but the large data files
+wget https://ftp.ncbi.nlm.nih.gov/pub/lu/GNorm2/GNorm2.tar.gz
+tar -zxvf GNorm2.tar.gz
+
+#update the requirements file for newer version of python and then install
+pip3 install -r requirements-py312.txt
+
+#tensorflow
+#transformers
+#stanza
+#spacy
+#bioc
+#spacy
+#protobuf
+#tf-keras
+
+#Add this line to the GNorm2.sh script
+export TF_USE_LEGACY_KERAS=1
+
+#Download examples and test
+cd GNorm2
+wget https://www.ncbi.nlm.nih.gov/CBBresearch/Lu/Demo/tmTools/download/GNorm2/examples.tar.gz
+tar -zxvf examples.tar.gz
+cp examples/* input/
+./GNorm2.sh input output
+
