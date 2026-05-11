@@ -1,0 +1,7 @@
+Overview
+PDFs → GROBID → BioC XML → GNorm2 → BioC XML (with gene anno) → tmVar3 → BioC XML (variant + gene anno) → Custom Report
+
+File locations
+01_publications_source → 02_publications_grobid → 03_publications_gnorm2 → 04_publications_tmvar3
+
+
