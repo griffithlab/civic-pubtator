@@ -10,8 +10,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Run tmVar3 variant extraction on a folder of BioC XML files."
     )
-    parser.add_argument("input",  help="Folder containing BioC XML input files")
-    parser.add_argument("output", help="Folder where output files will be written")
+    parser.add_argument("input_dir",  help="Folder containing BioC XML input files")
+    parser.add_argument("output_dir", help="Folder where output files will be written")
     parser.add_argument("--xmx",  default="5G", metavar="SIZE",
                         help="Java max heap size (default: 5G)")
     parser.add_argument("--xms",  default="5G", metavar="SIZE",
@@ -31,8 +31,8 @@ def main():
     if not os.path.isfile(JAR):
         sys.exit(f"ERROR: tmVar.jar not found at {JAR}")
 
-    input_dir  = os.path.abspath(args.input)
-    output_dir = os.path.abspath(args.output)
+    input_dir  = os.path.abspath(args.input_dir)
+    output_dir = os.path.abspath(args.output_dir)
     tmp_dir    = os.path.abspath(args.tmp_dir) if args.tmp_dir else os.path.join(output_dir, "tmp")
 
     if not os.path.isdir(input_dir):

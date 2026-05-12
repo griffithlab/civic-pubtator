@@ -17,8 +17,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Run GNorm2 gene recognition and normalization on a folder of BioC XML files."
     )
-    parser.add_argument("input",  help="Folder containing BioC XML input files")
-    parser.add_argument("output", help="Folder where output files will be written")
+    parser.add_argument("input_dir",  help="Folder containing BioC XML input files")
+    parser.add_argument("output_dir", help="Folder where output files will be written")
     parser.add_argument("--xmx", default="32G", metavar="SIZE",
                         help="Java max heap size (default: 32G)")
     parser.add_argument("--xms", default="16G", metavar="SIZE",
@@ -28,8 +28,8 @@ def main():
     if not os.path.isfile(JAR):
         sys.exit(f"ERROR: GNormPlus.jar not found at {JAR}")
 
-    input_dir  = os.path.abspath(args.input)
-    output_dir = os.path.abspath(args.output)
+    input_dir  = os.path.abspath(args.input_dir)
+    output_dir = os.path.abspath(args.output_dir)
 
     if not os.path.isdir(input_dir):
         sys.exit(f"ERROR: Input folder not found: {input_dir}")

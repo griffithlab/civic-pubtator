@@ -98,6 +98,6 @@ def process_folder(input_dir, output_dir):
             print(f"  ERROR on {fname}: {e}")
 
 if len(sys.argv) != 3:
-    sys.exit("Usage: pdf_to_bioc.py <input_pdf_folder> <output_xml_folder>")
+    sys.exit("Usage: pdf_to_bioc.py <input_dir> <output_dir>")
 check_grobid()
 process_folder(sys.argv[1], sys.argv[2])
