@@ -222,5 +222,5 @@ tmvar/tmp/
 tmvar/Database/
 tmvar/CRF/
 GNorm2/
-
+*.DS_Store
 
