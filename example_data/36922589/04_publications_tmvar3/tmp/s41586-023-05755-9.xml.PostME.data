@@ -1,0 +1,81 @@
+I I I I I I I I I I I I I I I I I I
+C→T N:0 U:2 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+T N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ -DNASym- -DNASymChar- -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+349 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+S N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+160 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+C N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ -DNASym- -DNASymChar- -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+GAC→AAC N:0 U:4+ L:0 A:4+ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+ATG→GTG N:0 U:4+ L:0 A:4+ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+G N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ -DNASym- -DNASymChar- -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+331 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+R N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+M N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+327 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+ATG→ATC N:0 U:4+ L:0 A:4+ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+M N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+327 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+I N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+D N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+136 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+N N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+G N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ -DNASym- -DNASymChar- -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+331 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+I N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+327 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+S N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+160 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+T N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ -DNASym- -DNASymChar- -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+C→A N:0 U:2 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+GGT→CGT N:0 U:4+ L:0 A:4+ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+G N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ -DNASym- -DNASymChar- -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+331 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+D N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+M N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+327 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+V N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+T N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ -DNASym- -DNASymChar- -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+349 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+M N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+ACC→ATG N:0 U:4+ L:0 A:4+ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__
+
+I I I I I I I I I I I I I I I I I I
+S N:0 U:1 L:0 A:1 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -ProteinSym- -ProteinSymChar- __nil__ __nil__ __nil__ __nil__ __nil__
+160 N:3 U:0 L:0 A:3 __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ __nil__ -PositionNum- __nil__ __nil__
+
