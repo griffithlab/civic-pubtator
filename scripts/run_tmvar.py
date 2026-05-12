@@ -24,6 +24,8 @@ def main():
                         help="Suppress CA# output, show RS# only")
     parser.add_argument("--hide-multiple", action="store_true",
                         help="Hide ambiguous/multiple mappings")
+    parser.add_argument("--tmp-dir", default=None, metavar="DIR",
+                        help="Temporary file directory (default: <output>/tmp)")
     args = parser.parse_args()
 
     if not os.path.isfile(JAR):
@@ -31,12 +33,13 @@ def main():
 
     input_dir  = os.path.abspath(args.input)
     output_dir = os.path.abspath(args.output)
+    tmp_dir    = os.path.abspath(args.tmp_dir) if args.tmp_dir else os.path.join(output_dir, "tmp")
 
     if not os.path.isdir(input_dir):
         sys.exit(f"ERROR: Input folder not found: {input_dir}")
 
     os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(os.path.join(TMVAR_DIR, "tmp"), exist_ok=True)
+    os.makedirs(tmp_dir, exist_ok=True)
 
     cmd = [
         "java", f"-Xmx{args.xmx}", f"-Xms{args.xms}",
@@ -47,6 +50,7 @@ def main():
         "false" if args.keep_tmp else "true",
         "true"  if args.rs_only else "false",
         "true"  if args.hide_multiple else "false",
+        tmp_dir,
     ]
 
     print("Running:", " ".join(cmd))

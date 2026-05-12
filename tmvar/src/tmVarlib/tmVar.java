@@ -80,6 +80,7 @@ public class tmVar
 		String DisplayRefSeq="True"; // hide the RefSeq mentions
 		String DisplayGenomicRegion="True";
 		String HideMultipleResult="True"; //L858R: 121434568|1057519847|1057519848 --> 121434568
+		String TmpFolder="tmp";
 		if(args.length<2)
 		{
 			System.out.println("\n$ java -Xmx5G -Xms5G -jar tmVar.jar [InputFolder] [OutputFolder]");
@@ -111,7 +112,12 @@ public class tmVar
 			{
 				HideMultipleResult=args [4];
 			}
+			if(args.length>6)
+			{
+				TmpFolder=args[6];
+			}
 		}
+		new File(TmpFolder).mkdirs();
 		
 		double startTime,endTime,totTime;
 		startTime = System.currentTimeMillis();//start time
@@ -484,16 +490,16 @@ public class tmVar
 						MentionRecognition MR= new MentionRecognition();
 						if(Format.equals("BioC"))
 						{
-							BC.BioC2PubTator(InputFolder+"/"+InputFile,"tmp/"+InputFile);
-							MR.FeatureExtraction("tmp/"+InputFile,"tmp/"+InputFile+".data","tmp/"+InputFile+".location",TrainTest);
+							BC.BioC2PubTator(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile);
+							MR.FeatureExtraction(TmpFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".data",TmpFolder+"/"+InputFile+".location",TrainTest);
 						}
 						else if(Format.equals("PubTator"))
 						{
-							MR.FeatureExtraction(InputFolder+"/"+InputFile,"tmp/"+InputFile+".data","tmp/"+InputFile+".location",TrainTest);
+							MR.FeatureExtraction(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".data",TmpFolder+"/"+InputFile+".location",TrainTest);
 						}
 						if(TrainTest.equals("Test") || TrainTest.equals("Test_FullText"))
 						{
-							MR.CRF_test("tmp/"+InputFile+".data","tmp/"+InputFile+".output",TrainTest);
+							MR.CRF_test(TmpFolder+"/"+InputFile+".data",TmpFolder+"/"+InputFile+".output",TrainTest);
 						}
 						
 						/*
@@ -503,24 +509,24 @@ public class tmVar
 						{
 							if(Format.equals("BioC"))
 							{
-								PP.toME("tmp/"+InputFile,"tmp/"+InputFile+".output","tmp/"+InputFile+".location","tmp/"+InputFile+".ME");
-								PP.toPostME("tmp/"+InputFile+".ME","tmp/"+InputFile+".PostME");
-								PP.toPostMEData("tmp/"+InputFile,"tmp/"+InputFile+".PostME","tmp/"+InputFile+".PostME.ml","tmp/"+InputFile+".PostME.data",TrainTest);
+								PP.toME(TmpFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".output",TmpFolder+"/"+InputFile+".location",TmpFolder+"/"+InputFile+".ME");
+								PP.toPostME(TmpFolder+"/"+InputFile+".ME",TmpFolder+"/"+InputFile+".PostME");
+								PP.toPostMEData(TmpFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PostME",TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.data",TrainTest);
 							}
 							else if(Format.equals("PubTator"))
 							{
-								PP.toME(InputFolder+"/"+InputFile,"tmp/"+InputFile+".output","tmp/"+InputFile+".location","tmp/"+InputFile+".ME");
-								PP.toPostME("tmp/"+InputFile+".ME","tmp/"+InputFile+".PostME");
-								PP.toPostMEData(InputFolder+"/"+InputFile,"tmp/"+InputFile+".PostME","tmp/"+InputFile+".PostME.ml","tmp/"+InputFile+".PostME.data",TrainTest);
+								PP.toME(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".output",TmpFolder+"/"+InputFile+".location",TmpFolder+"/"+InputFile+".ME");
+								PP.toPostME(TmpFolder+"/"+InputFile+".ME",TmpFolder+"/"+InputFile+".PostME");
+								PP.toPostMEData(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PostME",TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.data",TrainTest);
 							}
 							if(TrainTest.equals("Test") || TrainTest.equals("Test_FullText"))
 							{
-								PP.toPostMEoutput("tmp/"+InputFile+".PostME.data","tmp/"+InputFile+".PostME.output");
+								PP.toPostMEoutput(TmpFolder+"/"+InputFile+".PostME.data",TmpFolder+"/"+InputFile+".PostME.output");
 							}
 							
 							else if(TrainTest.equals("Train"))
 							{
-								PP.toPostMEModel("tmp/"+InputFile+".PostME.data");
+								PP.toPostMEModel(TmpFolder+"/"+InputFile+".PostME.data");
 							}
 							
 							
@@ -532,20 +538,20 @@ public class tmVar
 								GeneMention = true;
 								if(GeneMention == true) // MentionRecognition detect Gene mentions
 								{
-									PP.output2PubTator("tmp/"+InputFile+".PostME.ml","tmp/"+InputFile+".PostME.output","tmp/"+InputFile+".PostME","tmp/"+InputFile+".PubTator");
+									PP.output2PubTator(TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.output",TmpFolder+"/"+InputFile+".PostME",TmpFolder+"/"+InputFile+".PubTator");
 									
 									if(Format.equals("BioC"))
 									{
-										PP.Normalization("tmp/"+InputFile,"tmp/"+InputFile+".PubTator",OutputFolder+"/"+InputFile+".PubTator",DisplayRSnumOnly,HideMultipleResult,DisplayChromosome,DisplayRefSeq,DisplayGenomicRegion);
+										PP.Normalization(TmpFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PubTator",OutputFolder+"/"+InputFile+".PubTator",DisplayRSnumOnly,HideMultipleResult,DisplayChromosome,DisplayRefSeq,DisplayGenomicRegion);
 									}
 									else if(Format.equals("PubTator"))
 									{
-										PP.Normalization(InputFolder+"/"+InputFile,"tmp/"+InputFile+".PubTator",OutputFolder+"/"+InputFile+".PubTator",DisplayRSnumOnly,HideMultipleResult,DisplayChromosome,DisplayRefSeq,DisplayGenomicRegion);
+										PP.Normalization(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PubTator",OutputFolder+"/"+InputFile+".PubTator",DisplayRSnumOnly,HideMultipleResult,DisplayChromosome,DisplayRefSeq,DisplayGenomicRegion);
 									}
 								}
 								else
 								{
-									PP.output2PubTator("tmp/"+InputFile+".PostME.ml","tmp/"+InputFile+".PostME.output","tmp/"+InputFile+".PostME",OutputFolder+"/"+InputFile+".PubTator");
+									PP.output2PubTator(TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.output",TmpFolder+"/"+InputFile+".PostME",OutputFolder+"/"+InputFile+".PubTator");
 								}
 								
 								if(Format.equals("BioC"))
@@ -567,14 +573,14 @@ public class tmVar
 						 */
 						if(DeleteTmp.toLowerCase().equals("true"))
 						{
-							String path="tmp"; 
+							String path=TmpFolder;
 					        File file = new File(path);
 					        File[] files = file.listFiles(); 
 					        for (File ftmp:files) 
 					        {
 					        	if (ftmp.isFile() && ftmp.exists()) 
 					            {
-					        		if(ftmp.toString().matches("tmp."+InputFile+".*"))
+					        		if(ftmp.toString().matches(Pattern.quote(TmpFolder)+"."+InputFile+".*"))
 						        	{
 					        			ftmp.delete();
 						        	}
@@ -587,7 +593,7 @@ public class tmVar
 						System.out.print(InputFolder+"/"+InputFile+" - Processing ... \r");
 						 
 						PostProcessing PP = new PostProcessing();
-						PP.toPostMEData(InputFolder+"/"+InputFile,"tmp/"+InputFile+".PostME","tmp/"+InputFile+".PostME.ml","tmp/"+InputFile+".PostME.data","Train");
+						PP.toPostMEData(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PostME",TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.data","Train");
 						
 						/*
 						 * Time stamp - last
