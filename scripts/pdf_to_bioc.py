@@ -48,7 +48,7 @@ def write_bioc_xml(doc_id, title, abstract, body, out_path):
     passages = []
     offset = 0
 
-    for text, ptype in [(title, "title"), (abstract, "abstract"), (body, "abstract")]:
+    for text, ptype in [(title, "title"), (abstract, "abstract"), (body, "body")]:
         text = text.strip()
         if not text:          # skip empty passages — this is critical
             continue
