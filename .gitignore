@@ -224,4 +224,9 @@ tmvar/CRF/
 GNorm2/
 *.DS_Store
 example_data/36922589/01_publications_source/s/
+example_data/36922589/02_publications_grobid/s/
+example_data/36922589/03_publications_gnorm2/s/
+example_data/36922589/04_publications_tmvar3/s/
+example_data/36922589/pipeline_stats.tsv
+
 

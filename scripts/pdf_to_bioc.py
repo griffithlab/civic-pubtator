@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, hashlib, requests
+import argparse, hashlib, os, sys, requests
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape
 
@@ -25,7 +25,11 @@ def extract_with_grobid(pdf_path):
     resp.raise_for_status()
     return resp.text
 
+def clean_text(text):
+    return "".join(c for c in text if c.isprintable() or c in "\t\n\r")
+
 def tei_to_sections(tei_xml):
+    """Extract title, abstract, body from a structured scientific article."""
     ns = {"tei": "http://www.tei-c.org/ns/1.0"}
     root = ET.fromstring(tei_xml)
 
@@ -44,17 +48,62 @@ def tei_to_sections(tei_xml):
 
     return title, abstract, body
 
-def write_bioc_xml(doc_id, title, abstract, body, out_path):
-    passages = []
-    offset = 0
+def tei_to_sections_supp(tei_xml):
+    """
+    For supplementary files: collapse all content into a single body passage.
+    Returns (grobid_title, body) — caller decides whether to use grobid_title
+    or a path-derived fallback.  Body may be empty if GROBID found no text.
+    """
+    ns = {"tei": "http://www.tei-c.org/ns/1.0"}
+    root = ET.fromstring(tei_xml)
 
-    for text, ptype in [(title, "title"), (abstract, "abstract"), (body, "body")]:
-        text = text.strip()
-        if not text:          # skip empty passages — this is critical
+    title_el = root.find(".//tei:titleStmt/tei:title", ns)
+    grobid_title = " ".join(title_el.itertext()).strip() if title_el is not None else ""
+
+    parts = []
+    abstract_el = root.find(".//tei:abstract", ns)
+    if abstract_el is not None:
+        text = " ".join(abstract_el.itertext()).strip()
+        if text:
+            parts.append(text)
+    # Capture all text-bearing elements in the body, not just <p>
+    body_el = root.find(".//tei:body", ns)
+    if body_el is not None:
+        for el in body_el.iter():
+            if el.tag == f"{{{ns['tei']}}}body":
+                continue
+            text = (el.text or "").strip()
+            if text:
+                parts.append(text)
+    body = " ".join(parts)
+
+    return grobid_title, body
+
+def extract_text_pymupdf(pdf_path):
+    """Extract all text from a PDF using PyMuPDF (fallback for image-heavy PDFs)."""
+    try:
+        import fitz
+    except ImportError:
+        return ""
+    import re
+    doc = fitz.open(pdf_path)
+    pages = []
+    for page in doc:
+        text = re.sub(r'\s+', ' ', page.get_text()).strip()
+        if text:
+            pages.append(text)
+    doc.close()
+    return " ".join(pages)
+
+def write_bioc_xml(doc_id, passages, out_path):
+    """Write a BioC XML document. passages is a list of (type, text) pairs."""
+    offset = 0
+    rendered = []
+    for ptype, text in passages:
+        text = clean_text(text.strip())
+        if not text:
             continue
-        # strip non-XML characters
-        text = "".join(c for c in text if c.isprintable() or c in "\t\n\r")
-        passages.append((ptype, offset, text))
+        rendered.append((ptype, offset, text))
         offset += len(text) + 1
 
     with open(out_path, "w", encoding="utf-8") as f:
@@ -66,38 +115,74 @@ def write_bioc_xml(doc_id, title, abstract, body, out_path):
         f.write('<key>BioC.key</key>\n')
         f.write('<document>\n')
         f.write(f'<id>{doc_id}</id>\n')
-
-        for ptype, poffset, text in passages:
+        for ptype, poffset, text in rendered:
             f.write('  <passage>\n')
             f.write(f'    <infon key="type">{ptype}</infon>\n')
             f.write(f'    <offset>{poffset}</offset>\n')
             f.write(f'    <text>{escape(text)}</text>\n')
             f.write('  </passage>\n')
-
         f.write('</document>\n')
         f.write('</collection>\n')
 
-def process_folder(input_dir, output_dir):
+def process_folder(input_dir, output_dir, supplementary=False):
     os.makedirs(output_dir, exist_ok=True)
+    # Used to derive fallback title for supplementary files
+    parent_dir_name = os.path.basename(os.path.abspath(input_dir))
+
     for fname in sorted(os.listdir(input_dir)):
         if not fname.lower().endswith(".pdf"):
             continue
         pdf_path = os.path.join(input_dir, fname)
         stem = os.path.splitext(fname)[0]
-        # Use stem as doc ID if it's numeric (e.g. a PMID), else hash it
         doc_id = stem if stem.isdigit() else str(int(hashlib.md5(stem.encode()).hexdigest(), 16) % 10**8)
+        out_path = os.path.join(output_dir, stem + ".xml")
 
         print(f"Processing {fname}...")
         try:
             tei_xml = extract_with_grobid(pdf_path)
-            title, abstract, body = tei_to_sections(tei_xml)
-            out_path = os.path.join(output_dir, stem + ".xml")
-            write_bioc_xml(doc_id, title, abstract, body, out_path)
-            print(f"  → {out_path}  (title={bool(title)}, abstract={bool(abstract)}, body={bool(body)})")
+
+            if supplementary:
+                grobid_title, body = tei_to_sections_supp(tei_xml)
+
+                # Fall back to PyMuPDF if GROBID returned no body text
+                if not body:
+                    body = extract_text_pymupdf(pdf_path)
+                    if body:
+                        print(f"  (GROBID returned no body; used PyMuPDF fallback)")
+
+                # Use GROBID title if it looks reasonable, else derive from path
+                if grobid_title and len(grobid_title) <= 200:
+                    title = grobid_title
+                elif parent_dir_name != stem:
+                    title = f"{stem} — {parent_dir_name}"
+                else:
+                    title = stem
+                write_bioc_xml(doc_id, [("title", title), ("body", body)], out_path)
+                print(f"  → {out_path}  (title={bool(title)}, body={bool(body)})")
+            else:
+                title, abstract, body = tei_to_sections(tei_xml)
+                write_bioc_xml(doc_id,
+                               [("title", title), ("abstract", abstract), ("body", body)],
+                               out_path)
+                print(f"  → {out_path}  (title={bool(title)}, abstract={bool(abstract)}, body={bool(body)})")
+
         except Exception as e:
             print(f"  ERROR on {fname}: {e}")
 
-if len(sys.argv) != 3:
-    sys.exit("Usage: pdf_to_bioc.py <input_dir> <output_dir>")
-check_grobid()
-process_folder(sys.argv[1], sys.argv[2])
+def main():
+    parser = argparse.ArgumentParser(
+        description="Convert PDFs to BioC XML via GROBID."
+    )
+    parser.add_argument("input_dir",  help="Folder containing input PDF files")
+    parser.add_argument("output_dir", help="Folder where BioC XML files will be written")
+    parser.add_argument("--supplementary", action="store_true",
+                        help="Supplementary mode: treat all content as body, "
+                             "derive title from path context rather than article structure")
+    args = parser.parse_args()
+
+    check_grobid()
+    process_folder(os.path.abspath(args.input_dir), os.path.abspath(args.output_dir),
+                   supplementary=args.supplementary)
+
+if __name__ == "__main__":
+    main()

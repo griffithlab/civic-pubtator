@@ -9,4 +9,5 @@ tf-keras
 python-docx
 reportlab
 openpyxl
+pymupdf
 
