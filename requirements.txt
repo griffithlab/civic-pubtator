@@ -4,7 +4,9 @@ transformers
 stanza
 spacy
 bioc
-spacy
 protobuf
 tf-keras
+python-docx
+reportlab
+openpyxl
 
