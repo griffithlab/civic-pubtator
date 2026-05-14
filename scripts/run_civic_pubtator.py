@@ -236,14 +236,13 @@ def process_group(label, pdf_dir, grobid_out, gnorm2_out, tmvar_out, args,
     log_step_stats(log_path, tsv_path, base_dir, "tmVar3", label, tmvar_out)
 
 
-def process_input(input_dir, args):
-    base_dir = os.path.dirname(input_dir)
-
-    grobid_root = os.path.join(base_dir, "02_grobid")
-    gnorm2_root = os.path.join(base_dir, "03_gnorm2")
-    tmvar_root  = os.path.join(base_dir, "04_tmvar3")
-    log_path    = os.path.join(base_dir, "pipeline_stats.log")
-    tsv_path    = os.path.join(base_dir, "pipeline_stats.tsv")
+def process_input(top_dir, args):
+    source_dir  = os.path.join(top_dir, "01_source")
+    grobid_root = os.path.join(top_dir, "02_grobid")
+    gnorm2_root = os.path.join(top_dir, "03_gnorm2")
+    tmvar_root  = os.path.join(top_dir, "04_tmvar3")
+    log_path    = os.path.join(top_dir, "pipeline_stats.log")
+    tsv_path    = os.path.join(top_dir, "pipeline_stats.tsv")
 
     # Clean top-level output dirs (covers supplementary subdirs too)
     if args.clean:
@@ -266,18 +265,19 @@ def process_input(input_dir, args):
     with open(log_path, "a", encoding="utf-8") as f:
         f.write(f"\n{'#'*70}\n")
         f.write(f"# Pipeline run started: {timestamp}\n")
-        f.write(f"# Input:      {input_dir}\n")
+        f.write(f"# Input dir:  {top_dir}\n")
+        f.write(f"# Source dir: {source_dir}\n")
         f.write(f"# Start step: {args.start_step}\n")
         max_chars_str = f"{args.max_chars:,}" if args.max_chars else "unlimited"
         f.write(f"# Max chars:  {max_chars_str}\n")
         f.write(f"# Clear intermediates: {args.clear_intermediates}\n")
         f.write(f"{'#'*70}\n")
 
-    # Prepare supplementary PDFs if s/ exists
-    s_dir = os.path.join(input_dir, "s")
+    # Prepare supplementary PDFs if 01_source/s/ exists
+    s_dir = os.path.join(source_dir, "s")
     if os.path.isdir(s_dir):
         supp_cmd = [sys.executable, os.path.join(SCRIPTS_DIR, "prepare_supplementary.py"),
-                    input_dir]
+                    source_dir]
         if args.no_libreoffice:
             supp_cmd.append("--no-libreoffice")
         run("Supplementary prep", supp_cmd)
@@ -285,18 +285,18 @@ def process_input(input_dir, args):
     # Main publications
     process_group(
         label      = "main",
-        pdf_dir    = input_dir,
+        pdf_dir    = source_dir,
         grobid_out = grobid_root,
         gnorm2_out = gnorm2_root,
         tmvar_out  = tmvar_root,
         args       = args,
         log_path   = log_path,
         tsv_path   = tsv_path,
-        base_dir   = base_dir,
+        base_dir   = top_dir,
     )
 
     # Supplementary leaf directories
-    for abs_path, rel in find_supplement_leaf_dirs(input_dir):
+    for abs_path, rel in find_supplement_leaf_dirs(source_dir):
         process_group(
             label        = rel,
             pdf_dir      = abs_path,
@@ -306,14 +306,14 @@ def process_input(input_dir, args):
             args         = args,
             log_path     = log_path,
             tsv_path     = tsv_path,
-            base_dir     = base_dir,
+            base_dir     = top_dir,
             supplementary= True,
         )
 
     # Clear intermediate files and dirs
     if args.clear_intermediates:
         print(red("Clearing intermediates ..."), file=sys.stderr)
-        clear_intermediates(input_dir, base_dir, log_path)
+        clear_intermediates(source_dir, top_dir, log_path)
 
     # Write run footer
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -322,19 +322,23 @@ def process_input(input_dir, args):
         f.write(f"# Log: {log_path}\n")
         f.write(f"# TSV: {tsv_path}\n")
 
-    print(red(f"\nDone: {input_dir}  →  {tmvar_root}"), file=sys.stderr)
+    print(red(f"\nDone: {top_dir}  →  {tmvar_root}"), file=sys.stderr)
     print(red(f"Stats log: {log_path}"), file=sys.stderr)
     print(red(f"Stats TSV: {tsv_path}"), file=sys.stderr)
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Run the full PDF → BioC → GNorm2 → tmVar3 pipeline, "
-                    "including supplementary files. Output base is derived as "
-                    "the parent directory of each input_dir."
+        description="Run the full PDF → BioC → GNorm2 → tmVar3 pipeline. "
+                    "Each input_dir must contain a '01_source' subdirectory holding "
+                    "the source PDF(s). Output directories 02_grobid, 03_gnorm2, and "
+                    "04_tmvar3 are created as siblings of 01_source inside input_dir. "
+                    "Supplementary files are optional; if provided, place them under "
+                    "01_source/s/<stem>/."
     )
     parser.add_argument("input_dirs", nargs="+",
-                        help="One or more source directories containing input PDF files")
+                        help="One or more top-level directories, each containing a "
+                             "'01_source' subdirectory with source PDF(s)")
     parser.add_argument("--clean", action="store_true",
                         help="Delete and recreate output directories before running")
     parser.add_argument("--no-clear-intermediates", dest="clear_intermediates",
@@ -355,15 +359,43 @@ def main():
                              "initial heap is set to half this value")
     args = parser.parse_args()
 
+    # Validate all inputs before starting any work
+    validated = []
     for raw in args.input_dirs:
-        input_dir = os.path.abspath(raw)
-        if not os.path.isdir(input_dir):
-            print(f"ERROR: Input folder not found: {input_dir}", file=sys.stderr)
+        top_dir    = os.path.abspath(raw)
+        source_dir = os.path.join(top_dir, "01_source")
+        if not os.path.isdir(top_dir):
+            print(f"ERROR: Directory not found: {top_dir}", file=sys.stderr)
             sys.exit(1)
+        if not os.path.isdir(source_dir):
+            print(
+                f"ERROR: {top_dir} must contain a subdirectory named '01_source'.\n"
+                f"  Place source PDF(s) in:          {source_dir}/\n"
+                f"  Supplementary files (optional):  {source_dir}/s/",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        has_pdf = any(
+            f.lower().endswith(".pdf") and not f.startswith("~$") and f not in IGNORED_FILES
+            for f in os.listdir(source_dir)
+            if os.path.isfile(os.path.join(source_dir, f))
+        )
+        if not has_pdf:
+            print(
+                f"ERROR: No PDF files found in {source_dir}.\n"
+                f"  Place at least one source PDF directly in that directory.\n"
+                f"  Supplementary files are optional; if provided, place them under "
+                f"{source_dir}/s/<stem>/",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        validated.append(top_dir)
+
+    for top_dir in validated:
         print(red(f"\n{'#'*60}"), file=sys.stderr)
-        print(red(f"Processing input: {input_dir}"), file=sys.stderr)
+        print(red(f"Processing: {top_dir}"), file=sys.stderr)
         print(red(f"{'#'*60}"), file=sys.stderr)
-        process_input(input_dir, args)
+        process_input(top_dir, args)
 
 
 if __name__ == "__main__":
