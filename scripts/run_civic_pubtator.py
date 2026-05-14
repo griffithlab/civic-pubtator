@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, datetime, os, shutil, subprocess, sys
+import argparse, datetime, os, shutil, subprocess, sys, time
 
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -33,6 +33,101 @@ def half_memory(mem_str):
     if unit in multipliers:
         return f"{value * multipliers[unit] // 2}{next_unit[unit]}"
     return f"{value // 2}{unit}"
+
+
+def read_release_version():
+    """Read the version string from RELEASE at the repo root (one level up from scripts/)."""
+    release_path = os.path.join(os.path.dirname(SCRIPTS_DIR), "RELEASE")
+    try:
+        with open(release_path, encoding="utf-8") as f:
+            return f.read().strip()
+    except Exception:
+        return "unknown"
+
+
+def collect_source_files(source_dir):
+    """Return list of (filename, size_bytes, mtime_str) for PDFs directly in source_dir."""
+    results = []
+    for fname in sorted(os.listdir(source_dir)):
+        fpath = os.path.join(source_dir, fname)
+        if (os.path.isfile(fpath)
+                and fname.lower().endswith(".pdf")
+                and fname not in IGNORED_FILES
+                and not fname.startswith("~$")):
+            st = os.stat(fpath)
+            mtime = datetime.datetime.fromtimestamp(st.st_mtime).strftime("%Y-%m-%d %H:%M:%S")
+            results.append((fname, st.st_size, mtime))
+    return results
+
+
+def collect_supplementary_files(source_dir):
+    """Return list of (rel_path, size_bytes, mtime_str) for original supplementary
+    source files directly inside 01_source/s/ (.pdf, .docx, .xlsx, etc.).
+    The subdirectories inside s/ are derived output from prepare_supplementary.py
+    and are intentionally excluded."""
+    s_dir = os.path.join(source_dir, "s")
+    if not os.path.isdir(s_dir):
+        return []
+    results = []
+    for fname in sorted(os.listdir(s_dir)):
+        fpath = os.path.join(s_dir, fname)
+        if (os.path.isfile(fpath)
+                and fname not in IGNORED_FILES
+                and not fname.startswith("~$")):
+            st = os.stat(fpath)
+            mtime = datetime.datetime.fromtimestamp(st.st_mtime).strftime("%Y-%m-%d %H:%M:%S")
+            rel = os.path.relpath(fpath, source_dir)
+            results.append((rel, st.st_size, mtime))
+    return results
+
+
+def write_manifest(manifest_path, top_dir, source_dir, version, run_timestamp):
+    """Write MANIFEST.txt recording tool version and all source/supplementary files."""
+    source_files = collect_source_files(source_dir)
+    supp_files   = collect_supplementary_files(source_dir)
+
+    bar  = "=" * 70
+    dash = "-" * 70
+
+    def _file_table(f, entries, base):
+        if not entries:
+            f.write("  (none)\n")
+            return
+        name_w = max(max(len(r) for r, _, _ in entries), 40)
+        f.write(f"  {'File':<{name_w}}  {'Size (bytes)':>14}  Modified\n")
+        f.write(f"  {'-'*name_w}  {'-'*14}  {'-'*19}\n")
+        for rel, size, mtime in entries:
+            f.write(f"  {rel:<{name_w}}  {size:>14,}  {mtime}\n")
+
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        f.write(f"{bar}\n")
+        f.write(f"MANIFEST — civic-pubtator pipeline\n")
+        f.write(f"{bar}\n")
+        f.write(f"Tool version:    {version}\n")
+        f.write(f"Run timestamp:   {run_timestamp}\n")
+        f.write(f"Input directory: {top_dir}\n")
+        f.write(f"Source dir:      {source_dir}\n")
+        f.write(f"\n{bar}\n")
+        f.write(f"Source PDFs ({len(source_files)} file{'s' if len(source_files) != 1 else ''})\n")
+        f.write(f"{dash}\n")
+        _file_table(f, source_files, source_dir)
+        f.write(f"\n{bar}\n")
+        f.write(f"Supplementary files ({len(supp_files)} file{'s' if len(supp_files) != 1 else ''})\n")
+        f.write(f"{dash}\n")
+        _file_table(f, supp_files, source_dir)
+        f.write(f"\n{bar}\n")
+
+
+def format_duration(seconds):
+    """Return elapsed seconds as a human-readable string, e.g. '1h 2m 34s'."""
+    seconds = int(seconds)
+    h, rem = divmod(seconds, 3600)
+    m, s   = divmod(rem, 60)
+    if h:
+        return f"{h}h {m}m {s}s"
+    if m:
+        return f"{m}m {s}s"
+    return f"{s}s"
 
 
 def count_file_stats(filepath):
@@ -69,15 +164,16 @@ def log_group_header(log_path, label, pdf_dir):
         f.write(f"{bar}\n")
 
 
-def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir):
+def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, elapsed):
     """Append character/word stats to the log and TSV for all output files."""
     files = collect_output_files(output_dir)
 
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp    = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    duration_str = format_duration(elapsed)
 
     # --- human-readable log ---
     with open(log_path, "a", encoding="utf-8") as f:
-        f.write(f"\n  >> {step_name}  {timestamp}\n")
+        f.write(f"\n  >> {step_name}  {timestamp}  ({duration_str})\n")
         f.write(f"     Output: {output_dir}\n")
         if not files:
             f.write("     (no .xml or .txt files found)\n")
@@ -93,13 +189,13 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir):
             f.write(f"     {'TOTAL':<{name_w}}  {total_chars:>12,}  {total_words:>9,}\n")
 
     # --- TSV ---
-    step_num  = {"GROBID": 1, "GNorm2": 2, "tmVar3": 3}.get(step_name, step_name)
+    step_num   = {"GROBID": 1, "GNorm2": 2, "tmVar3": 3}.get(step_name, step_name)
     input_name = os.path.basename(label) if label != "main" else "main"
     with open(tsv_path, "a", encoding="utf-8") as f:
         for rel, chars, words in files:
             file_stem = os.path.splitext(os.path.basename(rel))[0]
             out_rel   = os.path.relpath(os.path.join(output_dir, rel), base_dir)
-            f.write(f"{step_num}\t{step_name}\t{label}\t{file_stem}\t{out_rel}\t{chars}\t{words}\n")
+            f.write(f"{step_num}\t{step_name}\t{label}\t{chars}\t{words}\t{duration_str}\t{file_stem}\t{out_rel}\n")
 
 
 def enforce_max_chars(output_dir, max_chars, log_path, step_name, label):
@@ -212,28 +308,37 @@ def process_group(label, pdf_dir, grobid_out, gnorm2_out, tmvar_out, args,
         ]
         if supplementary:
             grobid_cmd.append("--supplementary")
+        t0 = time.time()
         run(f"GROBID  [{label}]", grobid_cmd)
-        log_step_stats(log_path, tsv_path, base_dir, "GROBID", label, grobid_out)
+        log_step_stats(log_path, tsv_path, base_dir, "GROBID", label, grobid_out,
+                       elapsed=time.time() - t0)
         enforce_max_chars(grobid_out, args.max_chars, log_path, "GROBID", label)
 
     xmx = args.memory
     xms = half_memory(args.memory)
 
     if args.start_step <= 2:
-        run(f"GNorm2  [{label}]", [
+        gnorm2_cmd = [
             sys.executable, os.path.join(SCRIPTS_DIR, "run_gnorm2.py"),
             grobid_out, gnorm2_out,
             "--xmx", xmx, "--xms", xms,
-        ])
-        log_step_stats(log_path, tsv_path, base_dir, "GNorm2", label, gnorm2_out)
+        ]
+        if args.gnorm2_python:
+            gnorm2_cmd += ["--ml-python", args.gnorm2_python]
+        t0 = time.time()
+        run(f"GNorm2  [{label}]", gnorm2_cmd)
+        log_step_stats(log_path, tsv_path, base_dir, "GNorm2", label, gnorm2_out,
+                       elapsed=time.time() - t0)
         enforce_max_chars(gnorm2_out, args.max_chars, log_path, "GNorm2", label)
 
+    t0 = time.time()
     run(f"tmVar3  [{label}]", [
         sys.executable, os.path.join(SCRIPTS_DIR, "run_tmvar.py"),
         gnorm2_out, tmvar_out,
         "--xmx", xmx, "--xms", xms,
     ])
-    log_step_stats(log_path, tsv_path, base_dir, "tmVar3", label, tmvar_out)
+    log_step_stats(log_path, tsv_path, base_dir, "tmVar3", label, tmvar_out,
+                   elapsed=time.time() - t0)
 
 
 def process_input(top_dir, args):
@@ -241,8 +346,9 @@ def process_input(top_dir, args):
     grobid_root = os.path.join(top_dir, "02_grobid")
     gnorm2_root = os.path.join(top_dir, "03_gnorm2")
     tmvar_root  = os.path.join(top_dir, "04_tmvar3")
-    log_path    = os.path.join(top_dir, "pipeline_stats.log")
-    tsv_path    = os.path.join(top_dir, "pipeline_stats.tsv")
+    log_path      = os.path.join(top_dir, "pipeline_stats.log")
+    tsv_path      = os.path.join(top_dir, "pipeline_stats.tsv")
+    manifest_path = os.path.join(top_dir, "MANIFEST.txt")
 
     # Clean top-level output dirs (covers supplementary subdirs too)
     if args.clean:
@@ -250,7 +356,7 @@ def process_input(top_dir, args):
             if step >= args.start_step and os.path.exists(d):
                 print(red(f"Cleaning {d} ..."), file=sys.stderr)
                 shutil.rmtree(d)
-        for f in (log_path, tsv_path):
+        for f in (log_path, tsv_path, manifest_path):
             if os.path.exists(f):
                 print(red(f"Cleaning {f} ..."), file=sys.stderr)
                 os.remove(f)
@@ -258,10 +364,11 @@ def process_input(top_dir, args):
     # Write TSV header if file is new or empty
     if not os.path.exists(tsv_path) or os.path.getsize(tsv_path) == 0:
         with open(tsv_path, "w", encoding="utf-8") as f:
-            f.write("step\tstep_name\tlabel\tinput_name\toutput_file\tchars\twords\n")
+            f.write("step\tstep_name\tlabel\tchars\twords\truntime\tinput_name\toutput_file\n")
 
     # Write run header to log
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    run_timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = run_timestamp
     with open(log_path, "a", encoding="utf-8") as f:
         f.write(f"\n{'#'*70}\n")
         f.write(f"# Pipeline run started: {timestamp}\n")
@@ -271,6 +378,8 @@ def process_input(top_dir, args):
         max_chars_str = f"{args.max_chars:,}" if args.max_chars else "unlimited"
         f.write(f"# Max chars:  {max_chars_str}\n")
         f.write(f"# Clear intermediates: {args.clear_intermediates}\n")
+        gnorm2_py_str = args.gnorm2_python if args.gnorm2_python else f"{sys.executable} (default)"
+        f.write(f"# GNorm2 Python: {gnorm2_py_str}\n")
         f.write(f"{'#'*70}\n")
 
     # Prepare supplementary PDFs if 01_source/s/ exists
@@ -281,6 +390,10 @@ def process_input(top_dir, args):
         if args.no_libreoffice:
             supp_cmd.append("--no-libreoffice")
         run("Supplementary prep", supp_cmd)
+
+    # Write manifest of source files and tool version
+    write_manifest(manifest_path, top_dir, source_dir,
+                   read_release_version(), run_timestamp)
 
     # Main publications
     process_group(
@@ -319,12 +432,14 @@ def process_input(top_dir, args):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(log_path, "a", encoding="utf-8") as f:
         f.write(f"\n# Pipeline run finished: {timestamp}\n")
-        f.write(f"# Log: {log_path}\n")
-        f.write(f"# TSV: {tsv_path}\n")
+        f.write(f"# Log:      {log_path}\n")
+        f.write(f"# TSV:      {tsv_path}\n")
+        f.write(f"# Manifest: {manifest_path}\n")
 
     print(red(f"\nDone: {top_dir}  →  {tmvar_root}"), file=sys.stderr)
     print(red(f"Stats log: {log_path}"), file=sys.stderr)
     print(red(f"Stats TSV: {tsv_path}"), file=sys.stderr)
+    print(red(f"Manifest:  {manifest_path}"), file=sys.stderr)
 
 
 def main():
@@ -357,6 +472,17 @@ def main():
     parser.add_argument("--memory", default="32G", metavar="SIZE",
                         help="Java max heap for GNorm2 and tmVar3 (default: 32G); "
                              "initial heap is set to half this value")
+    parser.add_argument("--gnorm2-python", default=None, metavar="PATH_OR_ENV",
+                        help="Python interpreter for the GNorm2 ML step. "
+                             "Accepts a full path to a Python executable or a "
+                             "bare conda env name. Use the env created by "
+                             "scripts/setup_gnorm2_conda.sh to enable Metal GPU "
+                             "acceleration on Apple Silicon. Defaults to the "
+                             "current interpreter. "
+                             "Examples: "
+                             "--gnorm2-python gnorm2-tf215  (conda env name) or "
+                             "--gnorm2-python /opt/homebrew/Caskroom/miniforge"
+                             "/base/envs/gnorm2-tf215/bin/python3  (full path)")
     args = parser.parse_args()
 
     # Validate all inputs before starting any work
