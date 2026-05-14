@@ -1,0 +1,560 @@
+#!/usr/bin/env python3
+import argparse
+import collections
+import html
+import os
+import re
+import sys
+
+ENTITY_STYLE = {
+    'ProteinMutation': {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'Protein Mutation'},
+    'ProteinAllele':   {'bg': '#fef9c3', 'border': '#ca8a04', 'label': 'Protein Allele'},
+    'DNAMutation':     {'bg': '#fecaca', 'border': '#dc2626', 'label': 'DNA Mutation'},
+    'SNP':             {'bg': '#e9d5ff', 'border': '#9333ea', 'label': 'SNP'},
+    'Gene':            {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene'},
+    'Species':         {'bg': '#bbf7d0', 'border': '#16a34a', 'label': 'Species'},
+}
+DEFAULT_STYLE = {'bg': '#e2e8f0', 'border': '#64748b', 'label': 'Other'}
+
+
+def entity_style(etype):
+    return ENTITY_STYLE.get(etype, DEFAULT_STYLE)
+
+
+def parse_details(details_str):
+    result = {}
+    for part in details_str.split(';'):
+        if ':' in part:
+            k, v = part.split(':', 1)
+            result[k.strip()] = v.strip()
+    return result
+
+
+def parse_pubtator(path):
+    passages = []
+    annotations = []
+    with open(path, encoding='utf-8') as f:
+        for line in f:
+            line = line.rstrip('\n')
+            if not line:
+                continue
+            pipe_parts = line.split('|', 2)
+            if len(pipe_parts) == 3 and pipe_parts[1] in ('title', 'abstract', 'body', 't', 'a'):
+                passages.append({'pmid': pipe_parts[0], 'ptype': pipe_parts[1], 'text': pipe_parts[2]})
+            else:
+                tab_parts = line.split('\t')
+                if len(tab_parts) >= 5:
+                    try:
+                        start = int(tab_parts[1])
+                        end = int(tab_parts[2])
+                    except ValueError:
+                        continue
+                    mention = tab_parts[3]
+                    etype = tab_parts[4]
+                    details_str = tab_parts[5] if len(tab_parts) > 5 else ''
+                    details = parse_details(details_str)
+                    annotations.append({
+                        'start': start,
+                        'end': end,
+                        'mention': mention,
+                        'type': etype,
+                        'hgvs': details.get('HGVS', ''),
+                        'rs': details.get('RS#', ''),
+                        'gene': details.get('CorrespondingGene', ''),
+                        'details': details,
+                    })
+    return passages, annotations
+
+
+def classify_pubtator_path(rel_path):
+    parts = rel_path.replace('\\', '/').split('/')
+    if len(parts) == 1:
+        stem = re.sub(r'\.xml\.PubTator$', '', parts[0])
+        return 'Main Publication', stem
+    if len(parts) == 3 and parts[0] == 's':
+        stem = parts[1]
+        return 'Supplementary PDF', stem
+    if len(parts) == 4 and parts[0] == 's':
+        stem = parts[1]
+        tab = parts[2]
+        return 'Supplementary Spreadsheet', f'{stem} / {tab}'
+    stem = re.sub(r'\.xml\.PubTator$', '', parts[-1])
+    return 'Other', stem
+
+
+def collect_pubtator_files(tmvar3_dir):
+    files = []
+    for dirpath, dirnames, filenames in os.walk(tmvar3_dir):
+        dirnames[:] = [d for d in dirnames if d != 'tmp']
+        for fname in filenames:
+            if not fname.endswith('.PubTator'):
+                continue
+            full = os.path.join(dirpath, fname)
+            rel = os.path.relpath(full, tmvar3_dir)
+            category, label = classify_pubtator_path(rel)
+            files.append({'path': full, 'rel': rel, 'category': category, 'label': label})
+    files.sort(key=lambda x: (0 if x['category'] == 'Main Publication' else 1, x['rel']))
+    return files
+
+
+def parse_manifest(path):
+    result = {
+        'tool_version': '',
+        'run_timestamp': '',
+        'input_directory': '',
+        'source_pdfs': [],
+        'supplementary_files': [],
+    }
+    if not os.path.isfile(path):
+        return result
+    with open(path, encoding='utf-8') as f:
+        content = f.read()
+    m = re.search(r'Tool version:\s+(.+)', content)
+    if m:
+        result['tool_version'] = m.group(1).strip()
+    m = re.search(r'Run timestamp:\s+(.+)', content)
+    if m:
+        result['run_timestamp'] = m.group(1).strip()
+    m = re.search(r'Input directory:\s+(.+)', content)
+    if m:
+        result['input_directory'] = m.group(1).strip()
+
+    source_block = re.search(r'Source PDFs.*?---+\n(.*?)(?:={6}|$)', content, re.DOTALL)
+    if source_block:
+        for line in source_block.group(1).splitlines():
+            line = line.strip()
+            if line and not line.startswith('-') and not line.startswith('File'):
+                result['source_pdfs'].append(line)
+
+    supp_block = re.search(r'Supplementary files.*?---+\n(.*?)(?:={6}|$)', content, re.DOTALL)
+    if supp_block:
+        for line in supp_block.group(1).splitlines():
+            line = line.strip()
+            if line and not line.startswith('-') and not line.startswith('File'):
+                result['supplementary_files'].append(line)
+    return result
+
+
+def parse_pipeline_stats(path):
+    rows = []
+    if not os.path.isfile(path):
+        return rows
+    with open(path, encoding='utf-8') as f:
+        lines = f.readlines()
+    if not lines:
+        return rows
+    header = lines[0].rstrip('\n').split('\t')
+    for line in lines[1:]:
+        parts = line.rstrip('\n').split('\t')
+        if len(parts) < len(header):
+            parts += [''] * (len(header) - len(parts))
+        rows.append(dict(zip(header, parts)))
+    return rows
+
+
+def build_pipeline_stats_table(stats_rows):
+    by_label = collections.OrderedDict()
+    for row in stats_rows:
+        label = row.get('label', '')
+        if label not in by_label:
+            by_label[label] = {}
+        step_name = row.get('step_name', '')
+        by_label[label][step_name] = row
+
+    rows_html = []
+    for label, steps in by_label.items():
+        grobid_time = steps.get('GROBID', {}).get('runtime', '')
+        gnorm_time = steps.get('GNorm2', {}).get('runtime', '')
+        tmvar_time = steps.get('tmVar3', {}).get('runtime', '')
+        chars = steps.get('tmVar3', steps.get('GNorm2', steps.get('GROBID', {}))).get('chars', '')
+        rows_html.append(
+            f'<tr><td>{html.escape(label)}</td>'
+            f'<td>{html.escape(grobid_time)}</td>'
+            f'<td>{html.escape(gnorm_time)}</td>'
+            f'<td>{html.escape(tmvar_time)}</td>'
+            f'<td>{html.escape(chars)}</td></tr>'
+        )
+    return '\n'.join(rows_html)
+
+
+def build_variant_summary(doc_data):
+    summary = {}
+    for doc in doc_data:
+        label = doc['label']
+        for ann in doc['annotations']:
+            key = (ann['mention'], ann['type'], ann['hgvs'], ann['rs'], ann['gene'])
+            if key not in summary:
+                summary[key] = {'count': 0, 'docs': set()}
+            summary[key]['count'] += 1
+            summary[key]['docs'].add(label)
+
+    rows = []
+    for (mention, etype, hgvs, rs, gene), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        style = entity_style(etype)
+        chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
+                f'border-radius:4px;padding:1px 6px;font-size:0.85em">'
+                f'{html.escape(style["label"])}</span>')
+        docs_str = html.escape(', '.join(sorted(info['docs'])))
+        rows.append(
+            f'<tr data-type="{html.escape(etype)}">'
+            f'<td>{html.escape(mention)}</td>'
+            f'<td>{chip}</td>'
+            f'<td>{html.escape(hgvs)}</td>'
+            f'<td>{html.escape(rs)}</td>'
+            f'<td>{html.escape(gene)}</td>'
+            f'<td>{info["count"]}</td>'
+            f'<td title="{docs_str}">{len(info["docs"])}</td>'
+            f'</tr>'
+        )
+    return '\n'.join(rows)
+
+
+def highlight_text(full_text, annotations):
+    sorted_anns = sorted(annotations, key=lambda a: a['start'])
+    parts = []
+    pos = 0
+    for ann in sorted_anns:
+        start, end = ann['start'], ann['end']
+        if start < pos:
+            continue
+        if start > pos:
+            segment = html.escape(full_text[pos:start])
+            segment = segment.replace('\n', '<br>\n')
+            parts.append(segment)
+        style = entity_style(ann['type'])
+        tip_parts = [f"Type: {ann['type']}"]
+        if ann['hgvs']:
+            tip_parts.append(f"HGVS: {ann['hgvs']}")
+        if ann['rs']:
+            tip_parts.append(f"RS#: {ann['rs']}")
+        if ann['gene']:
+            tip_parts.append(f"Gene: {ann['gene']}")
+        tooltip = html.escape(' | '.join(tip_parts))
+        span_text = html.escape(full_text[start:end])
+        parts.append(
+            f'<mark style="background:{style["bg"]};border-bottom:2px solid {style["border"]};'
+            f'border-radius:2px;padding:0 2px;cursor:default" title="{tooltip}">'
+            f'{span_text}</mark>'
+        )
+        pos = end
+    if pos < len(full_text):
+        segment = html.escape(full_text[pos:])
+        segment = segment.replace('\n', '<br>\n')
+        parts.append(segment)
+    return ''.join(parts)
+
+
+def build_doc_section(doc, doc_id):
+    label = doc['label']
+    category = doc['category']
+    annotations = doc['annotations']
+    passages = doc['passages']
+
+    full_text = '\n'.join(p['text'] for p in passages)
+
+    types_present = sorted(set(a['type'] for a in annotations))
+    legend_chips = []
+    for etype in types_present:
+        style = entity_style(etype)
+        legend_chips.append(
+            f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
+            f'border-radius:4px;padding:2px 8px;margin:2px;font-size:0.85em;display:inline-block">'
+            f'{html.escape(style["label"])}</span>'
+        )
+    legend_html = ' '.join(legend_chips)
+
+    ann_counts = collections.Counter()
+    ann_hgvs = {}
+    ann_rs = {}
+    for a in annotations:
+        key = (a['mention'], a['type'])
+        ann_counts[key] += 1
+        ann_hgvs[key] = a['hgvs']
+        ann_rs[key] = a['rs']
+
+    ann_rows = []
+    for (mention, etype), count in sorted(ann_counts.items(), key=lambda x: -x[1]):
+        style = entity_style(etype)
+        chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
+                f'border-radius:4px;padding:1px 6px;font-size:0.85em">'
+                f'{html.escape(style["label"])}</span>')
+        ann_rows.append(
+            f'<tr><td>{html.escape(mention)}</td><td>{chip}</td>'
+            f'<td>{count}</td>'
+            f'<td>{html.escape(ann_hgvs.get((mention,etype),""))}</td>'
+            f'<td>{html.escape(ann_rs.get((mention,etype),""))}</td></tr>'
+        )
+    ann_table = '\n'.join(ann_rows)
+
+    highlighted = highlight_text(full_text, annotations)
+
+    return f'''
+<div id="{doc_id}" class="doc-section" style="display:none">
+  <div style="margin-bottom:1rem">
+    <button onclick="showMain()" style="padding:6px 14px;cursor:pointer;border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc">&#8592; Back to summary</button>
+  </div>
+  <h2 style="margin:0 0 0.25rem">{html.escape(label)}</h2>
+  <div style="color:#64748b;margin-bottom:1rem;font-size:0.9em">{html.escape(category)}</div>
+  <div style="margin-bottom:1rem">{legend_html}</div>
+  <h3 style="margin:1rem 0 0.5rem">Annotation Summary</h3>
+  <div style="overflow-x:auto;margin-bottom:1.5rem">
+    <table class="data-table">
+      <thead><tr><th>Mention</th><th>Type</th><th>Count</th><th>HGVS</th><th>RS#</th></tr></thead>
+      <tbody>{ann_table}</tbody>
+    </table>
+  </div>
+  <h3 style="margin:1rem 0 0.5rem">Document Text</h3>
+  <div style="font-family:monospace;font-size:0.88em;line-height:1.7;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1.25rem;white-space:pre-wrap;word-break:break-word">
+{highlighted}
+  </div>
+</div>
+'''
+
+
+def build_document_index(doc_data):
+    rows = []
+    for doc in doc_data:
+        doc_id = doc['doc_id']
+        n = len(doc['annotations'])
+        rows.append(
+            f'<tr><td><a href="#" onclick="show(\'{doc_id}\');return false">'
+            f'{html.escape(doc["label"])}</a></td>'
+            f'<td>{html.escape(doc["category"])}</td>'
+            f'<td>{n}</td></tr>'
+        )
+    return '\n'.join(rows)
+
+
+def build_source_files_html(manifest):
+    pdfs = manifest['source_pdfs']
+    supps = manifest['supplementary_files']
+
+    def make_table(items, title):
+        if not items:
+            return ''
+        rows = ''.join(f'<tr><td style="font-family:monospace">{html.escape(r)}</td></tr>' for r in items)
+        return (f'<h3 style="margin:1rem 0 0.5rem">{title} ({len(items)} file{"s" if len(items)!=1 else ""})</h3>'
+                f'<div style="overflow-x:auto"><table class="data-table"><tbody>{rows}</tbody></table></div>')
+
+    return make_table(pdfs, 'Source PDFs') + make_table(supps, 'Supplementary Files')
+
+
+CSS = '''
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #f1f5f9; color: #1e293b; }
+#topbar { background: #1e293b; color: #f8fafc; padding: 0.75rem 1.5rem; font-size: 1.1rem; font-weight: 600; }
+#main-content { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+.card h2 { margin: 0 0 1rem; font-size: 1.1rem; color: #334155; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
+.data-table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+.data-table th { background: #f1f5f9; text-align: left; padding: 8px 12px; border: 1px solid #e2e8f0; cursor: pointer; white-space: nowrap; user-select: none; }
+.data-table th:hover { background: #e2e8f0; }
+.data-table td { padding: 6px 12px; border: 1px solid #e2e8f0; vertical-align: top; }
+.data-table tbody tr:hover { background: #f8fafc; }
+.run-info { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; font-size: 0.9rem; }
+.run-info dt { color: #64748b; font-weight: 500; }
+.run-info dd { margin: 0; }
+.filter-bar { margin-bottom: 0.75rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.9rem; }
+.filter-bar label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+'''
+
+JS = '''
+function show(id) {
+  document.getElementById('main-view').style.display = 'none';
+  document.querySelectorAll('.doc-section').forEach(el => el.style.display = 'none');
+  var el = document.getElementById(id);
+  if (el) { el.style.display = 'block'; }
+  window.scrollTo(0, 0);
+}
+function showMain() {
+  document.querySelectorAll('.doc-section').forEach(el => el.style.display = 'none');
+  document.getElementById('main-view').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+function sortTable(table, col) {
+  var tbody = table.querySelector('tbody');
+  var rows = Array.from(tbody.querySelectorAll('tr'));
+  var asc = table.dataset.sortCol == col && table.dataset.sortDir != 'asc';
+  table.dataset.sortCol = col;
+  table.dataset.sortDir = asc ? 'asc' : 'desc';
+  rows.sort(function(a, b) {
+    var va = a.cells[col] ? a.cells[col].textContent.trim() : '';
+    var vb = b.cells[col] ? b.cells[col].textContent.trim() : '';
+    var na = parseFloat(va.replace(/,/g, ''));
+    var nb = parseFloat(vb.replace(/,/g, ''));
+    if (!isNaN(na) && !isNaN(nb)) return asc ? na - nb : nb - na;
+    return asc ? va.localeCompare(vb) : vb.localeCompare(va);
+  });
+  rows.forEach(r => tbody.appendChild(r));
+}
+function filterVariants(type) {
+  var rows = document.querySelectorAll('#variant-table tbody tr');
+  rows.forEach(function(row) {
+    if (type === 'all' || row.dataset.type === type) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.data-table').forEach(function(table) {
+    var ths = table.querySelectorAll('th');
+    ths.forEach(function(th, i) {
+      th.addEventListener('click', function() { sortTable(table, i); });
+    });
+  });
+});
+'''
+
+
+def build_filter_bar(doc_data):
+    types = set()
+    for doc in doc_data:
+        for ann in doc['annotations']:
+            types.add(ann['type'])
+    types = sorted(types)
+    buttons = ['<label><input type="radio" name="vfilter" value="all" checked onchange="filterVariants(\'all\')"> All</label>']
+    for etype in types:
+        style = entity_style(etype)
+        chip_style = (f'background:{style["bg"]};border:1px solid {style["border"]};'
+                      f'border-radius:4px;padding:1px 6px;font-size:0.85em')
+        label_escaped = html.escape(style['label'])
+        etype_escaped = html.escape(etype)
+        buttons.append(
+            f'<label><input type="radio" name="vfilter" value="{etype_escaped}" '
+            f'onchange="filterVariants(\'{etype_escaped}\')"> '
+            f'<span style="{chip_style}">{label_escaped}</span></label>'
+        )
+    return '<div class="filter-bar">' + '\n'.join(buttons) + '</div>'
+
+
+def generate_html(run_dir, manifest, stats_rows, doc_data):
+    run_title = os.path.basename(os.path.abspath(run_dir))
+
+    run_info_html = f'''
+<dl class="run-info">
+  <dt>Tool version</dt><dd>{html.escape(manifest.get("tool_version",""))}</dd>
+  <dt>Run timestamp</dt><dd>{html.escape(manifest.get("run_timestamp",""))}</dd>
+  <dt>Input directory</dt><dd>{html.escape(manifest.get("input_directory",""))}</dd>
+</dl>'''
+
+    source_files_html = build_source_files_html(manifest)
+
+    stats_table_html = ''
+    if stats_rows:
+        stats_table_html = f'''
+<div class="card">
+  <h2>Pipeline Statistics</h2>
+  <div style="overflow-x:auto">
+    <table class="data-table">
+      <thead><tr><th>Document</th><th>GROBID time</th><th>GNorm2 time</th><th>tmVar3 time</th><th>Total chars</th></tr></thead>
+      <tbody>{build_pipeline_stats_table(stats_rows)}</tbody>
+    </table>
+  </div>
+</div>'''
+
+    filter_bar = build_filter_bar(doc_data)
+    variant_rows = build_variant_summary(doc_data)
+    variant_section = f'''
+<div class="card">
+  <h2>Variant Summary</h2>
+  {filter_bar}
+  <div style="overflow-x:auto">
+    <table class="data-table" id="variant-table">
+      <thead><tr><th>Mention</th><th>Type</th><th>HGVS</th><th>RS#</th><th>Gene ID</th><th>Count</th><th>Docs</th></tr></thead>
+      <tbody>{variant_rows}</tbody>
+    </table>
+  </div>
+</div>'''
+
+    doc_index_rows = build_document_index(doc_data)
+    doc_index = f'''
+<div class="card">
+  <h2>Documents</h2>
+  <div style="overflow-x:auto">
+    <table class="data-table">
+      <thead><tr><th>Label</th><th>Category</th><th>Annotations</th></tr></thead>
+      <tbody>{doc_index_rows}</tbody>
+    </table>
+  </div>
+</div>'''
+
+    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id']) for doc in doc_data)
+
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>civic-pubtator report — {html.escape(run_title)}</title>
+<style>{CSS}</style>
+</head>
+<body>
+<div id="topbar">civic-pubtator report &mdash; {html.escape(run_title)}</div>
+<div id="main-content">
+  <div id="main-view">
+    <div class="card">
+      <h2>Run Information</h2>
+      {run_info_html}
+    </div>
+    {"" if not source_files_html else f'<div class="card"><h2>Source Files</h2>{source_files_html}</div>'}
+    {stats_table_html}
+    {variant_section}
+    {doc_index}
+  </div>
+  {doc_sections}
+</div>
+<script>{JS}</script>
+</body>
+</html>
+'''
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Generate HTML report from civic-pubtator tmVar3 results.')
+    parser.add_argument('run_dir', help='Run directory containing 04_tmvar3/, MANIFEST.txt, pipeline_stats.tsv')
+    parser.add_argument('-o', '--output', default=None, help='Output HTML path (default: <run_dir>/report.html)')
+    args = parser.parse_args()
+
+    run_dir = os.path.abspath(args.run_dir)
+    if not os.path.isdir(run_dir):
+        print(f'error: run_dir not found: {run_dir}', file=sys.stderr)
+        sys.exit(1)
+
+    output_path = args.output or os.path.join(run_dir, 'report.html')
+
+    manifest = parse_manifest(os.path.join(run_dir, 'MANIFEST.txt'))
+    stats_rows = parse_pipeline_stats(os.path.join(run_dir, 'pipeline_stats.tsv'))
+
+    tmvar3_dir = os.path.join(run_dir, '04_tmvar3')
+    if not os.path.isdir(tmvar3_dir):
+        print(f'error: 04_tmvar3/ not found in {run_dir}', file=sys.stderr)
+        sys.exit(1)
+
+    pubtator_files = collect_pubtator_files(tmvar3_dir)
+    if not pubtator_files:
+        print('warning: no .PubTator files found', file=sys.stderr)
+
+    doc_data = []
+    for i, pf in enumerate(pubtator_files):
+        passages, annotations = parse_pubtator(pf['path'])
+        doc_data.append({
+            'doc_id': f'doc-{i}',
+            'label': pf['label'],
+            'category': pf['category'],
+            'rel': pf['rel'],
+            'passages': passages,
+            'annotations': annotations,
+        })
+
+    html_content = generate_html(run_dir, manifest, stats_rows, doc_data)
+
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+
+    print(output_path)
+
+
+if __name__ == '__main__':
+    main()
