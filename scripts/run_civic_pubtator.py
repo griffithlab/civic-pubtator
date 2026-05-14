@@ -134,6 +134,43 @@ def enforce_max_chars(output_dir, max_chars, log_path, step_name, label):
     return removed
 
 
+def clear_intermediates(input_dir, base_dir, log_path):
+    """Remove tmp dirs and non-XML files from output dirs; remove prepared supplement subdirs."""
+    kept_exts = (".xml", ".xml.pubtator")
+
+    # Scrub each output directory
+    for out_dir in [
+        os.path.join(base_dir, "02_grobid"),
+        os.path.join(base_dir, "03_gnorm2"),
+        os.path.join(base_dir, "04_tmvar3"),
+    ]:
+        if not os.path.isdir(out_dir):
+            continue
+        for root, dirs, files in os.walk(out_dir, topdown=True):
+            for d in list(dirs):
+                if d.startswith("tmp"):
+                    shutil.rmtree(os.path.join(root, d))
+                    dirs.remove(d)
+            for fname in files:
+                if not any(fname.lower().endswith(ext) for ext in kept_exts):
+                    os.remove(os.path.join(root, fname))
+
+    # Remove subdirectories created by prepare_supplementary.py (tab_NN/, etc.)
+    s_dir = os.path.join(input_dir, "s")
+    if os.path.isdir(s_dir):
+        for stem_name in sorted(os.listdir(s_dir)):
+            stem_path = os.path.join(s_dir, stem_name)
+            if not os.path.isdir(stem_path):
+                continue
+            for subname in sorted(os.listdir(stem_path)):
+                subpath = os.path.join(stem_path, subname)
+                if os.path.isdir(subpath):
+                    shutil.rmtree(subpath)
+
+    with open(log_path, "a", encoding="utf-8") as f:
+        f.write("# Intermediates cleared\n")
+
+
 def find_supplement_leaf_dirs(input_dir):
     """
     Returns list of (abs_path, rel_from_input_dir) for directories under
@@ -202,9 +239,9 @@ def process_group(label, pdf_dir, grobid_out, gnorm2_out, tmvar_out, args,
 def process_input(input_dir, args):
     base_dir = os.path.dirname(input_dir)
 
-    grobid_root = os.path.join(base_dir, "02_publications_grobid")
-    gnorm2_root = os.path.join(base_dir, "03_publications_gnorm2")
-    tmvar_root  = os.path.join(base_dir, "04_publications_tmvar3")
+    grobid_root = os.path.join(base_dir, "02_grobid")
+    gnorm2_root = os.path.join(base_dir, "03_gnorm2")
+    tmvar_root  = os.path.join(base_dir, "04_tmvar3")
     log_path    = os.path.join(base_dir, "pipeline_stats.log")
     tsv_path    = os.path.join(base_dir, "pipeline_stats.tsv")
 
@@ -233,6 +270,7 @@ def process_input(input_dir, args):
         f.write(f"# Start step: {args.start_step}\n")
         max_chars_str = f"{args.max_chars:,}" if args.max_chars else "unlimited"
         f.write(f"# Max chars:  {max_chars_str}\n")
+        f.write(f"# Clear intermediates: {args.clear_intermediates}\n")
         f.write(f"{'#'*70}\n")
 
     # Prepare supplementary PDFs if s/ exists
@@ -272,6 +310,11 @@ def process_input(input_dir, args):
             supplementary= True,
         )
 
+    # Clear intermediate files and dirs
+    if args.clear_intermediates:
+        print(red("Clearing intermediates ..."), file=sys.stderr)
+        clear_intermediates(input_dir, base_dir, log_path)
+
     # Write run footer
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(log_path, "a", encoding="utf-8") as f:
@@ -294,6 +337,10 @@ def main():
                         help="One or more source directories containing input PDF files")
     parser.add_argument("--clean", action="store_true",
                         help="Delete and recreate output directories before running")
+    parser.add_argument("--no-clear-intermediates", dest="clear_intermediates",
+                        action="store_false",
+                        help="Keep tmp dirs and prepared supplement PDFs after pipeline completes")
+    parser.set_defaults(clear_intermediates=True)
     parser.add_argument("--start-step", type=int, default=1, choices=[1, 2, 3],
                         metavar="{1,2,3}",
                         help="Start from this step (1=GROBID, 2=GNorm2, 3=tmVar3; default: 1)")
