@@ -228,5 +228,6 @@ example_data/36922589/02_grobid/s/
 example_data/36922589/03_gnorm2/s/
 example_data/36922589/04_tmvar3/s/
 example_data/36922589/pipeline_stats.tsv
+gene_info.gz
 
 

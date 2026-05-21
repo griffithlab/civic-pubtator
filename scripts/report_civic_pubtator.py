@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import collections
+import gzip
 import html
 import os
 import re
@@ -119,19 +120,33 @@ def parse_manifest(path):
     if m:
         result['input_directory'] = m.group(1).strip()
 
+    file_re = re.compile(r'^(\S+)\s+([\d,]+)\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})$')
+
+    def parse_file_lines(block_text):
+        entries = []
+        for line in block_text.splitlines():
+            line = line.strip()
+            if not line or line.startswith('-') or line.startswith('File') or line.startswith('Size'):
+                continue
+            m = file_re.match(line)
+            if m:
+                entries.append({
+                    'name': m.group(1),
+                    'size_bytes': int(m.group(2).replace(',', '')),
+                    'modified': m.group(3),
+                })
+            else:
+                entries.append({'name': line, 'size_bytes': None, 'modified': None})
+        return entries
+
     source_block = re.search(r'Source PDFs.*?---+\n(.*?)(?:={6}|$)', content, re.DOTALL)
     if source_block:
-        for line in source_block.group(1).splitlines():
-            line = line.strip()
-            if line and not line.startswith('-') and not line.startswith('File'):
-                result['source_pdfs'].append(line)
+        result['source_pdfs'] = parse_file_lines(source_block.group(1))
 
     supp_block = re.search(r'Supplementary files.*?---+\n(.*?)(?:={6}|$)', content, re.DOTALL)
     if supp_block:
-        for line in supp_block.group(1).splitlines():
-            line = line.strip()
-            if line and not line.startswith('-') and not line.startswith('File'):
-                result['supplementary_files'].append(line)
+        result['supplementary_files'] = parse_file_lines(supp_block.group(1))
+
     return result
 
 
@@ -152,6 +167,22 @@ def parse_pipeline_stats(path):
     return rows
 
 
+def human_chars(s):
+    try:
+        n = int(s.replace(',', ''))
+    except (ValueError, AttributeError):
+        return s
+    if n < 1_000:
+        return str(n)
+    if n < 10_000:
+        return f'{n/1_000:.1f}k'
+    if n < 1_000_000:
+        return f'{round(n/1_000)}k'
+    if n < 10_000_000:
+        return f'{n/1_000_000:.1f}m'
+    return f'{round(n/1_000_000)}m'
+
+
 def build_pipeline_stats_table(stats_rows):
     by_label = collections.OrderedDict()
     for row in stats_rows:
@@ -167,43 +198,90 @@ def build_pipeline_stats_table(stats_rows):
         gnorm_time = steps.get('GNorm2', {}).get('runtime', '')
         tmvar_time = steps.get('tmVar3', {}).get('runtime', '')
         chars = steps.get('tmVar3', steps.get('GNorm2', steps.get('GROBID', {}))).get('chars', '')
+        chars_display = human_chars(chars)
+        chars_cell = (f'<td title="{html.escape(chars)} chars">{html.escape(chars_display)}</td>'
+                      if chars_display != chars else f'<td>{html.escape(chars)}</td>')
         rows_html.append(
             f'<tr><td>{html.escape(label)}</td>'
             f'<td>{html.escape(grobid_time)}</td>'
             f'<td>{html.escape(gnorm_time)}</td>'
             f'<td>{html.escape(tmvar_time)}</td>'
-            f'<td>{html.escape(chars)}</td></tr>'
+            f'{chars_cell}</tr>'
         )
     return '\n'.join(rows_html)
 
 
-def build_variant_summary(doc_data):
+def load_gene_symbols(gene_ids):
+    """Return {gene_id_str: symbol} for each ID in gene_ids, using ref_files/gene_info.gz."""
+    if not gene_ids:
+        return {}
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    gz_path = os.path.join(script_dir, '..', 'ref_files', 'gene_info_select.gz')
+    if not os.path.isfile(gz_path):
+        print('warning: ref_files/gene_info_select.gz not found — gene IDs will not be converted to symbols',
+              file=sys.stderr)
+        return {}
+    remaining = set(gene_ids)
+    result = {}
+    try:
+        with gzip.open(gz_path, 'rt', encoding='utf-8') as f:
+            next(f)  # skip header
+            for line in f:
+                if not remaining:
+                    break
+                tab1 = line.index('\t')
+                tab2 = line.index('\t', tab1 + 1)
+                tab3 = line.index('\t', tab2 + 1)
+                gid = line[tab1 + 1:tab2]
+                if gid in remaining:
+                    symbol = line[tab2 + 1:tab3]
+                    if symbol not in ('NEWENTRY', '-'):
+                        result[gid] = symbol
+                    remaining.discard(gid)
+    except Exception as e:
+        print(f'warning: could not read gene_info.gz: {e}', file=sys.stderr)
+    return result
+
+
+def _doc_key_sort(k):
+    return (0 if k.startswith('m') else 1, int(k[1:]))
+
+
+def build_variant_summary(doc_data, gene_map=None):
+    if gene_map is None:
+        gene_map = {}
+    key_to_label = {doc['key']: doc['label'] for doc in doc_data}
     summary = {}
     for doc in doc_data:
-        label = doc['label']
         for ann in doc['annotations']:
-            key = (ann['mention'], ann['type'], ann['hgvs'], ann['rs'], ann['gene'])
-            if key not in summary:
-                summary[key] = {'count': 0, 'docs': set()}
-            summary[key]['count'] += 1
-            summary[key]['docs'].add(label)
+            skey = (ann['mention'], ann['type'], ann['hgvs'], ann['gene'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
 
     rows = []
-    for (mention, etype, hgvs, rs, gene), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+    for (mention, etype, hgvs, gene), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         style = entity_style(etype)
         chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
                 f'border-radius:4px;padding:1px 6px;font-size:0.85em">'
                 f'{html.escape(style["label"])}</span>')
-        docs_str = html.escape(', '.join(sorted(info['docs'])))
+        sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
+        keys_display = html.escape(', '.join(sorted_doc_keys))
+        labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
+        if gene and gene in gene_map:
+            gene_cell = (f'<span title="Gene ID: {html.escape(gene)}">'
+                         f'{html.escape(gene_map[gene])}</span>')
+        else:
+            gene_cell = html.escape(gene)
         rows.append(
             f'<tr data-type="{html.escape(etype)}">'
             f'<td>{html.escape(mention)}</td>'
             f'<td>{chip}</td>'
+            f'<td>{gene_cell}</td>'
             f'<td>{html.escape(hgvs)}</td>'
-            f'<td>{html.escape(rs)}</td>'
-            f'<td>{html.escape(gene)}</td>'
             f'<td>{info["count"]}</td>'
-            f'<td title="{docs_str}">{len(info["docs"])}</td>'
+            f'<td title="{labels_tip}">{keys_display}</td>'
             f'</tr>'
         )
     return '\n'.join(rows)
@@ -244,7 +322,9 @@ def highlight_text(full_text, annotations):
     return ''.join(parts)
 
 
-def build_doc_section(doc, doc_id):
+def build_doc_section(doc, doc_id, gene_map=None):
+    if gene_map is None:
+        gene_map = {}
     label = doc['label']
     category = doc['category']
     annotations = doc['annotations']
@@ -265,12 +345,12 @@ def build_doc_section(doc, doc_id):
 
     ann_counts = collections.Counter()
     ann_hgvs = {}
-    ann_rs = {}
+    ann_gene = {}
     for a in annotations:
         key = (a['mention'], a['type'])
         ann_counts[key] += 1
         ann_hgvs[key] = a['hgvs']
-        ann_rs[key] = a['rs']
+        ann_gene[key] = a['gene']
 
     ann_rows = []
     for (mention, etype), count in sorted(ann_counts.items(), key=lambda x: -x[1]):
@@ -278,13 +358,23 @@ def build_doc_section(doc, doc_id):
         chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
                 f'border-radius:4px;padding:1px 6px;font-size:0.85em">'
                 f'{html.escape(style["label"])}</span>')
+        gene = ann_gene.get((mention, etype), '')
+        if gene and gene in gene_map:
+            gene_cell = (f'<span title="Gene ID: {html.escape(gene)}">'
+                         f'{html.escape(gene_map[gene])}</span>')
+        else:
+            gene_cell = html.escape(gene)
         ann_rows.append(
             f'<tr><td>{html.escape(mention)}</td><td>{chip}</td>'
-            f'<td>{count}</td>'
-            f'<td>{html.escape(ann_hgvs.get((mention,etype),""))}</td>'
-            f'<td>{html.escape(ann_rs.get((mention,etype),""))}</td></tr>'
+            f'<td>{gene_cell}</td>'
+            f'<td>{html.escape(ann_hgvs.get((mention, etype), ""))}</td>'
+            f'<td>{count}</td></tr>'
         )
     ann_table = '\n'.join(ann_rows)
+
+    tbl_id = f'ann-table-{doc_id}'
+    sel_id = f'ann-limit-{doc_id}'
+    disp_id = f'ann-count-{doc_id}'
 
     highlighted = highlight_text(full_text, annotations)
 
@@ -297,9 +387,22 @@ def build_doc_section(doc, doc_id):
   <div style="color:#64748b;margin-bottom:1rem;font-size:0.9em">{html.escape(category)}</div>
   <div style="margin-bottom:1rem">{legend_html}</div>
   <h3 style="margin:1rem 0 0.5rem">Annotation Summary</h3>
+  <div style="display:flex;align-items:center;gap:6px;margin-bottom:0.5rem;font-size:0.9rem">
+    Show: <select id="{sel_id}" class="ann-limit-select"
+      data-table="{tbl_id}" data-display="{disp_id}"
+      onchange="applyTableRowLimit('{tbl_id}','{sel_id}','{disp_id}')"
+      style="padding:2px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.9em">
+      <option value="50">Top 50</option>
+      <option value="100">Top 100</option>
+      <option value="500">Top 500</option>
+      <option value="all">All</option>
+    </select>
+    <span id="{disp_id}" style="color:#64748b;font-size:0.85em"></span>
+  </div>
   <div style="overflow-x:auto;margin-bottom:1.5rem">
-    <table class="data-table">
-      <thead><tr><th>Mention</th><th>Type</th><th>Count</th><th>HGVS</th><th>RS#</th></tr></thead>
+    <table id="{tbl_id}" class="data-table"
+      data-limit-select="{sel_id}" data-limit-display="{disp_id}">
+      <thead><tr><th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th></tr></thead>
       <tbody>{ann_table}</tbody>
     </table>
   </div>
@@ -317,12 +420,21 @@ def build_document_index(doc_data):
         doc_id = doc['doc_id']
         n = len(doc['annotations'])
         rows.append(
-            f'<tr><td><a href="#" onclick="show(\'{doc_id}\');return false">'
+            f'<tr>'
+            f'<td style="font-family:monospace;white-space:nowrap">{html.escape(doc["key"])}</td>'
+            f'<td><a href="#" onclick="show(\'{doc_id}\');return false">'
             f'{html.escape(doc["label"])}</a></td>'
             f'<td>{html.escape(doc["category"])}</td>'
             f'<td>{n}</td></tr>'
         )
     return '\n'.join(rows)
+
+
+def human_size(n):
+    for unit in ('B', 'KB', 'MB', 'GB', 'TB'):
+        if n < 1024 or unit == 'TB':
+            return f'{n:,.1f} {unit}' if unit != 'B' else f'{n} B'
+        n /= 1024
 
 
 def build_source_files_html(manifest):
@@ -332,9 +444,21 @@ def build_source_files_html(manifest):
     def make_table(items, title):
         if not items:
             return ''
-        rows = ''.join(f'<tr><td style="font-family:monospace">{html.escape(r)}</td></tr>' for r in items)
+        rows = []
+        for item in items:
+            name_cell = f'<td style="font-family:monospace">{html.escape(item["name"])}</td>'
+            if item['size_bytes'] is not None:
+                size_cell = (f'<td style="text-align:right" title="{item["size_bytes"]:,} bytes">'
+                             f'{html.escape(human_size(item["size_bytes"]))}</td>')
+                date_cell = f'<td>{html.escape(item["modified"])}</td>'
+            else:
+                size_cell = '<td></td>'
+                date_cell = '<td></td>'
+            rows.append(f'<tr>{name_cell}{size_cell}{date_cell}</tr>')
+        header = '<thead><tr><th>File</th><th style="text-align:right">Size</th><th>Date modified</th></tr></thead>'
+        tbody = '<tbody>' + ''.join(rows) + '</tbody>'
         return (f'<h3 style="margin:1rem 0 0.5rem">{title} ({len(items)} file{"s" if len(items)!=1 else ""})</h3>'
-                f'<div style="overflow-x:auto"><table class="data-table"><tbody>{rows}</tbody></table></div>')
+                f'<div style="overflow-x:auto"><table class="data-table">{header}{tbody}</table></div>')
 
     return make_table(pdfs, 'Source PDFs') + make_table(supps, 'Supplementary Files')
 
@@ -386,16 +510,49 @@ function sortTable(table, col) {
     return asc ? va.localeCompare(vb) : vb.localeCompare(va);
   });
   rows.forEach(r => tbody.appendChild(r));
+  if (table.id === 'variant-table') {
+    applyVariantFilters();
+  } else if (table.dataset.limitSelect) {
+    applyTableRowLimit(table.id, table.dataset.limitSelect, table.dataset.limitDisplay);
+  }
 }
-function filterVariants(type) {
-  var rows = document.querySelectorAll('#variant-table tbody tr');
+function applyTableRowLimit(tableId, selectId, displayId) {
+  var limit = document.getElementById(selectId).value;
+  var rows = Array.from(document.querySelectorAll('#' + tableId + ' tbody tr'));
+  var shown = 0, total = rows.length;
   rows.forEach(function(row) {
-    if (type === 'all' || row.dataset.type === type) {
-      row.style.display = '';
-    } else {
-      row.style.display = 'none';
-    }
+    var maxShow = limit === 'all' ? Infinity : parseInt(limit);
+    if (shown < maxShow) { row.style.display = ''; shown++; }
+    else { row.style.display = 'none'; }
   });
+  var d = document.getElementById(displayId);
+  if (d) {
+    d.textContent = (shown === total)
+      ? 'Showing all ' + total + ' entries'
+      : 'Showing top ' + shown + ' of ' + total + ' entries';
+  }
+}
+function applyVariantFilters() {
+  var limitSelect = document.getElementById('row-limit-select');
+  var limit = limitSelect ? limitSelect.value : 'all';
+  var filterInput = document.querySelector('input[name="vfilter"]:checked');
+  var filterType = filterInput ? filterInput.value : 'all';
+  var rows = Array.from(document.querySelectorAll('#variant-table tbody tr'));
+  var shown = 0, total = 0;
+  rows.forEach(function(row) {
+    var matchesType = (filterType === 'all' || row.dataset.type === filterType);
+    if (!matchesType) { row.style.display = 'none'; return; }
+    total++;
+    var maxShow = (limit === 'all') ? Infinity : parseInt(limit);
+    if (shown < maxShow) { row.style.display = ''; shown++; }
+    else { row.style.display = 'none'; }
+  });
+  var display = document.getElementById('variant-count-display');
+  if (display) {
+    display.textContent = (limit === 'all' || shown === total)
+      ? 'Showing all ' + total + ' entries'
+      : 'Showing top ' + shown + ' of ' + total + ' entries';
+  }
 }
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.data-table').forEach(function(table) {
@@ -403,6 +560,10 @@ document.addEventListener('DOMContentLoaded', function() {
     ths.forEach(function(th, i) {
       th.addEventListener('click', function() { sortTable(table, i); });
     });
+  });
+  applyVariantFilters();
+  document.querySelectorAll('.ann-limit-select').forEach(function(sel) {
+    applyTableRowLimit(sel.dataset.table, sel.id, sel.dataset.display);
   });
 });
 '''
@@ -414,7 +575,7 @@ def build_filter_bar(doc_data):
         for ann in doc['annotations']:
             types.add(ann['type'])
     types = sorted(types)
-    buttons = ['<label><input type="radio" name="vfilter" value="all" checked onchange="filterVariants(\'all\')"> All</label>']
+    buttons = ['<label><input type="radio" name="vfilter" value="all" checked onchange="applyVariantFilters()"> All</label>']
     for etype in types:
         style = entity_style(etype)
         chip_style = (f'background:{style["bg"]};border:1px solid {style["border"]};'
@@ -423,13 +584,25 @@ def build_filter_bar(doc_data):
         etype_escaped = html.escape(etype)
         buttons.append(
             f'<label><input type="radio" name="vfilter" value="{etype_escaped}" '
-            f'onchange="filterVariants(\'{etype_escaped}\')"> '
+            f'onchange="applyVariantFilters()"> '
             f'<span style="{chip_style}">{label_escaped}</span></label>'
         )
-    return '<div class="filter-bar">' + '\n'.join(buttons) + '</div>'
+    limit_select = (
+        '<span style="margin-left:auto;display:flex;align-items:center;gap:6px">'
+        'Show: <select id="row-limit-select" onchange="applyVariantFilters()" '
+        'style="padding:2px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.9em">'
+        '<option value="50">Top 50</option>'
+        '<option value="100">Top 100</option>'
+        '<option value="500">Top 500</option>'
+        '<option value="all">All</option>'
+        '</select>'
+        '<span id="variant-count-display" style="color:#64748b;font-size:0.85em"></span>'
+        '</span>'
+    )
+    return '<div class="filter-bar">' + '\n'.join(buttons) + '\n' + limit_select + '</div>'
 
 
-def generate_html(run_dir, manifest, stats_rows, doc_data):
+def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None):
     run_title = os.path.basename(os.path.abspath(run_dir))
 
     run_info_html = f'''
@@ -455,14 +628,14 @@ def generate_html(run_dir, manifest, stats_rows, doc_data):
 </div>'''
 
     filter_bar = build_filter_bar(doc_data)
-    variant_rows = build_variant_summary(doc_data)
+    variant_rows = build_variant_summary(doc_data, gene_map)
     variant_section = f'''
 <div class="card">
   <h2>Variant Summary</h2>
   {filter_bar}
   <div style="overflow-x:auto">
     <table class="data-table" id="variant-table">
-      <thead><tr><th>Mention</th><th>Type</th><th>HGVS</th><th>RS#</th><th>Gene ID</th><th>Count</th><th>Docs</th></tr></thead>
+      <thead><tr><th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th><th>Docs</th></tr></thead>
       <tbody>{variant_rows}</tbody>
     </table>
   </div>
@@ -474,13 +647,13 @@ def generate_html(run_dir, manifest, stats_rows, doc_data):
   <h2>Documents</h2>
   <div style="overflow-x:auto">
     <table class="data-table">
-      <thead><tr><th>Label</th><th>Category</th><th>Annotations</th></tr></thead>
+      <thead><tr><th>Key</th><th>Label</th><th>Category</th><th>Annotations</th></tr></thead>
       <tbody>{doc_index_rows}</tbody>
     </table>
   </div>
 </div>'''
 
-    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id']) for doc in doc_data)
+    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id'], gene_map) for doc in doc_data)
 
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -500,8 +673,8 @@ def generate_html(run_dir, manifest, stats_rows, doc_data):
     </div>
     {"" if not source_files_html else f'<div class="card"><h2>Source Files</h2>{source_files_html}</div>'}
     {stats_table_html}
-    {variant_section}
     {doc_index}
+    {variant_section}
   </div>
   {doc_sections}
 </div>
@@ -522,7 +695,8 @@ def main():
         print(f'error: run_dir not found: {run_dir}', file=sys.stderr)
         sys.exit(1)
 
-    output_path = args.output or os.path.join(run_dir, 'report.html')
+    run_title = os.path.basename(run_dir)
+    output_path = args.output or os.path.join(run_dir, f'report_{run_title}.html')
 
     manifest = parse_manifest(os.path.join(run_dir, 'MANIFEST.txt'))
     stats_rows = parse_pipeline_stats(os.path.join(run_dir, 'pipeline_stats.tsv'))
@@ -537,10 +711,18 @@ def main():
         print('warning: no .PubTator files found', file=sys.stderr)
 
     doc_data = []
+    main_count = supp_count = 0
     for i, pf in enumerate(pubtator_files):
+        if pf['category'] == 'Main Publication':
+            main_count += 1
+            key = f'm{main_count}'
+        else:
+            supp_count += 1
+            key = f's{supp_count}'
         passages, annotations = parse_pubtator(pf['path'])
         doc_data.append({
             'doc_id': f'doc-{i}',
+            'key': key,
             'label': pf['label'],
             'category': pf['category'],
             'rel': pf['rel'],
@@ -548,7 +730,10 @@ def main():
             'annotations': annotations,
         })
 
-    html_content = generate_html(run_dir, manifest, stats_rows, doc_data)
+    gene_ids = {ann['gene'] for doc in doc_data for ann in doc['annotations'] if ann['gene']}
+    gene_map = load_gene_symbols(gene_ids)
+
+    html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)

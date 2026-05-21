@@ -341,6 +341,26 @@ def process_group(label, pdf_dir, grobid_out, gnorm2_out, tmvar_out, args,
                    elapsed=time.time() - t0)
 
 
+def generate_report(top_dir, log_path):
+    """Run report_civic_pubtator.py and return the output path, or None on failure."""
+    report_script = os.path.join(SCRIPTS_DIR, "report_civic_pubtator.py")
+    result = subprocess.run(
+        [sys.executable, report_script, top_dir],
+        capture_output=True, text=True,
+    )
+    if result.returncode == 0:
+        report_path = result.stdout.strip()
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(f"# Report:   {report_path}\n")
+        return report_path
+    else:
+        msg = result.stderr.strip() or result.stdout.strip()
+        print(red(f"WARNING: report generation failed: {msg}"), file=sys.stderr)
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(f"# Report:   FAILED — {msg}\n")
+        return None
+
+
 def process_input(top_dir, args):
     source_dir  = os.path.join(top_dir, "01_source")
     grobid_root = os.path.join(top_dir, "02_grobid")
@@ -436,10 +456,15 @@ def process_input(top_dir, args):
         f.write(f"# TSV:      {tsv_path}\n")
         f.write(f"# Manifest: {manifest_path}\n")
 
+    # Generate HTML report
+    report_path = generate_report(top_dir, log_path)
+
     print(red(f"\nDone: {top_dir}  →  {tmvar_root}"), file=sys.stderr)
     print(red(f"Stats log: {log_path}"), file=sys.stderr)
     print(red(f"Stats TSV: {tsv_path}"), file=sys.stderr)
     print(red(f"Manifest:  {manifest_path}"), file=sys.stderr)
+    if report_path:
+        print(red(f"Report:    {report_path}"), file=sys.stderr)
 
 
 def main():
