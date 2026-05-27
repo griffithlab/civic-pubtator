@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import argparse, datetime, os, shutil, subprocess, sys, time
+import argparse, datetime, os, re, shutil, subprocess, sys, time
+import xml.etree.ElementTree as ET
 
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -293,6 +294,80 @@ def find_supplement_leaf_dirs(input_dir):
     return results
 
 
+_ENRICH_TYPES = ('Gene', 'Species', 'CellLine')
+
+def _extract_bioc_annotations(bioc_path):
+    """Return list of (doc_id, start, end, text, etype, identifier) for Gene/Species/CellLine."""
+    with open(bioc_path, encoding='utf-8') as fh:
+        content = fh.read()
+    content = re.sub(r'<!DOCTYPE[^>]*>', '', content)
+    try:
+        root = ET.fromstring(content)
+    except ET.ParseError as exc:
+        print(f'warning: could not parse {bioc_path}: {exc}', file=sys.stderr)
+        return []
+    results = []
+    for doc in root.findall('document'):
+        doc_id = doc.findtext('id', '')
+        for passage in doc.findall('passage'):
+            for ann in passage.findall('annotation'):
+                infons = {i.get('key'): (i.text or '') for i in ann.findall('infon')}
+                etype = infons.get('type', '')
+                if etype not in _ENRICH_TYPES:
+                    continue
+                loc = ann.find('location')
+                if loc is None:
+                    continue
+                start = int(loc.get('offset', 0))
+                length = int(loc.get('length', 0))
+                text = ann.findtext('text', '')
+                if etype == 'Gene':
+                    identifier = infons.get('NCBI Gene', '')
+                else:
+                    identifier = infons.get('NCBI Taxonomy', '').lstrip('*')
+                results.append((doc_id, start, start + length, text, etype, identifier))
+    return results
+
+
+def enrich_pubtator_from_bioc(tmvar_dir):
+    """Append Gene/Species/CellLine annotations from BioC XML into each .PubTator file."""
+    for dirpath, _dirs, filenames in os.walk(tmvar_dir):
+        for fname in sorted(filenames):
+            if not fname.endswith('.BioC.XML'):
+                continue
+            bioc_path = os.path.join(dirpath, fname)
+            pubtator_path = bioc_path[:-len('.BioC.XML')] + '.PubTator'
+            if not os.path.isfile(pubtator_path):
+                continue
+
+            new_anns = _extract_bioc_annotations(bioc_path)
+            if not new_anns:
+                continue
+
+            # Build set of already-present annotation keys to avoid duplicates
+            existing = set()
+            with open(pubtator_path, encoding='utf-8') as fh:
+                for line in fh:
+                    parts = line.rstrip('\n').split('\t')
+                    if len(parts) >= 5:
+                        try:
+                            existing.add((parts[0], int(parts[1]), int(parts[2]), parts[3], parts[4]))
+                        except ValueError:
+                            pass
+
+            lines_to_add = []
+            for doc_id, start, end, text, etype, identifier in new_anns:
+                if (doc_id, start, end, text, etype) not in existing:
+                    lines_to_add.append(f'{doc_id}\t{start}\t{end}\t{text}\t{etype}\t{identifier}\n')
+
+            if lines_to_add:
+                with open(pubtator_path, 'a', encoding='utf-8') as fh:
+                    fh.writelines(lines_to_add)
+                rel = os.path.relpath(pubtator_path, tmvar_dir)
+                print(f'  enriched {rel}: +{len(lines_to_add)} Gene/Species/CellLine annotations',
+                      file=sys.stderr)
+
+
 def process_group(label, pdf_dir, grobid_out, gnorm2_out, tmvar_out, args,
                   log_path, tsv_path, base_dir, supplementary=False):
     """Run the full GROBID → GNorm2 → tmVar3 pipeline for one directory of PDFs."""
@@ -339,6 +414,7 @@ def process_group(label, pdf_dir, grobid_out, gnorm2_out, tmvar_out, args,
     ])
     log_step_stats(log_path, tsv_path, base_dir, "tmVar3", label, tmvar_out,
                    elapsed=time.time() - t0)
+    enrich_pubtator_from_bioc(tmvar_out)
 
 
 def generate_report(top_dir, log_path):
