@@ -31,7 +31,7 @@ set -euo pipefail
 
 ENV_NAME="gnorm2-tf215"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-REQUIREMENTS="${REPO_DIR}/GNorm2/requirements_gnorm2.txt"
+REQUIREMENTS="${REPO_DIR}/scripts/requirements_gnorm2.txt"
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 info()  { echo "[setup] $*"; }
