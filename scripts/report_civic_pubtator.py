@@ -484,6 +484,8 @@ def build_doc_section(doc, doc_id, gene_map=None):
       data-table="{tbl_id}" data-display="{disp_id}"
       onchange="applyTableRowLimit('{tbl_id}','{sel_id}','{disp_id}')"
       style="padding:2px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.9em">
+      <option value="10">Top 10</option>
+      <option value="25">Top 25</option>
       <option value="50">Top 50</option>
       <option value="100">Top 100</option>
       <option value="500">Top 500</option>
@@ -683,6 +685,8 @@ def build_filter_bar(types_present, default_style, filter_name, filter_fn, limit
         f'<span style="margin-left:auto;display:flex;align-items:center;gap:6px">'
         f'Show: <select id="{limit_id}" onchange="{filter_fn}()" '
         f'style="padding:2px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.9em">'
+        f'<option value="10">Top 10</option>'
+        f'<option value="25">Top 25</option>'
         f'<option value="50">Top 50</option>'
         f'<option value="100">Top 100</option>'
         f'<option value="500">Top 500</option>'
