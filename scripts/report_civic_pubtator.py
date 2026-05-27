@@ -616,8 +616,25 @@ def build_filter_bar(doc_data):
     return '<div class="filter-bar">' + '\n'.join(buttons) + '\n' + limit_select + '</div>'
 
 
+def get_paper_title(doc_data):
+    for doc in doc_data:
+        if doc['category'] == 'Main Publication':
+            for p in doc['passages']:
+                if p['ptype'] in ('t', 'title'):
+                    return p['text']
+    return ''
+
+
 def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None):
     run_title = os.path.basename(os.path.abspath(run_dir))
+
+    paper_title = get_paper_title(doc_data)
+    paper_title_html = (
+        f'<div style="font-size:1.35rem;font-weight:700;color:#1e293b;line-height:1.4;'
+        f'margin-bottom:1.5rem;padding:1rem 1.25rem;background:#fff;border:1px solid #e2e8f0;'
+        f'border-radius:10px">{html.escape(paper_title)}</div>'
+        if paper_title else ''
+    )
 
     run_info_html = f'''
 <dl class="run-info">
@@ -681,6 +698,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None):
 <div id="topbar">civic-pubtator report &mdash; {html.escape(run_title)}</div>
 <div id="main-content">
   <div id="main-view">
+    {paper_title_html}
     <div class="card">
       <h2>Run Information</h2>
       {run_info_html}
