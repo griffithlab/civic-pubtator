@@ -40,7 +40,7 @@ def parse_pubtator(path):
             if not line:
                 continue
             pipe_parts = line.split('|', 2)
-            if len(pipe_parts) == 3 and pipe_parts[1] in ('title', 'abstract', 'body', 't', 'a'):
+            if len(pipe_parts) == 3 and pipe_parts[1] in ('title', 'abstract', 'body', 't', 'a', 'fig_caption', 'table'):
                 passages.append({'pmid': pipe_parts[0], 'ptype': pipe_parts[1], 'text': pipe_parts[2]})
             else:
                 tab_parts = line.split('\t')
@@ -293,6 +293,20 @@ def highlight_text(full_text, annotations):
     pos = 0
     for ann in sorted_anns:
         start, end = ann['start'], ann['end']
+        mention = ann['mention']
+        mention_len = len(mention)
+        # tmVar3 mixes byte offsets (within-passage) with character offsets (passage start),
+        # which shifts annotations by +1 for each non-ASCII character preceding them in the
+        # same passage.  Search a small window to find the true position.
+        if full_text[start:start + mention_len] != mention:
+            for delta in range(1, 8):
+                if full_text[start - delta:start - delta + mention_len] == mention:
+                    start -= delta
+                    break
+                if full_text[start + delta:start + delta + mention_len] == mention:
+                    start += delta
+                    break
+        end = start + mention_len
         if start < pos:
             continue
         if start > pos:

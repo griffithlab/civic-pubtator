@@ -48,6 +48,46 @@ def tei_to_sections(tei_xml):
 
     return title, abstract, body
 
+def extract_figures_and_tables(tei_xml):
+    """Return (type, text) pairs for figure captions and tables found in the TEI.
+
+    Tables use type 'table'; figure captions use type 'fig_caption'.
+    Tables are flattened row-by-row so variant mentions embedded in cells
+    are visible to downstream text-mining tools.
+    """
+    ns = {"tei": "http://www.tei-c.org/ns/1.0"}
+    root = ET.fromstring(tei_xml)
+    passages = []
+
+    for figure in root.findall(".//tei:figure", ns):
+        head = figure.find("tei:head", ns)
+        head_text = " ".join(head.itertext()).strip() if head is not None else ""
+
+        if figure.get("type") == "table":
+            parts = [head_text] if head_text else []
+            for row in figure.findall(".//tei:row", ns):
+                cells = [" ".join(c.itertext()).strip()
+                         for c in row.findall("tei:cell", ns)]
+                row_text = " ".join(c for c in cells if c)
+                if row_text:
+                    parts.append(row_text)
+            text = " ".join(parts)
+            if text:
+                passages.append(("table", text))
+        else:
+            desc = figure.find("tei:figDesc", ns)
+            desc_text = " ".join(desc.itertext()).strip() if desc is not None else ""
+            # figDesc often starts with the same label as head; drop the head prefix if so
+            if head_text and desc_text.startswith(head_text):
+                text = desc_text
+            else:
+                text = " ".join(t for t in [head_text, desc_text] if t)
+            if text:
+                passages.append(("fig_caption", text))
+
+    return passages
+
+
 def tei_to_sections_supp(tei_xml):
     """
     For supplementary files: collapse all content into a single body passage.
@@ -161,10 +201,14 @@ def process_folder(input_dir, output_dir, supplementary=False):
                 print(f"  → {out_path}  (title={bool(title)}, body={bool(body)})")
             else:
                 title, abstract, body = tei_to_sections(tei_xml)
+                extra = extract_figures_and_tables(tei_xml)
+                n_caps = sum(1 for t, _ in extra if t == "fig_caption")
+                n_tbls = sum(1 for t, _ in extra if t == "table")
                 write_bioc_xml(doc_id,
-                               [("title", title), ("abstract", abstract), ("body", body)],
+                               [("title", title), ("abstract", abstract), ("body", body)] + extra,
                                out_path)
-                print(f"  → {out_path}  (title={bool(title)}, abstract={bool(abstract)}, body={bool(body)})")
+                print(f"  → {out_path}  (title={bool(title)}, abstract={bool(abstract)}, "
+                      f"body={bool(body)}, fig_captions={n_caps}, tables={n_tbls})")
 
         except Exception as e:
             print(f"  ERROR on {fname}: {e}")
