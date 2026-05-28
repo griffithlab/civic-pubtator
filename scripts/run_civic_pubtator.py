@@ -595,13 +595,36 @@ def main():
             print(f"ERROR: Directory not found: {top_dir}", file=sys.stderr)
             sys.exit(1)
         if not os.path.isdir(source_dir):
-            print(
-                f"ERROR: {top_dir} must contain a subdirectory named '01_source'.\n"
-                f"  Place source PDF(s) in:          {source_dir}/\n"
-                f"  Supplementary files (optional):  {source_dir}/s/",
-                file=sys.stderr,
-            )
-            sys.exit(1)
+            # Auto-create 01_source/ and move PDFs into it
+            pdfs_in_top = [
+                f for f in os.listdir(top_dir)
+                if (os.path.isfile(os.path.join(top_dir, f))
+                    and f.lower().endswith(".pdf")
+                    and not f.startswith("~$")
+                    and f not in IGNORED_FILES)
+            ]
+            if not pdfs_in_top:
+                print(
+                    f"ERROR: No PDF files found in {top_dir} and '01_source' subdirectory "
+                    f"does not exist. Place at least one source PDF in {top_dir}/",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+            os.makedirs(source_dir)
+            for fname in pdfs_in_top:
+                shutil.move(os.path.join(top_dir, fname), os.path.join(source_dir, fname))
+            s_dir = os.path.join(top_dir, "s")
+            if os.path.isdir(s_dir):
+                shutil.move(s_dir, os.path.join(source_dir, "s"))
+                print(
+                    red(f"NOTE: Created {source_dir}/ and moved {len(pdfs_in_top)} PDF(s) and s/ into it."),
+                    file=sys.stderr,
+                )
+            else:
+                print(
+                    red(f"NOTE: Created {source_dir}/ and moved {len(pdfs_in_top)} PDF(s) into it."),
+                    file=sys.stderr,
+                )
         has_pdf = any(
             f.lower().endswith(".pdf") and not f.startswith("~$") and f not in IGNORED_FILES
             for f in os.listdir(source_dir)
