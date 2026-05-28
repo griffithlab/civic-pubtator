@@ -11,4 +11,5 @@ numpy>=1.23,<2.0
 transformers>=4.35,<4.50
 stanza
 spacy
+click
 bioc
