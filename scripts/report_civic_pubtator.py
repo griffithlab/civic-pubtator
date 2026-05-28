@@ -282,7 +282,7 @@ def _doc_key_sort(k):
     return (0 if k.startswith('m') else 1, int(k[1:]))
 
 
-def build_variant_summary(doc_data, gene_map=None):
+def build_variant_summary(doc_data, gene_map=None, show_docs=True):
     if gene_map is None:
         gene_map = {}
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
@@ -303,14 +303,17 @@ def build_variant_summary(doc_data, gene_map=None):
         chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
                 f'border-radius:4px;padding:1px 6px;font-size:0.85em">'
                 f'{html.escape(style["label"])}</span>')
-        sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
-        keys_display = html.escape(', '.join(sorted_doc_keys))
-        labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
         if gene and gene in gene_map:
             gene_cell = (f'<span title="Gene ID: {html.escape(gene)}">'
                          f'{html.escape(gene_map[gene])}</span>')
         else:
             gene_cell = html.escape(gene)
+        docs_td = ''
+        if show_docs:
+            sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
+            keys_display = html.escape(', '.join(sorted_doc_keys))
+            labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
+            docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
         rows.append(
             f'<tr data-type="{html.escape(etype)}">'
             f'<td>{html.escape(mention)}</td>'
@@ -318,13 +321,13 @@ def build_variant_summary(doc_data, gene_map=None):
             f'<td>{gene_cell}</td>'
             f'<td>{html.escape(hgvs)}</td>'
             f'<td>{info["count"]}</td>'
-            f'<td title="{labels_tip}">{keys_display}</td>'
+            f'{docs_td}'
             f'</tr>'
         )
     return '\n'.join(rows)
 
 
-def build_gene_rows(doc_data, gene_map=None):
+def build_gene_rows(doc_data, gene_map=None, show_docs=True):
     if gene_map is None:
         gene_map = {}
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
@@ -341,26 +344,29 @@ def build_gene_rows(doc_data, gene_map=None):
 
     rows = []
     for (mention, gene_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
-        sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
-        keys_display = html.escape(', '.join(sorted_doc_keys))
-        labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
         if gene_id and gene_id in gene_map:
             gene_cell = (f'<span title="Gene ID: {html.escape(gene_id)}">'
                          f'{html.escape(gene_map[gene_id])}</span>')
         else:
             gene_cell = html.escape(gene_id)
+        docs_td = ''
+        if show_docs:
+            sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
+            keys_display = html.escape(', '.join(sorted_doc_keys))
+            labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
+            docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
         rows.append(
             f'<tr data-type="Gene">'
             f'<td>{html.escape(mention)}</td>'
             f'<td>{gene_cell}</td>'
             f'<td>{info["count"]}</td>'
-            f'<td title="{labels_tip}">{keys_display}</td>'
+            f'{docs_td}'
             f'</tr>'
         )
     return '\n'.join(rows)
 
 
-def build_organism_rows(doc_data, taxon_map=None):
+def build_organism_rows(doc_data, taxon_map=None, show_docs=True):
     if taxon_map is None:
         taxon_map = {}
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
@@ -383,20 +389,23 @@ def build_organism_rows(doc_data, taxon_map=None):
         chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
                 f'border-radius:4px;padding:1px 6px;font-size:0.85em">'
                 f'{html.escape(style["label"])}</span>')
-        sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
-        keys_display = html.escape(', '.join(sorted_doc_keys))
-        labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
         if taxid and taxid in taxon_map:
             name_cell = f'<span title="Taxonomy ID: {html.escape(taxid)}">{html.escape(taxon_map[taxid])}</span>'
         else:
             name_cell = html.escape(taxid)
+        docs_td = ''
+        if show_docs:
+            sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
+            keys_display = html.escape(', '.join(sorted_doc_keys))
+            labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
+            docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
         rows.append(
             f'<tr data-type="{html.escape(etype)}">'
             f'<td>{html.escape(mention)}</td>'
             f'<td>{chip}</td>'
             f'<td>{name_cell}</td>'
             f'<td>{info["count"]}</td>'
-            f'<td title="{labels_tip}">{keys_display}</td>'
+            f'{docs_td}'
             f'</tr>'
         )
     return '\n'.join(rows)
@@ -451,88 +460,76 @@ def highlight_text(full_text, annotations):
     return ''.join(parts)
 
 
-def build_doc_section(doc, doc_id, gene_map=None):
+def _doc_table_block(tbl_id, types_present, default_style, onchange_js, rows_html, headers_html):
+    filter_name = f'{tbl_id}-flt'
+    sel_id = f'{tbl_id}-lim'
+    disp_id = f'{tbl_id}-cnt'
+    onchange_js = f"applyTableFilters('{tbl_id}','{filter_name}','{sel_id}','{disp_id}')"
+    filter_bar = build_filter_bar(types_present, default_style, filter_name, onchange_js, sel_id, disp_id)
+    return (
+        f'{filter_bar}'
+        f'<div style="overflow-x:auto;margin-bottom:1.5rem">'
+        f'<table id="{tbl_id}" class="data-table"'
+        f' data-filter-name="{filter_name}"'
+        f' data-filter-limit="{sel_id}"'
+        f' data-filter-display="{disp_id}">'
+        f'<thead><tr>{headers_html}</tr></thead>'
+        f'<tbody>{rows_html}</tbody>'
+        f'</table></div>'
+    )
+
+
+def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
     if gene_map is None:
         gene_map = {}
+    if taxon_map is None:
+        taxon_map = {}
     label = doc['label']
     category = doc['category']
-    annotations = doc['annotations']
     passages = doc['passages']
+    single = [doc]
 
     full_text = '\n'.join(p['text'] for p in passages)
 
-    types_present = sorted(set(a['type'] for a in annotations))
-    legend_chips = []
-    for etype in types_present:
-        style = entity_style(etype)
-        legend_chips.append(
-            f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
-            f'border-radius:4px;padding:2px 8px;margin:2px;font-size:0.85em;display:inline-block">'
-            f'{html.escape(style["label"])}</span>'
-        )
-    legend_html = ' '.join(legend_chips)
+    variant_types = {a['type'] for a in doc['annotations']
+                     if a['type'] not in GENE_TYPES and a['type'] not in ORGANISM_TYPES}
+    organism_types = {a['type'] for a in doc['annotations'] if a['type'] in ORGANISM_TYPES}
 
-    ann_counts = collections.Counter()
-    ann_hgvs = {}
-    ann_gene = {}
-    for a in annotations:
-        key = (a['mention'], a['type'])
-        ann_counts[key] += 1
-        ann_hgvs[key] = a['hgvs']
-        ann_gene[key] = a['gene']
+    var_block = _doc_table_block(
+        f'var-tbl-{doc_id}', variant_types, VARIANT_DEFAULT_STYLE, None,
+        build_variant_summary(single, gene_map, show_docs=False),
+        '<th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th>')
 
-    ann_rows = []
-    for (mention, etype), count in sorted(ann_counts.items(), key=lambda x: -x[1]):
-        style = entity_style(etype)
-        chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
-                f'border-radius:4px;padding:1px 6px;font-size:0.85em">'
-                f'{html.escape(style["label"])}</span>')
-        gene = ann_gene.get((mention, etype), '')
-        if gene and gene in gene_map:
-            gene_cell = (f'<span title="Gene ID: {html.escape(gene)}">'
-                         f'{html.escape(gene_map[gene])}</span>')
-        else:
-            gene_cell = html.escape(gene)
-        ann_rows.append(
-            f'<tr data-type="{html.escape(etype)}">'
-            f'<td>{html.escape(mention)}</td><td>{chip}</td>'
-            f'<td>{gene_cell}</td>'
-            f'<td>{html.escape(ann_hgvs.get((mention, etype), ""))}</td>'
-            f'<td>{count}</td></tr>'
-        )
-    ann_table = '\n'.join(ann_rows)
+    gene_block = _doc_table_block(
+        f'gene-tbl-{doc_id}', set(), DEFAULT_STYLE, None,
+        build_gene_rows(single, gene_map, show_docs=False),
+        '<th>Mention</th><th>Gene</th><th>Count</th>')
 
-    tbl_id = f'ann-table-{doc_id}'
-    filter_name = f'ann-filter-{doc_id}'
-    sel_id = f'ann-limit-{doc_id}'
-    disp_id = f'ann-count-{doc_id}'
-    onchange_js = f"applyTableFilters('{tbl_id}','{filter_name}','{sel_id}','{disp_id}')"
-    doc_filter_bar = build_filter_bar(
-        types_present, VARIANT_DEFAULT_STYLE, filter_name, onchange_js, sel_id, disp_id)
+    org_block = _doc_table_block(
+        f'org-tbl-{doc_id}', organism_types, DEFAULT_STYLE, None,
+        build_organism_rows(single, taxon_map, show_docs=False),
+        '<th>Mention</th><th>Type</th><th>Name</th><th>Count</th>')
 
-    highlighted = highlight_text(full_text, annotations)
+    highlighted = highlight_text(full_text, doc['annotations'])
 
     return f'''
 <div id="{doc_id}" class="doc-section" style="display:none">
   <div style="margin-bottom:1rem">
     <button onclick="showMain()" style="padding:6px 14px;cursor:pointer;border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc">&#8592; Back to summary</button>
   </div>
-  <h2 style="margin:0 0 0.25rem">{html.escape(label)}</h2>
-  <div style="color:#64748b;margin-bottom:1rem;font-size:0.9em">{html.escape(category)}</div>
-  <h3 style="margin:1rem 0 0.5rem">Annotation Summary</h3>
-  {doc_filter_bar}
-  <div style="overflow-x:auto;margin-bottom:1.5rem">
-    <table id="{tbl_id}" class="data-table"
-      data-filter-name="{filter_name}"
-      data-filter-limit="{sel_id}"
-      data-filter-display="{disp_id}">
-      <thead><tr><th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th></tr></thead>
-      <tbody>{ann_table}</tbody>
-    </table>
+  <div class="card" style="margin-bottom:1rem">
+    <h2 style="margin:0 0 0.25rem">{html.escape(label)}</h2>
+    <div style="color:#64748b;font-size:0.9em">{html.escape(category)}</div>
   </div>
-  <h3 style="margin:1rem 0 0.5rem">Document Text</h3>
-  <div style="font-family:monospace;font-size:0.88em;line-height:1.7;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1.25rem;white-space:pre-wrap;word-break:break-word">
+  <div class="card">
+    <h2>Annotation Summary</h2>
+    {build_tabbed_summary(f'doc-summary-{doc_id}', var_block, gene_block, org_block)}
+  </div>
+  <div class="card">
+    <h2>Document Text</h2>
+    <div style="font-family:monospace;font-size:0.88em;line-height:1.7;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1.25rem;white-space:pre-wrap;word-break:break-word">
 {highlighted}
+    </div>
   </div>
 </div>
 '''
@@ -604,6 +601,12 @@ body { margin: 0; font-family: system-ui, sans-serif; background: #f1f5f9; color
 .run-info dd { margin: 0; }
 .filter-bar { margin-bottom: 0.75rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.9rem; }
 .filter-bar label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.tab-bar { display: flex; border-bottom: 2px solid #e2e8f0; margin-bottom: 1rem; gap: 0; }
+.tab-btn { padding: 8px 18px; cursor: pointer; border: none; border-bottom: 2px solid transparent; background: none; font-size: 0.9rem; color: #64748b; margin-bottom: -2px; font-family: inherit; border-radius: 0; }
+.tab-btn:hover { color: #1e293b; background: #f8fafc; }
+.tab-btn.active { color: #1e293b; border-bottom-color: #2563eb; font-weight: 600; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 '''
 
 JS = '''
@@ -682,6 +685,11 @@ function applyTableFilters(tableId, filterName, limitId, displayId) {
       : 'Showing top ' + shown + ' of ' + total + ' entries';
   }
 }
+function switchTab(containerId, tabName) {
+  var c = document.getElementById(containerId);
+  c.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.tab === tabName); });
+  c.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.toggle('active', p.dataset.tab === tabName); });
+}
 function applyVariantFilters()  { applyTableFilters('variant-table',  'vfilter', 'variant-limit-select',  'variant-count-display'); }
 function applyGeneFilters()     { applyTableFilters('gene-table',     null,      'gene-limit-select',     'gene-count-display'); }
 function applyOrganismFilters() { applyTableFilters('organism-table', 'ofilter', 'organism-limit-select', 'organism-count-display'); }
@@ -732,6 +740,28 @@ def build_filter_bar(types_present, default_style, filter_name, onchange_js, lim
         f'</span>'
     )
     return '<div class="filter-bar">' + '\n'.join(buttons) + '\n' + limit_select + '</div>'
+
+
+def build_tabbed_summary(container_id, var_block, gene_block, org_block):
+    def btn(tab, label, active):
+        cls = 'tab-btn active' if active else 'tab-btn'
+        return (f'<button class="{cls}" data-tab="{tab}" '
+                f'onclick="switchTab(\'{container_id}\',\'{tab}\')">{label}</button>')
+    def panel(tab, content, active):
+        cls = 'tab-panel active' if active else 'tab-panel'
+        return f'<div class="{cls}" data-tab="{tab}">{content}</div>'
+    return (
+        f'<div id="{container_id}">'
+        f'<div class="tab-bar">'
+        f'{btn("variant","Variants",True)}'
+        f'{btn("gene","Genes",False)}'
+        f'{btn("organism","Organisms",False)}'
+        f'</div>'
+        f'{panel("variant", var_block, True)}'
+        f'{panel("gene",    gene_block, False)}'
+        f'{panel("organism",org_block,  False)}'
+        f'</div>'
+    )
 
 
 def get_paper_title(doc_data):
@@ -785,49 +815,43 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
         variant_types, VARIANT_DEFAULT_STYLE,
         'vfilter', 'applyVariantFilters()', 'variant-limit-select', 'variant-count-display')
     variant_rows = build_variant_summary(doc_data, gene_map)
-    variant_section = f'''
-<div class="card">
-  <h2>Variant Summary</h2>
-  {variant_filter_bar}
-  <div style="overflow-x:auto">
-    <table class="data-table" id="variant-table" data-filter-fn="applyVariantFilters">
-      <thead><tr><th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th><th>Docs</th></tr></thead>
-      <tbody>{variant_rows}</tbody>
-    </table>
-  </div>
-</div>'''
+    var_block = (
+        f'{variant_filter_bar}'
+        f'<div style="overflow-x:auto">'
+        f'<table class="data-table" id="variant-table" data-filter-fn="applyVariantFilters">'
+        f'<thead><tr><th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th><th>Docs</th></tr></thead>'
+        f'<tbody>{variant_rows}</tbody></table></div>'
+    )
 
     gene_filter_bar = build_filter_bar(
         set(), DEFAULT_STYLE,
         '', 'applyGeneFilters()', 'gene-limit-select', 'gene-count-display')
     gene_rows = build_gene_rows(doc_data, gene_map)
-    gene_section = f'''
-<div class="card">
-  <h2>Gene Summary</h2>
-  {gene_filter_bar}
-  <div style="overflow-x:auto">
-    <table class="data-table" id="gene-table" data-filter-fn="applyGeneFilters">
-      <thead><tr><th>Mention</th><th>Gene</th><th>Count</th><th>Docs</th></tr></thead>
-      <tbody>{gene_rows}</tbody>
-    </table>
-  </div>
-</div>'''
+    gene_block = (
+        f'{gene_filter_bar}'
+        f'<div style="overflow-x:auto">'
+        f'<table class="data-table" id="gene-table" data-filter-fn="applyGeneFilters">'
+        f'<thead><tr><th>Mention</th><th>Gene</th><th>Count</th><th>Docs</th></tr></thead>'
+        f'<tbody>{gene_rows}</tbody></table></div>'
+    )
 
     organism_filter_bar = build_filter_bar(
         organism_types, DEFAULT_STYLE,
         'ofilter', 'applyOrganismFilters()', 'organism-limit-select', 'organism-count-display')
     organism_rows = build_organism_rows(doc_data, taxon_map)
-    organism_section = f'''
-<div class="card">
-  <h2>Organism Summary</h2>
-  {organism_filter_bar}
-  <div style="overflow-x:auto">
-    <table class="data-table" id="organism-table" data-filter-fn="applyOrganismFilters">
-      <thead><tr><th>Mention</th><th>Type</th><th>Name</th><th>Count</th><th>Docs</th></tr></thead>
-      <tbody>{organism_rows}</tbody>
-    </table>
-  </div>
-</div>'''
+    org_block = (
+        f'{organism_filter_bar}'
+        f'<div style="overflow-x:auto">'
+        f'<table class="data-table" id="organism-table" data-filter-fn="applyOrganismFilters">'
+        f'<thead><tr><th>Mention</th><th>Type</th><th>Name</th><th>Count</th><th>Docs</th></tr></thead>'
+        f'<tbody>{organism_rows}</tbody></table></div>'
+    )
+
+    annotation_section = (
+        f'<div class="card"><h2>Annotation Summary</h2>'
+        f'{build_tabbed_summary("main-summary", var_block, gene_block, org_block)}'
+        f'</div>'
+    )
 
     doc_index_rows = build_document_index(doc_data)
     doc_index = f'''
@@ -841,7 +865,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
   </div>
 </div>'''
 
-    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id'], gene_map) for doc in doc_data)
+    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id'], gene_map, taxon_map) for doc in doc_data)
 
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -863,9 +887,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
     {"" if not source_files_html else f'<div class="card"><h2>Source Files</h2>{source_files_html}</div>'}
     {stats_table_html}
     {doc_index}
-    {variant_section}
-    {gene_section}
-    {organism_section}
+    {annotation_section}
   </div>
   {doc_sections}
 </div>
