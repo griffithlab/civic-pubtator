@@ -24,7 +24,7 @@ ORGANISM_TYPES = frozenset({'Species', 'CellLine'})
 
 
 def entity_style(etype):
-    return ENTITY_STYLE.get(etype, DEFAULT_STYLE)
+    return ENTITY_STYLE.get(etype, VARIANT_DEFAULT_STYLE)
 
 
 def parse_details(details_str):
@@ -217,6 +217,35 @@ def build_pipeline_stats_table(stats_rows):
     return '\n'.join(rows_html)
 
 
+def load_taxon_names(taxon_ids):
+    """Return {taxon_id_str: common_name} using ref_files/taxon-id_common_name_map.tsv."""
+    if not taxon_ids:
+        return {}
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    tsv_path = os.path.join(script_dir, '..', 'ref_files', 'taxon-id_common_name_map.tsv')
+    if not os.path.isfile(tsv_path):
+        print('warning: ref_files/taxon-id_common_name_map.tsv not found — taxonomy IDs will be shown as-is',
+              file=sys.stderr)
+        return {}
+    remaining = set(taxon_ids)
+    result = {}
+    try:
+        with open(tsv_path, encoding='utf-8') as f:
+            for line in f:
+                if not remaining:
+                    break
+                line = line.rstrip('\n')
+                if '\t' not in line:
+                    continue
+                tid, name = line.split('\t', 1)
+                if tid in remaining:
+                    result[tid] = name
+                    remaining.discard(tid)
+    except Exception as e:
+        print(f'warning: could not read taxon-id_common_name_map.tsv: {e}', file=sys.stderr)
+    return result
+
+
 def load_gene_symbols(gene_ids):
     """Return {gene_id_str: symbol} for each ID in gene_ids, using ref_files/gene_info.gz."""
     if not gene_ids:
@@ -331,14 +360,18 @@ def build_gene_rows(doc_data, gene_map=None):
     return '\n'.join(rows)
 
 
-def build_organism_rows(doc_data):
+def build_organism_rows(doc_data, taxon_map=None):
+    if taxon_map is None:
+        taxon_map = {}
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
     summary = {}
     for doc in doc_data:
         for ann in doc['annotations']:
             if ann['type'] not in ORGANISM_TYPES:
                 continue
-            skey = (ann['mention'], ann['type'], ann['identifier'])
+            mention = ann['mention']
+            mention_key = mention.lower() if ann['type'] == 'Species' else mention
+            skey = (mention_key, ann['type'], ann['identifier'])
             if skey not in summary:
                 summary[skey] = {'count': 0, 'docs': set()}
             summary[skey]['count'] += 1
@@ -353,11 +386,15 @@ def build_organism_rows(doc_data):
         sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
         keys_display = html.escape(', '.join(sorted_doc_keys))
         labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
+        if taxid and taxid in taxon_map:
+            name_cell = f'<span title="Taxonomy ID: {html.escape(taxid)}">{html.escape(taxon_map[taxid])}</span>'
+        else:
+            name_cell = html.escape(taxid)
         rows.append(
             f'<tr data-type="{html.escape(etype)}">'
             f'<td>{html.escape(mention)}</td>'
             f'<td>{chip}</td>'
-            f'<td>{html.escape(taxid)}</td>'
+            f'<td>{name_cell}</td>'
             f'<td>{info["count"]}</td>'
             f'<td title="{labels_tip}">{keys_display}</td>'
             f'</tr>'
@@ -457,7 +494,8 @@ def build_doc_section(doc, doc_id, gene_map=None):
         else:
             gene_cell = html.escape(gene)
         ann_rows.append(
-            f'<tr><td>{html.escape(mention)}</td><td>{chip}</td>'
+            f'<tr data-type="{html.escape(etype)}">'
+            f'<td>{html.escape(mention)}</td><td>{chip}</td>'
             f'<td>{gene_cell}</td>'
             f'<td>{html.escape(ann_hgvs.get((mention, etype), ""))}</td>'
             f'<td>{count}</td></tr>'
@@ -465,8 +503,12 @@ def build_doc_section(doc, doc_id, gene_map=None):
     ann_table = '\n'.join(ann_rows)
 
     tbl_id = f'ann-table-{doc_id}'
+    filter_name = f'ann-filter-{doc_id}'
     sel_id = f'ann-limit-{doc_id}'
     disp_id = f'ann-count-{doc_id}'
+    onchange_js = f"applyTableFilters('{tbl_id}','{filter_name}','{sel_id}','{disp_id}')"
+    doc_filter_bar = build_filter_bar(
+        types_present, VARIANT_DEFAULT_STYLE, filter_name, onchange_js, sel_id, disp_id)
 
     highlighted = highlight_text(full_text, annotations)
 
@@ -477,25 +519,13 @@ def build_doc_section(doc, doc_id, gene_map=None):
   </div>
   <h2 style="margin:0 0 0.25rem">{html.escape(label)}</h2>
   <div style="color:#64748b;margin-bottom:1rem;font-size:0.9em">{html.escape(category)}</div>
-  <div style="margin-bottom:1rem">{legend_html}</div>
   <h3 style="margin:1rem 0 0.5rem">Annotation Summary</h3>
-  <div style="display:flex;align-items:center;gap:6px;margin-bottom:0.5rem;font-size:0.9rem">
-    Show: <select id="{sel_id}" class="ann-limit-select"
-      data-table="{tbl_id}" data-display="{disp_id}"
-      onchange="applyTableRowLimit('{tbl_id}','{sel_id}','{disp_id}')"
-      style="padding:2px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.9em">
-      <option value="10">Top 10</option>
-      <option value="25">Top 25</option>
-      <option value="50">Top 50</option>
-      <option value="100">Top 100</option>
-      <option value="500">Top 500</option>
-      <option value="all">All</option>
-    </select>
-    <span id="{disp_id}" style="color:#64748b;font-size:0.85em"></span>
-  </div>
+  {doc_filter_bar}
   <div style="overflow-x:auto;margin-bottom:1.5rem">
     <table id="{tbl_id}" class="data-table"
-      data-limit-select="{sel_id}" data-limit-display="{disp_id}">
+      data-filter-name="{filter_name}"
+      data-filter-limit="{sel_id}"
+      data-filter-display="{disp_id}">
       <thead><tr><th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th></tr></thead>
       <tbody>{ann_table}</tbody>
     </table>
@@ -607,6 +637,9 @@ function sortTable(table, col) {
   var filterFn = table.dataset.filterFn;
   if (filterFn && window[filterFn]) {
     window[filterFn]();
+  } else if (table.dataset.filterLimit) {
+    applyTableFilters(table.id, table.dataset.filterName || null,
+                      table.dataset.filterLimit, table.dataset.filterDisplay);
   } else if (table.dataset.limitSelect) {
     applyTableRowLimit(table.id, table.dataset.limitSelect, table.dataset.limitDisplay);
   }
@@ -662,35 +695,38 @@ document.addEventListener('DOMContentLoaded', function() {
   applyVariantFilters();
   applyGeneFilters();
   applyOrganismFilters();
-  document.querySelectorAll('.ann-limit-select').forEach(function(sel) {
-    applyTableRowLimit(sel.dataset.table, sel.id, sel.dataset.display);
+  document.querySelectorAll('.data-table[data-filter-limit]').forEach(function(table) {
+    applyTableFilters(table.id, table.dataset.filterName || null,
+                      table.dataset.filterLimit, table.dataset.filterDisplay);
   });
 });
 '''
 
 
-def build_filter_bar(types_present, default_style, filter_name, filter_fn, limit_id, display_id):
+def build_filter_bar(types_present, default_style, filter_name, onchange_js, limit_id, display_id,
+                     limit_options=None):
+    if limit_options is None:
+        limit_options = [('10', 'Top 10'), ('25', 'Top 25'), ('50', 'Top 50'),
+                         ('100', 'Top 100'), ('500', 'Top 500'), ('all', 'All')]
     types = sorted(types_present)
-    buttons = [f'<label><input type="radio" name="{filter_name}" value="all" checked onchange="{filter_fn}()"> All</label>']
-    for etype in types:
-        style = ENTITY_STYLE.get(etype, default_style)
-        chip_style = (f'background:{style["bg"]};border:1px solid {style["border"]};'
-                      f'border-radius:4px;padding:1px 6px;font-size:0.85em')
-        buttons.append(
-            f'<label><input type="radio" name="{filter_name}" value="{html.escape(etype)}" '
-            f'onchange="{filter_fn}()"> '
-            f'<span style="{chip_style}">{html.escape(style["label"])}</span></label>'
-        )
+    buttons = []
+    if filter_name:
+        buttons.append(f'<label><input type="radio" name="{filter_name}" value="all" checked onchange="{onchange_js}"> All</label>')
+        for etype in types:
+            style = ENTITY_STYLE.get(etype, default_style)
+            chip_style = (f'background:{style["bg"]};border:1px solid {style["border"]};'
+                          f'border-radius:4px;padding:1px 6px;font-size:0.85em')
+            buttons.append(
+                f'<label><input type="radio" name="{filter_name}" value="{html.escape(etype)}" '
+                f'onchange="{onchange_js}"> '
+                f'<span style="{chip_style}">{html.escape(style["label"])}</span></label>'
+            )
+    options_html = ''.join(f'<option value="{v}">{l}</option>' for v, l in limit_options)
     limit_select = (
         f'<span style="margin-left:auto;display:flex;align-items:center;gap:6px">'
-        f'Show: <select id="{limit_id}" onchange="{filter_fn}()" '
+        f'Show: <select id="{limit_id}" onchange="{onchange_js}" '
         f'style="padding:2px 6px;border:1px solid #cbd5e1;border-radius:4px;font-size:0.9em">'
-        f'<option value="10">Top 10</option>'
-        f'<option value="25">Top 25</option>'
-        f'<option value="50">Top 50</option>'
-        f'<option value="100">Top 100</option>'
-        f'<option value="500">Top 500</option>'
-        f'<option value="all">All</option>'
+        f'{options_html}'
         f'</select>'
         f'<span id="{display_id}" style="color:#64748b;font-size:0.85em"></span>'
         f'</span>'
@@ -707,7 +743,7 @@ def get_paper_title(doc_data):
     return ''
 
 
-def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None):
+def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_map=None):
     run_title = os.path.basename(os.path.abspath(run_dir))
 
     paper_title = get_paper_title(doc_data)
@@ -747,7 +783,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None):
 
     variant_filter_bar = build_filter_bar(
         variant_types, VARIANT_DEFAULT_STYLE,
-        'vfilter', 'applyVariantFilters', 'variant-limit-select', 'variant-count-display')
+        'vfilter', 'applyVariantFilters()', 'variant-limit-select', 'variant-count-display')
     variant_rows = build_variant_summary(doc_data, gene_map)
     variant_section = f'''
 <div class="card">
@@ -763,7 +799,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None):
 
     gene_filter_bar = build_filter_bar(
         set(), DEFAULT_STYLE,
-        '', 'applyGeneFilters', 'gene-limit-select', 'gene-count-display')
+        '', 'applyGeneFilters()', 'gene-limit-select', 'gene-count-display')
     gene_rows = build_gene_rows(doc_data, gene_map)
     gene_section = f'''
 <div class="card">
@@ -779,15 +815,15 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None):
 
     organism_filter_bar = build_filter_bar(
         organism_types, DEFAULT_STYLE,
-        'ofilter', 'applyOrganismFilters', 'organism-limit-select', 'organism-count-display')
-    organism_rows = build_organism_rows(doc_data)
+        'ofilter', 'applyOrganismFilters()', 'organism-limit-select', 'organism-count-display')
+    organism_rows = build_organism_rows(doc_data, taxon_map)
     organism_section = f'''
 <div class="card">
   <h2>Organism Summary</h2>
   {organism_filter_bar}
   <div style="overflow-x:auto">
     <table class="data-table" id="organism-table" data-filter-fn="applyOrganismFilters">
-      <thead><tr><th>Mention</th><th>Type</th><th>Taxonomy ID</th><th>Count</th><th>Docs</th></tr></thead>
+      <thead><tr><th>Mention</th><th>Type</th><th>Name</th><th>Count</th><th>Docs</th></tr></thead>
       <tbody>{organism_rows}</tbody>
     </table>
   </div>
@@ -894,7 +930,11 @@ def main():
                 gene_ids.add(ann['identifier'])
     gene_map = load_gene_symbols(gene_ids)
 
-    html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map)
+    taxon_ids = {ann['identifier'] for doc in doc_data for ann in doc['annotations']
+                 if ann['type'] in ORGANISM_TYPES and ann['identifier']}
+    taxon_map = load_taxon_names(taxon_ids)
+
+    html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map, taxon_map)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
