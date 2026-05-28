@@ -114,7 +114,7 @@ The `tmvar/CRF/` and `tmvar/Database/` directories are not in this repository
 (CRF models ~1 GB, SQLite databases ~550 GB). Download from NCBI before running:
 
 ```bash
-./scripts/download_tmvar_data.sh
+./scripts/download_data_files.sh
 ```
 
 **macOS users:** run `./scripts/setup_macos.sh` after this completes.

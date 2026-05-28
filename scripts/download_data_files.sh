@@ -73,4 +73,37 @@ else
     rm -rf "$GNORM2_EXAMPLES_TMP"
 fi
 
+# --- NLMChem ---
+NLMCHEM_DIR="$REPO_DIR/NLMChem"
+NLMCHEM_TMP="$(mktemp -d)"
+NLMCHEM_BASE="https://ftp.ncbi.nlm.nih.gov/pub/lu/NLMChem"
+
+if [[ -d "$NLMCHEM_DIR" ]]; then
+    echo "NLMChem already present, skipping download."
+else
+    echo "Creating $NLMCHEM_DIR ..."
+    mkdir -p "$NLMCHEM_DIR"
+
+    echo "Downloading NLM-Chem-Annotation-Guidelines.docx ..."
+    curl -fL --progress-bar \
+        "$NLMCHEM_BASE/NLM-Chem-Annotation-Guidelines.docx" \
+        -o "$NLMCHEM_DIR/NLM-Chem-Annotation-Guidelines.docx"
+
+    echo "Downloading NLM-Chem-corpus.zip ..."
+    curl -fL --progress-bar \
+        "$NLMCHEM_BASE/NLM-Chem-corpus.zip" \
+        -o "$NLMCHEM_DIR/NLM-Chem-corpus.zip"
+
+    echo "Downloading NLMChemTaggerNormalizer.tar.gz (681 MB) ..."
+    curl -fL --progress-bar \
+        "$NLMCHEM_BASE/NLMChemTaggerNormalizer.tar.gz" \
+        -o "$NLMCHEM_TMP/NLMChemTaggerNormalizer.tar.gz"
+
+    echo "Unpacking NLMChemTaggerNormalizer ..."
+    tar -xzf "$NLMCHEM_TMP/NLMChemTaggerNormalizer.tar.gz" -C "$NLMCHEM_DIR"
+
+    echo "Cleaning up NLMChem tmp ..."
+    rm -rf "$NLMCHEM_TMP"
+fi
+
 echo "Done."

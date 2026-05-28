@@ -222,6 +222,7 @@ tmvar/tmp/
 tmvar/Database/
 tmvar/CRF/
 GNorm2/
+NLMChem/
 *.DS_Store
 example_data/36922589/01_source/s/
 example_data/36922589/02_grobid/s/
