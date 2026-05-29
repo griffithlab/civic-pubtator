@@ -235,8 +235,10 @@ def setup_conda_aioner():
         log(f'  env {env} already exists, skipping')
         return
     run(f'{conda} create -y -n {env} python=3.8 "pip<23.1"')
-    # TF 2.3.0 dropped from PyPI — install from conda-forge; addons still on PyPI
-    run(f'{conda} install -y -n {env} -c conda-forge tensorflow=2.3.0')
+    # TF 2.3.0 dropped from PyPI — install from conda-forge; addons still on PyPI.
+    # Pin tensorflow-estimator=2.3.0 together so conda solves the constraint at once;
+    # without it conda-forge resolves to estimator 2.6.0 which TF 2.3 rejects.
+    run(f'{conda} install -y -n {env} -c conda-forge tensorflow=2.3.0 tensorflow-estimator=2.3.0')
     run(f'{conda} run -n {env} pip install --upgrade "pip<23.1" --root-user-action=ignore')
     run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
     run(f'{conda} run -n {env} python -m spacy download en_core_web_sm')
