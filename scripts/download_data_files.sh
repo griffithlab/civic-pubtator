@@ -106,4 +106,25 @@ else
     rm -rf "$NLMCHEM_TMP"
 fi
 
+# --- AIONER (PubTator 3 version) ---
+AIONER_DIR="$REPO_DIR/AIONER"
+AIONER_TMP="$(mktemp -d)"
+AIONER_ARCHIVE="$AIONER_TMP/AIONER_P3.tar.gz"
+
+if [[ -d "$AIONER_DIR" ]]; then
+    echo "AIONER already present, skipping download."
+else
+    echo "Downloading AIONER_P3.tar.gz (~5.5 GB) ..."
+    curl -fL --progress-bar \
+        "https://ftp.ncbi.nlm.nih.gov/pub/lu/AIONER/AIONER_P3.tar.gz" \
+        -o "$AIONER_ARCHIVE"
+
+    echo "Unpacking AIONER ..."
+    mkdir -p "$AIONER_DIR"
+    tar -xzf "$AIONER_ARCHIVE" -C "$AIONER_DIR" --strip-components=1
+
+    echo "Cleaning up AIONER tmp ..."
+    rm -rf "$AIONER_TMP"
+fi
+
 echo "Done."
