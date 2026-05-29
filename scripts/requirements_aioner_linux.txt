@@ -15,8 +15,10 @@ tokenizers==0.12.1
 huggingface-hub==0.5.1
 
 stanza==1.4.0
-spacy==3.2.4
-pydantic>=1.7.4,<1.9.0
+# spaCy 3.x can't be imported on Python 3.8 due to a typing.py stdlib bug
+# (issubclass() arg 1 must be a class) fixed in Python 3.9.  spaCy 2.x
+# has no pydantic dependency and works fine as stanza's tokenizer backend.
+spacy==2.3.9
 
 bioc==2.0.post4
 lxml==4.8.0
