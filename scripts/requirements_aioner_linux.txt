@@ -1,5 +1,6 @@
 # Requirements for the AIONER conda environment on Linux x86_64.
-# Python 3.7 matches the tested AIONER environment.
+# Python 3.8 — newest Python supported by TF 2.3.0.
+# (Python 3.7 hits cython>=3.1 build failures with modern pip.)
 #
 # tensorflow==2.3.0 and tensorflow-addons==0.12.1 are installed via conda-forge
 # in the startup script (not listed here) because TF 2.3.0 was dropped from PyPI.

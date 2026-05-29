@@ -216,10 +216,12 @@ def setup_conda_gnorm2():
 
 @step('setup_conda_aioner')
 def setup_conda_aioner():
-    """AIONER env: Python 3.7 (tested version), TF 2.3.0 via conda-forge.
+    """AIONER env: Python 3.8, TF 2.3.0 via conda-forge.
 
     TF 2.3.0 was dropped from PyPI so it is installed from conda-forge.
-    Python 3.7 is required (TF 2.3 predates 3.8/3.9 support).
+    Python 3.8 is the newest TF 2.3.0 supports; 3.7 hits cython>=3.1
+    build-dep failures because its manylinux1 wheels aren't recognised
+    by modern pip.
     pip<23.1 is pinned at creation: pip 23.1+ uses @dataclass(slots=True)
     which requires Python 3.10+.
     """
@@ -232,7 +234,7 @@ def setup_conda_aioner():
     if run(f'{conda} env list | grep -q "^{env} "', check=False) == 0:
         log(f'  env {env} already exists, skipping')
         return
-    run(f'{conda} create -y -n {env} python=3.7 "pip<23.1"')
+    run(f'{conda} create -y -n {env} python=3.8 "pip<23.1"')
     # TF 2.3.0 dropped from PyPI — install from conda-forge; addons still on PyPI
     run(f'{conda} install -y -n {env} -c conda-forge tensorflow=2.3.0')
     run(f'{conda} run -n {env} pip install --upgrade "pip<23.1" --root-user-action=ignore')
