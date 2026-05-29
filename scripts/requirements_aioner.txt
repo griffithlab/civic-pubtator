@@ -1,0 +1,41 @@
+# Requirements for the AIONER conda environment (Python 3.9).
+# Install into the aioner-tf213 conda env via setup_aioner_conda.sh.
+#
+# The original AIONER requirements.txt pinned tensorflow==2.3.0, which has no
+# ARM64 macOS wheels.  TF 2.13 is the lowest version with native ARM64 support
+# that still has a compatible tensorflow-addons release (0.21.0, supporting
+# TF 2.12-2.13).  tensorflow-addons is required because tf_crf2.py imports CRF
+# layers from it at module load time (even when using the Softmax decoder).
+#
+# No Metal GPU acceleration: tensorflow-metal requires TF 2.15+, which is
+# incompatible with the last tensorflow-addons release (0.22.0 caps at 2.13).
+# AIONER runs on CPU only on this platform.
+
+# Core ML
+tensorflow==2.13.0
+tensorflow-addons==0.21.0
+h5py>=3.1,<4
+numpy>=1.23,<2.0
+
+# BERT / transformer encoders
+# Must match the version used to train/save the .h5 weights — later releases
+# change the internal TFBertModel layer order, causing load_weights shape
+# mismatches.  tokenizers==0.12.1 (required by 4.18) has no ARM64 pip wheel
+# but IS in conda-forge; setup_aioner_conda.sh installs it via conda AFTER
+# this pip step so conda's build overwrites any pip-upgraded version.
+transformers==4.18.0
+# Pin explicitly so pip does not upgrade tokenizers when resolving deps.
+# The actual ARM64 wheel comes from conda-forge, not PyPI.
+tokenizers==0.12.1
+
+# Sentence splitting (stanza uses spaCy as its tokenizer engine)
+stanza==1.4.0
+spacy>=3.2,<3.6
+
+# BioC XML parsing
+bioc==2.0.post4
+lxml>=4.8
+
+# General utilities
+tqdm>=4.64
+scipy>=1.9

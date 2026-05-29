@@ -1,0 +1,30 @@
+# Requirements for the AIONER conda environment on Linux x86_64.
+# Based on the original AIONER/requirements.txt — all packages have native
+# Linux x86_64 wheels so no version substitutions are needed.
+#
+# Differences from requirements_aioner.txt (macOS ARM64):
+#   - tensorflow==2.3.0 instead of 2.13.0 (original version; has Linux wheels)
+#   - tensorflow-addons==0.12.1 instead of 0.21.0 (matches TF 2.3)
+#   - tokenizers==0.12.1 installable directly from PyPI (no conda-forge workaround)
+#   - h5py==2.10.0 (original; compatible with TF 2.3 weight files)
+#   - numpy==1.18.5 (original pinned version)
+#   - Using the original model-matched versions avoids load_weights shape mismatches
+
+tensorflow==2.3.0
+tensorflow-addons==0.12.1
+h5py==2.10.0
+numpy==1.18.5
+
+transformers==4.18.0
+tokenizers==0.12.1
+huggingface-hub==0.5.1
+
+stanza==1.4.0
+spacy==3.2.4
+
+bioc==2.0.post4
+lxml==4.8.0
+
+tqdm==4.64.0
+scipy==1.4.1
+torch==1.11.0

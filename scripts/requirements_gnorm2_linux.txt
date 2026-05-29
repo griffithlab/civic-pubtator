@@ -1,0 +1,19 @@
+# Requirements for the GNorm2 CUDA-GPU conda environment (Python 3.11) on Linux.
+# Install into the gnorm2-tf215 conda env via gcp_server_startup.py or manually.
+#
+# Differences from requirements_gnorm2.txt (macOS):
+#   - tensorflow-metal removed (Apple Silicon only)
+#   - tensorflow==2.15.0 alone provides CUDA GPU support on Linux when CUDA
+#     drivers are present on the host (the GCP Deep Learning VM image ships
+#     with CUDA 12.1 and cuDNN pre-installed, which TF 2.15 supports).
+#
+# numpy must be < 2.0 for TF 2.15 compatibility.
+# transformers >= 4.35 is needed for TFAutoModel; < 4.50 keeps TF backend stable.
+
+tensorflow==2.15.0
+numpy>=1.23,<2.0
+transformers>=4.35,<4.50
+stanza
+spacy
+click
+bioc
