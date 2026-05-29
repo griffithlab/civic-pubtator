@@ -233,8 +233,8 @@ def setup_conda_aioner():
         log(f'  env {env} already exists, skipping')
         return
     run(f'{conda} create -y -n {env} python=3.7 "pip<23.1"')
-    # TF 2.3.0 dropped from PyPI — install original versions from conda-forge
-    run(f'{conda} install -y -n {env} -c conda-forge tensorflow=2.3.0 tensorflow-addons=0.12.1')
+    # TF 2.3.0 dropped from PyPI — install from conda-forge; addons still on PyPI
+    run(f'{conda} install -y -n {env} -c conda-forge tensorflow=2.3.0')
     run(f'{conda} run -n {env} pip install --upgrade "pip<23.1" --root-user-action=ignore')
     run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
     run(f'{conda} run -n {env} python -m spacy download en_core_web_sm')

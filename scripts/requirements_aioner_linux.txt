@@ -5,6 +5,7 @@
 # in the startup script (not listed here) because TF 2.3.0 was dropped from PyPI.
 # All packages below have native Linux x86_64 wheels on PyPI.
 
+tensorflow-addons==0.12.1
 h5py==2.10.0
 numpy==1.18.5
 
