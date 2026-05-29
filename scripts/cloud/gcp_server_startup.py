@@ -261,6 +261,22 @@ def setup_conda_nlmchem():
     run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
 
 
+@step('setup_conda_base')
+def setup_conda_base():
+    """Install main project requirements into the base conda env.
+
+    This makes scripts/ commands available without activating a tool-specific
+    env — just source ~/.bashrc (which activates base) and run.
+    """
+    conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
+    req = f'{REPO_DIR}/requirements.txt'
+    if not os.path.exists(req):
+        log(f'ERROR: {req} not found — cannot set up base conda environment')
+        return
+    run(f'{conda} run -n base pip install --upgrade pip --root-user-action=ignore')
+    run(f'{conda} run -n base pip install -r {req} --root-user-action=ignore')
+
+
 @step('add_aliases')
 def add_aliases():
     aliases = [
@@ -286,6 +302,7 @@ def main():
     clone_repo()
     install_grobid()
     symlink_tool_dirs()
+    setup_conda_base()
     setup_conda_gnorm2()
     setup_conda_aioner()
     setup_conda_nlmchem()
