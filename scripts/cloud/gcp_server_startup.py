@@ -210,8 +210,8 @@ def setup_conda_gnorm2():
         log(f'  env {env} already exists, skipping')
         return
     run(f'{conda} create -y -n {env} python=3.11')
-    run(f'{conda} run -n {env} pip install --upgrade pip')
-    run(f'{conda} run -n {env} pip install -r {req}')
+    run(f'{conda} run -n {env} pip install --upgrade pip --root-user-action=ignore')
+    run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
 
 
 @step('setup_conda_aioner')
@@ -227,8 +227,8 @@ def setup_conda_aioner():
         log(f'  env {env} already exists, skipping')
         return
     run(f'{conda} create -y -n {env} python=3.9')
-    run(f'{conda} run -n {env} pip install --upgrade pip')
-    run(f'{conda} run -n {env} pip install -r {req}')
+    run(f'{conda} run -n {env} pip install --upgrade pip --root-user-action=ignore')
+    run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
     run(f'{conda} run -n {env} python -m spacy download en_core_web_sm')
 
 
@@ -245,8 +245,8 @@ def setup_conda_nlmchem():
         log(f'  env {env} already exists, skipping')
         return
     run(f'{conda} create -y -n {env} python=3.9')
-    run(f'{conda} run -n {env} pip install --upgrade pip')
-    run(f'{conda} run -n {env} pip install -r {req}')
+    run(f'{conda} run -n {env} pip install --upgrade pip --root-user-action=ignore')
+    run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
 
 
 @step('add_aliases')
