@@ -241,6 +241,10 @@ def setup_conda_aioner():
     run(f'{conda} install -y -n {env} -c conda-forge tensorflow=2.3.0 tensorflow-estimator=2.3.0')
     run(f'{conda} run -n {env} pip install --upgrade "pip<23.1" --root-user-action=ignore')
     run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
+    # Force pydantic to spaCy 3.2.4-compatible version regardless of what conda may
+    # have placed in site-packages (conda and pip share site-packages but don't always
+    # see each other's metadata, so an explicit force-reinstall is the reliable fix).
+    run(f'{conda} run -n {env} pip install "pydantic==1.8.2" --force-reinstall --root-user-action=ignore')
     run(f'{conda} run -n {env} python -m spacy download en_core_web_sm')
 
 
