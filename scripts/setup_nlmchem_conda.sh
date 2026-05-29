@@ -53,10 +53,16 @@ if [[ -z "$CONDA" ]]; then
     brew install miniforge
     CONDA="$(find_conda)"
     [[ -n "$CONDA" ]] || error "conda not found after installing miniforge. Try opening a new shell and re-running."
-    info "Initialising conda for zsh (you may need to restart your shell)."
-    "$CONDA" init zsh || true
 else
     info "Miniforge already installed: $CONDA"
+fi
+
+# Always ensure conda shell integration is present for zsh
+if ! grep -q "conda initialize" "${HOME}/.zshrc" 2>/dev/null; then
+    info "Initialising conda for zsh (you will need to restart your shell or run: source ~/.zshrc)."
+    "$CONDA" init zsh || true
+else
+    info "conda zsh integration already present in ~/.zshrc"
 fi
 
 info "Using $("$CONDA" --version)"
