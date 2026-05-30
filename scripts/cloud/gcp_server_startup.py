@@ -165,6 +165,9 @@ def clone_repo():
         run(f'git -C {REPO_DIR} pull --ff-only')
     else:
         run(f'git clone {GITHUB_REPO} {REPO_DIR}')
+    # git clone on Linux auto-sets core.fileMode=true in .git/config, overriding
+    # the system setting — explicitly disable it in the local repo config.
+    run(f'git -C {REPO_DIR} config core.fileMode false')
     run(f'chmod -R 755 {REPO_DIR}/scripts')
 
 
