@@ -17,7 +17,7 @@ DEFAULT_ACCELERATOR_COUNT=1
 
 # 200 GB covers OS + conda envs + repo.  Model files live on GCS and are
 # synced locally via sync_tool_data.sh — keep them off the boot disk.
-DEFAULT_BOOT_DISK_SIZE="200GB"
+DEFAULT_BOOT_DISK_SIZE="500GB"
 
 show_help () {
     cat <<EOF
