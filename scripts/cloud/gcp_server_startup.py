@@ -153,6 +153,11 @@ def accept_conda_tos():
         run(f'{conda} tos accept --override-channels --channel {channel}', check=False)
 
 
+@step('configure_git')
+def configure_git():
+    run('git config --system core.fileMode false')
+
+
 @step('clone_repo')
 def clone_repo():
     if os.path.isdir(os.path.join(REPO_DIR, '.git')):
@@ -309,6 +314,7 @@ def main():
     install_packages()
     install_conda()
     accept_conda_tos()
+    configure_git()
     clone_repo()
     install_grobid()
     symlink_tool_dirs()
