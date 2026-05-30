@@ -113,6 +113,7 @@ def create_directories():
 @step('install_packages')
 def install_packages():
     run('apt-get update -qq')
+    run('DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -q')
     run('apt-get install -y ' + ' '.join(SYSTEM_PACKAGES))
 
 
