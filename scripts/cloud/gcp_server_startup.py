@@ -264,8 +264,8 @@ def setup_conda_nlmchem():
     if run(f'{conda} env list | grep -q "^{env} "', check=False) == 0:
         log(f'  env {env} already exists, skipping')
         return
-    run(f'{conda} create -y -n {env} python=3.9')
-    run(f'{conda} run -n {env} pip install --upgrade pip --root-user-action=ignore')
+    run(f'{conda} create -y -n {env} python=3.9 "pip<23.1"')
+    run(f'{conda} run -n {env} pip install --upgrade "pip<23.1" --root-user-action=ignore')
     run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
 
 
