@@ -120,14 +120,21 @@ def install_packages():
 def install_conda():
     if find_conda():
         log(f'  conda already present: {find_conda()}')
-        return
-    log('  conda not found — installing Miniconda3')
-    run(f'wget -q -O {MINICONDA_SH} '
-        'https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh')
-    run(f'bash {MINICONDA_SH} -b -p {CONDA_PREFIX}')
-    run(f'rm -f {MINICONDA_SH}')
-    # Make conda available in PATH for subsequent shell invocations
-    run(f'{CONDA_PREFIX}/bin/conda init bash')
+    else:
+        log('  conda not found — installing Miniconda3')
+        run(f'wget -q -O {MINICONDA_SH} '
+            'https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh')
+        run(f'bash {MINICONDA_SH} -b -p {CONDA_PREFIX}')
+        run(f'rm -f {MINICONDA_SH}')
+    # Expose conda to all users (not just root) via a system-wide profile.d entry.
+    # conda init bash only writes to the calling user's ~/.bashrc, so SSH logins
+    # as a non-root user would have no conda in PATH without this.
+    conda_prefix = os.path.dirname(os.path.dirname(find_conda() or f'{CONDA_PREFIX}/bin/conda'))
+    profile_d = '/etc/profile.d/conda.sh'
+    with open(profile_d, 'w') as f:
+        f.write(f'. "{conda_prefix}/etc/profile.d/conda.sh"\n')
+        f.write('conda activate base\n')
+    run(f'chmod 644 {profile_d}')
 
 
 @step('accept_conda_tos')
@@ -249,9 +256,9 @@ def setup_conda_nlmchem():
     """NLMChem normalizer env: Python 3.9."""
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'nlmchem-py39'
-    req = f'{REPO_DIR}/NLMChem/NLMChemTaggerNormalizer/requirements.txt'
+    req = f'{REPO_DIR}/scripts/requirements_nlmchem_linux.txt'
     if not os.path.exists(req):
-        log('  NLMChem not yet synced from GCS — run sync_tool_data.sh down first')
+        log(f'ERROR: {req} not found — cannot set up NLMChem environment')
         return
     if run(f'{conda} env list | grep -q "^{env} "', check=False) == 0:
         log(f'  env {env} already exists, skipping')
@@ -285,8 +292,10 @@ def add_aliases():
         f"alias cdpub='cd {PUB_DIR}'",
         f"alias cdtools='cd {TOOL_DIR}'",
     ]
-    with open('/root/.bash_aliases', 'a') as f:
+    # Write to /etc/profile.d so aliases are available for all users, not just root.
+    with open('/etc/profile.d/civic-pubtator-aliases.sh', 'w') as f:
         f.write('\n'.join(aliases) + '\n')
+    run('chmod 644 /etc/profile.d/civic-pubtator-aliases.sh')
 
 
 # ── entry point ───────────────────────────────────────────────────────────────
