@@ -14,10 +14,15 @@ def find_soffice():
 
 def soffice_convert(soffice, src, out_dir):
     """Convert src to PDF in out_dir via soffice. Returns path of created PDF."""
-    result = subprocess.run(
-        [soffice, "--headless", "--nojava", "--convert-to", "pdf", "--outdir", out_dir, src],
-        capture_output=True, text=True,
-    )
+    # Use a per-call temp dir for the LO user profile to avoid DeploymentException
+    # in headless environments where the shared profile dir may be locked or missing.
+    with tempfile.TemporaryDirectory() as lo_profile:
+        result = subprocess.run(
+            [soffice, "--headless", "--nojava", "--norestore",
+             f"-env:UserInstallation=file://{lo_profile}",
+             "--convert-to", "pdf", "--outdir", out_dir, src],
+            capture_output=True, text=True,
+        )
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip())
     stem = os.path.splitext(os.path.basename(src))[0]
