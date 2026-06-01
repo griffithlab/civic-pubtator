@@ -24,7 +24,7 @@ def soffice_convert(soffice, src, out_dir):
             capture_output=True, text=True,
         )
     if result.returncode != 0:
-        raise RuntimeError(result.stderr.strip())
+        raise RuntimeError(f"soffice failed (exit {result.returncode}):\nSTDERR: {result.stderr.strip()}\nSTDOUT: {result.stdout.strip()}")
     stem = os.path.splitext(os.path.basename(src))[0]
     return os.path.join(out_dir, stem + ".pdf")
 
