@@ -118,20 +118,6 @@ def install_packages():
     run('apt-get install -y ' + ' '.join(SYSTEM_PACKAGES))
 
 
-@step('configure_libreoffice')
-def configure_libreoffice():
-    """Register LibreOffice's internal library directory with the system linker.
-
-    /usr/lib/libreoffice/program/ is not a standard ldconfig path, so
-    soffice.bin cannot find libreglo.so and throws a DeploymentException
-    unless we add it explicitly.
-    """
-    conf = '/etc/ld.so.conf.d/libreoffice.conf'
-    with open(conf, 'w') as f:
-        f.write('/usr/lib/libreoffice/program\n')
-    run('ldconfig')
-
-
 @step('install_conda')
 def install_conda():
     if find_conda():
@@ -366,7 +352,6 @@ def main():
 
     create_directories()
     install_packages()
-    configure_libreoffice()
     install_conda()
     accept_conda_tos()
     configure_git()
