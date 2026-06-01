@@ -41,20 +41,20 @@ if [[ $# -gt 0 ]]; then
 
         if [[ "$DIRECTION" == "down" ]]; then
             info "Downloading ${pmid}: ${gcs_path} → ${local_dir}/"
-            gsutil -m rsync -r "$gcs_path" "${local_dir}/"
+            gcloud storage rsync -r "$gcs_path" "${local_dir}/"
         else
             info "Uploading ${pmid}: ${local_dir}/ → ${gcs_path}"
-            gsutil -m rsync -r "${local_dir}/" "$gcs_path"
+            gcloud storage rsync -r "${local_dir}/" "$gcs_path"
         fi
     done
 else
     # Sync entire pub-data directory
     if [[ "$DIRECTION" == "down" ]]; then
         info "Downloading all pub-data: ${BUCKET}/ → ${LOCAL}/"
-        gsutil -m rsync -r "${BUCKET}/" "${LOCAL}/"
+        gcloud storage rsync -r "${BUCKET}/" "${LOCAL}/"
     else
         info "Uploading all pub-data: ${LOCAL}/ → ${BUCKET}/"
-        gsutil -m rsync -r "${LOCAL}/" "${BUCKET}/"
+        gcloud storage rsync -r "${LOCAL}/" "${BUCKET}/"
     fi
 fi
 

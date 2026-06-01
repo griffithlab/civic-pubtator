@@ -47,10 +47,10 @@ for tool in "${TOOLS[@]}"; do
 
     if [[ "$DIRECTION" == "down" ]]; then
         info "Downloading ${tool}: ${gcs_path} → ${local_dir}/"
-        gsutil -m rsync -r "$gcs_path" "${local_dir}/"
+        gcloud storage rsync -r "$gcs_path" "${local_dir}/"
     else
         info "Uploading ${tool}: ${local_dir}/ → ${gcs_path}"
-        gsutil -m rsync -r "${local_dir}/" "$gcs_path"
+        gcloud storage rsync -r "${local_dir}/" "$gcs_path"
     fi
 done
 
