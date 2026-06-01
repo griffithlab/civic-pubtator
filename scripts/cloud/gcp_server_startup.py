@@ -54,7 +54,7 @@ SYSTEM_PACKAGES = [
     'python3-pip',
     'python3-dev',
     'python3-setuptools',
-    'libreoffice',          # Word/Excel conversion in run_civic_pubtator.py
+    'libreoffice-nogui',    # Word/Excel conversion in run_civic_pubtator.py (headless server)
 ]
 
 
