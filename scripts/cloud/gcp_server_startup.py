@@ -192,14 +192,12 @@ def install_grobid():
 def install_grobid_service():
     """Install GROBID as a systemd service that starts on boot.
 
-    Invokes the built JAR directly rather than via ./gradlew run so that
-    systemd tracks the correct PID (Gradle forks a subprocess and exits,
-    which confuses systemd's process tracking).
+    Uses ./gradlew run --no-daemon: with --no-daemon Gradle stays in the
+    foreground blocking until GROBID exits, so systemd tracks the correct
+    process.  The gradlew install task compiles classes but does not produce
+    a runnable fat JAR, so direct java -jar is not available.
     """
-    grobid_ver = '0.8.1'
     grobid_dir = f'{REPO_DIR}/grobid'
-    jar = f'{grobid_dir}/grobid-service/build/libs/grobid-service-{grobid_ver}.jar'
-    config = f'{grobid_dir}/grobid-home/config/grobid.yaml'
 
     unit = f"""\
 [Unit]
@@ -209,7 +207,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory={grobid_dir}
-ExecStart=/usr/bin/java -Xmx4G -jar {jar} server {config}
+ExecStart={grobid_dir}/gradlew run --no-daemon
 Restart=on-failure
 RestartSec=10
 StandardOutput=journal
