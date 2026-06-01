@@ -41,6 +41,12 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(tmp_dir, exist_ok=True)
 
+    # GCS sync doesn't preserve POSIX permissions — ensure CRF binaries are executable.
+    for binary in ("CRF/crf_test", "CRF/crf_learn"):
+        p = os.path.join(TMVAR_DIR, binary)
+        if os.path.isfile(p):
+            os.chmod(p, os.stat(p).st_mode | 0o111)
+
     cmd = [
         "java", f"-Xmx{args.xmx}", f"-Xms{args.xms}",
         "-jar", JAR,

@@ -89,7 +89,7 @@ def main():
     os.makedirs(os.path.join(GNORM2_DIR, "tmp"), exist_ok=True)
 
     # GCS sync doesn't preserve POSIX permissions — ensure binaries are executable.
-    for binary in ("Ab3P", "identify_abbr"):
+    for binary in ("Ab3P", "identify_abbr", "CRF/crf_test", "CRF/crf_learn"):
         p = os.path.join(GNORM2_DIR, binary)
         if os.path.isfile(p):
             os.chmod(p, os.stat(p).st_mode | 0o111)
