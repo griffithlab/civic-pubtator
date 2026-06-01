@@ -15,7 +15,7 @@ def find_soffice():
 def soffice_convert(soffice, src, out_dir):
     """Convert src to PDF in out_dir via soffice. Returns path of created PDF."""
     result = subprocess.run(
-        [soffice, "--headless", "--convert-to", "pdf", "--outdir", out_dir, src],
+        [soffice, "--headless", "--nojava", "--convert-to", "pdf", "--outdir", out_dir, src],
         capture_output=True, text=True,
     )
     if result.returncode != 0:
