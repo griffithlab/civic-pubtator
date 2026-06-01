@@ -188,6 +188,44 @@ def install_grobid():
     run(f'cd {grobid_dir} && ./gradlew clean install -x test --no-daemon -q')
 
 
+@step('install_grobid_service')
+def install_grobid_service():
+    """Install GROBID as a systemd service that starts on boot.
+
+    Invokes the built JAR directly rather than via ./gradlew run so that
+    systemd tracks the correct PID (Gradle forks a subprocess and exits,
+    which confuses systemd's process tracking).
+    """
+    grobid_ver = '0.8.1'
+    grobid_dir = f'{REPO_DIR}/grobid'
+    jar = f'{grobid_dir}/grobid-service/build/libs/grobid-service-{grobid_ver}.jar'
+    config = f'{grobid_dir}/grobid-home/config/grobid.yaml'
+
+    unit = f"""\
+[Unit]
+Description=GROBID PDF parsing service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory={grobid_dir}
+ExecStart=/usr/bin/java -Xmx4G -jar {jar} server {config}
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+"""
+    unit_path = '/etc/systemd/system/grobid.service'
+    with open(unit_path, 'w') as f:
+        f.write(unit)
+    run('systemctl daemon-reload')
+    run('systemctl enable grobid')
+    run('systemctl start grobid')
+
+
 @step('symlink_tool_dirs')
 def symlink_tool_dirs():
     """
@@ -320,6 +358,7 @@ def main():
     configure_git()
     clone_repo()
     install_grobid()
+    install_grobid_service()
     symlink_tool_dirs()
     setup_conda_base()
     setup_conda_gnorm2()
