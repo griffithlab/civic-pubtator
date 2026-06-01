@@ -49,7 +49,8 @@ def process_word(src, stem, s_dir, soffice):
     ext = os.path.splitext(src)[1].lower()
     if ext == ".doc":
         print("  WARNING: .doc requires LibreOffice for conversion — skipping.")
-        print("           Install with: brew install --cask libreoffice")
+        print("           macOS: brew install --cask libreoffice")
+        print("           Ubuntu: sudo apt-get install -y libreoffice")
         return
     try:
         from docx import Document
@@ -207,7 +208,9 @@ def main():
         else:
             print("WARNING: LibreOffice (soffice) not found.")
             print("         Word and Excel conversion will use a basic fallback with reduced fidelity.")
-            print("         For best results install LibreOffice: brew install --cask libreoffice\n")
+            print("         For best results install LibreOffice:")
+            print("           macOS:  brew install --cask libreoffice")
+            print("           Ubuntu: sudo apt-get install -y libreoffice\n")
 
     input_dir = os.path.abspath(args.input_dir)
     s_dir = os.path.join(input_dir, "s")
