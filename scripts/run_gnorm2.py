@@ -84,6 +84,10 @@ def main():
     for d in (tmp_sr, tmp_gnr, tmp_sa):
         os.makedirs(d, exist_ok=True)
 
+    # GNorm2's Java code calls File("tmp").listFiles() relative to cwd (GNORM2_DIR).
+    # That directory is absent after a fresh GCS sync (empty dirs aren't synced).
+    os.makedirs(os.path.join(GNORM2_DIR, "tmp"), exist_ok=True)
+
     # TF_USE_LEGACY_KERAS=1 is needed for TF >= 2.16 (system Python) where
     # tensorflow.keras was restructured and must be redirected to tf_keras.
     # When using a custom --ml-python (e.g. the conda env with TF 2.15),
