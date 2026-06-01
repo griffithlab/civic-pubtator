@@ -88,6 +88,12 @@ def main():
     # That directory is absent after a fresh GCS sync (empty dirs aren't synced).
     os.makedirs(os.path.join(GNORM2_DIR, "tmp"), exist_ok=True)
 
+    # GCS sync doesn't preserve POSIX permissions — ensure binaries are executable.
+    for binary in ("Ab3P", "identify_abbr"):
+        p = os.path.join(GNORM2_DIR, binary)
+        if os.path.isfile(p):
+            os.chmod(p, os.stat(p).st_mode | 0o111)
+
     # TF_USE_LEGACY_KERAS=1 is needed for TF >= 2.16 (system Python) where
     # tensorflow.keras was restructured and must be redirected to tf_keras.
     # When using a custom --ml-python (e.g. the conda env with TF 2.15),
