@@ -42,7 +42,7 @@ def find_conda():
     return None
 
 SYSTEM_PACKAGES = [
-    'openjdk-17-jdk',       # GROBID
+    'openjdk-21-jdk',       # tmVar.jar requires Java 21 (class file version 65.0); also runs GROBID/GNorm2
     'git',
     'curl',
     'wget',
