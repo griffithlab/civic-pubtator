@@ -175,15 +175,22 @@ def clone_repo():
 
 @step('compile_tmvar_crf')
 def compile_tmvar_crf():
-    """Compile tmVar's bundled CRF++ from source.
+    """Compile tmVar's bundled CRF++ from source (runs after sync_tool_data).
 
-    The repo ships macOS shims for CRF/crf_test and CRF/crf_learn that
-    delegate to a Homebrew-installed crf_test.  On Linux we compile the
-    real binaries from the C++ source already in CRF/ and overwrite the
-    shims in place.
+    tmvar/CRF/ is gitignored; the C++ source arrives via sync_tool_data from GCS.
+    Three Linux-specific fixes are required:
+      1. ./configure  — regenerates the Makefile for Linux; the GCS copy carries a
+                        Mac-generated Makefile with Homebrew paths hardcoded.
+      2. sed patch    — CRF++ uses make_pair<int,int>(lvalue,lvalue) which is valid
+                        in C++14 but fails under the C++17 default of g++ 11+.
+                        Removing the explicit template args lets the compiler deduce them.
+      3. -std=c++14 -fPIE — c++14 for the make_pair fix; -fPIE because modern Ubuntu
+                        links executables as PIE by default and object files must match.
     """
     crf_dir = f'{REPO_DIR}/tmvar/CRF'
-    run(f'make -C {crf_dir} crf_test crf_learn')
+    run(f'cd {crf_dir} && ./configure')
+    run(f"sed -i 's/std::make_pair<int, int>(/std::make_pair(/g' {crf_dir}/feature_index.cpp")
+    run(f'cd {crf_dir} && make clean && make CXXFLAGS="-std=c++14 -O3 -Wall -fPIE" crf_test crf_learn')
     log(f'  compiled: {crf_dir}/crf_test, {crf_dir}/crf_learn')
 
 
@@ -383,11 +390,11 @@ def main():
     accept_conda_tos()
     configure_git()
     clone_repo()
-    compile_tmvar_crf()
     install_grobid()
     install_grobid_service()
     symlink_tool_dirs()
     sync_tool_data()
+    compile_tmvar_crf()   # must run after sync_tool_data: tmvar/CRF/ is gitignored, source comes from GCS
     setup_conda_base()
     setup_conda_gnorm2()
     setup_conda_aioner()
