@@ -173,6 +173,37 @@ def setup_github_ssh():
         print("    ssh -T git@github.com")
 
 
+# ── Step 4: Claude Code ───────────────────────────────────────────────────────
+
+def install_claude_code():
+    section("Step 4: Install Claude Code")
+
+    local_bin = os.path.expanduser("~/.local/bin")
+    claude_bin = os.path.join(local_bin, "claude")
+
+    if os.path.isfile(claude_bin):
+        r = subprocess.run([claude_bin, "--version"], capture_output=True, text=True)
+        print(f"  Claude Code already installed: {r.stdout.strip() or claude_bin}")
+    else:
+        print("  Installing Claude Code via official install script ...")
+        run("curl -fsSL https://claude.ai/install.sh | bash", shell=True)
+        print(f"  OK  installed to {claude_bin}")
+
+    # Ensure ~/.local/bin is on PATH in ~/.bashrc
+    bashrc = os.path.expanduser("~/.bashrc")
+    path_line = 'export PATH="$HOME/.local/bin:$PATH"'
+    already_set = False
+    if os.path.isfile(bashrc):
+        with open(bashrc) as fh:
+            already_set = any(".local/bin" in line for line in fh)
+    if not already_set:
+        with open(bashrc, "a") as fh:
+            fh.write(f"\n{path_line}\n")
+        print(f"  OK  added ~/.local/bin to PATH in ~/.bashrc")
+    else:
+        print(f"  OK  ~/.local/bin already in PATH in ~/.bashrc")
+
+
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 def main():
@@ -183,6 +214,7 @@ def main():
     fix_ownership()
     configure_git()
     setup_github_ssh()
+    install_claude_code()
 
     print(f"""
 {'=' * 64}
@@ -196,6 +228,10 @@ def main():
   Data sync:
     bash {REPO_DIR}/scripts/cloud/sync_pub_data.sh down [PMID]
     bash {REPO_DIR}/scripts/cloud/sync_tool_data.sh down
+
+  Claude Code:
+    source ~/.bashrc   # pick up updated PATH (or start a new session)
+    claude --help
 {'=' * 64}
 """)
 
