@@ -250,6 +250,18 @@ def symlink_tool_dirs():
             log(f'  linked: {link_path} -> {target}')
 
 
+@step('sync_tool_data')
+def sync_tool_data():
+    """Download all tool model files from GCS to /data/tool-data/.
+
+    Uses gcloud storage rsync so only missing/changed files are transferred.
+    Must run before conda env setup so any tool binaries are present when
+    subsequent steps fix their execute permissions.
+    """
+    sync_script = f'{REPO_DIR}/scripts/cloud/sync_tool_data.sh'
+    run(f'bash {sync_script} down')
+
+
 @step('setup_conda_gnorm2')
 def setup_conda_gnorm2():
     """GNorm2 env: Python 3.11, TF 2.15 with CUDA GPU support (no tensorflow-metal)."""
@@ -359,6 +371,7 @@ def main():
     install_grobid()
     install_grobid_service()
     symlink_tool_dirs()
+    sync_tool_data()
     setup_conda_base()
     setup_conda_gnorm2()
     setup_conda_aioner()
@@ -369,11 +382,9 @@ def main():
     log('Next steps:')
     log('  1. Activate conda in your shell (once per login):')
     log('       source ~/.bashrc')
-    log('  2. Sync model files from GCS:')
-    log(f'       bash {REPO_DIR}/scripts/cloud/sync_tool_data.sh down')
-    log('  3. Sync publication data from GCS:')
+    log('  2. Sync publication data from GCS:')
     log(f'       bash {REPO_DIR}/scripts/cloud/sync_pub_data.sh down')
-    log('  4. Available conda environments:')
+    log('  3. Available conda environments:')
     log('       conda activate gnorm2-tf215')
     log('       conda activate aioner-tf23')
     log('       conda activate nlmchem-py39')
