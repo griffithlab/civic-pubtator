@@ -154,21 +154,23 @@ def setup_github_ssh():
 """)
     input("  Press Enter after you have added the key to GitHub ... ")
 
+    # Switch the remote to SSH now — before the connection test — so that
+    # a failed test doesn't leave the remote pointing at HTTPS.
+    _switch_remote_to_ssh()
+
     r = subprocess.run(
         ["ssh", "-T", "git@github.com"],
         capture_output=True, text=True,
     )
-    # GitHub always returns exit code 1 for `ssh -T`, but stdout/stderr say "Hi <user>!"
+    # GitHub always returns exit code 1 for `ssh -T`, but prints "Hi <user>!"
     combined = (r.stdout + r.stderr).strip()
-    if "Hi " in combined and "successfully authenticated" in combined:
+    if "successfully authenticated" in combined:
         print(f"  OK  {combined}")
-        _switch_remote_to_ssh()
     else:
         print(f"  WARNING: GitHub connection test gave an unexpected response:")
         print(f"    {combined}")
-        print("  If the key was added correctly this may still work — try:")
+        print("  If the key was just added it may take a moment — retry with:")
         print("    ssh -T git@github.com")
-        print("    git -C /opt/civic-pubtator push")
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
