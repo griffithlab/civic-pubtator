@@ -55,6 +55,7 @@ SYSTEM_PACKAGES = [
     'python3-dev',
     'python3-setuptools',
     'libreoffice-nogui',    # Word/Excel conversion in run_civic_pubtator.py (headless server)
+    'crf++',               # tmVar CRF/crf_test shims call system crf_test; GNorm2 ships its own binary
 ]
 
 
