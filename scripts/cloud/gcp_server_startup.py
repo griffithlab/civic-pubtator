@@ -55,7 +55,7 @@ SYSTEM_PACKAGES = [
     'python3-dev',
     'python3-setuptools',
     'libreoffice-nogui',    # Word/Excel conversion in run_civic_pubtator.py (headless server)
-    'crf++',               # tmVar CRF/crf_test shims call system crf_test; GNorm2 ships its own binary
+    'build-essential',     # gcc/g++/make — needed to compile tmVar's bundled CRF++ from source
 ]
 
 
@@ -171,6 +171,20 @@ def clone_repo():
     # the system setting — explicitly disable it in the local repo config.
     run(f'git -C {REPO_DIR} config core.fileMode false')
     run(f'chmod -R 755 {REPO_DIR}/scripts')
+
+
+@step('compile_tmvar_crf')
+def compile_tmvar_crf():
+    """Compile tmVar's bundled CRF++ from source.
+
+    The repo ships macOS shims for CRF/crf_test and CRF/crf_learn that
+    delegate to a Homebrew-installed crf_test.  On Linux we compile the
+    real binaries from the C++ source already in CRF/ and overwrite the
+    shims in place.
+    """
+    crf_dir = f'{REPO_DIR}/tmvar/CRF'
+    run(f'make -C {crf_dir} crf_test crf_learn')
+    log(f'  compiled: {crf_dir}/crf_test, {crf_dir}/crf_learn')
 
 
 @step('install_grobid')
@@ -369,6 +383,7 @@ def main():
     accept_conda_tos()
     configure_git()
     clone_repo()
+    compile_tmvar_crf()
     install_grobid()
     install_grobid_service()
     symlink_tool_dirs()
