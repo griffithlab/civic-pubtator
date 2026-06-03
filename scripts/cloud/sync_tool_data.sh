@@ -57,15 +57,21 @@ for tool in "${TOOLS[@]}"; do
             tar xzf "$f" -C "$extract_dir"
             rm -f "$f"
 
-            # Strip a top-level directory if its name matches the tool name
-            # exactly or is the tool name followed by _ or - (e.g. AIONER_P3).
-            # Component subdirectories whose names merely share a prefix without
-            # a separator (e.g. NLMChemTaggerNormalizer inside NLMChem) are
-            # preserved so they land as subdirectories of the tool directory.
+            # Strip a top-level directory if its name (case-insensitive) matches
+            # the tool name exactly, is the tool name followed by _ or -
+            # (e.g. AIONER_P3), or is the tool name followed by a digit
+            # (e.g. tmVar3).  Component subdirectories whose names share a
+            # prefix but continue with a letter (e.g. NLMChemTaggerNormalizer
+            # inside NLMChem) are preserved as subdirectories of the tool dir.
             mapfile -t top_entries < <(ls -1 "$extract_dir")
             top="${top_entries[0]:-}"
+            top_lower="${top,,}"
+            tool_lower="${tool,,}"
             if [[ ${#top_entries[@]} -eq 1 && -d "${extract_dir}/${top}" ]] && \
-               [[ "$top" == "$tool" || "$top" == "${tool}_"* || "$top" == "${tool}-"* ]]; then
+               [[ "$top_lower" == "$tool_lower" || \
+                  "$top_lower" == "${tool_lower}_"* || \
+                  "$top_lower" == "${tool_lower}-"* || \
+                  "$top_lower" =~ ^${tool_lower}[0-9] ]]; then
                 src="${extract_dir}/${top}/"
             else
                 src="${extract_dir}/"
