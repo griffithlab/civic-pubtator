@@ -285,7 +285,7 @@ def setup_conda_gnorm2():
     """GNorm2 env: Python 3.11, TF 2.15 with CUDA GPU support (no tensorflow-metal)."""
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'gnorm2-tf215'
-    req = f'{REPO_DIR}/scripts/requirements_gnorm2_linux.txt'
+    req = f'{REPO_DIR}/scripts/requirements/requirements_gnorm2_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up GNorm2 environment')
         return
@@ -310,7 +310,7 @@ def setup_conda_aioner():
     """
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'aioner-tf23'
-    req = f'{REPO_DIR}/scripts/requirements_aioner_linux.txt'
+    req = f'{REPO_DIR}/scripts/requirements/requirements_aioner_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up AIONER environment')
         return
@@ -332,7 +332,7 @@ def setup_conda_nlmchem():
     """NLMChem normalizer env: Python 3.9."""
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'nlmchem-py39'
-    req = f'{REPO_DIR}/scripts/requirements_nlmchem_linux.txt'
+    req = f'{REPO_DIR}/scripts/requirements/requirements_nlmchem_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up NLMChem environment')
         return

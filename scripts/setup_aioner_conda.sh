@@ -36,7 +36,7 @@ set -euo pipefail
 ENV_NAME="aioner-tf213"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 AIONER_DIR="${REPO_DIR}/AIONER"
-REQUIREMENTS="${REPO_DIR}/scripts/requirements_aioner.txt"
+REQUIREMENTS="${REPO_DIR}/scripts/requirements/requirements_aioner.txt"
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 info()  { echo "[setup] $*"; }
@@ -94,7 +94,7 @@ fi
 # Install via pip first (some packages may pull in a newer tokenizers as a
 # transitive dep), then force-install tokenizers==0.12.1 from conda-forge
 # afterwards so conda's ARM64 pre-built wheel is the final version.
-# requirements_aioner.txt pins tokenizers==0.12.1 so subsequent pip runs
+# requirements/requirements_aioner.txt pins tokenizers==0.12.1 so subsequent pip runs
 # treat it as already satisfied and leave the conda build in place.
 info "Installing Python packages from ${REQUIREMENTS} ..."
 "$CONDA" run -n "$ENV_NAME" pip install --upgrade pip
