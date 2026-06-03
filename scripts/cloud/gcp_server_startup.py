@@ -295,6 +295,10 @@ def setup_conda_gnorm2():
     run(f'{conda} create -y -n {env} python=3.11')
     run(f'{conda} run -n {env} pip install --upgrade pip --root-user-action=ignore')
     run(f'{conda} run -n {env} pip install -r {req} --root-user-action=ignore')
+    # TF 2.15 is built against CUDA 12.2/cuDNN 8, but the env's default nvidia-*
+    # packages are CUDA 13/cuDNN 9.  Install the matching cu12 libraries so the
+    # GPU is visible to TensorFlow.
+    run(f'{conda} run -n {env} pip install nvidia-cudnn-cu12==8.9.4.25 nvidia-curand-cu12 --root-user-action=ignore')
 
 
 @step('setup_conda_aioner')
