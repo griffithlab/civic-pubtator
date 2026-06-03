@@ -55,6 +55,7 @@ for tool in "${TOOLS[@]}"; do
             mkdir -p "$extract_dir"
             info "  Extracting ${fname}..."
             tar xzf "$f" -C "$extract_dir"
+            rm -f "$f"
 
             # Strip a top-level directory if its name matches the tool name
             # exactly or is the tool name followed by _ or - (e.g. AIONER_P3).
