@@ -1,7 +1,43 @@
-Overview
+## Overall conceptual goal of civic-pubtator
+
+Reproduce much of the functionality of PubTator 3.0 (https://doi.org/10.1093/nar/gkae235) 
+to annotate biomedical literature with entities important to CIViC curators:
+Genes, Variants, Drugs, Diseases, Species and Cell Lines.
+
+CIViC PubTator 3.0 consists of an NLP pipeline. 
+
+Since the PubTator 3.0 pipeline is not made available in a portable way it is being reverse 
+engineered (and modified in places) based on descriptions from the limited documentation 
+of component tools and the PubTator 3.0 publication. Here a relevant excerpts from that 
+publication:
+
+Articles are processed through three major steps: (i) named entity recognition (NER), provided 
+by the recently developed deep-learning transformer model AIONER, (ii) identifier mapping 
+and (iii) relation extraction, performed by BioREx (9) of 12 common types of relations.
+The PubTator 3.0 processing pipeline: AIONER identifies six types of entities. 
+Entity annotations are associated with database identifiers by specialized mappers and 
+BioREx identifies relations between entities. PubTator 3.0 uses AIONER (8), a recently developed 
+named entity recognition (NER) model, to recognize entities of six types: genes/proteins, chemicals, 
+diseases, species, genetic variants, and cell lines. AIONER utilizes a flexible tagging scheme to 
+integrate training data created separately into a single resource. These training datasets include 
+NLM-Gene, NLM-Chem, NCBI-Disease, BC5CDR, tmVar3, Species-800, BioID and BioRED. Local abbreviations 
+are identified using Ab3P.
+
+Entity mentions found by AIONER are normalized (linked) to a unique identifier in an appropriate entity 
+database. Normalization is performed by a module designed for (or adapted to) each entity type, using 
+the latest version. The recently-upgraded GNorm2 system normalizes genes to NCBI Gene identifiers and 
+species mentions to NCBI Taxonomy. tmVar3, also recently upgraded, normalizes genetic variants; it uses 
+dbSNP identifiers for variants listed in dbSNP and HGNV format otherwise. Chemicals are normalized by 
+the NLM-Chem tagger to MeSH identifiers. TaggerOne normalizes diseases to MeSH and cell lines to 
+Cellosaurus using a new normalization-only mode. This mode only applies the normalization model, which 
+converts both mentions and lexicon names into high-dimensional TF-IDF vectors and learns a mapping, as 
+before. However, it now augments the training data by mapping each lexicon name to itself, resulting in 
+a large performance improvement for names present in the lexicon but not in the annotated training data. 
+These enhancements provide a significant overall improvement in entity normalization performance
+
+## Overview of current pipeline
 PDFs → GROBID → BioC XML → GNorm2 → BioC XML (with gene anno) → tmVar3 → BioC XML (variant + gene anno) → Custom Report
 
-File locations
+## File locations
 01_publications_source → 02_publications_grobid → 03_publications_gnorm2 → 04_publications_tmvar3
-
 

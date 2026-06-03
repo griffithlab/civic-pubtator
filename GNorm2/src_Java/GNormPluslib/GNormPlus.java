@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -130,14 +131,15 @@ public class GNormPlus
 		int NumFiles=0;
 		File folder = new File(InputFolder);
 		File[] listOfFiles = folder.listFiles();
+		Arrays.sort(listOfFiles);
 		for (int i = 0; i < listOfFiles.length; i++)
 		{
-			if (listOfFiles[i].isFile()) 
+			if (listOfFiles[i].isFile())
 			{
 				String InputFile = listOfFiles[i].getName();
 				File f = new File(OutputFolder+"/"+InputFile);
-				if(f.exists() && !f.isDirectory()) 
-				{ 
+				if(f.exists() && !f.isDirectory())
+				{
 				}
 				else
 				{
@@ -468,6 +470,7 @@ public class GNormPlus
 			
 			folder = new File(InputFolder);
 			listOfFiles = folder.listFiles();
+			Arrays.sort(listOfFiles);
 			for (int i = 0; i < listOfFiles.length; i++)
 			{
 				if (listOfFiles[i].isFile()) 

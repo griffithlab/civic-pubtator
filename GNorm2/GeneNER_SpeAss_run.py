@@ -146,7 +146,7 @@ def geneNER(infolder, outpath, modelfile):
     start_time = time.time()
 
     # Process each file in the input folder
-    for infile in os.listdir(infolder):
+    for infile in sorted(os.listdir(infolder)):
         inpath = os.path.join(infolder, infile)
         outpath_file = os.path.join(outpath, infile)
 
@@ -680,7 +680,7 @@ def speciesAss(infolder,outpath, modelfile):
     print("begin species assignment........")
     start_time = time.time()
 
-    for infile in os.listdir(infolder):
+    for infile in sorted(os.listdir(infolder)):
         inpath = os.path.join(infolder, infile)
         outpath_file = os.path.join(outpath, infile)
         if os.path.isfile(outpath_file):

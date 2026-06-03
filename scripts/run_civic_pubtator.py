@@ -142,16 +142,20 @@ def count_file_stats(filepath):
 
 
 def collect_output_files(output_dir):
-    """Walk output_dir (skipping tmp* subdirs) and return list of (rel_path, chars, words)."""
+    """Return list of (rel_path, chars, words) for .xml/.txt files directly in output_dir.
+
+    Non-recursive by design: each group's output dir contains only that group's
+    files; subdirectories belong to other groups and are logged separately.
+    """
     files = []
-    for root, dirs, filenames in os.walk(output_dir):
-        dirs[:] = [d for d in sorted(dirs) if not d.startswith("tmp")]
-        for fname in sorted(filenames):
-            if fname.lower().endswith((".xml", ".txt")):
-                fpath = os.path.join(root, fname)
-                rel = os.path.relpath(fpath, output_dir)
+    if not os.path.isdir(output_dir):
+        return files
+    for fname in sorted(os.listdir(output_dir)):
+        if fname.lower().endswith((".xml", ".txt")):
+            fpath = os.path.join(output_dir, fname)
+            if os.path.isfile(fpath):
                 chars, words = count_file_stats(fpath)
-                files.append((rel, chars, words))
+                files.append((fname, chars, words))
     return files
 
 
@@ -165,8 +169,14 @@ def log_group_header(log_path, label, pdf_dir):
         f.write(f"{bar}\n")
 
 
-def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, elapsed):
-    """Append character/word stats to the log and TSV for all output files."""
+def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, elapsed,
+                   file_elapsed=None):
+    """Append character/word stats to the log and TSV for all output files.
+
+    file_elapsed: optional dict mapping output basename → elapsed seconds.
+    When provided, per-file timings appear in the log table and TSV rows.
+    The step header still shows the total elapsed for context.
+    """
     files = collect_output_files(output_dir)
 
     timestamp    = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -174,19 +184,28 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
 
     # --- human-readable log ---
     with open(log_path, "a", encoding="utf-8") as f:
-        f.write(f"\n  >> {step_name}  {timestamp}  ({duration_str})\n")
+        f.write(f"\n  >> {step_name}  {timestamp}  ({duration_str} total)\n")
         f.write(f"     Output: {output_dir}\n")
         if not files:
             f.write("     (no .xml or .txt files found)\n")
         else:
             name_w = max(max(len(r) for r, _, _ in files), 40)
-            f.write(f"     {'File':<{name_w}}  {'Chars':>12}  {'Words':>9}\n")
-            f.write(f"     {'-'*name_w}  {'-'*12}  {'-'*9}\n")
+            if file_elapsed:
+                f.write(f"     {'File':<{name_w}}  {'Chars':>12}  {'Words':>9}  {'Time':>10}\n")
+                f.write(f"     {'-'*name_w}  {'-'*12}  {'-'*9}  {'-'*10}\n")
+            else:
+                f.write(f"     {'File':<{name_w}}  {'Chars':>12}  {'Words':>9}\n")
+                f.write(f"     {'-'*name_w}  {'-'*12}  {'-'*9}\n")
             total_chars = total_words = 0
             for rel, chars, words in files:
-                f.write(f"     {rel:<{name_w}}  {chars:>12,}  {words:>9,}\n")
                 total_chars += chars
                 total_words += words
+                if file_elapsed:
+                    secs = file_elapsed.get(os.path.basename(rel))
+                    time_col = format_duration(secs) if secs is not None else "—"
+                    f.write(f"     {rel:<{name_w}}  {chars:>12,}  {words:>9,}  {time_col:>10}\n")
+                else:
+                    f.write(f"     {rel:<{name_w}}  {chars:>12,}  {words:>9,}\n")
             f.write(f"     {'TOTAL':<{name_w}}  {total_chars:>12,}  {total_words:>9,}\n")
 
     # --- TSV ---
@@ -196,38 +215,42 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
         for rel, chars, words in files:
             file_stem = os.path.splitext(os.path.basename(rel))[0]
             out_rel   = os.path.relpath(os.path.join(output_dir, rel), base_dir)
-            f.write(f"{step_num}\t{step_name}\t{label}\t{chars}\t{words}\t{duration_str}\t{file_stem}\t{out_rel}\n")
+            if file_elapsed:
+                secs = file_elapsed.get(os.path.basename(rel))
+                row_dur = format_duration(secs) if secs is not None else duration_str
+            else:
+                row_dur = duration_str
+            f.write(f"{step_num}\t{step_name}\t{label}\t{chars}\t{words}\t{row_dur}\t{file_stem}\t{out_rel}\n")
 
 
 def enforce_max_chars(output_dir, max_chars, log_path, step_name, label):
-    """Remove any output files whose character count exceeds max_chars.
+    """Remove any output files directly in output_dir whose char count exceeds max_chars.
 
     Removed files won't be seen by subsequent steps, effectively abandoning
-    that document for the rest of the pipeline.  Returns the list of removed
-    relative paths.
+    that document for the rest of the pipeline.  Returns the list of removed filenames.
+    Non-recursive: each group is responsible only for its own immediate output files.
     """
-    if not max_chars:
+    if not max_chars or not os.path.isdir(output_dir):
         return []
     removed = []
-    for root, dirs, filenames in os.walk(output_dir):
-        dirs[:] = [d for d in sorted(dirs) if not d.startswith("tmp")]
-        for fname in sorted(filenames):
-            if fname.lower().endswith((".xml", ".txt")):
-                fpath = os.path.join(root, fname)
-                chars, _ = count_file_stats(fpath)
-                if chars > max_chars:
-                    rel = os.path.relpath(fpath, output_dir)
-                    print(light_blue(
-                        f"WARNING: [{label}] {rel} — {chars:,} chars exceeds "
-                        f"--max-chars {max_chars:,}; skipping this document"
-                    ), file=sys.stderr)
-                    with open(log_path, "a", encoding="utf-8") as f:
-                        f.write(
-                            f"  *** SKIPPED: {rel} — {chars:,} chars exceeds "
-                            f"limit of {max_chars:,} ***\n"
-                        )
-                    os.remove(fpath)
-                    removed.append(rel)
+    for fname in sorted(os.listdir(output_dir)):
+        if fname.lower().endswith((".xml", ".txt")):
+            fpath = os.path.join(output_dir, fname)
+            if not os.path.isfile(fpath):
+                continue
+            chars, _ = count_file_stats(fpath)
+            if chars > max_chars:
+                print(light_blue(
+                    f"WARNING: [{label}] {fname} — {chars:,} chars exceeds "
+                    f"--max-chars {max_chars:,}; skipping this document"
+                ), file=sys.stderr)
+                with open(log_path, "a", encoding="utf-8") as f:
+                    f.write(
+                        f"  *** SKIPPED: {fname} — {chars:,} chars exceeds "
+                        f"limit of {max_chars:,} ***\n"
+                    )
+                os.remove(fpath)
+                removed.append(fname)
     return removed
 
 
@@ -368,53 +391,175 @@ def enrich_pubtator_from_bioc(tmvar_dir):
                       file=sys.stderr)
 
 
-def process_group(label, pdf_dir, grobid_out, gnorm2_out, tmvar_out, args,
-                  log_path, tsv_path, base_dir, supplementary=False):
-    """Run the full GROBID → GNorm2 → tmVar3 pipeline for one directory of PDFs."""
-    for d in (grobid_out, gnorm2_out, tmvar_out):
-        os.makedirs(d, exist_ok=True)
+def collect_xml_files(dir_path):
+    """Return sorted list of .xml file paths directly in dir_path (non-recursive).
 
+    Non-recursive by design: each group's output dir contains only that group's
+    files; subdirectories belong to other groups and are collected separately.
+    """
+    if not os.path.isdir(dir_path):
+        return []
+    return sorted(
+        os.path.join(dir_path, fname)
+        for fname in os.listdir(dir_path)
+        if fname.lower().endswith(".xml")
+        and os.path.isfile(os.path.join(dir_path, fname))
+    )
+
+
+def run_grobid_for_group(label, pdf_dir, grobid_out, args, log_path, tsv_path, base_dir,
+                          supplementary=False):
+    """Run GROBID for one directory of PDFs."""
+    os.makedirs(grobid_out, exist_ok=True)
     log_group_header(log_path, label, pdf_dir)
+    grobid_cmd = [sys.executable, os.path.join(SCRIPTS_DIR, "pdf_to_bioc.py"), pdf_dir, grobid_out]
+    if supplementary:
+        grobid_cmd.append("--supplementary")
+    t0 = time.time()
+    run(f"GROBID  [{label}]", grobid_cmd)
+    log_step_stats(log_path, tsv_path, base_dir, "GROBID", label, grobid_out,
+                   elapsed=time.time() - t0)
+    enforce_max_chars(grobid_out, args.max_chars, log_path, "GROBID", label)
 
-    if args.start_step <= 1:
-        grobid_cmd = [
-            sys.executable, os.path.join(SCRIPTS_DIR, "pdf_to_bioc.py"),
-            pdf_dir, grobid_out,
-        ]
-        if supplementary:
-            grobid_cmd.append("--supplementary")
-        t0 = time.time()
-        run(f"GROBID  [{label}]", grobid_cmd)
-        log_step_stats(log_path, tsv_path, base_dir, "GROBID", label, grobid_out,
-                       elapsed=time.time() - t0)
-        enforce_max_chars(grobid_out, args.max_chars, log_path, "GROBID", label)
 
-    xmx = args.memory
-    xms = half_memory(args.memory)
+def _build_flat_staging(all_files, staging_in):
+    """
+    Copy files into staging_in with numeric prefixes to avoid name collisions.
 
-    if args.start_step <= 2:
+    all_files: list of (group_dict, src_path)
+    Returns entries: list of (staging_name, original_fname, group_dict)
+    """
+    os.makedirs(staging_in, exist_ok=True)
+    entries = []
+    for i, (group, src_path) in enumerate(all_files):
+        fname = os.path.basename(src_path)
+        staging_name = f"{i:04d}_{fname}"
+        shutil.copy2(src_path, os.path.join(staging_in, staging_name))
+        entries.append((staging_name, fname, group))
+    return entries
+
+
+def _per_file_elapsed(entries, staging_out, t_start, output_suffix=""):
+    """
+    Derive per-file elapsed seconds from output file mtimes after a batch run.
+
+    The first file absorbs startup overhead (mtime - t_start); each subsequent
+    file is measured as mtime[i] - mtime[i-1].
+
+    output_suffix: suffix appended to staging_name to locate the output file
+                   (e.g. ".BioC.XML" for tmVar3, "" for GNorm2).
+    Returns dict: original_fname + output_suffix → elapsed_seconds
+    """
+    timed = []
+    for staging_name, fname, _group in entries:
+        out_path = os.path.join(staging_out, staging_name + output_suffix)
+        if os.path.exists(out_path):
+            timed.append((fname + output_suffix, os.path.getmtime(out_path)))
+    timed.sort(key=lambda x: x[1])
+    result = {}
+    prev = t_start
+    for result_fname, mtime in timed:
+        result[result_fname] = mtime - prev
+        prev = mtime
+    return result
+
+
+def _log_batch_header(log_path, step_name, n_groups):
+    bar = "=" * 70
+    with open(log_path, "a", encoding="utf-8") as f:
+        f.write(f"\n{bar}\n")
+        f.write(f"{step_name} — batched across {n_groups} group(s)\n")
+        f.write(f"{bar}\n")
+
+
+def run_gnorm2_batched(groups, args, log_path, tsv_path, base_dir):
+    """Run GNorm2 once across all groups combined, then distribute outputs."""
+    all_files = [(g, p) for g in groups for p in collect_xml_files(g['grobid_out'])]
+    if not all_files:
+        return
+
+    staging_in  = os.path.join(base_dir, ".gnorm2_staging_in")
+    staging_out = os.path.join(base_dir, ".gnorm2_staging_out")
+    try:
+        entries = _build_flat_staging(all_files, staging_in)
+
+        xmx = args.memory
+        xms = half_memory(args.memory)
         gnorm2_cmd = [
             sys.executable, os.path.join(SCRIPTS_DIR, "run_gnorm2.py"),
-            grobid_out, gnorm2_out,
+            staging_in, staging_out,
             "--xmx", xmx, "--xms", xms,
         ]
         if args.gnorm2_python:
             gnorm2_cmd += ["--ml-python", args.gnorm2_python]
-        t0 = time.time()
-        run(f"GNorm2  [{label}]", gnorm2_cmd)
-        log_step_stats(log_path, tsv_path, base_dir, "GNorm2", label, gnorm2_out,
-                       elapsed=time.time() - t0)
-        enforce_max_chars(gnorm2_out, args.max_chars, log_path, "GNorm2", label)
 
-    t0 = time.time()
-    run(f"tmVar3  [{label}]", [
-        sys.executable, os.path.join(SCRIPTS_DIR, "run_tmvar.py"),
-        gnorm2_out, tmvar_out,
-        "--xmx", xmx, "--xms", xms,
-    ])
-    log_step_stats(log_path, tsv_path, base_dir, "tmVar3", label, tmvar_out,
-                   elapsed=time.time() - t0)
-    enrich_pubtator_from_bioc(tmvar_out)
+        _log_batch_header(log_path, "GNorm2", len(groups))
+        t0 = time.time()
+        run("GNorm2  [all]", gnorm2_cmd)
+        elapsed = time.time() - t0
+
+        file_elapsed = _per_file_elapsed(entries, staging_out, t0)
+
+        for staging_name, fname, group in entries:
+            gnorm2_out = group['gnorm2_out']
+            os.makedirs(gnorm2_out, exist_ok=True)
+            out_src = os.path.join(staging_out, staging_name)
+            if os.path.exists(out_src):
+                shutil.copy2(out_src, os.path.join(gnorm2_out, fname))
+
+        for g in groups:
+            log_step_stats(log_path, tsv_path, base_dir, "GNorm2", g['label'],
+                           g['gnorm2_out'], elapsed, file_elapsed=file_elapsed)
+            enforce_max_chars(g['gnorm2_out'], args.max_chars, log_path, "GNorm2", g['label'])
+
+    finally:
+        shutil.rmtree(staging_in, ignore_errors=True)
+        shutil.rmtree(staging_out, ignore_errors=True)
+
+
+def run_tmvar3_batched(groups, args, log_path, tsv_path, base_dir):
+    """Run tmVar3 once across all groups combined, then distribute outputs."""
+    all_files = [(g, p) for g in groups for p in collect_xml_files(g['gnorm2_out'])]
+    if not all_files:
+        return
+
+    staging_in  = os.path.join(base_dir, ".tmvar3_staging_in")
+    staging_out = os.path.join(base_dir, ".tmvar3_staging_out")
+    try:
+        entries = _build_flat_staging(all_files, staging_in)
+
+        xmx = args.memory
+        xms = half_memory(args.memory)
+        tmvar_cmd = [
+            sys.executable, os.path.join(SCRIPTS_DIR, "run_tmvar.py"),
+            staging_in, staging_out,
+            "--xmx", xmx, "--xms", xms,
+        ]
+
+        _log_batch_header(log_path, "tmVar3", len(groups))
+        t0 = time.time()
+        run("tmVar3  [all]", tmvar_cmd)
+        elapsed = time.time() - t0
+
+        # Use .BioC.XML mtime as the per-file timing anchor (written last by tmVar3).
+        file_elapsed = _per_file_elapsed(entries, staging_out, t0, output_suffix=".BioC.XML")
+
+        for staging_name, fname, group in entries:
+            tmvar_out = group['tmvar_out']
+            os.makedirs(tmvar_out, exist_ok=True)
+            for suffix in (".PubTator", ".BioC.XML"):
+                out_src = os.path.join(staging_out, staging_name + suffix)
+                if os.path.exists(out_src):
+                    shutil.copy2(out_src, os.path.join(tmvar_out, fname + suffix))
+
+        for g in groups:
+            enrich_pubtator_from_bioc(g['tmvar_out'])
+            log_step_stats(log_path, tsv_path, base_dir, "tmVar3", g['label'],
+                           g['tmvar_out'], elapsed, file_elapsed=file_elapsed)
+
+    finally:
+        shutil.rmtree(staging_in, ignore_errors=True)
+        shutil.rmtree(staging_out, ignore_errors=True)
 
 
 def generate_report(top_dir, log_path):
@@ -491,33 +636,40 @@ def process_input(top_dir, args):
     write_manifest(manifest_path, top_dir, source_dir,
                    read_release_version(), run_timestamp)
 
-    # Main publications
-    process_group(
-        label      = "main",
-        pdf_dir    = source_dir,
-        grobid_out = grobid_root,
-        gnorm2_out = gnorm2_root,
-        tmvar_out  = tmvar_root,
-        args       = args,
-        log_path   = log_path,
-        tsv_path   = tsv_path,
-        base_dir   = top_dir,
-    )
-
-    # Supplementary leaf directories
+    # Discover all groups (main publication + supplementary leaf dirs)
+    groups = [{
+        'label':        'main',
+        'pdf_dir':      source_dir,
+        'grobid_out':   grobid_root,
+        'gnorm2_out':   gnorm2_root,
+        'tmvar_out':    tmvar_root,
+        'supplementary': False,
+    }]
     for abs_path, rel in find_supplement_leaf_dirs(source_dir):
-        process_group(
-            label        = rel,
-            pdf_dir      = abs_path,
-            grobid_out   = os.path.join(grobid_root, rel),
-            gnorm2_out   = os.path.join(gnorm2_root, rel),
-            tmvar_out    = os.path.join(tmvar_root,  rel),
-            args         = args,
-            log_path     = log_path,
-            tsv_path     = tsv_path,
-            base_dir     = top_dir,
-            supplementary= True,
-        )
+        groups.append({
+            'label':        rel,
+            'pdf_dir':      abs_path,
+            'grobid_out':   os.path.join(grobid_root, rel),
+            'gnorm2_out':   os.path.join(gnorm2_root, rel),
+            'tmvar_out':    os.path.join(tmvar_root,  rel),
+            'supplementary': True,
+        })
+
+    # Phase 1: GROBID — one invocation per group (no shared startup cost)
+    if args.start_step <= 1:
+        for g in groups:
+            run_grobid_for_group(
+                g['label'], g['pdf_dir'], g['grobid_out'],
+                args, log_path, tsv_path, top_dir,
+                supplementary=g['supplementary'],
+            )
+
+    # Phase 2: GNorm2 — one invocation for all groups combined
+    if args.start_step <= 2:
+        run_gnorm2_batched(groups, args, log_path, tsv_path, top_dir)
+
+    # Phase 3: tmVar3 — one invocation for all groups combined
+    run_tmvar3_batched(groups, args, log_path, tsv_path, top_dir)
 
     # Clear intermediate files and dirs
     if args.clear_intermediates:

@@ -1,6 +1,19 @@
 #!/usr/bin/env python3
 import argparse, os, shutil, subprocess, sys
 
+def _write_setup_with_tmp(src_path, tmp_folder, dst_path):
+    """Write a copy of a GNorm2 setup file with tmpFolder overridden to tmp_folder."""
+    with open(src_path, encoding='utf-8') as f:
+        lines = f.readlines()
+    with open(dst_path, 'w', encoding='utf-8') as f:
+        for line in lines:
+            stripped = line.lstrip()
+            if stripped.startswith('tmpFolder'):
+                indent = line[:len(line) - len(stripped)]
+                f.write(f'{indent}tmpFolder = {tmp_folder}\n')
+            else:
+                f.write(line)
+
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR    = os.path.dirname(SCRIPTS_DIR)
 GNORM2_DIR  = os.path.join(REPO_DIR, "GNorm2")
@@ -84,9 +97,21 @@ def main():
     for d in (tmp_sr, tmp_gnr, tmp_sa):
         os.makedirs(d, exist_ok=True)
 
-    # GNorm2's Java code calls File("tmp").listFiles() relative to cwd (GNORM2_DIR).
-    # That directory is absent after a fresh GCS sync (empty dirs aren't synced).
+    # GNorm2's Java code has a hardcoded File("tmp").listFiles() relative to cwd —
+    # that directory must exist or the call throws. Keep it, but redirect the actual
+    # intermediate files (abbreviations, SimConcept data, etc.) into output_dir so
+    # they're cleaned up with the rest of the run's working files.
     os.makedirs(os.path.join(GNORM2_DIR, "tmp"), exist_ok=True)
+    gnorm2_tmp = os.path.join(output_dir, "tmp_gnorm2")
+    os.makedirs(gnorm2_tmp, exist_ok=True)
+
+    # Write per-run setup files with tmpFolder pointing to gnorm2_tmp.
+    # The originals use a relative "tmp" path (= GNorm2/tmp/); the overridden
+    # copies use an absolute path so intermediates land in output_dir instead.
+    setup_sr = os.path.join(GNORM2_DIR, "setup.SR.run.txt")
+    setup_gn = os.path.join(GNORM2_DIR, "setup.GN.run.txt")
+    _write_setup_with_tmp(os.path.join(GNORM2_DIR, "setup.SR.txt"), gnorm2_tmp, setup_sr)
+    _write_setup_with_tmp(os.path.join(GNORM2_DIR, "setup.GN.txt"), gnorm2_tmp, setup_gn)
 
     # GCS sync doesn't preserve POSIX permissions — ensure binaries are executable.
     for binary in ("Ab3P", "identify_abbr", "CRF/crf_test", "CRF/crf_learn"):
@@ -105,19 +130,27 @@ def main():
 
     java_cmd = ["java", f"-Xmx{args.xmx}", f"-Xms{args.xms}", "-jar", JAR]
 
-    # Step 1: Species Recognition
-    run(java_cmd + [input_dir, tmp_sr, "setup.SR.txt"], env)
+    try:
+        # Step 1: Species Recognition
+        run(java_cmd + [input_dir, tmp_sr, "setup.SR.run.txt"], env)
 
-    # Step 2: Species Assignment + Gene Name Recognition
-    run([
-        *ml_cmd_prefix(args.ml_python), PYTHON_SCRIPT,
-        "-i", tmp_sr, "-r", tmp_gnr, "-a", tmp_sa,
-        "-n", "gnorm_trained_models/GeneNER/GeneNER-Bioformer-BEST.h5",
-        "-s", "gnorm_trained_models/SpeAss/SpeAss-Bioformer-SG-BEST.h5",
-    ], env)
+        # Step 2: Species Assignment + Gene Name Recognition
+        run([
+            *ml_cmd_prefix(args.ml_python), PYTHON_SCRIPT,
+            "-i", tmp_sr, "-r", tmp_gnr, "-a", tmp_sa,
+            "-n", "gnorm_trained_models/GeneNER/GeneNER-Bioformer-BEST.h5",
+            "-s", "gnorm_trained_models/SpeAss/SpeAss-Bioformer-SG-BEST.h5",
+        ], env)
 
-    # Step 3: Gene Normalization
-    run(java_cmd + [tmp_sa, output_dir, "setup.GN.txt"], env)
+        # Step 3: Gene Normalization
+        run(java_cmd + [tmp_sa, output_dir, "setup.GN.run.txt"], env)
+
+    finally:
+        for p in (setup_sr, setup_gn):
+            try:
+                os.remove(p)
+            except OSError:
+                pass
 
 if __name__ == "__main__":
     main()

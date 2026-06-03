@@ -2,7 +2,40 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What This Project Is
+## Project Goal
+
+**civic-pubtator** aims to reproduce much of the functionality of PubTator 3.0 to annotate biomedical literature with entities important to CIViC curators: **Genes, Variants, Drugs, Diseases, Species, and Cell Lines**.
+
+Because the PubTator 3.0 pipeline is not publicly portable, it is being reverse-engineered and adapted based on the component tools' documentation and the PubTator 3.0 publication. The published pipeline works as follows:
+
+- **NER** — AIONER (deep-learning transformer) recognizes six entity types: genes/proteins, chemicals, diseases, species, genetic variants, cell lines.
+- **Normalization** — Specialized mappers link each entity type to a database identifier:
+  - Genes/species → NCBI Gene / NCBI Taxonomy via **GNorm2**
+  - Genetic variants → dbSNP RS# or HGVS notation via **tmVar3**
+  - Chemicals → MeSH via NLM-Chem
+  - Diseases / cell lines → MeSH / Cellosaurus via TaggerOne
+- **Relation extraction** — BioREx identifies 12 common relation types between entities.
+
+The **current pipeline** approximates this with tools that are available:
+
+```
+PDFs → GROBID → BioC XML → GNorm2 → BioC XML (gene/species anno)
+     → tmVar3 → BioC XML (variant + gene anno) → Custom Report
+```
+
+All work happens inside per-publication directories structured as:
+```
+<pub_dir>/01_source/        ← source PDFs (+ s/ subdir for supplementary)
+<pub_dir>/02_grobid/        ← GROBID BioC XML output
+<pub_dir>/03_gnorm2/        ← GNorm2 annotated BioC XML
+<pub_dir>/04_tmvar3/        ← tmVar3 annotated BioC XML + PubTator files
+```
+
+The orchestrating script is `scripts/run_civic_pubtator.py`. GNorm2 and tmVar3 are run in **batch mode** — all documents across all groups (main + supplementary) are processed in a single tool invocation to amortize model-loading startup costs.
+
+---
+
+## What This Project Is (tmVar3 component)
 
 tmVar3 is a Java-based biomedical text-mining pipeline that identifies and normalizes genetic variant mentions (DNA mutations, protein mutations, SNPs) in scientific literature. It extracts variants from PubTator or BioC XML input and maps them to standard identifiers (dbSNP RS#, ClinGen Allele Registry CA#, HGVS notation).
 

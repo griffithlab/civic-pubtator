@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.sql.SQLException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -439,6 +440,7 @@ public class tmVar
 		
 		File folder = new File(InputFolder);
 		File[] listOfFiles = folder.listFiles();
+		Arrays.sort(listOfFiles);
 		for (int i = 0; i < listOfFiles.length; i++)
 		{
 			if (listOfFiles[i].isFile()) 
