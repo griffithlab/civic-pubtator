@@ -224,8 +224,9 @@ __marimo__/
 grobid/
 
 #AIONER
-AIONER/data/ 
+AIONER/data/
 AIONER/AIONER_trained_models/
+AIONER/env39/
 
 #GNorm2
 GNorm2/Dictionary/

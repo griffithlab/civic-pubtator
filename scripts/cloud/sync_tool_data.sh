@@ -56,13 +56,16 @@ for tool in "${TOOLS[@]}"; do
             info "  Extracting ${fname}..."
             tar xzf "$f" -C "$extract_dir"
 
-            # Strip a top-level directory only if its name matches the tool name
-            # (i.e. the tarball was packed from outside the tool dir).  If the
-            # top-level dir has a different name it is a component subdirectory
-            # that should be preserved (e.g. NLMChemTaggerNormalizer inside NLMChem).
+            # Strip a top-level directory if its name matches the tool name
+            # exactly or is the tool name followed by _ or - (e.g. AIONER_P3).
+            # Component subdirectories whose names merely share a prefix without
+            # a separator (e.g. NLMChemTaggerNormalizer inside NLMChem) are
+            # preserved so they land as subdirectories of the tool directory.
             mapfile -t top_entries < <(ls -1 "$extract_dir")
-            if [[ ${#top_entries[@]} -eq 1 && -d "${extract_dir}/${top_entries[0]}" && "${top_entries[0]}" == "$tool" ]]; then
-                src="${extract_dir}/${top_entries[0]}/"
+            top="${top_entries[0]:-}"
+            if [[ ${#top_entries[@]} -eq 1 && -d "${extract_dir}/${top}" ]] && \
+               [[ "$top" == "$tool" || "$top" == "${tool}_"* || "$top" == "${tool}-"* ]]; then
+                src="${extract_dir}/${top}/"
             else
                 src="${extract_dir}/"
             fi
