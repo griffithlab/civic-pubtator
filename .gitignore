@@ -231,6 +231,7 @@ AIONER/AIONER_trained_models/
 GNorm2/Dictionary/
 GNorm2/gnorm_trained_models/
 GNorm2/Library/
+GNorm2/CRF/.libs/
 GNorm2/lib/libtensorflow_jni.so
 GNorm2/lib/tensorflow_jni.dll
 
