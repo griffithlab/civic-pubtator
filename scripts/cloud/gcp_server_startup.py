@@ -255,7 +255,7 @@ def sync_tool_data():
     subsequent steps fix their execute permissions.
     """
     sync_script = f'{REPO_DIR}/scripts/cloud/sync_tool_data.sh'
-    run(f'bash {sync_script} down')
+    run(f'bash {sync_script}')
 
 
 @step('setup_conda_gnorm2')
