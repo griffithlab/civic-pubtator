@@ -241,11 +241,13 @@ def NER_main_path(inpath, para_set, outpath, modelfile):
         print("begin tagging........")
         start_time=time.time()
         
-        for infile in os.listdir(inpath):
+        for infile in sorted(os.listdir(inpath)):
+            if not os.path.isfile(inpath+infile):
+                continue
             if os.path.isfile(outpath+infile):
                 print(infile+' has exsited.')
             else:
-                print('processing:',infile)             
+                print('processing:',infile)
                 fin = open(inpath+infile, 'r',encoding='utf-8')
                 input_format=""
                 for line in fin:

@@ -32,6 +32,9 @@ def find_conda():
     return None
 
 
+DEFAULT_ENV = "gnorm2-tf215"
+
+
 def ml_cmd_prefix(ml_python):
     """Return the command prefix for the GNorm2 ML step.
 
@@ -39,18 +42,17 @@ def ml_cmd_prefix(ml_python):
     A bare name (no path separator) is run via 'conda run -n <name> python'
     so the full conda environment is activated.
     """
-    if ml_python is None:
-        return [sys.executable]
-    if os.sep in ml_python or ml_python.startswith("~"):
+    if ml_python is not None and (os.sep in ml_python or ml_python.startswith("~")):
         return [os.path.expanduser(ml_python)]
+    env_name = ml_python if ml_python is not None else DEFAULT_ENV
     # bare name — treat as conda env
     conda = find_conda()
     if not conda:
         sys.exit(
-            f"ERROR: --ml-python '{ml_python}' looks like a conda env name but "
-            "conda was not found. Install Miniforge or pass a full Python path."
+            f"ERROR: conda env '{env_name}' requested but conda was not found. "
+            "Install Miniforge or pass a full Python path via --ml-python."
         )
-    return [conda, "run", "--no-capture-output", "-n", ml_python, "python"]
+    return [conda, "run", "--no-capture-output", "-n", env_name, "python"]
 
 
 def run(cmd, env):
@@ -119,13 +121,13 @@ def main():
         if os.path.isfile(p):
             os.chmod(p, os.stat(p).st_mode | 0o111)
 
-    # TF_USE_LEGACY_KERAS=1 is needed for TF >= 2.16 (system Python) where
-    # tensorflow.keras was restructured and must be redirected to tf_keras.
-    # When using a custom --ml-python (e.g. the conda env with TF 2.15),
-    # Keras 2.x is already the default so the flag is not set — it would
-    # break things by redirecting to tf_keras which isn't installed there.
+    # TF_USE_LEGACY_KERAS=1 is needed for TF >= 2.16 where tensorflow.keras was
+    # restructured and must redirect to tf_keras. The gnorm2-tf215 conda env uses
+    # TF 2.15 where Keras 2.x is the default, so the flag must NOT be set there.
+    # Only set it when a full Python path is explicitly given (path separator present),
+    # which indicates a system Python that may carry TF >= 2.16.
     env = {**os.environ}
-    if args.ml_python is None:
+    if args.ml_python is not None and (os.sep in args.ml_python or args.ml_python.startswith("~")):
         env["TF_USE_LEGACY_KERAS"] = "1"
 
     java_cmd = ["java", f"-Xmx{args.xmx}", f"-Xms{args.xms}", "-jar", JAR]

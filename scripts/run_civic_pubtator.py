@@ -209,7 +209,7 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
             f.write(f"     {'TOTAL':<{name_w}}  {total_chars:>12,}  {total_words:>9,}\n")
 
     # --- TSV ---
-    step_num   = {"GROBID": 1, "GNorm2": 2, "tmVar3": 3}.get(step_name, step_name)
+    step_num   = {"GROBID": 1, "GNorm2": 2, "tmVar3": 3, "AIONER": 4}.get(step_name, step_name)
     input_name = os.path.basename(label) if label != "main" else "main"
     with open(tsv_path, "a", encoding="utf-8") as f:
         for rel, chars, words in files:
@@ -263,6 +263,7 @@ def clear_intermediates(input_dir, base_dir, log_path):
         os.path.join(base_dir, "02_grobid"),
         os.path.join(base_dir, "03_gnorm2"),
         os.path.join(base_dir, "04_tmvar3"),
+        os.path.join(base_dir, "05_aioner"),
     ]:
         if not os.path.isdir(out_dir):
             continue
@@ -513,8 +514,55 @@ def run_gnorm2_batched(groups, args, log_path, tsv_path, base_dir):
             enforce_max_chars(g['gnorm2_out'], args.max_chars, log_path, "GNorm2", g['label'])
 
     finally:
-        shutil.rmtree(staging_in, ignore_errors=True)
-        shutil.rmtree(staging_out, ignore_errors=True)
+        if args.clear_intermediates:
+            shutil.rmtree(staging_in, ignore_errors=True)
+            shutil.rmtree(staging_out, ignore_errors=True)
+
+
+def run_aioner_batched(groups, args, log_path, tsv_path, base_dir):
+    """Run AIONER once across all groups combined, then distribute outputs.
+
+    AIONER reads from GROBID output (same input as GNorm2) and writes
+    NER-annotated BioC XML to 05_aioner/, independent of GNorm2/tmVar3.
+    """
+    all_files = [(g, p) for g in groups for p in collect_xml_files(g['grobid_out'])]
+    if not all_files:
+        return
+
+    staging_in  = os.path.join(base_dir, ".aioner_staging_in")
+    staging_out = os.path.join(base_dir, ".aioner_staging_out")
+    try:
+        entries = _build_flat_staging(all_files, staging_in)
+
+        aioner_cmd = [
+            sys.executable, os.path.join(SCRIPTS_DIR, "run_aioner.py"),
+            staging_in, staging_out,
+        ]
+        if args.aioner_python:
+            aioner_cmd += ["--aioner-python", args.aioner_python]
+
+        _log_batch_header(log_path, "AIONER", len(groups))
+        t0 = time.time()
+        run("AIONER   [all]", aioner_cmd)
+        elapsed = time.time() - t0
+
+        file_elapsed = _per_file_elapsed(entries, staging_out, t0)
+
+        for staging_name, fname, group in entries:
+            aioner_out = group['aioner_out']
+            os.makedirs(aioner_out, exist_ok=True)
+            out_src = os.path.join(staging_out, staging_name)
+            if os.path.exists(out_src):
+                shutil.copy2(out_src, os.path.join(aioner_out, fname))
+
+        for g in groups:
+            log_step_stats(log_path, tsv_path, base_dir, "AIONER", g['label'],
+                           g['aioner_out'], elapsed, file_elapsed=file_elapsed)
+
+    finally:
+        if args.clear_intermediates:
+            shutil.rmtree(staging_in, ignore_errors=True)
+            shutil.rmtree(staging_out, ignore_errors=True)
 
 
 def run_tmvar3_batched(groups, args, log_path, tsv_path, base_dir):
@@ -558,8 +606,9 @@ def run_tmvar3_batched(groups, args, log_path, tsv_path, base_dir):
                            g['tmvar_out'], elapsed, file_elapsed=file_elapsed)
 
     finally:
-        shutil.rmtree(staging_in, ignore_errors=True)
-        shutil.rmtree(staging_out, ignore_errors=True)
+        if args.clear_intermediates:
+            shutil.rmtree(staging_in, ignore_errors=True)
+            shutil.rmtree(staging_out, ignore_errors=True)
 
 
 def generate_report(top_dir, log_path):
@@ -587,13 +636,14 @@ def process_input(top_dir, args):
     grobid_root = os.path.join(top_dir, "02_grobid")
     gnorm2_root = os.path.join(top_dir, "03_gnorm2")
     tmvar_root  = os.path.join(top_dir, "04_tmvar3")
+    aioner_root = os.path.join(top_dir, "05_aioner")
     log_path      = os.path.join(top_dir, "pipeline_stats.log")
     tsv_path      = os.path.join(top_dir, "pipeline_stats.tsv")
     manifest_path = os.path.join(top_dir, "MANIFEST.txt")
 
     # Clean top-level output dirs (covers supplementary subdirs too)
     if args.clean:
-        for step, d in enumerate([grobid_root, gnorm2_root, tmvar_root], start=1):
+        for step, d in enumerate([grobid_root, gnorm2_root, tmvar_root, aioner_root], start=1):
             if step >= args.start_step and os.path.exists(d):
                 print(light_blue(f"Cleaning {d} ..."), file=sys.stderr)
                 shutil.rmtree(d)
@@ -601,6 +651,16 @@ def process_input(top_dir, args):
             if os.path.exists(f):
                 print(light_blue(f"Cleaning {f} ..."), file=sys.stderr)
                 os.remove(f)
+        # Remove any staging dirs left over from a previous --no-clear-intermediates run
+        for staging in (
+            ".gnorm2_staging_in",  ".gnorm2_staging_out",
+            ".tmvar3_staging_in",  ".tmvar3_staging_out",
+            ".aioner_staging_in",  ".aioner_staging_out",
+        ):
+            d = os.path.join(top_dir, staging)
+            if os.path.exists(d):
+                print(light_blue(f"Cleaning {d} ..."), file=sys.stderr)
+                shutil.rmtree(d)
 
     # Write TSV header if file is new or empty
     if not os.path.exists(tsv_path) or os.path.getsize(tsv_path) == 0:
@@ -643,6 +703,7 @@ def process_input(top_dir, args):
         'grobid_out':   grobid_root,
         'gnorm2_out':   gnorm2_root,
         'tmvar_out':    tmvar_root,
+        'aioner_out':   aioner_root,
         'supplementary': False,
     }]
     for abs_path, rel in find_supplement_leaf_dirs(source_dir):
@@ -652,6 +713,7 @@ def process_input(top_dir, args):
             'grobid_out':   os.path.join(grobid_root, rel),
             'gnorm2_out':   os.path.join(gnorm2_root, rel),
             'tmvar_out':    os.path.join(tmvar_root,  rel),
+            'aioner_out':   os.path.join(aioner_root, rel),
             'supplementary': True,
         })
 
@@ -671,6 +733,9 @@ def process_input(top_dir, args):
     # Phase 3: tmVar3 — one invocation for all groups combined
     run_tmvar3_batched(groups, args, log_path, tsv_path, top_dir)
 
+    # Phase 4: AIONER — one invocation for all groups combined (reads GROBID output)
+    run_aioner_batched(groups, args, log_path, tsv_path, top_dir)
+
     # Clear intermediate files and dirs
     if args.clear_intermediates:
         print(light_blue("Clearing intermediates ..."), file=sys.stderr)
@@ -687,7 +752,7 @@ def process_input(top_dir, args):
     # Generate HTML report
     report_path = generate_report(top_dir, log_path)
 
-    print(light_blue(f"\nDone: {top_dir}  →  {tmvar_root}"), file=sys.stderr)
+    print(light_blue(f"\nDone: {top_dir}  →  {aioner_root}"), file=sys.stderr)
     print(light_blue(f"Stats log: {log_path}"), file=sys.stderr)
     print(light_blue(f"Stats TSV: {tsv_path}"), file=sys.stderr)
     print(light_blue(f"Manifest:  {manifest_path}"), file=sys.stderr)
@@ -726,16 +791,22 @@ def main():
                         help="Java max heap for GNorm2 and tmVar3 (default: 32G); "
                              "initial heap is set to half this value")
     parser.add_argument("--gnorm2-python", default=None, metavar="PATH_OR_ENV",
-                        help="Python interpreter for the GNorm2 ML step. "
+                        help="Python interpreter or conda env for the GNorm2 ML step. "
                              "Accepts a full path to a Python executable or a "
-                             "bare conda env name. Use the env created by "
-                             "scripts/setup_gnorm2_conda.sh to enable Metal GPU "
-                             "acceleration on Apple Silicon. Defaults to the "
-                             "current interpreter. "
+                             "bare conda env name. Defaults to the 'gnorm2-tf215' "
+                             "conda env. "
                              "Examples: "
                              "--gnorm2-python gnorm2-tf215  (conda env name) or "
                              "--gnorm2-python /opt/homebrew/Caskroom/miniforge"
                              "/base/envs/gnorm2-tf215/bin/python3  (full path)")
+    parser.add_argument("--aioner-python", default=None, metavar="PATH_OR_ENV",
+                        help="Python interpreter or conda env for AIONER. "
+                             "Accepts a full path to a Python executable or a "
+                             "bare conda env name. Defaults to the 'aioner-tf23' "
+                             "conda env. "
+                             "Examples: "
+                             "--aioner-python aioner-tf23  (conda env name) or "
+                             "--aioner-python /path/to/envs/aioner-tf23/bin/python3")
     args = parser.parse_args()
 
     # Validate all inputs before starting any work
