@@ -193,6 +193,28 @@ def compile_tmvar_crf():
     log(f'  compiled: {crf_dir}/crf_test, {crf_dir}/crf_learn')
 
 
+@step('compile_gnorm2_crf')
+def compile_gnorm2_crf():
+    """Compile GNorm2's bundled CRF++ from source (runs after sync_tool_data).
+
+    GNorm2's Java layer (GNR.java, SimConcept.java) shells out to CRF/crf_test
+    for gene normalization ranking and similarity concept tasks.  The GCS tarball
+    carries Linux-compiled binaries but they are dynamically linked against
+    libcrfpp.so.0 with paths from the original build machine, so they fail on a
+    fresh VM.  Recompiling from source fixes this.  Same three fixes as tmVar:
+      1. ./configure  — regenerates the Makefile for this machine.
+      2. sed patch    — removes explicit make_pair<int,int> template args that
+                        fail under the C++17 default of g++ 11+.
+      3. -std=c++14 -fPIE — required for the make_pair fix and PIE linking.
+    """
+    crf_dir = f'{REPO_DIR}/GNorm2/CRF'
+    run(f'chmod +x {crf_dir}/configure')
+    run(f'cd {crf_dir} && ./configure')
+    run(f"sed -i 's/std::make_pair<int, int>(/std::make_pair(/g' {crf_dir}/feature_index.cpp")
+    run(f'cd {crf_dir} && make clean && make CXXFLAGS="-std=c++14 -O3 -Wall -fPIE" crf_test crf_learn')
+    log(f'  compiled: {crf_dir}/crf_test, {crf_dir}/crf_learn')
+
+
 @step('install_grobid')
 def install_grobid():
     """Download and build GROBID under the repo's expected location."""
@@ -367,7 +389,8 @@ def main():
     install_grobid()
     install_grobid_service()
     sync_tool_data()
-    compile_tmvar_crf()   # must run after sync_tool_data: tmvar/CRF/ is gitignored, source comes from GCS
+    compile_tmvar_crf()    # must run after sync_tool_data: CRF source comes from GCS
+    compile_gnorm2_crf()   # same reason: GNorm2/CRF/ binaries are not portable across machines
     setup_conda_base()
     setup_conda_gnorm2()
     setup_conda_aioner()
