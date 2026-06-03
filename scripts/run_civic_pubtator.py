@@ -6,18 +6,18 @@ SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 IGNORED_FILES = {".DS_Store"}
 
-_RED   = "\033[91m"
-_RESET = "\033[0m"
+_LIGHT_BLUE = "\033[94m"
+_RESET      = "\033[0m"
 
-def red(text):
-    return f"{_RED}{text}{_RESET}" if sys.stderr.isatty() else text
+def light_blue(text):
+    return f"{_LIGHT_BLUE}{text}{_RESET}" if sys.stderr.isatty() else text
 
 
 def run(label, cmd):
     bar = "=" * 60
-    print(red(f"\n{bar}"), file=sys.stderr)
-    print(red(f"{label}: {' '.join(cmd)}"), file=sys.stderr)
-    print(red(bar), file=sys.stderr)
+    print(light_blue(f"\n{bar}"), file=sys.stderr)
+    print(light_blue(f"{label}: {' '.join(cmd)}"), file=sys.stderr)
+    print(light_blue(bar), file=sys.stderr)
     result = subprocess.run(cmd)
     if result.returncode != 0:
         sys.exit(result.returncode)
@@ -217,7 +217,7 @@ def enforce_max_chars(output_dir, max_chars, log_path, step_name, label):
                 chars, _ = count_file_stats(fpath)
                 if chars > max_chars:
                     rel = os.path.relpath(fpath, output_dir)
-                    print(red(
+                    print(light_blue(
                         f"WARNING: [{label}] {rel} — {chars:,} chars exceeds "
                         f"--max-chars {max_chars:,}; skipping this document"
                     ), file=sys.stderr)
@@ -431,7 +431,7 @@ def generate_report(top_dir, log_path):
         return report_path
     else:
         msg = result.stderr.strip() or result.stdout.strip()
-        print(red(f"WARNING: report generation failed: {msg}"), file=sys.stderr)
+        print(light_blue(f"WARNING: report generation failed: {msg}"), file=sys.stderr)
         with open(log_path, "a", encoding="utf-8") as f:
             f.write(f"# Report:   FAILED — {msg}\n")
         return None
@@ -450,11 +450,11 @@ def process_input(top_dir, args):
     if args.clean:
         for step, d in enumerate([grobid_root, gnorm2_root, tmvar_root], start=1):
             if step >= args.start_step and os.path.exists(d):
-                print(red(f"Cleaning {d} ..."), file=sys.stderr)
+                print(light_blue(f"Cleaning {d} ..."), file=sys.stderr)
                 shutil.rmtree(d)
         for f in (log_path, tsv_path, manifest_path):
             if os.path.exists(f):
-                print(red(f"Cleaning {f} ..."), file=sys.stderr)
+                print(light_blue(f"Cleaning {f} ..."), file=sys.stderr)
                 os.remove(f)
 
     # Write TSV header if file is new or empty
@@ -521,7 +521,7 @@ def process_input(top_dir, args):
 
     # Clear intermediate files and dirs
     if args.clear_intermediates:
-        print(red("Clearing intermediates ..."), file=sys.stderr)
+        print(light_blue("Clearing intermediates ..."), file=sys.stderr)
         clear_intermediates(source_dir, top_dir, log_path)
 
     # Write run footer
@@ -535,12 +535,12 @@ def process_input(top_dir, args):
     # Generate HTML report
     report_path = generate_report(top_dir, log_path)
 
-    print(red(f"\nDone: {top_dir}  →  {tmvar_root}"), file=sys.stderr)
-    print(red(f"Stats log: {log_path}"), file=sys.stderr)
-    print(red(f"Stats TSV: {tsv_path}"), file=sys.stderr)
-    print(red(f"Manifest:  {manifest_path}"), file=sys.stderr)
+    print(light_blue(f"\nDone: {top_dir}  →  {tmvar_root}"), file=sys.stderr)
+    print(light_blue(f"Stats log: {log_path}"), file=sys.stderr)
+    print(light_blue(f"Stats TSV: {tsv_path}"), file=sys.stderr)
+    print(light_blue(f"Manifest:  {manifest_path}"), file=sys.stderr)
     if report_path:
-        print(red(f"Report:    {report_path}"), file=sys.stderr)
+        print(light_blue(f"Report:    {report_path}"), file=sys.stderr)
 
 
 def main():
@@ -617,12 +617,12 @@ def main():
             if os.path.isdir(s_dir):
                 shutil.move(s_dir, os.path.join(source_dir, "s"))
                 print(
-                    red(f"NOTE: Created {source_dir}/ and moved {len(pdfs_in_top)} PDF(s) and s/ into it."),
+                    light_blue(f"NOTE: Created {source_dir}/ and moved {len(pdfs_in_top)} PDF(s) and s/ into it."),
                     file=sys.stderr,
                 )
             else:
                 print(
-                    red(f"NOTE: Created {source_dir}/ and moved {len(pdfs_in_top)} PDF(s) into it."),
+                    light_blue(f"NOTE: Created {source_dir}/ and moved {len(pdfs_in_top)} PDF(s) into it."),
                     file=sys.stderr,
                 )
         has_pdf = any(
@@ -642,9 +642,9 @@ def main():
         validated.append(top_dir)
 
     for top_dir in validated:
-        print(red(f"\n{'#'*60}"), file=sys.stderr)
-        print(red(f"Processing: {top_dir}"), file=sys.stderr)
-        print(red(f"{'#'*60}"), file=sys.stderr)
+        print(light_blue(f"\n{'#'*60}"), file=sys.stderr)
+        print(light_blue(f"Processing: {top_dir}"), file=sys.stderr)
+        print(light_blue(f"{'#'*60}"), file=sys.stderr)
         process_input(top_dir, args)
 
 

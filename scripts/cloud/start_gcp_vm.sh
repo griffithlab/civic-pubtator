@@ -15,9 +15,9 @@ DEFAULT_MACHINE_TYPE="n1-standard-8"
 DEFAULT_ACCELERATOR="nvidia-tesla-t4"
 DEFAULT_ACCELERATOR_COUNT=1
 
-# 200 GB covers OS + conda envs + repo.  Model files live on GCS and are
-# synced locally via sync_tool_data.sh — keep them off the boot disk.
-DEFAULT_BOOT_DISK_SIZE="500GB"
+# 750 GB covers OS + conda envs + repo + local pub-data working space.
+# Model files live on GCS and are synced locally via sync_tool_data.sh.
+DEFAULT_BOOT_DISK_SIZE="750GB"
 
 show_help () {
     cat <<EOF
