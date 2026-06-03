@@ -241,6 +241,7 @@ tmvar/tmp/
 tmvar/Database/
 tmvar/CRF/MentionExtractionUB.Model
 tmvar/CRF/MentionExtractionUB.fulltext.Model
+tmvar/CRF/.libs/
 
 #NLMChem
 NLMChem/NLMChemTaggerNormalizer/CHEM_NORM/data
