@@ -1,0 +1,11 @@
+{
+"entity_type": "Chemical",
+"target_resource": "MESH",
+"unknown_id": "-",
+"abbr_freq_filename": "data/abbr_frequency_2020.json.gz",
+"id2type_filename": "data/chem_ids_2023.tsv",
+"name2ids_filename": "data/name2ids_2023.txt.gz",
+"id2ids_filename": "data/id2ids_2023.txt.gz",
+"c_template_cache_filename": "data/c_template_cache_2023.txt.gz",
+"p_template_cache_filename": "data/p_template_cache_2023.txt.gz"
+}
