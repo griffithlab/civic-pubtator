@@ -1,0 +1,11 @@
+Target	URL
+AIONER	https://ftp.ncbi.nlm.nih.gov/pub/lu/AIONER/AIONER_P3.tar.gz
+GNorm2	https://ftp.ncbi.nlm.nih.gov/pub/lu/GNorm2/GNorm2.tar.gz
+GNorm2	https://www.ncbi.nlm.nih.gov/CBBresearch/Lu/Demo/tmTools/download/GNorm2/examples.tar.gz
+NLMChem	https://ftp.ncbi.nlm.nih.gov/pub/lu/NLMChem/NLMChemTaggerNormalizer.tar.gz
+NLMChem	https://ftp.ncbi.nlm.nih.gov/pub/lu/NLMChem/NLM-Chem-corpus.zip
+NLMChem	https://ftp.ncbi.nlm.nih.gov/pub/lu/NLMChem/NLM-Chem-Annotation-Guidelines.docx
+tmvar	https://ftp.ncbi.nlm.nih.gov/pub/lu/tmVar3/tmVar3.tar.gz
+tmvar	https://ftp.ncbi.nlm.nih.gov/pub/lu/tmVar3/tmVar3Corpus.txt
+tmvar	https://ftp.ncbi.nlm.nih.gov/pub/lu/tmVar3/AnnotationGuideline.rev.docx
+TaggerOne	https://ftp.ncbi.nlm.nih.gov/pub/lu/TaggerOne/TaggerOne-0.2.1.tar.gz
