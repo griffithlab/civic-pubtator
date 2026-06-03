@@ -6,10 +6,12 @@ Runs on every boot.  Uses sentinel files under /opt/.civic-pubtator/ to skip
 steps that have already completed, so reboots are fast.
 
 Directory layout on the VM:
-  /opt/civic-pubtator/          repo clone
+  /opt/civic-pubtator/          repo clone; tool dirs live here directly
   /data/pub-data/               publication input/output data (sync from GCS)
-  /data/tool-data/              model files (sync from GCS via sync_tool_data.sh)
   /opt/conda/                   Miniconda (pre-installed in DL VM image)
+
+Tool model files (large, gitignored) are synced from GCS into each tool's
+directory inside the repo: /opt/civic-pubtator/{GNorm2,AIONER,tmvar,NLMChem}/
 """
 
 import os
@@ -20,7 +22,6 @@ import sys
 REPO_DIR     = '/opt/civic-pubtator'
 DATA_DIR     = '/data'
 PUB_DIR      = '/data/pub-data'
-TOOL_DIR     = '/data/tool-data'
 SENTINEL     = '/opt/.civic-pubtator'          # directory of per-step sentinels
 MINICONDA_SH = '/tmp/miniconda.sh'
 CONDA_PREFIX = '/opt/conda'                    # install target if not pre-installed
@@ -105,9 +106,7 @@ def step(name):
 
 @step('create_directories')
 def create_directories():
-    for d in [SENTINEL, DATA_DIR, PUB_DIR, TOOL_DIR,
-              f'{TOOL_DIR}/GNorm2', f'{TOOL_DIR}/AIONER',
-              f'{TOOL_DIR}/tmvar', f'{TOOL_DIR}/NLMChem']:
+    for d in [SENTINEL, DATA_DIR, PUB_DIR]:
         os.makedirs(d, exist_ok=True)
     run(f'chmod -R 777 {DATA_DIR}')
 
@@ -247,34 +246,9 @@ WantedBy=multi-user.target
     run('systemctl start grobid')
 
 
-@step('symlink_tool_dirs')
-def symlink_tool_dirs():
-    """
-    Symlink large tool-data directories from /data/tool-data/ into the repo so
-    pipeline scripts find them at their expected relative paths.  After running
-    sync_tool_data.sh down, GCS data lands in /data/tool-data/ and these
-    symlinks expose it inside the repo clone.
-    """
-    links = {
-        f'{REPO_DIR}/GNorm2':   f'{TOOL_DIR}/GNorm2',
-        f'{REPO_DIR}/AIONER':   f'{TOOL_DIR}/AIONER',
-        f'{REPO_DIR}/tmvar':    f'{TOOL_DIR}/tmvar',
-        f'{REPO_DIR}/NLMChem':  f'{TOOL_DIR}/NLMChem',
-    }
-    for link_path, target in links.items():
-        if os.path.islink(link_path):
-            log(f'  symlink exists: {link_path}')
-        elif os.path.isdir(link_path):
-            log(f'  real directory exists (not replacing): {link_path}')
-        else:
-            os.makedirs(target, exist_ok=True)
-            os.symlink(target, link_path)
-            log(f'  linked: {link_path} -> {target}')
-
-
 @step('sync_tool_data')
 def sync_tool_data():
-    """Download all tool model files from GCS to /data/tool-data/.
+    """Download large tool model files from GCS into each tool's repo directory.
 
     Uses gcloud storage rsync so only missing/changed files are transferred.
     Must run before conda env setup so any tool binaries are present when
@@ -392,7 +366,6 @@ def main():
     clone_repo()
     install_grobid()
     install_grobid_service()
-    symlink_tool_dirs()
     sync_tool_data()
     compile_tmvar_crf()   # must run after sync_tool_data: tmvar/CRF/ is gitignored, source comes from GCS
     setup_conda_base()
