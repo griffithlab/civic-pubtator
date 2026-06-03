@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 CRF_DIR="$REPO_DIR/tmvar/CRF"
 
 # ── 1. Require macOS ─────────────────────────────────────────────────────────
@@ -52,7 +52,7 @@ echo "Done. tmVar is ready to run on macOS."
 GNORM2_SH="$REPO_DIR/GNorm2/GNorm2.sh"
 
 if [[ ! -f "$GNORM2_SH" ]]; then
-    echo "WARNING: $GNORM2_SH not found. Run scripts/download_data_files.sh first." >&2
+    echo "WARNING: $GNORM2_SH not found. Run scripts/mac/download_data_files.sh first." >&2
 elif grep -q "TF_USE_LEGACY_KERAS" "$GNORM2_SH"; then
     echo "GNorm2.sh already has TF_USE_LEGACY_KERAS set."
 else

@@ -44,7 +44,7 @@ error() { echo "[setup] ERROR: $*" >&2; exit 1; }
 
 # ── 1. Pre-flight checks ─────────────────────────────────────────────────────
 [[ -f "$REQUIREMENTS" ]] || error "Requirements file not found: ${REQUIREMENTS}"
-[[ -d "$AIONER_DIR" ]]   || error "AIONER directory not found: ${AIONER_DIR}. Run scripts/download_data_files.sh first."
+[[ -d "$AIONER_DIR" ]]   || error "AIONER directory not found: ${AIONER_DIR}. Run scripts/mac/download_data_files.sh first."
 [[ -f "${AIONER_DIR}/AIONER_Run.py" ]] || error "AIONER_Run.py not found in ${AIONER_DIR}."
 
 # ── 2. Homebrew ──────────────────────────────────────────────────────────────

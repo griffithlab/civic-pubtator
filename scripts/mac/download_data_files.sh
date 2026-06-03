@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 TMVAR_DIR="$REPO_DIR/tmvar"
 TMP_DIR="$(mktemp -d)"
 ARCHIVE="$TMP_DIR/tmVar3.tar.gz"

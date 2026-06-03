@@ -26,7 +26,7 @@ Pipeline for extracting and normalising genetic variant mentions from biomedical
 
 ```bash
 # 1. One-time setup (macOS)
-./scripts/setup_macos.sh
+./scripts/mac/setup_macos.sh
 
 # 2. Start GROBID (in a separate terminal)
 docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
@@ -69,7 +69,7 @@ The tmVar3 archive ships with Linux CRF++ binaries that do not run on macOS.
 After downloading the data files (see below), run the setup script once:
 
 ```bash
-./scripts/setup_macos.sh
+./scripts/mac/setup_macos.sh
 ```
 
 This installs `crf++` via Homebrew and writes macOS-compatible shims into `tmvar/CRF/`.
@@ -114,10 +114,10 @@ The `tmvar/CRF/` and `tmvar/Database/` directories are not in this repository
 (CRF models ~1 GB, SQLite databases ~550 GB). Download from NCBI before running:
 
 ```bash
-./scripts/download_data_files.sh
+./scripts/mac/download_data_files.sh
 ```
 
-**macOS users:** run `./scripts/setup_macos.sh` after this completes.
+**macOS users:** run `./scripts/mac/setup_macos.sh` after this completes.
 
 ---
 
