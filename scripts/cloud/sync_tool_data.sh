@@ -71,7 +71,7 @@ for tool in "${TOOLS[@]}"; do
             fi
 
             info "  Merging into ${tool_dir}/ (skipping files already present)..."
-            rsync -a --ignore-existing "$src" "${tool_dir}/"
+            rsync -a --ignore-existing --remove-source-files "$src" "${tool_dir}/"
         else
             # Non-archive file: copy only if not already present in the repo
             dest="${tool_dir}/${fname}"
