@@ -37,12 +37,21 @@ if [[ -z "$CONDA" ]]; then
 fi
 echo "Using conda: $CONDA"
 
-# ── ensure conda-pack is installed in base ────────────────────────────────────
+# ── find conda-pack binary ────────────────────────────────────────────────────
 
-if ! "$CONDA" run -n base python -c "import conda_pack" 2>/dev/null; then
-    echo "Installing conda-pack into base env..."
-    "$CONDA" install -y -n base -c conda-forge conda-pack
+CONDA_BASE=$(dirname "$(dirname "$CONDA")")
+CONDA_PACK="${CONDA_BASE}/bin/conda-pack"
+
+if [[ ! -f "$CONDA_PACK" ]]; then
+    echo "conda-pack not found — installing into base env (may need sudo for root-owned conda)..."
+    sudo "$CONDA" install -y -n base -c conda-forge conda-pack
 fi
+
+if [[ ! -f "$CONDA_PACK" ]]; then
+    echo "ERROR: conda-pack still not found at ${CONDA_PACK}" >&2
+    exit 1
+fi
+echo "Using conda-pack: $CONDA_PACK"
 
 # ── select envs ───────────────────────────────────────────────────────────────
 
@@ -64,7 +73,7 @@ for env in "${ENVS[@]}"; do
 
     echo ""
     echo "=== Packing ${env} → ${out} ==="
-    "$CONDA" pack -n "$env" -o "$out" --ignore-missing-files
+    "$CONDA_PACK" -n "$env" -o "$out" --ignore-missing-files
 
     size=$(du -sh "$out" | cut -f1)
     echo "=== Uploading ${size} → ${GCS_ENVS}/${env}.tar.gz ==="
