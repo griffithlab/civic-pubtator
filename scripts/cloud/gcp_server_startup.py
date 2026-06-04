@@ -331,6 +331,40 @@ def setup_conda_aioner():
     run(f'{conda} run -n {env} python -m spacy download en_core_web_sm')
 
 
+@step('setup_conda_aioner_gpu')
+def setup_conda_aioner_gpu():
+    """AIONER GPU env: Python 3.8, TF 2.6.0 GPU build via conda-forge.
+
+    TF 2.6.0 is the oldest tensorflow-gpu version still available on conda-forge.
+    It differs from the CPU env (TF 2.3.0) but AIONER's tensorflow-addons usage is
+    limited to tfa.text.crf functions that are stable across versions; tensorflow-addons
+    0.14.0 is the matching version for TF 2.6.  conda-forge's tensorflow-gpu=2.6.0
+    pulls in cudatoolkit=11.2 and cudnn=8.1 automatically as dependencies; the GCP
+    DL VM driver (CUDA 12.x) supports the CUDA 11.2 runtime via backward compatibility.
+
+    TF 2.6 requires h5py>=3.1.0 and numpy>=1.19.2, so those pins differ from the
+    CPU requirements file — they are installed inline here rather than from the
+    shared requirements_aioner_linux.txt.
+    """
+    conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
+    env = 'aioner-tf23-gpu'
+    if run(f'{conda} env list | grep -q "^{env} "', check=False) == 0:
+        log(f'  env {env} already exists, skipping')
+        return
+    run(f'{conda} create -y -n {env} python=3.8 "pip<23.1"')
+    # tensorflow-gpu=2.6.0 from conda-forge pulls in cudatoolkit=11.2 + cudnn=8.1.
+    run(f'{conda} install -y -n {env} -c conda-forge tensorflow-gpu=2.6.0')
+    run(f'{conda} run -n {env} pip install tensorflow-addons==0.14.0 --root-user-action=ignore')
+    run(f'{conda} run -n {env} pip install '
+        f'h5py>=3.1.0 "numpy>=1.19.2,<2.0" '
+        f'transformers==4.18.0 tokenizers==0.12.1 huggingface-hub==0.5.1 '
+        f'stanza==1.4.0 spacy==2.3.9 '
+        f'bioc==2.0.post4 lxml==4.8.0 '
+        f'tqdm==4.64.0 scipy==1.4.1 torch==1.11.0 '
+        f'--root-user-action=ignore')
+    run(f'{conda} run -n {env} python -m spacy download en_core_web_sm')
+
+
 @step('setup_conda_nlmchem')
 def setup_conda_nlmchem():
     """NLMChem normalizer env: Python 3.9."""
@@ -398,6 +432,7 @@ def main():
     setup_conda_base()
     setup_conda_gnorm2()
     setup_conda_aioner()
+    setup_conda_aioner_gpu()
     setup_conda_nlmchem()
     add_aliases()
 
@@ -410,6 +445,7 @@ def main():
     log('  3. Available conda environments:')
     log('       conda activate gnorm2-tf215')
     log('       conda activate aioner-tf23')
+    log('       conda activate aioner-tf23-gpu')
     log('       conda activate nlmchem-py39')
 
 

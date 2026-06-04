@@ -7,7 +7,7 @@ AIONER_DIR    = os.path.join(REPO_DIR, "AIONER")
 AIONER_SCRIPT = os.path.join(AIONER_DIR, "AIONER_Run.py")
 
 DEFAULT_MODEL = "AIONER_trained_models/AIONER/Bioformer-Softmax-BEST-AIO_tmvar3.20230416.h5"
-DEFAULT_ENV   = "aioner-tf23"
+DEFAULT_ENV   = "aioner-tf23-gpu"
 
 
 def find_conda():
@@ -63,8 +63,9 @@ def main():
     parser.add_argument("--aioner-python", default=None, metavar="PATH_OR_ENV",
                         help=f"Python interpreter or conda env for AIONER. Accepts a full "
                              f"path to a Python executable or a bare conda env name. "
-                             f"Defaults to the '{DEFAULT_ENV}' conda env. "
-                             f"Examples: --aioner-python aioner-tf23  (conda env name) or "
+                             f"Defaults to the '{DEFAULT_ENV}' conda env (TF 2.6 + GPU). "
+                             f"Use 'aioner-tf23' for the CPU-only fallback. "
+                             f"Examples: --aioner-python aioner-tf23-gpu  (conda env name) or "
                              f"--aioner-python /path/to/python3  (full path)")
     args = parser.parse_args()
 
