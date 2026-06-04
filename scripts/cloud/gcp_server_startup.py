@@ -20,6 +20,7 @@ import sys
 # ── constants ─────────────────────────────────────────────────────────────────
 
 REPO_DIR     = '/opt/civic-pubtator'
+GCS_CONDA_ENVS = 'gs://civic-pubtator-tool-data/conda-envs'
 DATA_DIR     = '/data'
 PUB_DIR      = '/data/pub-data'
 SENTINEL     = '/opt/.civic-pubtator'          # directory of per-step sentinels
@@ -41,6 +42,40 @@ def find_conda():
         if os.path.isfile(p):
             return p
     return None
+
+def restore_conda_env(conda, env_name):
+    """Try to restore a conda env from a GCS conda-pack tarball.
+
+    Downloads gs://…/conda-envs/{env_name}.tar.gz, extracts it into the conda
+    envs directory, and runs conda-unpack to fix any hardcoded paths.
+
+    Returns True if the env is now ready (restored or already existed),
+    False if the GCS tarball was not found so the caller should fall back to
+    a live conda/pip install.
+    """
+    conda_base = os.path.dirname(os.path.dirname(conda))
+    env_dir = os.path.join(conda_base, 'envs', env_name)
+    if os.path.isdir(env_dir):
+        log(f'  env {env_name} already present at {env_dir}')
+        return True
+
+    gcs_url = f'{GCS_CONDA_ENVS}/{env_name}.tar.gz'
+    tmp_tar = f'/tmp/{env_name}.tar.gz'
+
+    log(f'  trying GCS restore: {gcs_url}')
+    if run(f'gcloud storage cp {gcs_url} {tmp_tar}', check=False) != 0:
+        log(f'  GCS tarball not found — falling back to live install')
+        run(f'rm -f {tmp_tar}', check=False)
+        return False
+
+    log(f'  unpacking {env_name} into {env_dir} ...')
+    os.makedirs(env_dir, exist_ok=True)
+    run(f'tar -xzf {tmp_tar} -C {env_dir}')
+    run(f'{env_dir}/bin/conda-unpack')
+    run(f'rm -f {tmp_tar}')
+    log(f'  restored {env_name} from GCS pack')
+    return True
+
 
 SYSTEM_PACKAGES = [
     'openjdk-21-jdk',       # tmVar.jar requires Java 21 (class file version 65.0); also runs GROBID/GNorm2
@@ -285,12 +320,11 @@ def setup_conda_gnorm2():
     """GNorm2 env: Python 3.11, TF 2.15 with CUDA GPU support (no tensorflow-metal)."""
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'gnorm2-tf215'
+    if restore_conda_env(conda, env):
+        return
     req = f'{REPO_DIR}/scripts/requirements/requirements_gnorm2_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up GNorm2 environment')
-        return
-    if run(f'{conda} env list | grep -q "^{env} "', check=False) == 0:
-        log(f'  env {env} already exists, skipping')
         return
     run(f'{conda} create -y -n {env} python=3.11')
     run(f'{conda} run -n {env} pip install --upgrade pip --root-user-action=ignore')
@@ -303,7 +337,7 @@ def setup_conda_gnorm2():
 
 @step('setup_conda_aioner')
 def setup_conda_aioner():
-    """AIONER env: Python 3.8, TF 2.3.0 via conda-forge.
+    """AIONER CPU env: Python 3.8, TF 2.3.0 via conda-forge (CPU-only fallback).
 
     TF 2.3.0 was dropped from PyPI so it is installed from conda-forge.
     Python 3.8 is the newest TF 2.3.0 supports; 3.7 hits cython>=3.1
@@ -314,12 +348,11 @@ def setup_conda_aioner():
     """
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'aioner-tf23'
+    if restore_conda_env(conda, env):
+        return
     req = f'{REPO_DIR}/scripts/requirements/requirements_aioner_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up AIONER environment')
-        return
-    if run(f'{conda} env list | grep -q "^{env} "', check=False) == 0:
-        log(f'  env {env} already exists, skipping')
         return
     run(f'{conda} create -y -n {env} python=3.8 "pip<23.1"')
     # TF 2.3.0 dropped from PyPI — install from conda-forge; addons still on PyPI.
@@ -348,8 +381,7 @@ def setup_conda_aioner_gpu():
     """
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'aioner-tf23-gpu'
-    if run(f'{conda} env list | grep -q "^{env} "', check=False) == 0:
-        log(f'  env {env} already exists, skipping')
+    if restore_conda_env(conda, env):
         return
     run(f'{conda} create -y -n {env} python=3.8 "pip<23.1"')
     # tensorflow-gpu=2.6.0 from conda-forge pulls in cudatoolkit=11.2 + cudnn=8.1.
@@ -370,12 +402,11 @@ def setup_conda_nlmchem():
     """NLMChem normalizer env: Python 3.9."""
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'nlmchem-py39'
+    if restore_conda_env(conda, env):
+        return
     req = f'{REPO_DIR}/scripts/requirements/requirements_nlmchem_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up NLMChem environment')
-        return
-    if run(f'{conda} env list | grep -q "^{env} "', check=False) == 0:
-        log(f'  env {env} already exists, skipping')
         return
     run(f'{conda} create -y -n {env} python=3.9 "pip<23.1"')
     run(f'{conda} run -n {env} pip install --upgrade "pip<23.1" --root-user-action=ignore')
