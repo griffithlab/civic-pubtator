@@ -3,6 +3,8 @@ import argparse, datetime, os, re, shutil, subprocess, sys, time
 import xml.etree.ElementTree as ET
 
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_DIR    = os.path.dirname(SCRIPTS_DIR)
+AB3P_DIR    = os.path.join(REPO_DIR, 'Ab3P')
 
 IGNORED_FILES = {".DS_Store"}
 
@@ -209,7 +211,7 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
             f.write(f"     {'TOTAL':<{name_w}}  {total_chars:>12,}  {total_words:>9,}\n")
 
     # --- TSV ---
-    step_num   = {"GROBID": 1, "GNorm2": 2, "tmVar3": 3, "AIONER": 4}.get(step_name, step_name)
+    step_num   = {"GROBID": 1, "GNorm2": 2, "tmVar3": 3, "AIONER": 4, "NLMChem": 5}.get(step_name, step_name)
     input_name = os.path.basename(label) if label != "main" else "main"
     with open(tsv_path, "a", encoding="utf-8") as f:
         for rel, chars, words in files:
@@ -264,6 +266,7 @@ def clear_intermediates(input_dir, base_dir, log_path):
         os.path.join(base_dir, "03_gnorm2"),
         os.path.join(base_dir, "04_tmvar3"),
         os.path.join(base_dir, "05_aioner"),
+        os.path.join(base_dir, "06_nlmchem"),
     ]:
         if not os.path.isdir(out_dir):
             continue
@@ -611,6 +614,127 @@ def run_tmvar3_batched(groups, args, log_path, tsv_path, base_dir):
             shutil.rmtree(staging_out, ignore_errors=True)
 
 
+def _extract_bioc_texts(bioc_path):
+    """Return (doc_id, list_of_passage_texts) from a BioC XML file."""
+    with open(bioc_path, encoding='utf-8') as fh:
+        content = fh.read()
+    content = re.sub(r'<!DOCTYPE[^>]*>', '', content)
+    try:
+        root = ET.fromstring(content)
+    except ET.ParseError as exc:
+        print(f'warning: could not parse {bioc_path}: {exc}', file=sys.stderr)
+        return '', []
+    doc_id = ''
+    texts = []
+    for doc in root.findall('document'):
+        if not doc_id:
+            doc_id = doc.findtext('id', '')
+        for passage in doc.findall('passage'):
+            text = (passage.findtext('text') or '').strip()
+            if text:
+                texts.append(text)
+    return doc_id, texts
+
+
+def _run_ab3p(texts):
+    """Run Ab3P identify_abbr on a list of text strings; return (short, long) pairs.
+
+    Ab3P must run from its own directory so that path_Ab3P resolves to ./WordData/.
+    Input is fed via stdin (/dev/stdin); each text string becomes one input line.
+    Output lines indented with two spaces carry the pipe-delimited SF|LF|precision.
+    """
+    ab3p_bin = os.path.join(AB3P_DIR, 'identify_abbr')
+    combined = '\n'.join(texts)
+    result = subprocess.run(
+        [ab3p_bin, '/dev/stdin'],
+        input=combined, capture_output=True, text=True,
+        cwd=AB3P_DIR,
+    )
+    pairs = []
+    for line in result.stdout.splitlines():
+        if line.startswith('  ') and '|' in line:
+            parts = line.strip().split('|')
+            if len(parts) >= 2:
+                pairs.append((parts[0], parts[1]))
+    return pairs
+
+
+def run_nlmchem_batched(groups, args, log_path, tsv_path, base_dir):
+    """Run Ab3P + NLMChem once across all groups combined, then distribute outputs.
+
+    Ab3P is run per document (C++ binary, negligible startup) to generate
+    abbreviation TSV files.  NLMChem is then run once on the flat staging
+    dir to amortize its dictionary loading startup cost (~30 s).
+
+    Abbreviation TSVs are saved permanently to each group's 06_nlmchem/abbreviations/
+    directory (or 06_nlmchem/s/<rel>/abbreviations/ for supplementary groups) so
+    they can be inspected alongside the NLMChem output.
+    """
+    all_files = [(g, p) for g in groups for p in collect_xml_files(g['aioner_out'])]
+    if not all_files:
+        return
+
+    staging_in   = os.path.join(base_dir, '.nlmchem_staging_in')
+    staging_out  = os.path.join(base_dir, '.nlmchem_staging_out')
+    abbr_staging = os.path.join(base_dir, '.nlmchem_abbr_staging')
+    os.makedirs(abbr_staging, exist_ok=True)
+
+    try:
+        entries = _build_flat_staging(all_files, staging_in)
+
+        # --- Phase A: Ab3P abbreviation extraction ---
+        for staging_name, fname, group in entries:
+            staged_path = os.path.join(staging_in, staging_name)
+            doc_id, texts = _extract_bioc_texts(staged_path)
+            pairs = _run_ab3p(texts)
+
+            # Permanent storage: one TSV per document, named by original stem
+            abbr_dir = group['nlmchem_abbr_out']
+            os.makedirs(abbr_dir, exist_ok=True)
+            abbr_tsv = os.path.join(abbr_dir, os.path.splitext(fname)[0] + '.tsv')
+            with open(abbr_tsv, 'w', encoding='utf-8') as fh:
+                for short, long in pairs:
+                    fh.write(f'{doc_id}\t{short}\t{long}\n')
+
+            # Staging copy for this batch NLMChem run (named by staging stem so
+            # it is unique in the flat abbr dir and matches no input filename)
+            shutil.copy2(abbr_tsv,
+                         os.path.join(abbr_staging,
+                                      os.path.splitext(staging_name)[0] + '.tsv'))
+
+        # --- Phase B: NLMChem normalization ---
+        nlmchem_cmd = [
+            sys.executable, os.path.join(SCRIPTS_DIR, 'run_nlmchem.py'),
+            staging_in, abbr_staging, staging_out,
+        ]
+        if args.nlmchem_python:
+            nlmchem_cmd += ['--nlmchem-python', args.nlmchem_python]
+
+        _log_batch_header(log_path, 'NLMChem', len(groups))
+        t0 = time.time()
+        run('NLMChem [all]', nlmchem_cmd)
+        elapsed = time.time() - t0
+
+        file_elapsed = _per_file_elapsed(entries, staging_out, t0)
+
+        for staging_name, fname, group in entries:
+            nlmchem_out = group['nlmchem_out']
+            os.makedirs(nlmchem_out, exist_ok=True)
+            out_src = os.path.join(staging_out, staging_name)
+            if os.path.exists(out_src):
+                shutil.copy2(out_src, os.path.join(nlmchem_out, fname))
+
+        for g in groups:
+            log_step_stats(log_path, tsv_path, base_dir, 'NLMChem', g['label'],
+                           g['nlmchem_out'], elapsed, file_elapsed=file_elapsed)
+
+    finally:
+        if args.clear_intermediates:
+            shutil.rmtree(staging_in,   ignore_errors=True)
+            shutil.rmtree(staging_out,  ignore_errors=True)
+            shutil.rmtree(abbr_staging, ignore_errors=True)
+
+
 def generate_report(top_dir, log_path):
     """Run report_civic_pubtator.py and return the output path, or None on failure."""
     report_script = os.path.join(SCRIPTS_DIR, "report_civic_pubtator.py")
@@ -632,18 +756,19 @@ def generate_report(top_dir, log_path):
 
 
 def process_input(top_dir, args):
-    source_dir  = os.path.join(top_dir, "01_source")
-    grobid_root = os.path.join(top_dir, "02_grobid")
-    gnorm2_root = os.path.join(top_dir, "03_gnorm2")
-    tmvar_root  = os.path.join(top_dir, "04_tmvar3")
-    aioner_root = os.path.join(top_dir, "05_aioner")
+    source_dir    = os.path.join(top_dir, "01_source")
+    grobid_root   = os.path.join(top_dir, "02_grobid")
+    gnorm2_root   = os.path.join(top_dir, "03_gnorm2")
+    tmvar_root    = os.path.join(top_dir, "04_tmvar3")
+    aioner_root   = os.path.join(top_dir, "05_aioner")
+    nlmchem_root  = os.path.join(top_dir, "06_nlmchem")
     log_path      = os.path.join(top_dir, "pipeline_stats.log")
     tsv_path      = os.path.join(top_dir, "pipeline_stats.tsv")
     manifest_path = os.path.join(top_dir, "MANIFEST.txt")
 
     # Clean top-level output dirs (covers supplementary subdirs too)
     if args.clean:
-        for step, d in enumerate([grobid_root, gnorm2_root, tmvar_root, aioner_root], start=1):
+        for step, d in enumerate([grobid_root, gnorm2_root, tmvar_root, aioner_root, nlmchem_root], start=1):
             if step >= args.start_step and os.path.exists(d):
                 print(light_blue(f"Cleaning {d} ..."), file=sys.stderr)
                 shutil.rmtree(d)
@@ -656,6 +781,7 @@ def process_input(top_dir, args):
             ".gnorm2_staging_in",  ".gnorm2_staging_out",
             ".tmvar3_staging_in",  ".tmvar3_staging_out",
             ".aioner_staging_in",  ".aioner_staging_out",
+            ".nlmchem_staging_in", ".nlmchem_staging_out", ".nlmchem_abbr_staging",
         ):
             d = os.path.join(top_dir, staging)
             if os.path.exists(d):
@@ -698,23 +824,27 @@ def process_input(top_dir, args):
 
     # Discover all groups (main publication + supplementary leaf dirs)
     groups = [{
-        'label':        'main',
-        'pdf_dir':      source_dir,
-        'grobid_out':   grobid_root,
-        'gnorm2_out':   gnorm2_root,
-        'tmvar_out':    tmvar_root,
-        'aioner_out':   aioner_root,
-        'supplementary': False,
+        'label':           'main',
+        'pdf_dir':         source_dir,
+        'grobid_out':      grobid_root,
+        'gnorm2_out':      gnorm2_root,
+        'tmvar_out':       tmvar_root,
+        'aioner_out':      aioner_root,
+        'nlmchem_out':     nlmchem_root,
+        'nlmchem_abbr_out': os.path.join(nlmchem_root, 'abbreviations'),
+        'supplementary':   False,
     }]
     for abs_path, rel in find_supplement_leaf_dirs(source_dir):
         groups.append({
-            'label':        rel,
-            'pdf_dir':      abs_path,
-            'grobid_out':   os.path.join(grobid_root, rel),
-            'gnorm2_out':   os.path.join(gnorm2_root, rel),
-            'tmvar_out':    os.path.join(tmvar_root,  rel),
-            'aioner_out':   os.path.join(aioner_root, rel),
-            'supplementary': True,
+            'label':           rel,
+            'pdf_dir':         abs_path,
+            'grobid_out':      os.path.join(grobid_root, rel),
+            'gnorm2_out':      os.path.join(gnorm2_root, rel),
+            'tmvar_out':       os.path.join(tmvar_root,  rel),
+            'aioner_out':      os.path.join(aioner_root, rel),
+            'nlmchem_out':     os.path.join(nlmchem_root, rel),
+            'nlmchem_abbr_out': os.path.join(nlmchem_root, rel, 'abbreviations'),
+            'supplementary':   True,
         })
 
     # Phase 1: GROBID — one invocation per group (no shared startup cost)
@@ -736,6 +866,9 @@ def process_input(top_dir, args):
     # Phase 4: AIONER — one invocation for all groups combined (reads GROBID output)
     run_aioner_batched(groups, args, log_path, tsv_path, top_dir)
 
+    # Phase 5: NLMChem — Ab3P abbreviation extraction then chemical normalization
+    run_nlmchem_batched(groups, args, log_path, tsv_path, top_dir)
+
     # Clear intermediate files and dirs
     if args.clear_intermediates:
         print(light_blue("Clearing intermediates ..."), file=sys.stderr)
@@ -752,7 +885,7 @@ def process_input(top_dir, args):
     # Generate HTML report
     report_path = generate_report(top_dir, log_path)
 
-    print(light_blue(f"\nDone: {top_dir}  →  {aioner_root}"), file=sys.stderr)
+    print(light_blue(f"\nDone: {top_dir}  →  {nlmchem_root}"), file=sys.stderr)
     print(light_blue(f"Stats log: {log_path}"), file=sys.stderr)
     print(light_blue(f"Stats TSV: {tsv_path}"), file=sys.stderr)
     print(light_blue(f"Manifest:  {manifest_path}"), file=sys.stderr)
@@ -807,6 +940,14 @@ def main():
                              "Examples: "
                              "--aioner-python aioner-tf23  (conda env name) or "
                              "--aioner-python /path/to/envs/aioner-tf23/bin/python3")
+    parser.add_argument("--nlmchem-python", default=None, metavar="PATH_OR_ENV",
+                        help="Python interpreter or conda env for NLMChem. "
+                             "Accepts a full path to a Python executable or a "
+                             "bare conda env name. Defaults to the 'nlmchem-py39' "
+                             "conda env. "
+                             "Examples: "
+                             "--nlmchem-python nlmchem-py39  (conda env name) or "
+                             "--nlmchem-python /path/to/envs/nlmchem-py39/bin/python3")
     args = parser.parse_args()
 
     # Validate all inputs before starting any work

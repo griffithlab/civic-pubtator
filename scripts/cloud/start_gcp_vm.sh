@@ -10,8 +10,13 @@ SUBNET=civic-pubtator-default
 DEFAULT_IMAGE_FAMILY="common-cu129-ubuntu-2204-nvidia-580"
 DEFAULT_IMAGE_PROJECT="deeplearning-platform-release"
 
-# n1-standard-8: 8 vCPU / 30 GB RAM.  n1 is required for T4 attachment.
-DEFAULT_MACHINE_TYPE="n1-standard-8"
+# n1 is required for T4 GPU attachment.  NLMChem loads ~25 GB of dictionaries
+# into RAM, so the default is n1-highmem-8 (52 GB) rather than n1-standard-8
+# (30 GB).  Upgrade options if you need more headroom or parallelism:
+#   n1-standard-16  — 16 vCPU / 60 GB RAM
+#   n1-highmem-16   — 16 vCPU / 104 GB RAM  (comfortable for full pipeline)
+#   n1-highmem-32   — 32 vCPU / 208 GB RAM
+DEFAULT_MACHINE_TYPE="n1-highmem-8"
 DEFAULT_ACCELERATOR="nvidia-tesla-t4"
 DEFAULT_ACCELERATOR_COUNT=1
 
