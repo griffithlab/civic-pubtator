@@ -250,6 +250,34 @@ def compile_gnorm2_crf():
     log(f'  compiled: {crf_dir}/crf_test, {crf_dir}/crf_learn')
 
 
+@step('install_ncbitextlib')
+def install_ncbitextlib():
+    """Build NCBITextLib static library from source checked into the repo.
+
+    NCBITextLib/lib/Makefile produces libText.a; Ab3P links against it.
+    Source is vendored directly in the repo (no external clone needed).
+    """
+    dest = f'{REPO_DIR}/NCBITextLib'
+    run(f'cd {dest}/lib && make')
+    log(f'  built: {dest}/lib/libText.a')
+
+
+@step('install_ab3p')
+def install_ab3p():
+    """Build Ab3P abbreviation resolver from source checked into the repo.
+
+    Ab3P identifies abbreviation long-form/short-form pairs in biomedical text.
+    The Makefiles are pre-configured with the NCBITEXTLIB path.  `make` runs
+    three sub-targets in sequence: library (libAb3P.a) → programs (binaries)
+    → data (converts WordData text files into binary hash/set formats that
+    identify_abbr loads at runtime; output is gitignored and rebuilt each VM).
+    Source is vendored directly in the repo (no external clone needed).
+    """
+    dest = f'{REPO_DIR}/Ab3P'
+    run(f'cd {dest} && make')
+    log(f'  built: {dest}/identify_abbr')
+
+
 @step('install_grobid')
 def install_grobid():
     """Download and build GROBID under the repo's expected location."""
@@ -455,6 +483,8 @@ def main():
     accept_conda_tos()
     configure_git()
     clone_repo()
+    install_ncbitextlib()
+    install_ab3p()
     install_grobid()
     install_grobid_service()
     sync_tool_data()

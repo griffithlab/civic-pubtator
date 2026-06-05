@@ -1,0 +1,11 @@
+Tumor necrosis factor alpha (TNF-α) and interleukin-6 (IL-6) were significantly elevated in patients treated with methotrexate (MTX) compared to those receiving cyclophosphamide (CYC). Epidermal growth factor receptor (EGFR) expression was assessed before and after treatment with 5-fluorouracil (5-FU). Inhibition of vascular endothelial growth factor (VEGF) by bevacizumab reduced downstream activation of mitogen-activated protein kinase (MAPK). Patients with mutant Kirsten rat sarcoma viral proto-oncogene (KRAS) showed reduced response to cetuximab (CTX), whereas those with wild-type KRAS responded well. Deoxyribonucleic acid (DNA) damage induced by cisplatin (CDDP) was measured via the comet assay.
+  TNF-α|Tumor necrosis factor alpha|0.997065
+  IL-6|interleukin-6|0.9975
+  MTX|methotrexate|0.981322
+  CYC|cyclophosphamide|0.987697
+  EGFR|Epidermal growth factor receptor|0.999964
+  5-FU|5-fluorouracil|0.999835
+  VEGF|vascular endothelial growth factor|0.999964
+  MAPK|mitogen-activated protein kinase|0.99993
+  CTX|cetuximab|0.981322
+  DNA|Deoxyribonucleic acid|0.997824
