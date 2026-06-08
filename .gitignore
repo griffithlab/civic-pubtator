@@ -242,6 +242,10 @@ tmvar/CRF/MentionExtractionUB.Model
 tmvar/CRF/MentionExtractionUB.fulltext.Model
 tmvar/CRF/.libs/
 
+#TaggerOne
+TaggerOne/data/
+TaggerOne/output/
+
 #NLMChem
 NLMChem/NLMChemTaggerNormalizer/CHEM_NORM/data
 

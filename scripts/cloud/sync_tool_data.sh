@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # sync_tool_data.sh — download tool model files from GCS into the repo
 #
-# GCS layout:   gs://civic-pubtator-tool-data/{GNorm2,AIONER,tmvar,NLMChem}/
+# GCS layout:   gs://civic-pubtator-tool-data/{GNorm2,AIONER,tmvar,NLMChem,TaggerOne}/
 #               Each tool directory contains one or more tarballs (.tar.gz);
 #               NLMChem also includes non-archive files (.docx, .zip).
 # VM layout:    /opt/civic-pubtator/{GNorm2,AIONER,tmvar,NLMChem}/
@@ -24,7 +24,7 @@ set -euo pipefail
 
 BUCKET="gs://civic-pubtator-tool-data"
 REPO_DIR="/opt/civic-pubtator"
-ALL_TOOLS=(GNorm2 AIONER tmvar NLMChem)
+ALL_TOOLS=(GNorm2 AIONER tmvar NLMChem TaggerOne)
 
 info() { echo "[sync_tool_data] $*"; }
 
