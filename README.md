@@ -30,11 +30,7 @@ The following tools are used, roughly in pipeline order:
 
 1. [Quick start](#quick-start)
 2. [Directory structure](#directory-structure)
-3. [Setup](#setup)
-   - [Python dependencies](#python-dependencies)
-   - [GROBID](#grobid)
-   - [Downloading large data files](#downloading-large-data-files)
-4. [Running the pipeline](#running-the-pipeline)
+3. [Running the pipeline](#running-the-pipeline)
    - [Basic usage](#basic-usage)
    - [Supplementary files](#supplementary-files)
    - [All options](#all-options)
@@ -141,36 +137,6 @@ my_run/
 ├── MANIFEST.txt        ← record of input files and tool version
 ├── pipeline_stats.log  ← human-readable per-step stats
 └── pipeline_stats.tsv  ← machine-readable per-step stats
-```
-
----
-
-## Setup
-
-### Python dependencies
-
-```bash
-pip3 install -r requirements.txt
-```
-
-### GROBID
-
-GROBID 0.8.1 requires **Java 17** (not Java 21). The easiest way to run it is via Docker:
-
-```bash
-docker pull lfoppiano/grobid:0.8.1
-docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
-```
-
-GROBID must be running on `http://localhost:8070` before you start the pipeline.
-
-### Downloading large data files
-
-The `tmvar/CRF/` and `tmvar/Database/` directories are not in this repository
-(CRF models ~1 GB, SQLite databases ~550 GB). Download from NCBI before running:
-
-```bash
-./scripts/download_data_files.sh
 ```
 
 ---
