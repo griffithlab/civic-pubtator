@@ -52,22 +52,14 @@ files (CRF models, BERT weights, SQLite databases) live in a GCS bucket and are
 synced to the VM on startup; publication data is synced separately before and
 after each run.
 
-### 0. One-time setup (per project / per user)
+### 0. One-time project setup
 
-**Project setup** — run once ever to create the VPC network, subnet, firewall
-rule, and GCS bucket that all VMs share:
+Run once ever to create the VPC network, subnet, firewall rule, and GCS bucket
+that all VMs share:
 
 ```bash
 bash scripts/cloud/create_gcp_resources.sh \
     <gcp-project> <bucket-name> <allowed-ip-cidr> <region> [retention-policy]
-```
-
-**User setup** — run once after your first SSH login to a new VM. Fixes
-directory ownership, configures your git identity, generates an SSH key and
-walks you through adding it to GitHub, and installs Claude Code:
-
-```bash
-python3 scripts/cloud/user_environment_config.py
 ```
 
 ### 1. Start a VM
@@ -87,7 +79,18 @@ conda environments. Watch startup progress from inside the VM with:
 sudo journalctl -u google-startup-scripts -f
 ```
 
-### 2. Sync publication data
+### 2. One-time user setup (first login only)
+
+After SSH-ing into the VM for the first time, run:
+
+```bash
+python3 scripts/cloud/user_environment_config.py
+```
+
+This fixes directory ownership, configures your git identity, generates an SSH
+key and walks you through adding it to GitHub, and installs Claude Code.
+
+### 3. Sync publication data
 
 Copy source PDFs down from GCS (or upload a new paper's `01_source/` directory):
 
@@ -99,13 +102,13 @@ bash scripts/cloud/sync_pub_data.sh --bucket civic-pubtator-pub-data down
 bash scripts/cloud/sync_pub_data.sh --bucket civic-pubtator-pub-data down 28783719
 ```
 
-### 3. Run the pipeline
+### 4. Run the pipeline
 
 ```bash
 python3 scripts/run_civic_pubtator.py /data/pub-data/28783719/
 ```
 
-### 4. Upload results and stop the VM
+### 5. Upload results and stop the VM
 
 ```bash
 # Upload results for one paper
