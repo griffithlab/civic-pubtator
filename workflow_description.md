@@ -111,29 +111,51 @@ model-loading startup costs.
      ├──────────────────────────────┬──────────────────────────────────────┐
      │                              │                                      │
      ▼ GNorm2                       ▼ AIONER                              ▼ TaggerOne
-(gene + species NER            (deep-learning NER for all            (normalization-only mode;
- and normalization;             six entity types using                disease → MeSH,
- NCBI Gene IDs,                 NLM-Gene, NLM-Chem, BC5CDR,          cell line → Cellosaurus;
- NCBI Taxonomy IDs)             tmVar3 etc. training data;            reads GROBID output)
-     │                           Ab3P for local abbreviations)              │
-     │                              │                                 07_taggerone/
-03_gnorm2/                          │
-     │                              ▼ NLMChem (+ Ab3P)
-     ▼ tmVar3                  (chemical NER and normalization
-(variant NER and                to MeSH identifiers;
- normalization;                 reads AIONER output)
- HGVS, RS#, CA#,                    │
- CorrespondingGene)            06_nlmchem/
+(gene + species NER            (deep-learning NER for all            (joint NER + normalization;
+ and normalization;             six entity types using                disease → MeSH/OMIM only;
+ NCBI Gene IDs,                 NLM-Gene, NLM-Chem, BC5CDR,          reads GROBID output)
+ NCBI Taxonomy IDs)             tmVar3 etc. training data;                 │
+     │                           Ab3P for local abbreviations)        07_taggerone/
+     │                              │
+03_gnorm2/                          ▼ NLMChem (+ Ab3P)
+     │                         (chemical NER and normalization
+     ▼ tmVar3                   to MeSH identifiers;
+(variant NER and                reads AIONER output)
+ normalization;                      │
+ HGVS, RS#, CA#,               06_nlmchem/
+ CorrespondingGene)
      │
 04_tmvar3/
 (.PubTator + .BioC.XML)
      │
      ▼ report_civic_pubtator.py
 report_<pmid>.html
-(currently reads from 04_tmvar3/ .PubTator files only;
- 05_aioner/, 06_nlmchem/, 07_taggerone/ outputs are produced
- but not yet incorporated into the report)
+(reads 04_tmvar3/ .PubTator files for variants/genes/species/cell lines
+ and 06_nlmchem/ BioC XML for chemical annotations;
+ 05_aioner/ and 07_taggerone/ outputs are produced but not yet read by the report)
 ```
+
+### Implementation notes vs. the PubTator 3.0 reference pipeline
+
+The PubTator 3.0 paper describes TaggerOne running in a **normalization-only mode** that
+takes pre-existing AIONER spans and applies only the normalization model, and covering both
+diseases (MeSH) and cell lines (Cellosaurus). Our implementation differs in two ways:
+
+- **No normalization-only mode.** The public TaggerOne v0.2.1 release always runs joint
+  NER + normalization from scratch. The normalization-only mode was developed by NCBI
+  specifically for PubTator 3.0 and was never publicly released. Passing AIONER output to
+  TaggerOne would make no difference — it ignores pre-existing annotations in the input.
+
+- **Disease-only model.** The `model_DISE.bin` model (the only disease/cell-line model in
+  the public distribution) was trained on NCBI Disease + BC5CDR corpora with
+  `--entityTypes Disease`. It produces `Disease` annotations normalized to MeSH/OMIM
+  identifiers. There is no cell line model and no Cellosaurus lexicon in the public release.
+
+**Cell line annotations** in the report come from **GNorm2** (step 2), which does recognize
+cell line names (NIH3T3, SK-MEL-208, HEK293, etc.) and propagates them through tmVar3 into
+the PubTator files. However, GNorm2 assigns **NCBI Taxonomy IDs** as identifiers (9606 =
+human, 10090 = mouse) rather than Cellosaurus accessions (CVCL_xxxx). The NER is working;
+cell-line-specific normalization to Cellosaurus would require a separate tool.
 
 ---
 
