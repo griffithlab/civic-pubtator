@@ -284,20 +284,21 @@ def build_pipeline_stats_table(stats_rows):
         step_name = row.get('step_name', '')
         by_label[label][step_name] = row
 
+    step_order = ['GROBID', 'GNorm2', 'tmVar3', 'AIONER', 'NLMChem', 'TaggerOne']
     rows_html = []
     for label, steps in by_label.items():
-        grobid_time = steps.get('GROBID', {}).get('runtime', '')
-        gnorm_time = steps.get('GNorm2', {}).get('runtime', '')
-        tmvar_time = steps.get('tmVar3', {}).get('runtime', '')
-        chars = steps.get('tmVar3', steps.get('GNorm2', steps.get('GROBID', {}))).get('chars', '')
+        times = [steps.get(s, {}).get('runtime', '') for s in step_order]
+        chars = next(
+            (steps[s].get('chars', '') for s in reversed(step_order) if s in steps),
+            ''
+        )
         chars_display = human_chars(chars)
         chars_cell = (f'<td title="{html.escape(chars)} chars">{html.escape(chars_display)}</td>'
                       if chars_display != chars else f'<td>{html.escape(chars)}</td>')
+        time_cells = ''.join(f'<td>{html.escape(t)}</td>' for t in times)
         rows_html.append(
             f'<tr><td>{html.escape(label)}</td>'
-            f'<td>{html.escape(grobid_time)}</td>'
-            f'<td>{html.escape(gnorm_time)}</td>'
-            f'<td>{html.escape(tmvar_time)}</td>'
+            f'{time_cells}'
             f'{chars_cell}</tr>'
         )
     return '\n'.join(rows_html)
@@ -1017,7 +1018,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
   <h2>Pipeline Statistics</h2>
   <div style="overflow-x:auto">
     <table class="data-table">
-      <thead><tr><th>Document</th><th>GROBID time</th><th>GNorm2 time</th><th>tmVar3 time</th><th>Total chars</th></tr></thead>
+      <thead><tr><th>Document</th><th>GROBID</th><th>GNorm2</th><th>tmVar3</th><th>AIONER</th><th>NLMChem</th><th>TaggerOne</th><th>Total chars</th></tr></thead>
       <tbody>{build_pipeline_stats_table(stats_rows)}</tbody>
     </table>
   </div>
