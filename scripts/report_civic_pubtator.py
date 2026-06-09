@@ -1115,11 +1115,11 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>civic-pubtator report — {html.escape(run_title)}</title>
+<title>civic-pubtator report — PMID: {html.escape(run_title)}</title>
 <style>{CSS}</style>
 </head>
 <body>
-<div id="topbar">civic-pubtator report &mdash; {html.escape(run_title)}</div>
+<div id="topbar">civic-pubtator report &mdash; <a href="https://pubmed.ncbi.nlm.nih.gov/{html.escape(run_title)}/" target="_blank" style="color:#93c5fd;text-decoration:none">PMID: {html.escape(run_title)}</a></div>
 <div id="main-content">
   <div id="main-view">
     {paper_title_html}
