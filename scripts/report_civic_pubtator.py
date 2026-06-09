@@ -16,7 +16,7 @@ ENTITY_STYLE = {
     'Gene':            {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene'},
     'Species':         {'bg': '#bbf7d0', 'border': '#16a34a', 'label': 'Species'},
     'CellLine':        {'bg': '#ccfbf1', 'border': '#0d9488', 'label': 'Cell Line'},
-    'Chemical':        {'bg': '#fae8ff', 'border': '#a21caf', 'label': 'Chemical'},
+    'Chemical':        {'bg': '#fae8ff', 'border': '#a21caf', 'label': 'Drug'},
     'Disease':         {'bg': '#ffe4e6', 'border': '#e11d48', 'label': 'Disease'},
 }
 DEFAULT_STYLE        = {'bg': '#e2e8f0', 'border': '#64748b', 'label': 'Other'}
@@ -959,7 +959,7 @@ def build_tabbed_summary(container_id, var_block, gene_block, org_block, chem_bl
     def panel(tab, content, active):
         cls = 'tab-panel active' if active else 'tab-panel'
         return f'<div class="{cls}" data-tab="{tab}">{content}</div>'
-    chem_btn   = btn('chemical', 'Chemicals', False) if chem_block is not None else ''
+    chem_btn   = btn('chemical', 'Drugs', False) if chem_block is not None else ''
     chem_panel = panel('chemical', chem_block, False) if chem_block is not None else ''
     dis_btn    = btn('disease',  'Diseases',  False) if dis_block  is not None else ''
     dis_panel  = panel('disease',  dis_block,  False) if dis_block  is not None else ''
@@ -1189,7 +1189,8 @@ def main():
             annotations.extend(chem_anns)
         if taggerone_dir:
             dis_anns = parse_bioc_diseases(os.path.join(taggerone_dir, rel_xml))
-            annotations.extend(dis_anns)
+            gene_mentions = {a['mention'] for a in annotations if a['type'] in GENE_TYPES}
+            annotations.extend(a for a in dis_anns if a['mention'] not in gene_mentions)
         doc_data.append({
             'doc_id': f'doc-{i}',
             'key': key,
