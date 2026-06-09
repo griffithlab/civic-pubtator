@@ -1,6 +1,28 @@
 # civic-pubtator
 
-Pipeline for extracting and normalising genetic variant mentions from biomedical PDFs using GROBID → GNorm2 → tmVar3.
+Pipeline for annotating biomedical PDFs with named entities relevant to CIViC curators: genes, variants, drugs, diseases, species, and cell lines.
+
+---
+
+## Acknowledgements
+
+This project is an attempt to create a standalone, reproducible version of the
+[PubTator 3.0](https://doi.org/10.1093/nar/gkae235) entity recognition and
+normalization pipeline. PubTator 3.0 is developed and maintained by the National
+Center for Biotechnology Information (NCBI). Because the PubTator 3.0 pipeline is
+not publicly portable, this implementation reverse-engineers the component tools
+based on their documentation and the PubTator 3.0 publication.
+
+The following tools are used, roughly in pipeline order:
+
+| Tool | Role |
+|---|---|
+| [GROBID](https://github.com/kermitt2/grobid) | Converts PDFs to structured BioC XML (title, abstract, body, figures, tables) |
+| [AIONER](https://github.com/ncbi-nlp/AIONER) | Deep-learning NER for all six entity types (genes, chemicals, diseases, species, variants, cell lines) |
+| [GNorm2](https://github.com/ncbi-nlp/GNorm2) | Gene and species NER + normalization to NCBI Gene / NCBI Taxonomy IDs |
+| [tmVar3](https://github.com/ncbi-nlp/tmVar3) | Genetic variant NER + normalization to dbSNP RS#, HGVS, and ClinGen CA# |
+| [NLMChem](https://github.com/ncbi-nlp/NLMChem) | Chemical/drug NER + normalization to MeSH identifiers |
+| [TaggerOne](https://github.com/ncbi-nlp/TaggerOne) | Disease NER + normalization to MeSH/OMIM identifiers |
 
 ---
 
@@ -9,7 +31,6 @@ Pipeline for extracting and normalising genetic variant mentions from biomedical
 1. [Quick start](#quick-start)
 2. [Directory structure](#directory-structure)
 3. [Setup](#setup)
-   - [macOS](#macos-setup)
    - [Python dependencies](#python-dependencies)
    - [GROBID](#grobid)
    - [Downloading large data files](#downloading-large-data-files)
@@ -18,20 +39,19 @@ Pipeline for extracting and normalising genetic variant mentions from biomedical
    - [Supplementary files](#supplementary-files)
    - [All options](#all-options)
 5. [Output files](#output-files)
-6. [Apple Silicon GPU acceleration (optional)](#apple-silicon-gpu-acceleration-optional)
+
+> **macOS users:** see [Mac_Notes.md](Mac_Notes.md) for platform-specific setup
+> and optional Apple Silicon GPU acceleration.
 
 ---
 
 ## Quick start
 
 ```bash
-# 1. One-time setup (macOS)
-./scripts/mac/setup_macos.sh
-
-# 2. Start GROBID (in a separate terminal)
+# 1. Start GROBID (in a separate terminal)
 docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
 
-# 3. Run the pipeline
+# 2. Run the pipeline
 python3 scripts/run_civic_pubtator.py /path/to/my_run/
 ```
 
@@ -54,6 +74,9 @@ my_run/
 ├── 02_grobid/          ← GROBID BioC XML output (created automatically)
 ├── 03_gnorm2/          ← GNorm2 output (created automatically)
 ├── 04_tmvar3/          ← tmVar3 output (created automatically)
+├── 05_aioner/          ← AIONER output (created automatically)
+├── 06_nlmchem/         ← NLMChem output (created automatically)
+├── 07_taggerone/       ← TaggerOne output (created automatically)
 ├── MANIFEST.txt        ← record of input files and tool version
 ├── pipeline_stats.log  ← human-readable per-step stats
 └── pipeline_stats.tsv  ← machine-readable per-step stats
@@ -62,18 +85,6 @@ my_run/
 ---
 
 ## Setup
-
-### macOS setup
-
-The tmVar3 archive ships with Linux CRF++ binaries that do not run on macOS.
-After downloading the data files (see below), run the setup script once:
-
-```bash
-./scripts/mac/setup_macos.sh
-```
-
-This installs `crf++` via Homebrew and writes macOS-compatible shims into `tmvar/CRF/`.
-On Linux, the pre-compiled binaries are used directly — no setup needed.
 
 ### Python dependencies
 
@@ -92,32 +103,14 @@ docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
 
 GROBID must be running on `http://localhost:8070` before you start the pipeline.
 
-<details>
-<summary>Manual GROBID install (without Docker)</summary>
-
-```bash
-# Install Java 17 (macOS)
-brew install openjdk@17
-export JAVA_HOME=$(brew --prefix openjdk@17)
-
-wget https://github.com/kermitt2/grobid/archive/0.8.1.zip
-unzip 0.8.1.zip
-cd grobid-0.8.1
-./gradlew clean install
-./gradlew run
-```
-</details>
-
 ### Downloading large data files
 
 The `tmvar/CRF/` and `tmvar/Database/` directories are not in this repository
 (CRF models ~1 GB, SQLite databases ~550 GB). Download from NCBI before running:
 
 ```bash
-./scripts/mac/download_data_files.sh
+./scripts/download_data_files.sh
 ```
-
-**macOS users:** run `./scripts/mac/setup_macos.sh` after this completes.
 
 ---
 
@@ -147,8 +140,8 @@ as the corresponding source PDF:
 
 Supported formats: `.pdf`, `.docx`, `.doc`, `.xlsx`, `.xls`.
 Excel files are split by sheet — each sheet is converted to a separate PDF and
-processed independently. LibreOffice is used for conversion when available
-(`brew install --cask libreoffice`); a reportlab fallback is used otherwise.
+processed independently. LibreOffice is used for conversion when available;
+a reportlab fallback is used otherwise.
 
 ### All options
 
@@ -168,14 +161,13 @@ usage: run_civic_pubtator.py [-h] [--clean] [--no-clear-intermediates]
 | `--no-libreoffice` | off | Use the reportlab/python-docx fallback for supplement conversion |
 | `--max-chars N` | `1000000` | Skip documents whose output XML exceeds N characters; use `0` for no limit |
 | `--memory SIZE` | `32G` | Java max heap for GNorm2 and tmVar3; initial heap is set to half this value |
-| `--gnorm2-python PATH_OR_ENV` | system Python | Python interpreter for the GNorm2 ML step — accepts a full path or a conda env name (see [Apple Silicon GPU acceleration](#apple-silicon-gpu-acceleration-optional)) |
+| `--gnorm2-python PATH_OR_ENV` | system Python | Python interpreter for the GNorm2 ML step — accepts a full path or a conda env name |
 
 ---
 
 ## Output files
 
-Each run directory receives three output files alongside the `02_grobid/`,
-`03_gnorm2/`, and `04_tmvar3/` processing directories.
+Each run directory receives three output files alongside the processing directories.
 
 ### `MANIFEST.txt`
 
@@ -203,7 +195,7 @@ Machine-readable table with one row per output file per step. Columns:
 
 | Column | Description |
 |---|---|
-| `step` | Step number (1=GROBID, 2=GNorm2, 3=tmVar3) |
+| `step` | Step number (1=GROBID, 2=GNorm2, 3=tmVar3, 4=AIONER, 5=NLMChem, 6=TaggerOne) |
 | `step_name` | Step name |
 | `label` | Input group (`main` or supplementary path) |
 | `chars` | Character count of the output file |
@@ -211,50 +203,3 @@ Machine-readable table with one row per output file per step. Columns:
 | `runtime` | Wall-clock time for the step (e.g. `4m 17s`) |
 | `input_name` | Stem of the input file |
 | `output_file` | Relative path to the output file |
-
----
-
-## Apple Silicon GPU acceleration (optional)
-
-By default, GNorm2 runs its BERT-based ML step on CPU using the system Python
-(TF 2.21). On Apple Silicon Macs, Metal GPU acceleration is available but
-requires a separate Python 3.11 environment with TF 2.15 and `tensorflow-metal`
-(the only Metal plugin released for TensorFlow, which targets TF 2.15).
-
-### One-time setup
-
-```bash
-bash scripts/setup_gnorm2_conda.sh
-```
-
-This script installs Miniforge via Homebrew (if not already present), creates
-a conda environment named `gnorm2-tf215` with Python 3.11, and installs all
-required packages including `tensorflow==2.15.0` and `tensorflow-metal==1.2.0`.
-At the end it prints the exact Python path to use.
-
-### Using the GPU environment
-
-Pass the conda env name or Python path via `--gnorm2-python`:
-
-```bash
-# Using the conda env name (short form)
-python3 scripts/run_civic_pubtator.py <run_dir> --gnorm2-python gnorm2-tf215
-
-# Using the full Python path (printed by setup_gnorm2_conda.sh)
-python3 scripts/run_civic_pubtator.py <run_dir> \
-    --gnorm2-python /opt/homebrew/Caskroom/miniforge/base/envs/gnorm2-tf215/bin/python3
-```
-
-Only the GNorm2 ML step (BERT inference) uses this environment. The GROBID and
-tmVar3 steps continue to use the system Python.
-
-### Verify GPU is active
-
-```bash
-conda run -n gnorm2-tf215 python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
-```
-
-A working setup prints something like:
-```
-[PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
-```
