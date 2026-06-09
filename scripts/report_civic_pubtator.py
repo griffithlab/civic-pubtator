@@ -969,15 +969,15 @@ def build_tabbed_summary(container_id, var_block, gene_block, org_block, chem_bl
         f'<div class="tab-bar">'
         f'{btn("variant","Variants",True)}'
         f'{btn("gene","Genes",False)}'
-        f'{btn("organism","Organisms",False)}'
         f'{chem_btn}'
         f'{dis_btn}'
+        f'{btn("organism","Organisms",False)}'
         f'</div>'
         f'{panel("variant", var_block, True)}'
         f'{panel("gene",    gene_block, False)}'
-        f'{panel("organism",org_block,  False)}'
         f'{chem_panel}'
         f'{dis_panel}'
+        f'{panel("organism",org_block,  False)}'
         f'</div>'
     )
 
