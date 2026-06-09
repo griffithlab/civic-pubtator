@@ -36,9 +36,6 @@ The following tools are used, roughly in pipeline order:
    - [All options](#all-options)
 5. [Output files](#output-files)
 
-> **macOS users:** see [Mac_Notes.md](Mac_Notes.md) for platform-specific setup
-> and optional Apple Silicon GPU acceleration.
-
 ---
 
 ## Quick start — Google Cloud
