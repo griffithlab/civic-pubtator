@@ -559,6 +559,42 @@ def _doc_table_block(tbl_id, types_present, default_style, onchange_js, rows_htm
     )
 
 
+def build_annotation_legend(annotations):
+    """Return an HTML color-legend strip for entity types present in annotations."""
+    types_present = {ann['type'] for ann in annotations}
+    if not types_present:
+        return ''
+    ordered = [
+        'ProteinMutation', 'ProteinAllele', 'DNAMutation', 'SNP',
+        'Gene', 'Species', 'CellLine', 'Chemical',
+    ]
+    chips = []
+    for etype in ordered:
+        if etype not in types_present:
+            continue
+        style = ENTITY_STYLE[etype]
+        chips.append(
+            f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
+            f'border-radius:4px;padding:3px 10px;font-size:0.82em;white-space:nowrap">'
+            f'{html.escape(style["label"])}</span>'
+        )
+    for etype in sorted(types_present - set(ordered)):
+        style = VARIANT_DEFAULT_STYLE
+        chips.append(
+            f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
+            f'border-radius:4px;padding:3px 10px;font-size:0.82em;white-space:nowrap">'
+            f'{html.escape(etype)}</span>'
+        )
+    if not chips:
+        return ''
+    return (
+        '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem;'
+        'padding-bottom:0.75rem;border-bottom:1px solid #e2e8f0">'
+        + ''.join(chips)
+        + '</div>'
+    )
+
+
 def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
     if gene_map is None:
         gene_map = {}
@@ -614,6 +650,7 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
   </div>
   <div class="card">
     <h2>Document Text</h2>
+    {build_annotation_legend(doc['annotations'])}
     <div style="font-family:monospace;font-size:0.88em;line-height:1.7;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1.25rem;white-space:pre-wrap;word-break:break-word">
 {highlighted}
     </div>
