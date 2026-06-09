@@ -21,7 +21,7 @@ The following tools are used, roughly in pipeline order:
 | [AIONER](https://github.com/ncbi/AIONER/) | Deep-learning NER for all six entity types (genes, chemicals, diseases, species, variants, cell lines) |
 | [GNorm2](https://github.com/ncbi/GNorm2/) | Gene and species NER + normalization to NCBI Gene / NCBI Taxonomy IDs |
 | [tmVar3](https://github.com/ncbi/tmVar3) | Genetic variant NER + normalization to dbSNP RS#, HGVS, and ClinGen CA# |
-| [NLMChem](https://pubmed.ncbi.nlm.nih.gov/33767203/) | Chemical/drug NER + normalization to MeSH identifiers |
+| [NLMChem](https://pubmed.ncbi.nlm.nih.gov/33767203/) | Chemical/drug normalization to MeSH identifiers (reads AIONER NER output) |
 | [TaggerOne](https://pubmed.ncbi.nlm.nih.gov/27283952/) | Disease NER + normalization to MeSH/OMIM identifiers |
 
 ---
