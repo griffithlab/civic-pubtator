@@ -117,22 +117,24 @@ model-loading startup costs.
  NCBI Taxonomy IDs)             tmVar3 etc. training data;                 │
      │                           Ab3P for local abbreviations)        07_taggerone/
      │                              │
-03_gnorm2/                          ▼ NLMChem (+ Ab3P)
-     │                         (chemical NER and normalization
-     ▼ tmVar3                   to MeSH identifiers;
-(variant NER and                reads AIONER output)
- normalization;                      │
- HGVS, RS#, CA#,               06_nlmchem/
- CorrespondingGene)
-     │
+03_gnorm2/                     05_aioner/
+     │                              │
+     ▼ tmVar3                       ▼ NLMChem (+ Ab3P)
+(variant NER and               (chemical normalization to
+ normalization;                 MeSH identifiers;
+ HGVS, RS#, CA#,               reads AIONER output — no NER)
+ CorrespondingGene)                  │
+     │                         06_nlmchem/
 04_tmvar3/
 (.PubTator + .BioC.XML)
      │
-     ▼ report_civic_pubtator.py
-report_<pmid>.html
-(reads 04_tmvar3/ .PubTator files for variants/genes/species/cell lines
- and 06_nlmchem/ BioC XML for chemical annotations;
- 05_aioner/ and 07_taggerone/ outputs are produced but not yet read by the report)
+     └──────────────────────────────┴──────────────────────────────────────┘
+                                    │
+                          ▼ report_civic_pubtator.py
+                     report_<pmid>.html
+(04_tmvar3/ .PubTator → variants, genes, species, cell lines
+ 06_nlmchem/ BioC XML → drugs (highlighted in purple)
+ 07_taggerone/ BioC XML → diseases (highlighted in rose))
 ```
 
 ### Implementation notes vs. the PubTator 3.0 reference pipeline
