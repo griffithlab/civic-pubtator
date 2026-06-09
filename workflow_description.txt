@@ -36,8 +36,94 @@ a large performance improvement for names present in the lexicon but not in the 
 These enhancements provide a significant overall improvement in entity normalization performance
 
 ## Overview of current pipeline
-PDFs → GROBID → BioC XML → GNorm2 → BioC XML (with gene anno) → tmVar3 → BioC XML (variant + gene anno) → Custom Report
+
+The pipeline starts with GROBID converting PDFs to BioC XML, then splits into two
+independent annotation branches that both read from that GROBID output. All tools
+are invoked in batch mode across all documents (main + supplementary) to amortize
+model-loading startup costs.
+
+  01_source/ (PDFs)
+       │
+       ▼ GROBID — extracts structured text (title, abstract, body, figures, tables)
+  02_grobid/ (BioC XML; no entity annotations yet)
+       │
+       ├──────────────────────────────┬────────────────────────────────┐
+       │                              │                                │
+       ▼ GNorm2                       ▼ AIONER                        ▼ TaggerOne
+  (gene + species NER            (deep-learning NER for all       (normalization-only mode;
+   and normalization;             six entity types using           disease → MeSH,
+   NCBI Gene IDs,                 NCBI-Gene, NLM-Chem,            cell line → Cellosaurus;
+   NCBI Taxonomy IDs)             BC5CDR, tmVar3 etc.             reads GROBID output)
+       │                           training data; Ab3P for              │
+       │                           local abbreviations)                 │
+  03_gnorm2/                          │                           07_taggerone/
+       │                              │
+       ▼ tmVar3                       ▼ NLMChem (+ Ab3P)
+  (variant NER and                (chemical NER and normalization
+   normalization;                  to MeSH identifiers;
+   HGVS, RS#, CA#,                reads AIONER output)
+   CorrespondingGene)                  │
+       │                          06_nlmchem/
+  04_tmvar3/
+  (.PubTator + .BioC.XML)
+       │
+       ▼ report_civic_pubtator.py
+  report_<pmid>.html
+  (currently reads from 04_tmvar3/ .PubTator files only;
+   05_aioner/, 06_nlmchem/, 07_taggerone/ outputs are produced
+   but not yet incorporated into the report)
+
 
 ## File locations
-01_publications_source → 02_publications_grobid → 03_publications_gnorm2 → 04_publications_tmvar3
+
+Each publication lives in its own directory named by PMID (e.g. /data/pub-data/28783719/).
+Supplementary PDFs follow the same step-numbered structure one level deeper
+under s/<supp_stem>/ within each step directory.
+
+  <pub_dir>/
+  ├── 01_source/
+  │   ├── <paper>.pdf
+  │   └── s/
+  │       └── <supp_stem>/
+  │           └── <supp>.pdf
+  │
+  ├── 02_grobid/
+  │   ├── <paper>.xml
+  │   └── s/<supp_stem>/<supp>.xml
+  │
+  ├── 03_gnorm2/
+  │   ├── <paper>.xml
+  │   └── s/<supp_stem>/<supp>.xml
+  │
+  ├── 04_tmvar3/
+  │   ├── <paper>.xml.BioC.XML     ← BioC XML with variant + gene annotations
+  │   ├── <paper>.xml.PubTator     ← PubTator flat-file format (read by the report)
+  │   └── s/<supp_stem>/
+  │       ├── <supp>.xml.BioC.XML
+  │       └── <supp>.xml.PubTator
+  │
+  ├── 05_aioner/
+  │   ├── <paper>.xml
+  │   └── s/<supp_stem>/<supp>.xml
+  │
+  ├── 06_nlmchem/
+  │   ├── <paper>.xml
+  │   ├── abbreviations/<paper>.tsv   ← Ab3P abbreviation table for this document
+  │   └── s/<supp_stem>/
+  │       ├── <supp>.xml
+  │       └── abbreviations/<supp>.tsv
+  │
+  ├── 07_taggerone/
+  │   ├── <paper>.xml
+  │   └── s/<supp_stem>/<supp>.xml
+  │
+  ├── MANIFEST.txt          ← tool version, run timestamp, source file inventory
+  ├── pipeline_stats.tsv    ← per-document runtime and character-count stats per step
+  ├── pipeline_stats.log    ← full human-readable log of the pipeline run
+  └── report_<pmid>.html   ← final HTML report
+
+Hidden staging directories (dot-prefixed, e.g. .gnorm2_staging_in/,
+.tmvar3_staging_out/, .nlmchem_abbr_staging/) are created automatically
+during batch processing and removed on completion unless --no-clear-intermediates
+is passed.
 
