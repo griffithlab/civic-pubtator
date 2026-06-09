@@ -6,6 +6,7 @@ import html
 import os
 import re
 import sys
+import xml.etree.ElementTree as ET
 
 ENTITY_STYLE = {
     'ProteinMutation': {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'Protein Mutation'},
@@ -15,12 +16,14 @@ ENTITY_STYLE = {
     'Gene':            {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene'},
     'Species':         {'bg': '#bbf7d0', 'border': '#16a34a', 'label': 'Species'},
     'CellLine':        {'bg': '#ccfbf1', 'border': '#0d9488', 'label': 'Cell Line'},
+    'Chemical':        {'bg': '#fae8ff', 'border': '#a21caf', 'label': 'Chemical'},
 }
 DEFAULT_STYLE        = {'bg': '#e2e8f0', 'border': '#64748b', 'label': 'Other'}
 VARIANT_DEFAULT_STYLE = {'bg': '#e2e8f0', 'border': '#64748b', 'label': 'Sequence ID'}
 
 GENE_TYPES     = frozenset({'Gene'})
 ORGANISM_TYPES = frozenset({'Species', 'CellLine'})
+CHEMICAL_TYPES = frozenset({'Chemical'})
 
 
 def entity_style(etype):
@@ -71,6 +74,47 @@ def parse_pubtator(path):
                         'details': details,
                     })
     return passages, annotations
+
+
+def parse_bioc_chemicals(path):
+    """Parse NLMChem BioC XML; return list of Chemical annotation dicts."""
+    if not os.path.isfile(path):
+        return []
+    with open(path, encoding='utf-8') as fh:
+        content = fh.read()
+    content = re.sub(r'<!DOCTYPE[^>]*>', '', content)
+    try:
+        root = ET.fromstring(content)
+    except ET.ParseError as exc:
+        print(f'warning: could not parse {path}: {exc}', file=sys.stderr)
+        return []
+    annotations = []
+    for doc in root.findall('document'):
+        for passage in doc.findall('passage'):
+            for ann in passage.findall('annotation'):
+                infons = {i.get('key'): (i.text or '') for i in ann.findall('infon')}
+                if infons.get('type') != 'Chemical':
+                    continue
+                loc = ann.find('location')
+                if loc is None:
+                    continue
+                start = int(loc.get('offset', 0))
+                length = int(loc.get('length', 0))
+                mention = ann.findtext('text', '')
+                identifier = infons.get('identifier', '')
+                annotations.append({
+                    'start': start,
+                    'end': start + length,
+                    'mention': mention,
+                    'type': 'Chemical',
+                    'identifier': identifier,
+                    'hgvs': '',
+                    'rs': '',
+                    'gene': '',
+                    'details': {},
+                    'mesh': identifier,
+                })
+    return annotations
 
 
 def classify_pubtator_path(rel_path):
@@ -289,7 +333,7 @@ def build_variant_summary(doc_data, gene_map=None, show_docs=True):
     summary = {}
     for doc in doc_data:
         for ann in doc['annotations']:
-            if ann['type'] in GENE_TYPES or ann['type'] in ORGANISM_TYPES:
+            if ann['type'] in GENE_TYPES or ann['type'] in ORGANISM_TYPES or ann['type'] in CHEMICAL_TYPES:
                 continue
             skey = (ann['mention'], ann['type'], ann['hgvs'], ann['gene'])
             if skey not in summary:
@@ -411,6 +455,42 @@ def build_organism_rows(doc_data, taxon_map=None, show_docs=True):
     return '\n'.join(rows)
 
 
+def build_chemical_rows(doc_data, show_docs=True):
+    key_to_label = {doc['key']: doc['label'] for doc in doc_data}
+    summary = {}
+    for doc in doc_data:
+        for ann in doc['annotations']:
+            if ann['type'] not in CHEMICAL_TYPES:
+                continue
+            skey = (ann['mention'], ann['identifier'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
+
+    rows = []
+    for (mention, mesh_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        if mesh_id and mesh_id != '-':
+            mesh_cell = html.escape(mesh_id)
+        else:
+            mesh_cell = '<span style="color:#94a3b8">—</span>'
+        docs_td = ''
+        if show_docs:
+            sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
+            keys_display = html.escape(', '.join(sorted_doc_keys))
+            labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
+            docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
+        rows.append(
+            f'<tr data-type="Chemical">'
+            f'<td>{html.escape(mention)}</td>'
+            f'<td>{mesh_cell}</td>'
+            f'<td>{info["count"]}</td>'
+            f'{docs_td}'
+            f'</tr>'
+        )
+    return '\n'.join(rows)
+
+
 def highlight_text(full_text, annotations):
     sorted_anns = sorted(annotations, key=lambda a: a['start'])
     parts = []
@@ -492,7 +572,8 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
     full_text = '\n'.join(p['text'] for p in passages)
 
     variant_types = {a['type'] for a in doc['annotations']
-                     if a['type'] not in GENE_TYPES and a['type'] not in ORGANISM_TYPES}
+                     if a['type'] not in GENE_TYPES and a['type'] not in ORGANISM_TYPES
+                     and a['type'] not in CHEMICAL_TYPES}
     organism_types = {a['type'] for a in doc['annotations'] if a['type'] in ORGANISM_TYPES}
 
     var_block = _doc_table_block(
@@ -510,6 +591,12 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
         build_organism_rows(single, taxon_map, show_docs=False),
         '<th>Mention</th><th>Type</th><th>Name</th><th>Count</th>')
 
+    chem_rows = build_chemical_rows(single, show_docs=False)
+    chem_block = _doc_table_block(
+        f'chem-tbl-{doc_id}', set(), DEFAULT_STYLE, None,
+        chem_rows,
+        '<th>Mention</th><th>MeSH ID</th><th>Count</th>') if chem_rows else None
+
     highlighted = highlight_text(full_text, doc['annotations'])
 
     return f'''
@@ -523,7 +610,7 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
   </div>
   <div class="card">
     <h2>Annotation Summary</h2>
-    {build_tabbed_summary(f'doc-summary-{doc_id}', var_block, gene_block, org_block)}
+    {build_tabbed_summary(f'doc-summary-{doc_id}', var_block, gene_block, org_block, chem_block)}
   </div>
   <div class="card">
     <h2>Document Text</h2>
@@ -693,6 +780,7 @@ function switchTab(containerId, tabName) {
 function applyVariantFilters()  { applyTableFilters('variant-table',  'vfilter', 'variant-limit-select',  'variant-count-display'); }
 function applyGeneFilters()     { applyTableFilters('gene-table',     null,      'gene-limit-select',     'gene-count-display'); }
 function applyOrganismFilters() { applyTableFilters('organism-table', 'ofilter', 'organism-limit-select', 'organism-count-display'); }
+function applyChemicalFilters() { applyTableFilters('chemical-table', null,      'chemical-limit-select', 'chemical-count-display'); }
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.data-table').forEach(function(table) {
     var ths = table.querySelectorAll('th');
@@ -703,6 +791,7 @@ document.addEventListener('DOMContentLoaded', function() {
   applyVariantFilters();
   applyGeneFilters();
   applyOrganismFilters();
+  applyChemicalFilters();
   document.querySelectorAll('.data-table[data-filter-limit]').forEach(function(table) {
     applyTableFilters(table.id, table.dataset.filterName || null,
                       table.dataset.filterLimit, table.dataset.filterDisplay);
@@ -742,7 +831,7 @@ def build_filter_bar(types_present, default_style, filter_name, onchange_js, lim
     return '<div class="filter-bar">' + '\n'.join(buttons) + '\n' + limit_select + '</div>'
 
 
-def build_tabbed_summary(container_id, var_block, gene_block, org_block):
+def build_tabbed_summary(container_id, var_block, gene_block, org_block, chem_block=None):
     def btn(tab, label, active):
         cls = 'tab-btn active' if active else 'tab-btn'
         return (f'<button class="{cls}" data-tab="{tab}" '
@@ -750,16 +839,20 @@ def build_tabbed_summary(container_id, var_block, gene_block, org_block):
     def panel(tab, content, active):
         cls = 'tab-panel active' if active else 'tab-panel'
         return f'<div class="{cls}" data-tab="{tab}">{content}</div>'
+    chem_btn   = btn('chemical', 'Chemicals', False) if chem_block is not None else ''
+    chem_panel = panel('chemical', chem_block, False) if chem_block is not None else ''
     return (
         f'<div id="{container_id}">'
         f'<div class="tab-bar">'
         f'{btn("variant","Variants",True)}'
         f'{btn("gene","Genes",False)}'
         f'{btn("organism","Organisms",False)}'
+        f'{chem_btn}'
         f'</div>'
         f'{panel("variant", var_block, True)}'
         f'{panel("gene",    gene_block, False)}'
         f'{panel("organism",org_block,  False)}'
+        f'{chem_panel}'
         f'</div>'
     )
 
@@ -807,7 +900,8 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 </div>'''
 
     variant_types = {ann['type'] for doc in doc_data for ann in doc['annotations']
-                     if ann['type'] not in GENE_TYPES and ann['type'] not in ORGANISM_TYPES}
+                     if ann['type'] not in GENE_TYPES and ann['type'] not in ORGANISM_TYPES
+                     and ann['type'] not in CHEMICAL_TYPES}
     organism_types = {ann['type'] for doc in doc_data for ann in doc['annotations']
                       if ann['type'] in ORGANISM_TYPES}
 
@@ -847,9 +941,21 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
         f'<tbody>{organism_rows}</tbody></table></div>'
     )
 
+    chem_filter_bar = build_filter_bar(
+        set(), DEFAULT_STYLE,
+        '', 'applyChemicalFilters()', 'chemical-limit-select', 'chemical-count-display')
+    chemical_rows = build_chemical_rows(doc_data)
+    chem_block = (
+        f'{chem_filter_bar}'
+        f'<div style="overflow-x:auto">'
+        f'<table class="data-table" id="chemical-table" data-filter-fn="applyChemicalFilters">'
+        f'<thead><tr><th>Mention</th><th>MeSH ID</th><th>Count</th><th>Docs</th></tr></thead>'
+        f'<tbody>{chemical_rows}</tbody></table></div>'
+    ) if chemical_rows else None
+
     annotation_section = (
         f'<div class="card"><h2>Annotation Summary</h2>'
-        f'{build_tabbed_summary("main-summary", var_block, gene_block, org_block)}'
+        f'{build_tabbed_summary("main-summary", var_block, gene_block, org_block, chem_block)}'
         f'</div>'
     )
 
@@ -923,6 +1029,10 @@ def main():
     if not pubtator_files:
         print('warning: no .PubTator files found', file=sys.stderr)
 
+    nlmchem_dir = os.path.join(run_dir, '06_nlmchem')
+    if not os.path.isdir(nlmchem_dir):
+        nlmchem_dir = None
+
     doc_data = []
     main_count = supp_count = 0
     for i, pf in enumerate(pubtator_files):
@@ -933,6 +1043,10 @@ def main():
             supp_count += 1
             key = f's{supp_count}'
         passages, annotations = parse_pubtator(pf['path'])
+        if nlmchem_dir:
+            rel_xml = pf['rel'][:-len('.PubTator')] if pf['rel'].endswith('.PubTator') else pf['rel']
+            chem_anns = parse_bioc_chemicals(os.path.join(nlmchem_dir, rel_xml))
+            annotations.extend(chem_anns)
         doc_data.append({
             'doc_id': f'doc-{i}',
             'key': key,
