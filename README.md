@@ -45,17 +45,57 @@ The following tools are used, roughly in pipeline order:
 
 ---
 
-## Quick start
+## Quick start — Google Cloud
+
+The pipeline is designed to run on Google Cloud Platform (GCP). Large tool model
+files (CRF models, BERT weights, SQLite databases) live in a GCS bucket and are
+synced to the VM on startup; publication data is synced separately before and
+after each run.
+
+### 1. Start a VM
 
 ```bash
-# 1. Start GROBID (in a separate terminal)
-docker run --rm -p 8070:8070 lfoppiano/grobid:0.8.1
-
-# 2. Run the pipeline
-python3 scripts/run_civic_pubtator.py /path/to/my_run/
+bash scripts/cloud/start_gcp_vm.sh <instance-name> --project <gcp-project>
 ```
 
-`/path/to/my_run/` must contain a `01_source/` subdirectory with at least one PDF.
+This creates an `n1-highmem-8` VM (52 GB RAM) with an NVIDIA T4 GPU and a 750 GB
+SSD. A startup script (`scripts/cloud/gcp_server_startup.py`) runs automatically
+on first boot and handles everything: installing system packages and Java, cloning
+the repo, building GROBID (registered as a systemd service), syncing tool model
+files from GCS, compiling CRF++ for tmVar3 and GNorm2, and creating all required
+conda environments. Watch startup progress from inside the VM with:
+
+```bash
+sudo journalctl -u google-startup-scripts -f
+```
+
+### 2. Sync publication data
+
+Copy source PDFs down from GCS (or upload a new paper's `01_source/` directory):
+
+```bash
+# Download all papers
+bash scripts/cloud/sync_pub_data.sh --bucket civic-pubtator-pub-data down
+
+# Download one paper
+bash scripts/cloud/sync_pub_data.sh --bucket civic-pubtator-pub-data down 28783719
+```
+
+### 3. Run the pipeline
+
+```bash
+python3 scripts/run_civic_pubtator.py /data/pub-data/28783719/
+```
+
+### 4. Upload results and stop the VM
+
+```bash
+# Upload results for one paper
+bash scripts/cloud/sync_pub_data.sh --bucket civic-pubtator-pub-data up 28783719
+
+# Delete the VM when done to avoid ongoing charges
+gcloud compute instances delete <instance-name> --zone us-central1-f --project <gcp-project>
+```
 
 ---
 
