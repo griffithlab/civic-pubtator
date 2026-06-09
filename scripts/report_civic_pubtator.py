@@ -641,7 +641,7 @@ def build_annotation_legend(annotations):
         return ''
     ordered = [
         'ProteinMutation', 'ProteinAllele', 'DNAMutation', 'SNP',
-        'Gene', 'Species', 'CellLine', 'Chemical',
+        'Gene', 'Species', 'CellLine', 'Chemical', 'Disease',
     ]
     chips = []
     for etype in ordered:
