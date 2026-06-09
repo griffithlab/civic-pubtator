@@ -11,7 +11,9 @@ This project is an attempt to create a standalone, reproducible version of the
 normalization pipeline. PubTator 3.0 is developed and maintained by the National
 Center for Biotechnology Information (NCBI). Because the PubTator 3.0 pipeline is
 not publicly portable, this implementation reverse-engineers the component tools
-based on their documentation and the PubTator 3.0 publication.
+based on their documentation and the PubTator 3.0 publication. See
+[workflow_description.md](workflow_description.md) for a detailed description of
+the pipeline and how each tool is used.
 
 The following tools are used, roughly in pipeline order:
 
@@ -171,9 +173,11 @@ a reportlab fallback is used otherwise.
 
 ```
 usage: run_civic_pubtator.py [-h] [--clean] [--no-clear-intermediates]
-                             [--start-step {1,2,3}] [--no-libreoffice]
-                             [--max-chars N] [--memory SIZE]
+                             [--no-libreoffice] [--max-chars N] [--memory SIZE]
                              [--gnorm2-python PATH_OR_ENV]
+                             [--aioner-python PATH_OR_ENV]
+                             [--taggerone-model PATH]
+                             [--nlmchem-python PATH_OR_ENV]
                              input_dirs [input_dirs ...]
 ```
 
@@ -181,11 +185,13 @@ usage: run_civic_pubtator.py [-h] [--clean] [--no-clear-intermediates]
 |---|---|---|
 | `--clean` | off | Delete and recreate output directories before running |
 | `--no-clear-intermediates` | off | Keep tmp dirs and prepared supplement PDFs after the run |
-| `--start-step {1,2,3}` | `1` | Resume from a specific step (1=GROBID, 2=GNorm2, 3=tmVar3) |
 | `--no-libreoffice` | off | Use the reportlab/python-docx fallback for supplement conversion |
 | `--max-chars N` | `1000000` | Skip documents whose output XML exceeds N characters; use `0` for no limit |
 | `--memory SIZE` | `32G` | Java max heap for GNorm2 and tmVar3; initial heap is set to half this value |
-| `--gnorm2-python PATH_OR_ENV` | system Python | Python interpreter for the GNorm2 ML step — accepts a full path or a conda env name |
+| `--gnorm2-python PATH_OR_ENV` | `gnorm2-tf215` conda env | Python interpreter or conda env name for the GNorm2 ML step |
+| `--aioner-python PATH_OR_ENV` | `aioner-tf23` conda env | Python interpreter or conda env name for AIONER |
+| `--taggerone-model PATH` | `TaggerOne/output/model_DISE.bin` | Path to a trained TaggerOne model; set to empty string to skip TaggerOne |
+| `--nlmchem-python PATH_OR_ENV` | `nlmchem-py39` conda env | Python interpreter or conda env name for NLMChem |
 
 ---
 
