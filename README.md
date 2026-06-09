@@ -18,7 +18,7 @@ The following tools are used, roughly in pipeline order:
 | Tool | Role |
 |---|---|
 | [GROBID](https://github.com/kermitt2/grobid) | Converts PDFs to structured BioC XML (title, abstract, body, figures, tables) |
-| [AIONER](https://github.com/ncbi-nlp/AIONER) | Deep-learning NER for all six entity types (genes, chemicals, diseases, species, variants, cell lines) |
+| [AIONER](https://github.com/ncbi/AIONER/) | Deep-learning NER for all six entity types (genes, chemicals, diseases, species, variants, cell lines) |
 | [GNorm2](https://github.com/ncbi-nlp/GNorm2) | Gene and species NER + normalization to NCBI Gene / NCBI Taxonomy IDs |
 | [tmVar3](https://github.com/ncbi-nlp/tmVar3) | Genetic variant NER + normalization to dbSNP RS#, HGVS, and ClinGen CA# |
 | [NLMChem](https://github.com/ncbi-nlp/NLMChem) | Chemical/drug NER + normalization to MeSH identifiers |
