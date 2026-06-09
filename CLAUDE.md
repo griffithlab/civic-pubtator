@@ -16,22 +16,67 @@ Because the PubTator 3.0 pipeline is not publicly portable, it is being reverse-
   - Diseases / cell lines → MeSH / Cellosaurus via TaggerOne
 - **Relation extraction** — BioREx identifies 12 common relation types between entities.
 
-The **current pipeline** approximates this with tools that are available:
+The **current pipeline** approximates this with tools that are available. GROBID output feeds two independent annotation branches:
 
 ```
-PDFs → GROBID → BioC XML → GNorm2 → BioC XML (gene/species anno)
-     → tmVar3 → BioC XML (variant + gene anno) → Custom Report
+PDFs → GROBID → 02_grobid/ (BioC XML)
+                     │
+          ┌──────────┼─────────────────────┐
+          │          │                     │
+       GNorm2     AIONER              TaggerOne
+       (gene +    (all 6 NER          (disease NER +
+        species    entity types)       normalization)
+        norm)         │                     │
+          │        NLMChem            07_taggerone/
+       tmVar3      (chemical norm;
+       (variant +   reads AIONER out)
+        gene norm)     │
+          │        06_nlmchem/
+       04_tmvar3/
+          │
+     report_civic_pubtator.py → report_<pmid>.html
 ```
 
-All work happens inside per-publication directories structured as:
+All tools run in **batch mode** — all documents across all groups (main + supplementary) are processed in a single tool invocation to amortize model-loading startup costs. The orchestrating script is `scripts/run_civic_pubtator.py`.
+
+Per-publication directory structure:
 ```
 <pub_dir>/01_source/        ← source PDFs (+ s/ subdir for supplementary)
 <pub_dir>/02_grobid/        ← GROBID BioC XML output
-<pub_dir>/03_gnorm2/        ← GNorm2 annotated BioC XML
-<pub_dir>/04_tmvar3/        ← tmVar3 annotated BioC XML + PubTator files
+<pub_dir>/03_gnorm2/        ← GNorm2 annotated BioC XML (gene + species)
+<pub_dir>/04_tmvar3/        ← tmVar3 BioC XML + PubTator files (variant + gene)
+<pub_dir>/05_aioner/        ← AIONER NER-annotated BioC XML (all 6 entity types)
+<pub_dir>/06_nlmchem/       ← NLMChem BioC XML (chemical → MeSH); + abbreviations/
+<pub_dir>/07_taggerone/     ← TaggerOne BioC XML (disease → MeSH/OMIM)
+<pub_dir>/MANIFEST.txt      ← run metadata
+<pub_dir>/pipeline_stats.tsv / pipeline_stats.log
+<pub_dir>/report_<pmid>.html
 ```
 
-The orchestrating script is `scripts/run_civic_pubtator.py`. GNorm2 and tmVar3 are run in **batch mode** — all documents across all groups (main + supplementary) are processed in a single tool invocation to amortize model-loading startup costs.
+The HTML report (`scripts/report_civic_pubtator.py`) currently reads from:
+- `04_tmvar3/*.PubTator` — passages, variants, genes, species, cell lines
+- `06_nlmchem/*.xml` — chemical annotations (merged in, highlighted in fuchsia)
+
+Steps 05 (AIONER) and 07 (TaggerOne) outputs are produced but not yet read by the reporter.
+
+---
+
+## Known Tool Capabilities and Limitations
+
+### TaggerOne (v0.2.1 public release)
+
+- **Disease-only.** The `model_DISE.bin` model was trained with `--entityTypes Disease` on NCBI Disease + BC5CDR corpora. It produces only `Disease` annotations normalized to MeSH/OMIM. Chemicals are explicitly ignored during training.
+- **No normalization-only mode.** The PubTator 3.0 paper describes TaggerOne running in a "normalization-only mode" (applying normalization to pre-existing AIONER spans). That mode was developed by NCBI and was **never publicly released**. The v0.2.1 JAR has no equivalent.
+- **Passing AIONER output to TaggerOne would not help.** `ProcessText` ignores existing annotations in the input BioC XML and always runs its own NER from scratch.
+- **No cell line model.** No Cellosaurus lexicon or cell-line-trained model exists in the public v0.2.1 distribution.
+
+### GNorm2 — CellLine annotations
+
+GNorm2 produces `CellLine` annotations (e.g. NIH3T3, SK-MEL-208, HEK293) that flow through tmVar3 into the PubTator files and report. However, the identifiers assigned are **NCBI Taxonomy IDs** (`9606` = human, `10090` = mouse), not Cellosaurus accessions (CVCL_xxxx). GNorm2 identifies the host organism of the cell line, not the specific cell line entry. Cellosaurus normalization would require a separate tool.
+
+### NLMChem
+
+Reads AIONER output (step 5) as input. Produces `Chemical` annotations normalized to MeSH identifiers. Unresolvable chemicals receive identifier `-`. Now integrated into the HTML report via `parse_bioc_chemicals()` in `report_civic_pubtator.py`.
 
 ---
 
