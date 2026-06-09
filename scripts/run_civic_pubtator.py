@@ -211,7 +211,7 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
             f.write(f"     {'TOTAL':<{name_w}}  {total_chars:>12,}  {total_words:>9,}\n")
 
     # --- TSV ---
-    step_num   = {"GROBID": 1, "GNorm2": 2, "tmVar3": 3, "AIONER": 4, "NLMChem": 5}.get(step_name, step_name)
+    step_num   = {"GROBID": 1, "GNorm2": 2, "tmVar3": 3, "AIONER": 4, "NLMChem": 5, "TaggerOne": 6}.get(step_name, step_name)
     input_name = os.path.basename(label) if label != "main" else "main"
     with open(tsv_path, "a", encoding="utf-8") as f:
         for rel, chars, words in files:
@@ -267,6 +267,7 @@ def clear_intermediates(input_dir, base_dir, log_path):
         os.path.join(base_dir, "04_tmvar3"),
         os.path.join(base_dir, "05_aioner"),
         os.path.join(base_dir, "06_nlmchem"),
+        os.path.join(base_dir, "07_taggerone"),
     ]:
         if not os.path.isdir(out_dir):
             continue
@@ -659,6 +660,57 @@ def _run_ab3p(texts):
     return pairs
 
 
+def run_taggerone_batched(groups, args, log_path, tsv_path, base_dir):
+    """Run TaggerOne across all groups combined, then distribute outputs.
+
+    Reads from GROBID output (same input as AIONER/GNorm2).
+    Skipped if --taggerone-model is not provided.
+    """
+    if not args.taggerone_model:
+        return
+
+    all_files = [(g, p) for g in groups for p in collect_xml_files(g['grobid_out'])]
+    if not all_files:
+        return
+
+    staging_in  = os.path.join(base_dir, ".taggerone_staging_in")
+    staging_out = os.path.join(base_dir, ".taggerone_staging_out")
+    try:
+        entries = _build_flat_staging(all_files, staging_in)
+
+        xmx = args.memory
+        xms = half_memory(args.memory)
+        taggerone_cmd = [
+            sys.executable, os.path.join(SCRIPTS_DIR, "run_taggerone.py"),
+            staging_in, staging_out,
+            "--model", os.path.abspath(args.taggerone_model),
+            "--xmx", xmx, "--xms", xms,
+        ]
+
+        _log_batch_header(log_path, "TaggerOne", len(groups))
+        t0 = time.time()
+        run("TaggerOne [all]", taggerone_cmd)
+        elapsed = time.time() - t0
+
+        file_elapsed = _per_file_elapsed(entries, staging_out, t0)
+
+        for staging_name, fname, group in entries:
+            taggerone_out = group['taggerone_out']
+            os.makedirs(taggerone_out, exist_ok=True)
+            out_src = os.path.join(staging_out, staging_name)
+            if os.path.exists(out_src):
+                shutil.copy2(out_src, os.path.join(taggerone_out, fname))
+
+        for g in groups:
+            log_step_stats(log_path, tsv_path, base_dir, "TaggerOne", g['label'],
+                           g['taggerone_out'], elapsed, file_elapsed=file_elapsed)
+
+    finally:
+        if args.clear_intermediates:
+            shutil.rmtree(staging_in,  ignore_errors=True)
+            shutil.rmtree(staging_out, ignore_errors=True)
+
+
 def run_nlmchem_batched(groups, args, log_path, tsv_path, base_dir):
     """Run Ab3P + NLMChem once across all groups combined, then distribute outputs.
 
@@ -756,20 +808,21 @@ def generate_report(top_dir, log_path):
 
 
 def process_input(top_dir, args):
-    source_dir    = os.path.join(top_dir, "01_source")
-    grobid_root   = os.path.join(top_dir, "02_grobid")
-    gnorm2_root   = os.path.join(top_dir, "03_gnorm2")
-    tmvar_root    = os.path.join(top_dir, "04_tmvar3")
-    aioner_root   = os.path.join(top_dir, "05_aioner")
-    nlmchem_root  = os.path.join(top_dir, "06_nlmchem")
+    source_dir      = os.path.join(top_dir, "01_source")
+    grobid_root     = os.path.join(top_dir, "02_grobid")
+    gnorm2_root     = os.path.join(top_dir, "03_gnorm2")
+    tmvar_root      = os.path.join(top_dir, "04_tmvar3")
+    aioner_root     = os.path.join(top_dir, "05_aioner")
+    nlmchem_root    = os.path.join(top_dir, "06_nlmchem")
+    taggerone_root  = os.path.join(top_dir, "07_taggerone")
     log_path      = os.path.join(top_dir, "pipeline_stats.log")
     tsv_path      = os.path.join(top_dir, "pipeline_stats.tsv")
     manifest_path = os.path.join(top_dir, "MANIFEST.txt")
 
     # Clean top-level output dirs (covers supplementary subdirs too)
     if args.clean:
-        for step, d in enumerate([grobid_root, gnorm2_root, tmvar_root, aioner_root, nlmchem_root], start=1):
-            if step >= args.start_step and os.path.exists(d):
+        for d in [grobid_root, gnorm2_root, tmvar_root, aioner_root, nlmchem_root, taggerone_root]:
+            if os.path.exists(d):
                 print(light_blue(f"Cleaning {d} ..."), file=sys.stderr)
                 shutil.rmtree(d)
         for f in (log_path, tsv_path, manifest_path):
@@ -778,10 +831,11 @@ def process_input(top_dir, args):
                 os.remove(f)
         # Remove any staging dirs left over from a previous --no-clear-intermediates run
         for staging in (
-            ".gnorm2_staging_in",  ".gnorm2_staging_out",
-            ".tmvar3_staging_in",  ".tmvar3_staging_out",
-            ".aioner_staging_in",  ".aioner_staging_out",
-            ".nlmchem_staging_in", ".nlmchem_staging_out", ".nlmchem_abbr_staging",
+            ".gnorm2_staging_in",     ".gnorm2_staging_out",
+            ".tmvar3_staging_in",     ".tmvar3_staging_out",
+            ".aioner_staging_in",     ".aioner_staging_out",
+            ".nlmchem_staging_in",    ".nlmchem_staging_out",    ".nlmchem_abbr_staging",
+            ".taggerone_staging_in",  ".taggerone_staging_out",
         ):
             d = os.path.join(top_dir, staging)
             if os.path.exists(d):
@@ -801,7 +855,7 @@ def process_input(top_dir, args):
         f.write(f"# Pipeline run started: {timestamp}\n")
         f.write(f"# Input dir:  {top_dir}\n")
         f.write(f"# Source dir: {source_dir}\n")
-        f.write(f"# Start step: {args.start_step}\n")
+
         max_chars_str = f"{args.max_chars:,}" if args.max_chars else "unlimited"
         f.write(f"# Max chars:  {max_chars_str}\n")
         f.write(f"# Clear intermediates: {args.clear_intermediates}\n")
@@ -824,41 +878,41 @@ def process_input(top_dir, args):
 
     # Discover all groups (main publication + supplementary leaf dirs)
     groups = [{
-        'label':           'main',
-        'pdf_dir':         source_dir,
-        'grobid_out':      grobid_root,
-        'gnorm2_out':      gnorm2_root,
-        'tmvar_out':       tmvar_root,
-        'aioner_out':      aioner_root,
-        'nlmchem_out':     nlmchem_root,
+        'label':            'main',
+        'pdf_dir':          source_dir,
+        'grobid_out':       grobid_root,
+        'gnorm2_out':       gnorm2_root,
+        'tmvar_out':        tmvar_root,
+        'aioner_out':       aioner_root,
+        'nlmchem_out':      nlmchem_root,
         'nlmchem_abbr_out': os.path.join(nlmchem_root, 'abbreviations'),
-        'supplementary':   False,
+        'taggerone_out':    taggerone_root,
+        'supplementary':    False,
     }]
     for abs_path, rel in find_supplement_leaf_dirs(source_dir):
         groups.append({
-            'label':           rel,
-            'pdf_dir':         abs_path,
-            'grobid_out':      os.path.join(grobid_root, rel),
-            'gnorm2_out':      os.path.join(gnorm2_root, rel),
-            'tmvar_out':       os.path.join(tmvar_root,  rel),
-            'aioner_out':      os.path.join(aioner_root, rel),
-            'nlmchem_out':     os.path.join(nlmchem_root, rel),
+            'label':            rel,
+            'pdf_dir':          abs_path,
+            'grobid_out':       os.path.join(grobid_root, rel),
+            'gnorm2_out':       os.path.join(gnorm2_root, rel),
+            'tmvar_out':        os.path.join(tmvar_root,  rel),
+            'aioner_out':       os.path.join(aioner_root, rel),
+            'nlmchem_out':      os.path.join(nlmchem_root, rel),
             'nlmchem_abbr_out': os.path.join(nlmchem_root, rel, 'abbreviations'),
-            'supplementary':   True,
+            'taggerone_out':    os.path.join(taggerone_root, rel),
+            'supplementary':    True,
         })
 
     # Phase 1: GROBID — one invocation per group (no shared startup cost)
-    if args.start_step <= 1:
-        for g in groups:
-            run_grobid_for_group(
-                g['label'], g['pdf_dir'], g['grobid_out'],
-                args, log_path, tsv_path, top_dir,
-                supplementary=g['supplementary'],
-            )
+    for g in groups:
+        run_grobid_for_group(
+            g['label'], g['pdf_dir'], g['grobid_out'],
+            args, log_path, tsv_path, top_dir,
+            supplementary=g['supplementary'],
+        )
 
     # Phase 2: GNorm2 — one invocation for all groups combined
-    if args.start_step <= 2:
-        run_gnorm2_batched(groups, args, log_path, tsv_path, top_dir)
+    run_gnorm2_batched(groups, args, log_path, tsv_path, top_dir)
 
     # Phase 3: tmVar3 — one invocation for all groups combined
     run_tmvar3_batched(groups, args, log_path, tsv_path, top_dir)
@@ -868,6 +922,9 @@ def process_input(top_dir, args):
 
     # Phase 5: NLMChem — Ab3P abbreviation extraction then chemical normalization
     run_nlmchem_batched(groups, args, log_path, tsv_path, top_dir)
+
+    # Phase 6: TaggerOne — disease/chemical NER and normalization (skipped if no model given)
+    run_taggerone_batched(groups, args, log_path, tsv_path, top_dir)
 
     # Clear intermediate files and dirs
     if args.clear_intermediates:
@@ -885,7 +942,8 @@ def process_input(top_dir, args):
     # Generate HTML report
     report_path = generate_report(top_dir, log_path)
 
-    print(light_blue(f"\nDone: {top_dir}  →  {nlmchem_root}"), file=sys.stderr)
+    last_root = taggerone_root if args.taggerone_model else nlmchem_root
+    print(light_blue(f"\nDone: {top_dir}  →  {last_root}"), file=sys.stderr)
     print(light_blue(f"Stats log: {log_path}"), file=sys.stderr)
     print(light_blue(f"Stats TSV: {tsv_path}"), file=sys.stderr)
     print(light_blue(f"Manifest:  {manifest_path}"), file=sys.stderr)
@@ -911,9 +969,7 @@ def main():
                         action="store_false",
                         help="Keep tmp dirs and prepared supplement PDFs after pipeline completes")
     parser.set_defaults(clear_intermediates=True)
-    parser.add_argument("--start-step", type=int, default=1, choices=[1, 2, 3],
-                        metavar="{1,2,3}",
-                        help="Start from this step (1=GROBID, 2=GNorm2, 3=tmVar3; default: 1)")
+
     parser.add_argument("--no-libreoffice", action="store_true",
                         help="Use reportlab/python-docx fallback instead of LibreOffice")
     parser.add_argument("--max-chars", type=int, default=1_000_000, metavar="N",
@@ -940,6 +996,13 @@ def main():
                              "Examples: "
                              "--aioner-python aioner-tf23  (conda env name) or "
                              "--aioner-python /path/to/envs/aioner-tf23/bin/python3")
+    default_taggerone_model = os.path.join(REPO_DIR, "TaggerOne", "output", "model_DISE.bin")
+    parser.add_argument("--taggerone-model", default=default_taggerone_model, metavar="PATH",
+                        help="Path to a trained TaggerOne model (.bin file). "
+                             "Runs TaggerOne disease/chemical NER and normalization on "
+                             "GROBID output as the final pipeline step (07_taggerone/). "
+                             "Set to empty string to skip this step. "
+                             f"Default: {default_taggerone_model}")
     parser.add_argument("--nlmchem-python", default=None, metavar="PATH_OR_ENV",
                         help="Python interpreter or conda env for NLMChem. "
                              "Accepts a full path to a Python executable or a "
