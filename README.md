@@ -52,6 +52,24 @@ files (CRF models, BERT weights, SQLite databases) live in a GCS bucket and are
 synced to the VM on startup; publication data is synced separately before and
 after each run.
 
+### 0. One-time setup (per project / per user)
+
+**Project setup** — run once ever to create the VPC network, subnet, firewall
+rule, and GCS bucket that all VMs share:
+
+```bash
+bash scripts/cloud/create_gcp_resources.sh \
+    <gcp-project> <bucket-name> <allowed-ip-cidr> <region> [retention-policy]
+```
+
+**User setup** — run once after your first SSH login to a new VM. Fixes
+directory ownership, configures your git identity, generates an SSH key and
+walks you through adding it to GitHub, and installs Claude Code:
+
+```bash
+python3 scripts/cloud/user_environment_config.py
+```
+
 ### 1. Start a VM
 
 ```bash
