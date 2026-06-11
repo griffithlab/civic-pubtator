@@ -810,7 +810,10 @@ def process_input(top_dir, args):
             if os.path.exists(d):
                 print(light_blue(f"Cleaning {d} ..."), file=sys.stderr)
                 shutil.rmtree(d)
-        for f in (log_path, tsv_path, manifest_path):
+        run_title = os.path.basename(os.path.abspath(top_dir))
+        for f in (log_path, tsv_path, manifest_path,
+                  os.path.join(top_dir, f"report_{run_title}.html"),
+                  os.path.join(top_dir, f"report_{run_title}.tsv")):
             if os.path.exists(f):
                 print(light_blue(f"Cleaning {f} ..."), file=sys.stderr)
                 os.remove(f)
