@@ -126,7 +126,8 @@ my_run/
 │   ├── paper2.pdf
 │   └── s/              ← optional: supplementary files (see below)
 │       ├── paper1.xlsx
-│       └── paper2.docx
+│       ├── paper2.docx
+│       └── paper3.pptx
 ├── 02_grobid/          ← GROBID BioC XML output (created automatically)
 ├── 03_gnorm2/          ← GNorm2 output (created automatically)
 ├── 04_tmvar3/          ← tmVar3 output (created automatically)
@@ -161,13 +162,14 @@ as the corresponding source PDF:
 ├── paper1.pdf
 └── s/
     ├── paper1.xlsx     ← supplementary spreadsheet for paper1
-    └── paper1.docx     ← supplementary document for paper1
+    ├── paper1.docx     ← supplementary document for paper1
+    └── paper1.pptx     ← supplementary presentation for paper1
 ```
 
-Supported formats: `.pdf`, `.docx`, `.doc`, `.xlsx`, `.xls`.
+Supported formats: `.pdf`, `.docx`, `.doc`, `.xlsx`, `.xls`, `.pptx`, `.ppt`.
 Excel files are split by sheet — each sheet is converted to a separate PDF and
 processed independently. LibreOffice is used for conversion when available;
-a reportlab fallback is used otherwise.
+a reportlab/python-pptx fallback is used otherwise.
 
 ### All options
 
@@ -185,7 +187,7 @@ usage: run_civic_pubtator.py [-h] [--clean] [--no-clear-intermediates]
 |---|---|---|
 | `--clean` | off | Delete and recreate output directories before running |
 | `--no-clear-intermediates` | off | Keep tmp dirs and prepared supplement PDFs after the run |
-| `--no-libreoffice` | off | Use the reportlab/python-docx fallback for supplement conversion |
+| `--no-libreoffice` | off | Use the reportlab/python-docx/python-pptx fallback for supplement conversion |
 | `--max-chars N` | `1000000` | Skip documents whose output XML exceeds N characters; use `0` for no limit |
 | `--memory SIZE` | `32G` | Java max heap for GNorm2 and tmVar3; initial heap is set to half this value |
 | `--gnorm2-python PATH_OR_ENV` | `gnorm2-tf215` conda env | Python interpreter or conda env name for the GNorm2 ML step |
