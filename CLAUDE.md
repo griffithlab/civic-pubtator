@@ -34,10 +34,15 @@ PDFs → GROBID → 02_grobid/ (BioC XML)
           │        06_nlmchem/
        04_tmvar3/
           │
-     report_civic_pubtator.py → report_<pmid>.html
+     pipeline_steps/report_civic_pubtator.py → report_<pmid>.html
 ```
 
 All tools run in **batch mode** — all documents across all groups (main + supplementary) are processed in a single tool invocation to amortize model-loading startup costs. The orchestrating script is `scripts/run_civic_pubtator.py`.
+
+The `scripts/` directory is organised into three subdirectories:
+- `scripts/pipeline_steps/` — per-step wrapper scripts invoked by the orchestrator (`pdf_to_bioc.py`, `prepare_supplementary.py`, `run_gnorm2.py`, `run_tmvar.py`, `run_aioner.py`, `run_nlmchem.py`, `run_taggerone.py`, `report_civic_pubtator.py`)
+- `scripts/setup_conda_envs/` — one-time environment setup scripts (`setup_gnorm2_conda.sh`, `setup_aioner_conda.sh`, `setup_nlmchem_conda.sh`, `check_gpu.py`)
+- `scripts/cloud/` and `scripts/mac/` — infrastructure and platform-specific helpers
 
 Per-publication directory structure:
 ```
