@@ -125,9 +125,9 @@ my_run/
 │   ├── paper1.pdf
 │   ├── paper2.pdf
 │   └── s/              ← optional: supplementary files (see below)
-│       ├── paper1.xlsx
-│       ├── paper2.docx
-│       └── paper3.pptx
+│       ├── sup1.xlsx
+│       ├── sup2.docx
+│       └── sup3.pptx
 ├── 02_grobid/          ← GROBID BioC XML output (created automatically)
 ├── 03_gnorm2/          ← GNorm2 output (created automatically)
 ├── 04_tmvar3/          ← tmVar3 output (created automatically)
@@ -161,9 +161,9 @@ as the corresponding source PDF:
 01_source/
 ├── paper1.pdf
 └── s/
-    ├── paper1.xlsx     ← supplementary spreadsheet for paper1
-    ├── paper1.docx     ← supplementary document for paper1
-    └── paper1.pptx     ← supplementary presentation for paper1
+    ├── sup1.xlsx     ← supplementary spreadsheet
+    ├── sup1.docx     ← supplementary document
+    └── sup1.pptx     ← supplementary presentation
 ```
 
 Supported formats: `.pdf`, `.docx`, `.doc`, `.xlsx`, `.xls`, `.pptx`, `.ppt`.
