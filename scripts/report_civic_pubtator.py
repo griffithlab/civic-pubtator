@@ -635,6 +635,108 @@ def build_disease_rows(doc_data, show_docs=True):
     return '\n'.join(rows)
 
 
+def write_mentions_tsv(tsv_path, doc_data, gene_map=None, taxon_map=None):
+    """Write a normalized TSV combining all five mention tables from the HTML report."""
+    if gene_map is None:
+        gene_map = {}
+    if taxon_map is None:
+        taxon_map = {}
+
+    rows = []
+
+    # Variants
+    summary = {}
+    for doc in doc_data:
+        for ann in doc['annotations']:
+            if ann['type'] in GENE_TYPES or ann['type'] in ORGANISM_TYPES \
+                    or ann['type'] in CHEMICAL_TYPES or ann['type'] in DISEASE_TYPES:
+                continue
+            skey = (ann['mention'], ann['type'], ann['hgvs'], ann['gene'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
+    for (mention, etype, hgvs, gene), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        rows.append(('Variant', etype, mention,
+                     gene or '', gene_map.get(gene, '') if gene else '',
+                     hgvs or '',
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+
+    # Genes
+    summary = {}
+    for doc in doc_data:
+        for ann in doc['annotations']:
+            if ann['type'] not in GENE_TYPES:
+                continue
+            skey = (ann['mention'], ann['identifier'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
+    for (mention, gene_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        rows.append(('Gene', 'Gene', mention,
+                     gene_id or '', gene_map.get(gene_id, '') if gene_id else '',
+                     '',
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+
+    # Chemicals
+    summary = {}
+    for doc in doc_data:
+        for ann in doc['annotations']:
+            if ann['type'] not in CHEMICAL_TYPES:
+                continue
+            skey = (ann['mention'], ann['identifier'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
+    for (mention, mesh_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        mesh = mesh_id if (mesh_id and mesh_id != '-') else ''
+        rows.append(('Chemical', 'Chemical', mention,
+                     mesh, '', '',
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+
+    # Diseases
+    summary = {}
+    for doc in doc_data:
+        for ann in doc['annotations']:
+            if ann['type'] not in DISEASE_TYPES:
+                continue
+            skey = (ann['mention'], ann['identifier'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
+    for (mention, mesh_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        rows.append(('Disease', 'Disease', mention,
+                     mesh_id or '', '', '',
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+
+    # Organisms
+    summary = {}
+    for doc in doc_data:
+        for ann in doc['annotations']:
+            if ann['type'] not in ORGANISM_TYPES:
+                continue
+            mention = ann['mention']
+            mention_key = mention.lower() if ann['type'] == 'Species' else mention
+            skey = (mention_key, ann['type'], ann['identifier'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
+    for (mention, etype, taxid), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        rows.append(('Organism', etype, mention,
+                     taxid or '', taxon_map.get(taxid, '') if taxid else '',
+                     '',
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+
+    with open(tsv_path, 'w', encoding='utf-8', newline='') as f:
+        f.write('entity_category\tentity_type\tmention\tidentifier\tidentifier_name\thgvs\tcount\tdoc_keys\n')
+        for row in rows:
+            f.write('\t'.join(str(x) for x in row) + '\n')
+
+
 def build_annotation_legend(annotations):
     """Return an HTML color-legend strip for entity types present in annotations."""
     types_present = {ann['type'] for ann in annotations}
@@ -1219,6 +1321,10 @@ def main():
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
+
+    tsv_path = os.path.splitext(output_path)[0] + '.tsv'
+    write_mentions_tsv(tsv_path, doc_data, gene_map, taxon_map)
+    print(f'TSV:  {tsv_path}', file=sys.stderr)
 
     print(output_path)
 
