@@ -163,6 +163,69 @@ cell-line-specific normalization to Cellosaurus would require a separate tool.
 
 ---
 
+## Models used by each pipeline step
+
+Each annotation tool loads one or more trained models when processing documents. The table below lists the specific model files used in our current configuration, with paths relative to the repository root. GROBID runs as an external Docker service; its internal model weights are not tracked here.
+
+| Pipeline step | Tool / sub-step | Model file | File date |
+|---|---|---|---|
+| 03_gnorm2 | GNorm2 — Gene NER (Bioformer, Python) | `GNorm2/gnorm_trained_models/GeneNER/GeneNER-Bioformer-BEST.h5` | 2025-03-26 |
+| 03_gnorm2 | GNorm2 — Species Assignment (Bioformer, Python) | `GNorm2/gnorm_trained_models/SpeAss/SpeAss-Bioformer-SG-BEST.h5` | 2025-03-26 |
+| 03_gnorm2 | GNorm2 — Gene Name Recognition (CRF, Java) | `GNorm2/Dictionary/GNR.Model` | 2025-03-26 |
+| 03_gnorm2 | GNorm2 — Concept Similarity (CRF, Java) | `GNorm2/Dictionary/SimConcept.Model` | 2025-03-26 |
+| 04_tmvar3 | tmVar3 — Variant Mention Extraction (CRF++) | `tmvar/CRF/MentionExtractionUB.Model` | 2022-04-07 |
+| 04_tmvar3 | tmVar3 — Variant Component Extraction (CRF++) | `tmvar/CRF/ComponentExtraction.Model` | 2022-04-07 |
+| 05_aioner | AIONER — All-entity NER (Bioformer, Python) | `AIONER/AIONER_trained_models/AIONER/Bioformer-Softmax-BEST-AIO_tmvar3.20230416.h5` | 2023-04-16 |
+| 06_nlmchem | NLMChem — Chemical normalization (TF-IDF dictionaries) | `NLMChem/NLMChemTaggerNormalizer/CHEM_NORM/data/` *(multiple files — see below)* | 2023-11-30 |
+| 07_taggerone | TaggerOne — Disease NER + normalization (semi-Markov) | `TaggerOne/output/model_DISE.bin` | 2016-07-16 |
+
+### Model descriptions
+
+#### GNorm2 (step 03_gnorm2)
+
+GNorm2 is a three-phase pipeline. Phases 1 and 3 are Java-based (GNormPlus) and use CRF models stored in `GNorm2/Dictionary/`; phase 2 is a Python deep-learning step.
+
+**GeneNER-Bioformer-BEST.h5** — Bioformer transformer fine-tuned for gene and protein name recognition. "BEST" denotes the checkpoint with the highest validation-set F1 during training. Primary training corpus: NLM-Gene. Uses Bioformer-cased-v1.0 as the pre-trained base encoder (see below).
+
+**SpeAss-Bioformer-SG-BEST.h5** — Bioformer transformer fine-tuned for species assignment. Given a passage with gene annotations, it assigns each gene mention to a species context (e.g., human vs. mouse). "SG" denotes a single-gene-per-annotation output configuration. Trained on Species-800 corpus. Also uses Bioformer-cased-v1.0.
+
+**Bioformer-cased-v1.0** (shared base encoder for both models above) — An 8-layer BERT-like transformer (42 M parameters) pre-trained from scratch on 33 million PubMed abstracts and 1 million PMC full-text articles. Uses a biomedical-domain WordPiece vocabulary of 32,768 tokens. Approximately 3× faster than BERT-base while achieving comparable or better performance on biomedical NER benchmarks.
+
+**GNR.Model** — CRF++ sequence-labeling model for gene name recognition inside GNormPlus (Java). Used in both the Species Recognition phase (step 1, to find gene spans that help bound species context) and the Gene Normalization phase (step 3) of the GNorm2 pipeline.
+
+**SimConcept.Model** — CRF++ model used by GNormPlus's SimConcept normalization module, which clusters synonymous gene name surface forms to disambiguate multi-gene mentions and resolve the correct NCBI Gene ID.
+
+#### tmVar3 (step 04_tmvar3)
+
+tmVar3 uses two sequential CRF++ models for variant extraction, followed by Java-based HGVS construction and database lookups.
+
+**MentionExtractionUB.Model** (232 MB) — Identifies text spans that describe genetic variants: DNA mutations, protein changes, copy number variants, SNPs, and fusion genes. "UB" refers to the UniqueB-IO sequence-labeling scheme used during training. Trained on a corpus combining tmVar annotations with BioCreative V CDR and additional full-text data.
+
+**ComponentExtraction.Model** — Decomposes each identified variant span into structured subfields (e.g., reference allele, alternate allele, genomic position, variant type). These components are used downstream by `ToHGVs.java` to construct HGVS notation and to query dbSNP/ClinGen RS# databases.
+
+#### AIONER (step 05_aioner)
+
+**Bioformer-Softmax-BEST-AIO_tmvar3.20230416.h5** — Bioformer fine-tuned with a softmax output head using the All-In-One (AIO) multi-entity tagging scheme. The AIO scheme uses a unified label set so that a single model forward pass recognizes all six entity types simultaneously: Gene, Chemical, Disease, Mutation, Species, and CellLine. The "tmvar3" suffix indicates training with tmVar3-compatible variant annotations; "20230416" is the training date. Training data spans eight corpora: NLM-Gene, NLM-Chem, NCBI-Disease, BC5CDR, tmVar3, Species-800, BioID, and BioRED. Uses Bioformer-cased-v1.0 as the pre-trained base encoder.
+
+#### NLMChem (step 06_nlmchem)
+
+NLMChem chemical normalization is **not** a neural network. It uses TF-IDF sparse vector matching to link chemical surface forms to MeSH identifiers. All data files are dated 2023-11-30 and represent a November 2023 MeSH snapshot.
+
+| File | Purpose |
+|---|---|
+| `data/name2ids_2023.txt.gz` | Chemical surface-form → MeSH ID lookup table |
+| `data/id2ids_2023.txt.gz` | MeSH ID equivalence / cross-reference table |
+| `data/chem_ids_2023.tsv` | MeSH ID → entity type metadata |
+| `data/c_template_cache_2023.txt.gz` | Pre-computed TF-IDF character-level vector templates |
+| `data/p_template_cache_2023.txt.gz` | Pre-computed TF-IDF phrase-level vector templates |
+| `data/abbr_frequency_2020.json.gz` | Abbreviation frequency statistics (2020 snapshot) used for disambiguation |
+
+#### TaggerOne (step 07_taggerone)
+
+**model_DISE.bin** — A semi-Markov CRF model jointly trained for disease NER and normalization. Uses TF-IDF vector representations to map mention surface forms directly to MeSH or OMIM identifiers without a separate entity-linking step. Trained on the combined NCBI Disease and BC5CDR disease corpora. This is the only disease-trained model included in the public TaggerOne v0.2.1 distribution (released 2016). It does not incorporate deep learning; retraining requires approximately 40 GB of RAM and is driven by the CRF optimization loop described in Leaman & Lu (2016).
+
+---
+
 ## File locations
 
 Each publication lives in its own directory named by PMID (e.g. `/data/pub-data/28783719/`).

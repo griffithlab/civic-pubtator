@@ -257,10 +257,8 @@ def enforce_max_chars(output_dir, max_chars, log_path, step_name, label):
 
 
 def clear_intermediates(input_dir, base_dir, log_path):
-    """Remove tmp dirs and non-XML files from output dirs; remove prepared supplement subdirs."""
-    kept_exts = (".xml", ".xml.pubtator")
-
-    # Scrub each output directory
+    """Remove all pipeline output dirs (02–07) and stem dirs created under 01_source/s/."""
+    # Remove entire pipeline output directories
     for out_dir in [
         os.path.join(base_dir, "02_grobid"),
         os.path.join(base_dir, "03_gnorm2"),
@@ -269,28 +267,16 @@ def clear_intermediates(input_dir, base_dir, log_path):
         os.path.join(base_dir, "06_nlmchem"),
         os.path.join(base_dir, "07_taggerone"),
     ]:
-        if not os.path.isdir(out_dir):
-            continue
-        for root, dirs, files in os.walk(out_dir, topdown=True):
-            for d in list(dirs):
-                if d.startswith("tmp"):
-                    shutil.rmtree(os.path.join(root, d))
-                    dirs.remove(d)
-            for fname in files:
-                if not any(fname.lower().endswith(ext) for ext in kept_exts):
-                    os.remove(os.path.join(root, fname))
+        if os.path.isdir(out_dir):
+            shutil.rmtree(out_dir)
 
-    # Remove subdirectories created by prepare_supplementary.py (tab_NN/, etc.)
+    # Remove stem-level directories created under 01_source/s/ (keep only the original files)
     s_dir = os.path.join(input_dir, "s")
     if os.path.isdir(s_dir):
-        for stem_name in sorted(os.listdir(s_dir)):
-            stem_path = os.path.join(s_dir, stem_name)
-            if not os.path.isdir(stem_path):
-                continue
-            for subname in sorted(os.listdir(stem_path)):
-                subpath = os.path.join(stem_path, subname)
-                if os.path.isdir(subpath):
-                    shutil.rmtree(subpath)
+        for entry in sorted(os.listdir(s_dir)):
+            entry_path = os.path.join(s_dir, entry)
+            if os.path.isdir(entry_path):
+                shutil.rmtree(entry_path)
 
     with open(log_path, "a", encoding="utf-8") as f:
         f.write("# Intermediates cleared\n")
