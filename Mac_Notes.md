@@ -55,7 +55,7 @@ requires a separate Python 3.11 environment with TF 2.15 and `tensorflow-metal`
 ### One-time setup
 
 ```bash
-bash scripts/setup_gnorm2_conda.sh
+bash scripts/setup_conda_envs/setup_gnorm2_conda.sh
 ```
 
 This script installs Miniforge via Homebrew (if not already present), creates
@@ -71,7 +71,7 @@ Pass the conda env name or Python path via `--gnorm2-python`:
 # Using the conda env name (short form)
 python3 scripts/run_civic_pubtator.py <run_dir> --gnorm2-python gnorm2-tf215
 
-# Using the full Python path (printed by setup_gnorm2_conda.sh)
+# Using the full Python path (printed by setup_conda_envs/setup_gnorm2_conda.sh)
 python3 scripts/run_civic_pubtator.py <run_dir> \
     --gnorm2-python /opt/homebrew/Caskroom/miniforge/base/envs/gnorm2-tf215/bin/python3
 ```

@@ -17,7 +17,7 @@
 #
 # Usage
 # -----
-#   bash scripts/setup_gnorm2_conda.sh        # first-time setup
+#   bash scripts/setup_conda_envs/setup_gnorm2_conda.sh        # first-time setup
 #
 # Running the pipeline with Metal GPU
 # ------------------------------------

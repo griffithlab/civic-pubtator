@@ -6,11 +6,11 @@ Checks GPU hardware, NVIDIA driver, system CUDA, and whether TensorFlow
 in the current Python environment can use the GPU.  Run inside the target
 conda environment:
 
-    conda run -n gnorm2-tf215 python3 scripts/check_gpu.py
+    conda run -n gnorm2-tf215 python3 scripts/setup_conda_envs/check_gpu.py
 
 Or directly if the right Python is already active:
 
-    python3 scripts/check_gpu.py
+    python3 scripts/setup_conda_envs/check_gpu.py
 """
 
 import ctypes

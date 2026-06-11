@@ -12,7 +12,7 @@
 #
 # Usage
 # -----
-#   bash scripts/setup_aioner_conda.sh        # first-time setup
+#   bash scripts/setup_conda_envs/setup_aioner_conda.sh        # first-time setup
 #
 # Running AIONER with this environment
 # -------------------------------------

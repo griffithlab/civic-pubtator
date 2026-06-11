@@ -7,7 +7,7 @@
 #
 # Usage
 # -----
-#   bash scripts/setup_nlmchem_conda.sh        # first-time setup
+#   bash scripts/setup_conda_envs/setup_nlmchem_conda.sh        # first-time setup
 #
 # Running NLMChem with this environment
 # --------------------------------------
