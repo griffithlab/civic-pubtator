@@ -132,6 +132,6 @@ Or for run_gnorm2.py directly:
 To activate the environment interactively:
 
   conda activate ${ENV_NAME}
-  python GNorm2/GeneNER_SpeAss_run.py ...
+  python tools/GNorm2/GeneNER_SpeAss_run.py ...
 
 EOF

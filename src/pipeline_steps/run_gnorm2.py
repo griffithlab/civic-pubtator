@@ -16,7 +16,7 @@ def _write_setup_with_tmp(src_path, tmp_folder, dst_path):
 
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR    = os.path.dirname(os.path.dirname(SCRIPTS_DIR))
-GNORM2_DIR  = os.path.join(REPO_DIR, "GNorm2")
+GNORM2_DIR  = os.path.join(REPO_DIR, "tools", "GNorm2")
 JAR         = os.path.join(GNORM2_DIR, "GNormPlus.jar")
 PYTHON_SCRIPT = os.path.join(GNORM2_DIR, "GeneNER_SpeAss_run.py")
 

@@ -15,7 +15,7 @@ import argparse, os, shutil, subprocess, sys
 
 SCRIPTS_DIR   = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR      = os.path.dirname(os.path.dirname(SCRIPTS_DIR))
-CHEM_NORM_DIR = os.path.join(REPO_DIR, 'NLMChem', 'NLMChemTaggerNormalizer', 'CHEM_NORM')
+CHEM_NORM_DIR = os.path.join(REPO_DIR, 'tools', 'NLMChem', 'NLMChemTaggerNormalizer', 'CHEM_NORM')
 NORMALIZE_PY  = os.path.join(CHEM_NORM_DIR, 'src', 'normalize.py')
 CONFIG        = os.path.join(CHEM_NORM_DIR, 'config_CHEM_MESH_2023.json')
 DEFAULT_ENV   = 'nlmchem-py39'

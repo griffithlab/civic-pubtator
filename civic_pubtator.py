@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 
 REPO_DIR  = os.path.dirname(os.path.abspath(__file__))
 STEPS_DIR = os.path.join(REPO_DIR, "src", "pipeline_steps")
-AB3P_DIR  = os.path.join(REPO_DIR, 'Ab3P')
+AB3P_DIR  = os.path.join(REPO_DIR, 'tools', 'Ab3P')
 
 IGNORED_FILES = {".DS_Store"}
 
@@ -983,7 +983,7 @@ def main():
                              "Examples: "
                              "--aioner-python aioner-tf23  (conda env name) or "
                              "--aioner-python /path/to/envs/aioner-tf23/bin/python3")
-    default_taggerone_model = os.path.join(REPO_DIR, "TaggerOne", "output", "model_DISE.bin")
+    default_taggerone_model = os.path.join(REPO_DIR, "tools", "TaggerOne", "output", "model_DISE.bin")
     parser.add_argument("--taggerone-model", default=default_taggerone_model, metavar="PATH",
                         help="Path to a trained TaggerOne model (.bin file). "
                              "Runs TaggerOne disease/chemical NER and normalization on "

@@ -13,7 +13,7 @@ After downloading the data files (see below), run the setup script once:
 ./src/mac/setup_macos.sh
 ```
 
-This installs `crf++` via Homebrew and writes macOS-compatible shims into `tmvar/CRF/`.
+This installs `crf++` via Homebrew and writes macOS-compatible shims into `tools/tmvar/CRF/`.
 
 ---
 

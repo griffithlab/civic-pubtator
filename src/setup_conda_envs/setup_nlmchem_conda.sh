@@ -21,7 +21,7 @@ set -euo pipefail
 
 ENV_NAME="nlmchem-py39"
 REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
-REQUIREMENTS="${REPO_DIR}/NLMChem/NLMChemTaggerNormalizer/requirements.txt"
+REQUIREMENTS="${REPO_DIR}/tools/NLMChem/NLMChemTaggerNormalizer/requirements.txt"
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 info()  { echo "[setup] $*"; }
@@ -142,6 +142,6 @@ To use this environment with the pipeline:
 To activate the environment interactively:
 
   conda activate ${ENV_NAME}
-  python NLMChem/NLMChemTaggerNormalizer/src/tagger_and_normalizer.py ...
+  python tools/NLMChem/NLMChemTaggerNormalizer/src/tagger_and_normalizer.py ...
 
 EOF

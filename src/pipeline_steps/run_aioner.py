@@ -3,7 +3,7 @@ import argparse, os, shutil, subprocess, sys
 
 SCRIPTS_DIR   = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR      = os.path.dirname(os.path.dirname(SCRIPTS_DIR))
-AIONER_DIR    = os.path.join(REPO_DIR, "AIONER")
+AIONER_DIR    = os.path.join(REPO_DIR, "tools", "AIONER")
 AIONER_SCRIPT = os.path.join(AIONER_DIR, "AIONER_Run.py")
 
 DEFAULT_MODEL = "AIONER_trained_models/AIONER/Bioformer-Softmax-BEST-AIO_tmvar3.20230416.h5"

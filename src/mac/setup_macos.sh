@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
-CRF_DIR="$REPO_DIR/tmvar/CRF"
+CRF_DIR="$REPO_DIR/tools/tmvar/CRF"
 
 # ── 1. Require macOS ─────────────────────────────────────────────────────────
 if [[ "$(uname)" != "Darwin" ]]; then
@@ -24,7 +24,7 @@ else
     echo "CRF++ already installed: $(which crf_test)"
 fi
 
-# ── 4. Write shims into tmvar/CRF/ ───────────────────────────────────────────
+# ── 4. Write shims into tools/tmvar/CRF/ ─────────────────────────────────────
 if [[ ! -d "$CRF_DIR" ]]; then
     echo "ERROR: $CRF_DIR does not exist. Run scripts/download_tmvar_data.sh first." >&2
     exit 1
@@ -49,7 +49,7 @@ chmod +x "$CRF_DIR/crf_learn"
 echo "Done. tmVar is ready to run on macOS."
 
 # ── 5. Patch GNorm2.sh for Keras compatibility ────────────────────────────────
-GNORM2_SH="$REPO_DIR/GNorm2/GNorm2.sh"
+GNORM2_SH="$REPO_DIR/tools/GNorm2/GNorm2.sh"
 
 if [[ ! -f "$GNORM2_SH" ]]; then
     echo "WARNING: $GNORM2_SH not found. Run src/mac/download_data_files.sh first." >&2

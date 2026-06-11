@@ -11,7 +11,7 @@ Directory layout on the VM:
   /opt/conda/                   Miniconda (pre-installed in DL VM image)
 
 Tool model files (large, gitignored) are synced from GCS into each tool's
-directory inside the repo: /opt/civic-pubtator/{GNorm2,AIONER,tmvar,NLMChem}/
+directory inside the repo: /opt/civic-pubtator/tools/{GNorm2,AIONER,tmvar,NLMChem}/
 """
 
 import os
@@ -204,7 +204,7 @@ def clone_repo():
     # git clone on Linux auto-sets core.fileMode=true in .git/config, overriding
     # the system setting — explicitly disable it in the local repo config.
     run(f'git -C {REPO_DIR} config core.fileMode false')
-    run(f'chmod -R 755 {REPO_DIR}/scripts')
+    run(f'chmod -R 755 {REPO_DIR}/src')
 
 
 @step('compile_tmvar_crf')
@@ -221,7 +221,7 @@ def compile_tmvar_crf():
       3. -std=c++14 -fPIE — c++14 for the make_pair fix; -fPIE because modern Ubuntu
                         links executables as PIE by default and object files must match.
     """
-    crf_dir = f'{REPO_DIR}/tmvar/CRF'
+    crf_dir = f'{REPO_DIR}/tools/tmvar/CRF'
     run(f'cd {crf_dir} && ./configure')
     run(f"sed -i 's/std::make_pair<int, int>(/std::make_pair(/g' {crf_dir}/feature_index.cpp")
     run(f'cd {crf_dir} && make clean && make CXXFLAGS="-std=c++14 -O3 -Wall -fPIE" crf_test crf_learn')
@@ -242,7 +242,7 @@ def compile_gnorm2_crf():
                         fail under the C++17 default of g++ 11+.
       3. -std=c++14 -fPIE — required for the make_pair fix and PIE linking.
     """
-    crf_dir = f'{REPO_DIR}/GNorm2/CRF'
+    crf_dir = f'{REPO_DIR}/tools/GNorm2/CRF'
     run(f'chmod +x {crf_dir}/configure')
     run(f'cd {crf_dir} && ./configure')
     run(f"sed -i 's/std::make_pair<int, int>(/std::make_pair(/g' {crf_dir}/feature_index.cpp")
@@ -257,7 +257,7 @@ def install_ncbitextlib():
     NCBITextLib/lib/Makefile produces libText.a; Ab3P links against it.
     Source is vendored directly in the repo (no external clone needed).
     """
-    dest = f'{REPO_DIR}/NCBITextLib'
+    dest = f'{REPO_DIR}/tools/NCBITextLib'
     run(f'cd {dest}/lib && make')
     log(f'  built: {dest}/lib/libText.a')
 
@@ -273,7 +273,7 @@ def install_ab3p():
     identify_abbr loads at runtime; output is gitignored and rebuilt each VM).
     Source is vendored directly in the repo (no external clone needed).
     """
-    dest = f'{REPO_DIR}/Ab3P'
+    dest = f'{REPO_DIR}/tools/Ab3P'
     run(f'cd {dest} && make')
     log(f'  built: {dest}/identify_abbr')
 
@@ -281,7 +281,7 @@ def install_ab3p():
 @step('install_grobid')
 def install_grobid():
     """Download and build GROBID under the repo's expected location."""
-    grobid_dir = f'{REPO_DIR}/grobid'
+    grobid_dir = f'{REPO_DIR}/tools/grobid'
     if os.path.isdir(grobid_dir):
         log('  GROBID directory already exists, skipping')
         return
@@ -304,7 +304,7 @@ def install_grobid_service():
     process.  The gradlew install task compiles classes but does not produce
     a runnable fat JAR, so direct java -jar is not available.
     """
-    grobid_dir = f'{REPO_DIR}/grobid'
+    grobid_dir = f'{REPO_DIR}/tools/grobid'
 
     unit = f"""\
 [Unit]

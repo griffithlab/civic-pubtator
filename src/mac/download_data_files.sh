@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
-TMVAR_DIR="$REPO_DIR/tmvar"
+TMVAR_DIR="$REPO_DIR/tools/tmvar"
 TMP_DIR="$(mktemp -d)"
 ARCHIVE="$TMP_DIR/tmVar3.tar.gz"
 EXTRACT_DIR="$TMP_DIR/tmVar3"
@@ -28,7 +28,7 @@ else
 fi
 
 # --- GNorm2 ---
-GNORM2_DIR="$REPO_DIR"
+GNORM2_DIR="$REPO_DIR/tools"
 GNORM2_TMP="$(mktemp -d)"
 GNORM2_ARCHIVE="$GNORM2_TMP/GNorm2.tar.gz"
 
@@ -48,14 +48,14 @@ else
 fi
 
 # --- GNorm2 examples ---
-GNORM2_EXAMPLES_DIR="$REPO_DIR/GNorm2/examples"
+GNORM2_EXAMPLES_DIR="$REPO_DIR/tools/GNorm2/examples"
 GNORM2_EXAMPLES_TMP="$(mktemp -d)"
 GNORM2_EXAMPLES_ARCHIVE="$GNORM2_EXAMPLES_TMP/examples.tar.gz"
 
 if [[ -d "$GNORM2_EXAMPLES_DIR" ]]; then
     echo "GNorm2 examples already present, skipping download."
 else
-    if [[ ! -d "$REPO_DIR/GNorm2" ]]; then
+    if [[ ! -d "$REPO_DIR/tools/GNorm2" ]]; then
         echo "ERROR: $REPO_DIR/GNorm2 does not exist. Download GNorm2 data first." >&2
         exit 1
     fi
@@ -66,15 +66,15 @@ else
         -o "$GNORM2_EXAMPLES_ARCHIVE"
 
     echo "Unpacking GNorm2 examples ..."
-    tar -xzf "$GNORM2_EXAMPLES_ARCHIVE" -C "$REPO_DIR/GNorm2"
-    cp "$GNORM2_EXAMPLES_DIR"/* "$REPO_DIR/GNorm2/input/"
+    tar -xzf "$GNORM2_EXAMPLES_ARCHIVE" -C "$REPO_DIR/tools/GNorm2"
+    cp "$GNORM2_EXAMPLES_DIR"/* "$REPO_DIR/tools/GNorm2/input/"
 
     echo "Cleaning up examples tmp ..."
     rm -rf "$GNORM2_EXAMPLES_TMP"
 fi
 
 # --- NLMChem ---
-NLMCHEM_DIR="$REPO_DIR/NLMChem"
+NLMCHEM_DIR="$REPO_DIR/tools/NLMChem"
 NLMCHEM_TMP="$(mktemp -d)"
 NLMCHEM_BASE="https://ftp.ncbi.nlm.nih.gov/pub/lu/NLMChem"
 
@@ -107,7 +107,7 @@ else
 fi
 
 # --- AIONER (PubTator 3 version) ---
-AIONER_DIR="$REPO_DIR/AIONER"
+AIONER_DIR="$REPO_DIR/tools/AIONER"
 AIONER_TMP="$(mktemp -d)"
 AIONER_ARCHIVE="$AIONER_TMP/AIONER_P3.tar.gz"
 

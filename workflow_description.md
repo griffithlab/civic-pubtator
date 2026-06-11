@@ -45,7 +45,7 @@ publication:
 
 Before the main annotation tools run, two helper scripts prepare the input documents.
 
-### `src/src/pipeline_steps/prepare_supplementary.py`
+### `src/src/src/pipeline_steps/prepare_supplementary.py`
 
 Converts supplementary files placed in `01_source/s/` into PDFs so that GROBID can process
 them. It handles four file types:
@@ -62,7 +62,7 @@ actually see.
 
 ### LibreOffice (`soffice`)
 
-LibreOffice is used by `src/src/pipeline_steps/prepare_supplementary.py` as the preferred converter for Word,
+LibreOffice is used by `src/src/src/pipeline_steps/prepare_supplementary.py` as the preferred converter for Word,
 Excel, and PowerPoint files. It produces high-fidelity PDFs that preserve formatting and
 layout. When LibreOffice is not installed the script falls back to `python-docx` +
 `reportlab` for `.docx` files and `python-pptx` + `reportlab` for `.pptx` files (both
@@ -182,21 +182,21 @@ Each annotation tool loads one or more trained models when processing documents.
 
 | Pipeline step | Tool / sub-step | Model file | File date |
 |---|---|---|---|
-| 03_gnorm2 | GNorm2 — Gene NER (Bioformer, Python) | `GNorm2/gnorm_trained_models/GeneNER/GeneNER-Bioformer-BEST.h5` | 2025-03-26 |
-| 03_gnorm2 | GNorm2 — Species Assignment (Bioformer, Python) | `GNorm2/gnorm_trained_models/SpeAss/SpeAss-Bioformer-SG-BEST.h5` | 2025-03-26 |
-| 03_gnorm2 | GNorm2 — Gene Name Recognition (CRF, Java) | `GNorm2/Dictionary/GNR.Model` | 2025-03-26 |
-| 03_gnorm2 | GNorm2 — Concept Similarity (CRF, Java) | `GNorm2/Dictionary/SimConcept.Model` | 2025-03-26 |
-| 04_tmvar3 | tmVar3 — Variant Mention Extraction (CRF++) | `tmvar/CRF/MentionExtractionUB.Model` | 2022-04-07 |
-| 04_tmvar3 | tmVar3 — Variant Component Extraction (CRF++) | `tmvar/CRF/ComponentExtraction.Model` | 2022-04-07 |
-| 05_aioner | AIONER — All-entity NER (Bioformer, Python) | `AIONER/AIONER_trained_models/AIONER/Bioformer-Softmax-BEST-AIO_tmvar3.20230416.h5` | 2023-04-16 |
-| 06_nlmchem | NLMChem — Chemical normalization (TF-IDF dictionaries) | `NLMChem/NLMChemTaggerNormalizer/CHEM_NORM/data/` *(multiple files — see below)* | 2023-11-30 |
-| 07_taggerone | TaggerOne — Disease NER + normalization (semi-Markov) | `TaggerOne/output/model_DISE.bin` | 2016-07-16 |
+| 03_gnorm2 | GNorm2 — Gene NER (Bioformer, Python) | `tools/GNorm2/gnorm_trained_models/GeneNER/GeneNER-Bioformer-BEST.h5` | 2025-03-26 |
+| 03_gnorm2 | GNorm2 — Species Assignment (Bioformer, Python) | `tools/GNorm2/gnorm_trained_models/SpeAss/SpeAss-Bioformer-SG-BEST.h5` | 2025-03-26 |
+| 03_gnorm2 | GNorm2 — Gene Name Recognition (CRF, Java) | `tools/GNorm2/Dictionary/GNR.Model` | 2025-03-26 |
+| 03_gnorm2 | GNorm2 — Concept Similarity (CRF, Java) | `tools/GNorm2/Dictionary/SimConcept.Model` | 2025-03-26 |
+| 04_tmvar3 | tmVar3 — Variant Mention Extraction (CRF++) | `tools/tmvar/CRF/MentionExtractionUB.Model` | 2022-04-07 |
+| 04_tmvar3 | tmVar3 — Variant Component Extraction (CRF++) | `tools/tmvar/CRF/ComponentExtraction.Model` | 2022-04-07 |
+| 05_aioner | AIONER — All-entity NER (Bioformer, Python) | `tools/AIONER/AIONER_trained_models/AIONER/Bioformer-Softmax-BEST-AIO_tmvar3.20230416.h5` | 2023-04-16 |
+| 06_nlmchem | NLMChem — Chemical normalization (TF-IDF dictionaries) | `tools/NLMChem/NLMChemTaggerNormalizer/CHEM_NORM/data/` *(multiple files — see below)* | 2023-11-30 |
+| 07_taggerone | TaggerOne — Disease NER + normalization (semi-Markov) | `tools/TaggerOne/output/model_DISE.bin` | 2016-07-16 |
 
 ### Model descriptions
 
 #### GNorm2 (step 03_gnorm2)
 
-GNorm2 is a three-phase pipeline. Phases 1 and 3 are Java-based (GNormPlus) and use CRF models stored in `GNorm2/Dictionary/`; phase 2 is a Python deep-learning step.
+GNorm2 is a three-phase pipeline. Phases 1 and 3 are Java-based (GNormPlus) and use CRF models stored in `tools/GNorm2/Dictionary/`; phase 2 is a Python deep-learning step.
 
 **GeneNER-Bioformer-BEST.h5** — Bioformer transformer fine-tuned for gene and protein name recognition. "BEST" denotes the checkpoint with the highest validation-set F1 during training. Primary training corpus: NLM-Gene. Uses Bioformer-cased-v1.0 as the pre-trained base encoder (see below).
 
@@ -251,7 +251,7 @@ Supplementary PDFs follow the same step-numbered structure one level deeper unde
 │   ├── <paper>.pdf
 │   └── s/
 │       └── <supp_stem>/
-│           └── <supp>.pdf          ← created by src/pipeline_steps/prepare_supplementary.py
+│           └── <supp>.pdf          ← created by src/src/pipeline_steps/prepare_supplementary.py
 │
 ├── 02_grobid/
 │   ├── <paper>.xml

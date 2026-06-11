@@ -192,7 +192,7 @@ usage: civic_pubtator.py [-h] [--clean] [--no-clear-intermediates]
 | `--memory SIZE` | `32G` | Java max heap for GNorm2 and tmVar3; initial heap is set to half this value |
 | `--gnorm2-python PATH_OR_ENV` | `gnorm2-tf215` conda env | Python interpreter or conda env name for the GNorm2 ML step |
 | `--aioner-python PATH_OR_ENV` | `aioner-tf23` conda env | Python interpreter or conda env name for AIONER |
-| `--taggerone-model PATH` | `TaggerOne/output/model_DISE.bin` | Path to a trained TaggerOne model; set to empty string to skip TaggerOne |
+| `--taggerone-model PATH` | `tools/TaggerOne/output/model_DISE.bin` | Path to a trained TaggerOne model; set to empty string to skip TaggerOne |
 | `--nlmchem-python PATH_OR_ENV` | `nlmchem-py39` conda env | Python interpreter or conda env name for NLMChem |
 
 ---

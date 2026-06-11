@@ -221,33 +221,33 @@ __marimo__/
 *.DS_Store
 
 #GROBid
-grobid/
+tools/grobid/
 
 #AIONER
-AIONER/data/
-AIONER/AIONER_trained_models/
-AIONER/env39/
+tools/AIONER/data/
+tools/AIONER/AIONER_trained_models/
+tools/AIONER/env39/
 
 #GNorm2
-GNorm2/Dictionary/
-GNorm2/gnorm_trained_models/
-GNorm2/Library/
-GNorm2/CRF/.libs/
-GNorm2/lib/
+tools/GNorm2/Dictionary/
+tools/GNorm2/gnorm_trained_models/
+tools/GNorm2/Library/
+tools/GNorm2/CRF/.libs/
+tools/GNorm2/lib/
 
 #tmvar3
-tmvar/tmp/
-tmvar/Database/
-tmvar/CRF/MentionExtractionUB.Model
-tmvar/CRF/MentionExtractionUB.fulltext.Model
-tmvar/CRF/.libs/
+tools/tmvar/tmp/
+tools/tmvar/Database/
+tools/tmvar/CRF/MentionExtractionUB.Model
+tools/tmvar/CRF/MentionExtractionUB.fulltext.Model
+tools/tmvar/CRF/.libs/
 
 #TaggerOne
-TaggerOne/data/
-TaggerOne/output/
+tools/TaggerOne/data/
+tools/TaggerOne/output/
 
 #NLMChem
-NLMChem/NLMChemTaggerNormalizer/CHEM_NORM/data
+tools/NLMChem/NLMChemTaggerNormalizer/CHEM_NORM/data
 
 #reference datasets
 example_data/36922589/01_source/s/

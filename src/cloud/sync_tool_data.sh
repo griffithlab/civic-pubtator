@@ -4,7 +4,7 @@
 # GCS layout:   gs://civic-pubtator-tool-data/{GNorm2,AIONER,tmvar,NLMChem,TaggerOne}/
 #               Each tool directory contains one or more tarballs (.tar.gz);
 #               NLMChem also includes non-archive files (.docx, .zip).
-# VM layout:    /opt/civic-pubtator/{GNorm2,AIONER,tmvar,NLMChem}/
+# VM layout:    /opt/civic-pubtator/tools/{GNorm2,AIONER,tmvar,NLMChem}/
 #               (large data files gitignored; small config/code tracked in git)
 #
 # Usage:
@@ -37,7 +37,7 @@ fi
 
 for tool in "${TOOLS[@]}"; do
     gcs_path="${BUCKET}/${tool}/"
-    tool_dir="${REPO_DIR}/${tool}"
+    tool_dir="${REPO_DIR}/tools/${tool}"
 
     mkdir -p "$tool_dir"
 

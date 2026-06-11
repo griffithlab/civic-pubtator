@@ -35,7 +35,7 @@ set -euo pipefail
 
 ENV_NAME="aioner-tf213"
 REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
-AIONER_DIR="${REPO_DIR}/AIONER"
+AIONER_DIR="${REPO_DIR}/tools/AIONER"
 REQUIREMENTS="${REPO_DIR}/src/requirements/requirements_aioner.txt"
 
 # ── helpers ──────────────────────────────────────────────────────────────────
