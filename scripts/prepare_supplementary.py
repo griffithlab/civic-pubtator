@@ -79,6 +79,54 @@ def process_word(src, stem, s_dir, soffice):
     SimpleDocTemplate(dst, pagesize=letter).build(story)
     print(f"  Word → PDF (reportlab fallback): {dst}")
 
+def process_powerpoint(src, stem, s_dir, soffice):
+    out_dir = os.path.join(s_dir, stem)
+    os.makedirs(out_dir, exist_ok=True)
+
+    if soffice:
+        created = soffice_convert(soffice, src, out_dir)
+        dst = os.path.join(out_dir, stem + ".pdf")
+        if created != dst:
+            os.replace(created, dst)
+        print(f"  PowerPoint → PDF (soffice): {dst}")
+        return
+
+    # Fallback: python-pptx + reportlab (.pptx only)
+    ext = os.path.splitext(src)[1].lower()
+    if ext == ".ppt":
+        print("  WARNING: .ppt requires LibreOffice for conversion — skipping.")
+        print("           macOS: brew install --cask libreoffice")
+        print("           Ubuntu: sudo apt-get install -y libreoffice")
+        return
+    try:
+        from pptx import Presentation
+    except ImportError:
+        sys.exit("ERROR: python-pptx not installed. Run: pip3 install python-pptx")
+    try:
+        from reportlab.lib.pagesizes import letter
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+        from reportlab.lib.styles import getSampleStyleSheet
+    except ImportError:
+        sys.exit("ERROR: reportlab not installed. Run: pip3 install reportlab")
+
+    dst = os.path.join(out_dir, stem + ".pdf")
+    prs = Presentation(src)
+    styles = getSampleStyleSheet()
+    story = []
+    for slide_num, slide in enumerate(prs.slides, start=1):
+        story.append(Paragraph(f"<b>Slide {slide_num}</b>", styles["Heading2"]))
+        for shape in slide.shapes:
+            if shape.has_text_frame:
+                for para in shape.text_frame.paragraphs:
+                    text = para.text.strip()
+                    if text:
+                        story.append(Paragraph(text, styles["Normal"]))
+                        story.append(Spacer(1, 4))
+        story.append(Spacer(1, 12))
+    SimpleDocTemplate(dst, pagesize=letter).build(story)
+    print(f"  PowerPoint → PDF (reportlab fallback): {dst}")
+
+
 def process_excel(src, stem, s_dir, soffice):
     try:
         import openpyxl
@@ -239,6 +287,8 @@ def main():
             process_word(fpath, stem, s_dir, soffice)
         elif ext in (".xlsx", ".xls"):
             process_excel(fpath, stem, s_dir, soffice)
+        elif ext in (".pptx", ".ppt"):
+            process_powerpoint(fpath, stem, s_dir, soffice)
         else:
             print(f"  Unsupported type ({ext}), skipping.")
 
