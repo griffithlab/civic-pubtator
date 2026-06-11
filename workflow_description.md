@@ -45,7 +45,7 @@ publication:
 
 Before the main annotation tools run, two helper scripts prepare the input documents.
 
-### `scripts/prepare_supplementary.py`
+### `scripts/pipeline_steps/prepare_supplementary.py`
 
 Converts supplementary files placed in `01_source/s/` into PDFs so that GROBID can process
 them. It handles four file types:
@@ -77,7 +77,7 @@ brew install --cask libreoffice
 sudo apt-get install -y libreoffice
 ```
 
-### `scripts/pdf_to_bioc.py`
+### `scripts/pipeline_steps/pdf_to_bioc.py`
 
 Wraps the GROBID REST API (expected at `http://localhost:8070`, typically run via Docker)
 to convert PDFs into BioC XML. For each PDF it:
@@ -146,8 +146,8 @@ Five files are written to the publication root directory at the end of each run.
 
 | File | Written by | Contents |
 |---|---|---|
-| `report_<pmid>.html` | `report_civic_pubtator.py` | Full annotated text for the main paper and each supplementary document, with entity mentions highlighted by type. Five collapsible summary tables (Variants, Genes, Chemicals, Diseases, Organisms) list each unique mention with its identifier, HGVS string (variants), and the documents it appears in. Pipeline stats and MANIFEST content are embedded at the top. |
-| `report_<pmid>.tsv` | `report_civic_pubtator.py` | Tab-separated version of the same entity tables. Columns: `entity_category`, `entity_type`, `mention`, `identifier`, `identifier_name`, `hgvs`, `count`, `doc_keys`. One row per unique (mention, identifier) pair, sorted by descending count within each category. Suitable for downstream filtering or programmatic use. |
+| `report_<pmid>.html` | `pipeline_steps/report_civic_pubtator.py` | Full annotated text for the main paper and each supplementary document, with entity mentions highlighted by type. Five collapsible summary tables (Variants, Genes, Chemicals, Diseases, Organisms) list each unique mention with its identifier, HGVS string (variants), and the documents it appears in. Pipeline stats and MANIFEST content are embedded at the top. |
+| `report_<pmid>.tsv` | `pipeline_steps/report_civic_pubtator.py` | Tab-separated version of the same entity tables. Columns: `entity_category`, `entity_type`, `mention`, `identifier`, `identifier_name`, `hgvs`, `count`, `doc_keys`. One row per unique (mention, identifier) pair, sorted by descending count within each category. Suitable for downstream filtering or programmatic use. |
 | `MANIFEST.txt` | `run_civic_pubtator.py` | Written at the start of the run. Records the tool version, run timestamp, input directory, and a size + modification-time inventory of all main and supplementary source files. |
 | `pipeline_stats.log` | `run_civic_pubtator.py` | Human-readable run log appended throughout the pipeline. For each tool step and each input group (main paper + each supplementary), records the output directory, character count, word count, and per-file elapsed time. Ends with a `# Intermediates cleared` marker when cleanup ran. |
 | `pipeline_stats.tsv` | `run_civic_pubtator.py` | Machine-readable counterpart to the log. Columns: `step_num`, `step_name`, `label`, `file`, `chars`, `words`, `time_s`. One row per output file per step, enabling cross-run performance comparisons. |

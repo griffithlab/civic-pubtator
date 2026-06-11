@@ -309,7 +309,7 @@ def load_taxon_names(taxon_ids):
     if not taxon_ids:
         return {}
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    tsv_path = os.path.join(script_dir, '..', 'ref_files', 'taxon-id_common_name_map.tsv')
+    tsv_path = os.path.join(script_dir, '..', '..', 'ref_files', 'taxon-id_common_name_map.tsv')
     if not os.path.isfile(tsv_path):
         print('warning: ref_files/taxon-id_common_name_map.tsv not found — taxonomy IDs will be shown as-is',
               file=sys.stderr)
@@ -338,7 +338,7 @@ def load_gene_symbols(gene_ids):
     if not gene_ids:
         return {}
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    gz_path = os.path.join(script_dir, '..', 'ref_files', 'gene_info_select.gz')
+    gz_path = os.path.join(script_dir, '..', '..', 'ref_files', 'gene_info_select.gz')
     if not os.path.isfile(gz_path):
         print('warning: ref_files/gene_info_select.gz not found — gene IDs will not be converted to symbols',
               file=sys.stderr)

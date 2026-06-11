@@ -53,7 +53,7 @@ Per-publication directory structure:
 <pub_dir>/report_<pmid>.html
 ```
 
-The HTML report (`scripts/report_civic_pubtator.py`) currently reads from:
+The HTML report (`scripts/pipeline_steps/report_civic_pubtator.py`) currently reads from:
 - `04_tmvar3/*.PubTator` — passages, variants, genes, species, cell lines
 - `06_nlmchem/*.xml` — chemical annotations (merged in, highlighted in fuchsia)
 
@@ -76,7 +76,7 @@ GNorm2 produces `CellLine` annotations (e.g. NIH3T3, SK-MEL-208, HEK293) that fl
 
 ### NLMChem
 
-Reads AIONER output (step 5) as input. Produces `Chemical` annotations normalized to MeSH identifiers. Unresolvable chemicals receive identifier `-`. Now integrated into the HTML report via `parse_bioc_chemicals()` in `report_civic_pubtator.py`.
+Reads AIONER output (step 5) as input. Produces `Chemical` annotations normalized to MeSH identifiers. Unresolvable chemicals receive identifier `-`. Now integrated into the HTML report via `parse_bioc_chemicals()` in `pipeline_steps/report_civic_pubtator.py`.
 
 ---
 
@@ -175,7 +175,7 @@ BioCConverter  →  MentionRecognition  →  PostProcessing  →  ToHGVs
 perl PreProcessing.pl
 
 # Convert PDF to BioC XML via GROBID (requires running GROBID service)
-python3 pdf_to_bioc.py
+python3 scripts/pipeline_steps/pdf_to_bioc.py
 ```
 
 ## Gene Normalization Integration

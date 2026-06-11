@@ -10,7 +10,7 @@ Usage:
 import argparse, glob, os, subprocess, sys
 
 SCRIPTS_DIR   = os.path.dirname(os.path.abspath(__file__))
-REPO_DIR      = os.path.dirname(SCRIPTS_DIR)
+REPO_DIR      = os.path.dirname(os.path.dirname(SCRIPTS_DIR))
 TAGGERONE_DIR = os.path.join(REPO_DIR, "TaggerOne")
 LIBS_DIR      = os.path.join(TAGGERONE_DIR, "libs")
 AB3P_DIR      = os.path.join(REPO_DIR, "Ab3P")

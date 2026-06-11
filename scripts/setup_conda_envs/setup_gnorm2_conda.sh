@@ -126,7 +126,7 @@ To use Metal GPU acceleration with the pipeline:
 
 Or for run_gnorm2.py directly:
 
-  python3 scripts/run_gnorm2.py <input> <output> \\
+  python3 scripts/pipeline_steps/run_gnorm2.py <input> <output> \\
       --ml-python ${CONDA_PYTHON}
 
 To activate the environment interactively:

@@ -14,7 +14,7 @@ started with cwd=CHEM_NORM_DIR regardless of where this script is called from.
 import argparse, os, shutil, subprocess, sys
 
 SCRIPTS_DIR   = os.path.dirname(os.path.abspath(__file__))
-REPO_DIR      = os.path.dirname(SCRIPTS_DIR)
+REPO_DIR      = os.path.dirname(os.path.dirname(SCRIPTS_DIR))
 CHEM_NORM_DIR = os.path.join(REPO_DIR, 'NLMChem', 'NLMChemTaggerNormalizer', 'CHEM_NORM')
 NORMALIZE_PY  = os.path.join(CHEM_NORM_DIR, 'src', 'normalize.py')
 CONFIG        = os.path.join(CHEM_NORM_DIR, 'config_CHEM_MESH_2023.json')

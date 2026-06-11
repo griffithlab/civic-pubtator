@@ -3,6 +3,7 @@ import argparse, datetime, os, re, shutil, subprocess, sys, time
 import xml.etree.ElementTree as ET
 
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+STEPS_DIR   = os.path.join(SCRIPTS_DIR, "pipeline_steps")
 REPO_DIR    = os.path.dirname(SCRIPTS_DIR)
 AB3P_DIR    = os.path.join(REPO_DIR, 'Ab3P')
 
@@ -403,7 +404,7 @@ def run_grobid_for_group(label, pdf_dir, grobid_out, args, log_path, tsv_path, b
     """Run GROBID for one directory of PDFs."""
     os.makedirs(grobid_out, exist_ok=True)
     log_group_header(log_path, label, pdf_dir)
-    grobid_cmd = [sys.executable, os.path.join(SCRIPTS_DIR, "pdf_to_bioc.py"), pdf_dir, grobid_out]
+    grobid_cmd = [sys.executable, os.path.join(STEPS_DIR, "pdf_to_bioc.py"), pdf_dir, grobid_out]
     if supplementary:
         grobid_cmd.append("--supplementary")
     t0 = time.time()
@@ -477,7 +478,7 @@ def run_gnorm2_batched(groups, args, log_path, tsv_path, base_dir):
         xmx = args.memory
         xms = half_memory(args.memory)
         gnorm2_cmd = [
-            sys.executable, os.path.join(SCRIPTS_DIR, "run_gnorm2.py"),
+            sys.executable, os.path.join(STEPS_DIR, "run_gnorm2.py"),
             staging_in, staging_out,
             "--xmx", xmx, "--xms", xms,
         ]
@@ -525,7 +526,7 @@ def run_aioner_batched(groups, args, log_path, tsv_path, base_dir):
         entries = _build_flat_staging(all_files, staging_in)
 
         aioner_cmd = [
-            sys.executable, os.path.join(SCRIPTS_DIR, "run_aioner.py"),
+            sys.executable, os.path.join(STEPS_DIR, "run_aioner.py"),
             staging_in, staging_out,
         ]
         if args.aioner_python:
@@ -569,7 +570,7 @@ def run_tmvar3_batched(groups, args, log_path, tsv_path, base_dir):
         xmx = args.memory
         xms = half_memory(args.memory)
         tmvar_cmd = [
-            sys.executable, os.path.join(SCRIPTS_DIR, "run_tmvar.py"),
+            sys.executable, os.path.join(STEPS_DIR, "run_tmvar.py"),
             staging_in, staging_out,
             "--xmx", xmx, "--xms", xms,
         ]
@@ -667,7 +668,7 @@ def run_taggerone_batched(groups, args, log_path, tsv_path, base_dir):
         xmx = args.memory
         xms = half_memory(args.memory)
         taggerone_cmd = [
-            sys.executable, os.path.join(SCRIPTS_DIR, "run_taggerone.py"),
+            sys.executable, os.path.join(STEPS_DIR, "run_taggerone.py"),
             staging_in, staging_out,
             "--model", os.path.abspath(args.taggerone_model),
             "--xmx", xmx, "--xms", xms,
@@ -742,7 +743,7 @@ def run_nlmchem_batched(groups, args, log_path, tsv_path, base_dir):
 
         # --- Phase B: NLMChem normalization ---
         nlmchem_cmd = [
-            sys.executable, os.path.join(SCRIPTS_DIR, 'run_nlmchem.py'),
+            sys.executable, os.path.join(STEPS_DIR, "run_nlmchem.py"),
             staging_in, abbr_staging, staging_out,
         ]
         if args.nlmchem_python:
@@ -778,7 +779,7 @@ def generate_report(top_dir, log_path):
     run_title   = os.path.basename(os.path.abspath(top_dir))
     html_path   = os.path.join(top_dir, f'report_{run_title}.html')
     tsv_path    = os.path.join(top_dir, f'report_{run_title}.tsv')
-    report_script = os.path.join(SCRIPTS_DIR, "report_civic_pubtator.py")
+    report_script = os.path.join(STEPS_DIR, "report_civic_pubtator.py")
     result = subprocess.run([sys.executable, report_script, top_dir])
     if result.returncode == 0:
         with open(log_path, "a", encoding="utf-8") as f:
@@ -851,7 +852,7 @@ def process_input(top_dir, args):
     # Prepare supplementary PDFs if 01_source/s/ exists
     s_dir = os.path.join(source_dir, "s")
     if os.path.isdir(s_dir):
-        supp_cmd = [sys.executable, os.path.join(SCRIPTS_DIR, "prepare_supplementary.py"),
+        supp_cmd = [sys.executable, os.path.join(STEPS_DIR, "prepare_supplementary.py"),
                     source_dir]
         if args.no_libreoffice:
             supp_cmd.append("--no-libreoffice")

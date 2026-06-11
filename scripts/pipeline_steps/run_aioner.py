@@ -2,7 +2,7 @@
 import argparse, os, shutil, subprocess, sys
 
 SCRIPTS_DIR   = os.path.dirname(os.path.abspath(__file__))
-REPO_DIR      = os.path.dirname(SCRIPTS_DIR)
+REPO_DIR      = os.path.dirname(os.path.dirname(SCRIPTS_DIR))
 AIONER_DIR    = os.path.join(REPO_DIR, "AIONER")
 AIONER_SCRIPT = os.path.join(AIONER_DIR, "AIONER_Run.py")
 

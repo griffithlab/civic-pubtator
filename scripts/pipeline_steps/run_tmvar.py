@@ -2,7 +2,7 @@
 import argparse, os, subprocess, sys
 
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_DIR    = os.path.dirname(SCRIPTS_DIR)
+REPO_DIR    = os.path.dirname(os.path.dirname(SCRIPTS_DIR))
 TMVAR_DIR   = os.path.join(REPO_DIR, "tmvar")
 JAR         = os.path.join(TMVAR_DIR, "tmVar.jar")
 
