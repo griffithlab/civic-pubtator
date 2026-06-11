@@ -6,8 +6,8 @@
 # re-resolving from live package servers, which may prune old packages.
 #
 # Usage:
-#   bash scripts/cloud/pack_conda_envs.sh              # pack all envs
-#   bash scripts/cloud/pack_conda_envs.sh aioner-tf23-gpu  # pack one env
+#   bash src/cloud/pack_conda_envs.sh              # pack all envs
+#   bash src/cloud/pack_conda_envs.sh aioner-tf23-gpu  # pack one env
 
 set -euo pipefail
 

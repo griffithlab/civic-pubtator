@@ -34,15 +34,15 @@ PDFs → GROBID → 02_grobid/ (BioC XML)
           │        06_nlmchem/
        04_tmvar3/
           │
-     pipeline_steps/report_civic_pubtator.py → report_<pmid>.html
+     src/pipeline_steps/report_civic_pubtator.py → report_<pmid>.html
 ```
 
-All tools run in **batch mode** — all documents across all groups (main + supplementary) are processed in a single tool invocation to amortize model-loading startup costs. The orchestrating script is `scripts/run_civic_pubtator.py`.
+All tools run in **batch mode** — all documents across all groups (main + supplementary) are processed in a single tool invocation to amortize model-loading startup costs. The orchestrating script is `civic_pubtator.py`.
 
-The `scripts/` directory is organised into three subdirectories:
-- `scripts/pipeline_steps/` — per-step wrapper scripts invoked by the orchestrator (`pdf_to_bioc.py`, `prepare_supplementary.py`, `run_gnorm2.py`, `run_tmvar.py`, `run_aioner.py`, `run_nlmchem.py`, `run_taggerone.py`, `report_civic_pubtator.py`)
-- `scripts/setup_conda_envs/` — one-time environment setup scripts (`setup_gnorm2_conda.sh`, `setup_aioner_conda.sh`, `setup_nlmchem_conda.sh`, `check_gpu.py`)
-- `scripts/cloud/` and `scripts/mac/` — infrastructure and platform-specific helpers
+The `src/` directory is organised into three subdirectories:
+- `src/pipeline_steps/` — per-step wrapper scripts invoked by the orchestrator (`pdf_to_bioc.py`, `prepare_supplementary.py`, `run_gnorm2.py`, `run_tmvar.py`, `run_aioner.py`, `run_nlmchem.py`, `run_taggerone.py`, `report_civic_pubtator.py`)
+- `src/setup_conda_envs/` — one-time environment setup scripts (`setup_gnorm2_conda.sh`, `setup_aioner_conda.sh`, `setup_nlmchem_conda.sh`, `check_gpu.py`)
+- `src/cloud/` and `src/mac/` — infrastructure and platform-specific helpers
 
 Per-publication directory structure:
 ```
@@ -58,7 +58,7 @@ Per-publication directory structure:
 <pub_dir>/report_<pmid>.html
 ```
 
-The HTML report (`scripts/pipeline_steps/report_civic_pubtator.py`) currently reads from:
+The HTML report (`src/src/pipeline_steps/report_civic_pubtator.py`) currently reads from:
 - `04_tmvar3/*.PubTator` — passages, variants, genes, species, cell lines
 - `06_nlmchem/*.xml` — chemical annotations (merged in, highlighted in fuchsia)
 
@@ -81,7 +81,7 @@ GNorm2 produces `CellLine` annotations (e.g. NIH3T3, SK-MEL-208, HEK293) that fl
 
 ### NLMChem
 
-Reads AIONER output (step 5) as input. Produces `Chemical` annotations normalized to MeSH identifiers. Unresolvable chemicals receive identifier `-`. Now integrated into the HTML report via `parse_bioc_chemicals()` in `pipeline_steps/report_civic_pubtator.py`.
+Reads AIONER output (step 5) as input. Produces `Chemical` annotations normalized to MeSH identifiers. Unresolvable chemicals receive identifier `-`. Now integrated into the HTML report via `parse_bioc_chemicals()` in `src/pipeline_steps/report_civic_pubtator.py`.
 
 ---
 
@@ -180,7 +180,7 @@ BioCConverter  →  MentionRecognition  →  PostProcessing  →  ToHGVs
 perl PreProcessing.pl
 
 # Convert PDF to BioC XML via GROBID (requires running GROBID service)
-python3 scripts/pipeline_steps/pdf_to_bioc.py
+python3 src/pipeline_steps/pdf_to_bioc.py
 ```
 
 ## Gene Normalization Integration

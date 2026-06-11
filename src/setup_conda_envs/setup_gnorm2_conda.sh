@@ -17,21 +17,21 @@
 #
 # Usage
 # -----
-#   bash scripts/setup_conda_envs/setup_gnorm2_conda.sh        # first-time setup
+#   bash src/setup_conda_envs/setup_gnorm2_conda.sh        # first-time setup
 #
 # Running the pipeline with Metal GPU
 # ------------------------------------
 # The script prints the exact --gnorm2-python path to use at the end.
 # Example:
 #
-#   python3 scripts/run_civic_pubtator.py <input_dir> \
+#   python3 civic_pubtator.py <input_dir> \
 #       --gnorm2-python /path/to/conda/envs/gnorm2-tf215/bin/python3
 
 set -euo pipefail
 
 ENV_NAME="gnorm2-tf215"
-REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-REQUIREMENTS="${REPO_DIR}/scripts/requirements/requirements_gnorm2.txt"
+REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+REQUIREMENTS="${REPO_DIR}/src/requirements/requirements_gnorm2.txt"
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 info()  { echo "[setup] $*"; }
@@ -121,12 +121,12 @@ Python interpreter: ${CONDA_PYTHON}
 
 To use Metal GPU acceleration with the pipeline:
 
-  python3 scripts/run_civic_pubtator.py <input_dir> \\
+  python3 civic_pubtator.py <input_dir> \\
       --gnorm2-python ${CONDA_PYTHON}
 
 Or for run_gnorm2.py directly:
 
-  python3 scripts/pipeline_steps/run_gnorm2.py <input> <output> \\
+  python3 src/pipeline_steps/run_gnorm2.py <input> <output> \\
       --ml-python ${CONDA_PYTHON}
 
 To activate the environment interactively:

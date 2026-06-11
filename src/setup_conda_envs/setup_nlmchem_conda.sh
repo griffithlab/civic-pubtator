@@ -7,20 +7,20 @@
 #
 # Usage
 # -----
-#   bash scripts/setup_conda_envs/setup_nlmchem_conda.sh        # first-time setup
+#   bash src/setup_conda_envs/setup_nlmchem_conda.sh        # first-time setup
 #
 # Running NLMChem with this environment
 # --------------------------------------
 # The script prints the exact --nlmchem-python path to use at the end.
 # Example:
 #
-#   python3 scripts/run_civic_pubtator.py <input_dir> \
+#   python3 civic_pubtator.py <input_dir> \
 #       --nlmchem-python /path/to/conda/envs/nlmchem-py39/bin/python3
 
 set -euo pipefail
 
 ENV_NAME="nlmchem-py39"
-REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 REQUIREMENTS="${REPO_DIR}/NLMChem/NLMChemTaggerNormalizer/requirements.txt"
 
 # ── helpers ──────────────────────────────────────────────────────────────────
@@ -136,7 +136,7 @@ Python interpreter: ${CONDA_PYTHON}
 
 To use this environment with the pipeline:
 
-  python3 scripts/run_civic_pubtator.py <input_dir> \\
+  python3 civic_pubtator.py <input_dir> \\
       --nlmchem-python ${CONDA_PYTHON}
 
 To activate the environment interactively:

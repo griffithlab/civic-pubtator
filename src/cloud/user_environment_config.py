@@ -8,7 +8,7 @@ Run once after your first SSH login to:
   3. Set up an SSH key for GitHub push access.
 
 Usage:
-    python3 /opt/civic-pubtator/scripts/cloud/user_environment_config.py
+    python3 /opt/civic-pubtator/src/cloud/user_environment_config.py
 """
 
 import os
@@ -226,8 +226,8 @@ def main():
     git add <file> && git commit -m "..." && git push
 
   Data sync:
-    bash {REPO_DIR}/scripts/cloud/sync_pub_data.sh down [PMID]
-    bash {REPO_DIR}/scripts/cloud/sync_tool_data.sh down
+    bash {REPO_DIR}/src/cloud/sync_pub_data.sh down [PMID]
+    bash {REPO_DIR}/src/cloud/sync_tool_data.sh down
 
   Claude Code:
     source ~/.bashrc   # pick up updated PATH (or start a new session)

@@ -2,10 +2,9 @@
 import argparse, datetime, os, re, shutil, subprocess, sys, time
 import xml.etree.ElementTree as ET
 
-SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
-STEPS_DIR   = os.path.join(SCRIPTS_DIR, "pipeline_steps")
-REPO_DIR    = os.path.dirname(SCRIPTS_DIR)
-AB3P_DIR    = os.path.join(REPO_DIR, 'Ab3P')
+REPO_DIR  = os.path.dirname(os.path.abspath(__file__))
+STEPS_DIR = os.path.join(REPO_DIR, "src", "pipeline_steps")
+AB3P_DIR  = os.path.join(REPO_DIR, 'Ab3P')
 
 IGNORED_FILES = {".DS_Store"}
 
@@ -40,8 +39,8 @@ def half_memory(mem_str):
 
 
 def read_release_version():
-    """Read the version string from RELEASE at the repo root (one level up from scripts/)."""
-    release_path = os.path.join(os.path.dirname(SCRIPTS_DIR), "RELEASE")
+    """Read the version string from RELEASE at the repo root."""
+    release_path = os.path.join(REPO_DIR, "RELEASE")
     try:
         with open(release_path, encoding="utf-8") as f:
             return f.read().strip()

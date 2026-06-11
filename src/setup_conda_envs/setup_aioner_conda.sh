@@ -12,14 +12,14 @@
 #
 # Usage
 # -----
-#   bash scripts/setup_conda_envs/setup_aioner_conda.sh        # first-time setup
+#   bash src/setup_conda_envs/setup_aioner_conda.sh        # first-time setup
 #
 # Running AIONER with this environment
 # -------------------------------------
 # The script prints the exact --aioner-python path to use at the end.
 # Example:
 #
-#   python3 scripts/run_civic_pubtator.py <input_dir> \
+#   python3 civic_pubtator.py <input_dir> \
 #       --aioner-python /path/to/conda/envs/aioner-tf213/bin/python3
 #
 # To run AIONER directly (must run from the AIONER/ directory):
@@ -34,9 +34,9 @@
 set -euo pipefail
 
 ENV_NAME="aioner-tf213"
-REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 AIONER_DIR="${REPO_DIR}/AIONER"
-REQUIREMENTS="${REPO_DIR}/scripts/requirements/requirements_aioner.txt"
+REQUIREMENTS="${REPO_DIR}/src/requirements/requirements_aioner.txt"
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 info()  { echo "[setup] $*"; }
@@ -44,7 +44,7 @@ error() { echo "[setup] ERROR: $*" >&2; exit 1; }
 
 # ── 1. Pre-flight checks ─────────────────────────────────────────────────────
 [[ -f "$REQUIREMENTS" ]] || error "Requirements file not found: ${REQUIREMENTS}"
-[[ -d "$AIONER_DIR" ]]   || error "AIONER directory not found: ${AIONER_DIR}. Run scripts/mac/download_data_files.sh first."
+[[ -d "$AIONER_DIR" ]]   || error "AIONER directory not found: ${AIONER_DIR}. Run src/mac/download_data_files.sh first."
 [[ -f "${AIONER_DIR}/AIONER_Run.py" ]] || error "AIONER_Run.py not found in ${AIONER_DIR}."
 
 # ── 2. Homebrew ──────────────────────────────────────────────────────────────
@@ -190,7 +190,7 @@ To run chemical NER (from the AIONER/ directory):
 
 To use this environment with the pipeline:
 
-  python3 scripts/run_civic_pubtator.py <input_dir> \\
+  python3 civic_pubtator.py <input_dir> \\
       --aioner-python ${CONDA_PYTHON}
 
 To activate the environment interactively:

@@ -1,5 +1,5 @@
 # Requirements for the GNorm2 Metal-GPU conda environment (Python 3.11).
-# Install into the gnorm2-tf215 conda env via scripts/setup_conda_envs/setup_gnorm2_conda.sh.
+# Install into the gnorm2-tf215 conda env via src/setup_conda_envs/setup_gnorm2_conda.sh.
 #
 # tensorflow 2.15 is the last version supported by tensorflow-metal 1.2.0.
 # numpy must be < 2.0 for TF 2.15 compatibility.

@@ -339,7 +339,7 @@ def sync_tool_data():
     Must run before conda env setup so any tool binaries are present when
     subsequent steps fix their execute permissions.
     """
-    sync_script = f'{REPO_DIR}/scripts/cloud/sync_tool_data.sh'
+    sync_script = f'{REPO_DIR}/src/cloud/sync_tool_data.sh'
     run(f'bash {sync_script}')
 
 
@@ -350,7 +350,7 @@ def setup_conda_gnorm2():
     env = 'gnorm2-tf215'
     if restore_conda_env(conda, env):
         return
-    req = f'{REPO_DIR}/scripts/requirements/requirements_gnorm2_linux.txt'
+    req = f'{REPO_DIR}/src/requirements/requirements_gnorm2_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up GNorm2 environment')
         return
@@ -378,7 +378,7 @@ def setup_conda_aioner():
     env = 'aioner-tf23'
     if restore_conda_env(conda, env):
         return
-    req = f'{REPO_DIR}/scripts/requirements/requirements_aioner_linux.txt'
+    req = f'{REPO_DIR}/src/requirements/requirements_aioner_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up AIONER environment')
         return
@@ -432,7 +432,7 @@ def setup_conda_nlmchem():
     env = 'nlmchem-py39'
     if restore_conda_env(conda, env):
         return
-    req = f'{REPO_DIR}/scripts/requirements/requirements_nlmchem_linux.txt'
+    req = f'{REPO_DIR}/src/requirements/requirements_nlmchem_linux.txt'
     if not os.path.exists(req):
         log(f'ERROR: {req} not found — cannot set up NLMChem environment')
         return
@@ -502,7 +502,7 @@ def main():
     log('  1. Activate conda in your shell (once per login):')
     log('       source ~/.bashrc')
     log('  2. Sync publication data from GCS:')
-    log(f'       bash {REPO_DIR}/scripts/cloud/sync_pub_data.sh down')
+    log(f'       bash {REPO_DIR}/src/cloud/sync_pub_data.sh down')
     log('  3. Available conda environments:')
     log('       conda activate gnorm2-tf215')
     log('       conda activate aioner-tf23')

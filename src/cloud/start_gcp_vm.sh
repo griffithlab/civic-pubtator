@@ -159,7 +159,7 @@ Watch startup progress (from inside the VM):
     sudo journalctl -u google-startup-scripts -f
 
 Once setup is complete, sync tool data from GCS:
-    bash /opt/civic-pubtator/scripts/cloud/sync_tool_data.sh down
+    bash /opt/civic-pubtator/src/cloud/sync_tool_data.sh down
 
 Delete the instance when done:
     gcloud compute instances delete ${INSTANCE_NAME} --zone ${ZONE} --project ${PROJECT}
