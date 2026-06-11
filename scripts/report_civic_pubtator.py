@@ -1322,11 +1322,11 @@ def main():
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
 
+    print(f'Wrote: {output_path}')
+
     tsv_path = os.path.splitext(output_path)[0] + '.tsv'
     write_mentions_tsv(tsv_path, doc_data, gene_map, taxon_map)
-    print(f'TSV:  {tsv_path}', file=sys.stderr)
-
-    print(output_path)
+    print(f'Wrote: {tsv_path}')
 
 
 if __name__ == '__main__':

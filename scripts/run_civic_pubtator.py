@@ -788,23 +788,22 @@ def run_nlmchem_batched(groups, args, log_path, tsv_path, base_dir):
 
 
 def generate_report(top_dir, log_path):
-    """Run report_civic_pubtator.py and return the output path, or None on failure."""
+    """Run report_civic_pubtator.py; return (html_path, tsv_path) on success or (None, None)."""
+    run_title   = os.path.basename(os.path.abspath(top_dir))
+    html_path   = os.path.join(top_dir, f'report_{run_title}.html')
+    tsv_path    = os.path.join(top_dir, f'report_{run_title}.tsv')
     report_script = os.path.join(SCRIPTS_DIR, "report_civic_pubtator.py")
-    result = subprocess.run(
-        [sys.executable, report_script, top_dir],
-        capture_output=True, text=True,
-    )
+    result = subprocess.run([sys.executable, report_script, top_dir])
     if result.returncode == 0:
-        report_path = result.stdout.strip()
         with open(log_path, "a", encoding="utf-8") as f:
-            f.write(f"# Report:   {report_path}\n")
-        return report_path
+            f.write(f"# Report:   {html_path}\n")
+            f.write(f"# ReportTSV:{tsv_path}\n")
+        return html_path, tsv_path
     else:
-        msg = result.stderr.strip() or result.stdout.strip()
-        print(light_blue(f"WARNING: report generation failed: {msg}"), file=sys.stderr)
+        print(light_blue("WARNING: report generation failed"), file=sys.stderr)
         with open(log_path, "a", encoding="utf-8") as f:
-            f.write(f"# Report:   FAILED — {msg}\n")
-        return None
+            f.write("# Report:   FAILED\n")
+        return None, None
 
 
 def process_input(top_dir, args):
@@ -939,16 +938,18 @@ def process_input(top_dir, args):
         f.write(f"# TSV:      {tsv_path}\n")
         f.write(f"# Manifest: {manifest_path}\n")
 
-    # Generate HTML report
-    report_path = generate_report(top_dir, log_path)
+    # Generate HTML report and mentions TSV
+    report_html, report_tsv = generate_report(top_dir, log_path)
 
     last_root = taggerone_root if args.taggerone_model else nlmchem_root
     print(light_blue(f"\nDone: {top_dir}  →  {last_root}"), file=sys.stderr)
     print(light_blue(f"Stats log: {log_path}"), file=sys.stderr)
     print(light_blue(f"Stats TSV: {tsv_path}"), file=sys.stderr)
     print(light_blue(f"Manifest:  {manifest_path}"), file=sys.stderr)
-    if report_path:
-        print(light_blue(f"Report:    {report_path}"), file=sys.stderr)
+    if report_html:
+        print(light_blue(f"Report:    {report_html}"), file=sys.stderr)
+    if report_tsv:
+        print(light_blue(f"ReportTSV: {report_tsv}"), file=sys.stderr)
 
 
 def main():
