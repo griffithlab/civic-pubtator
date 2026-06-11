@@ -234,6 +234,8 @@ tools/GNorm2/gnorm_trained_models/
 tools/GNorm2/Library/
 tools/GNorm2/CRF/.libs/
 tools/GNorm2/lib/
+tools/GNorm2/setup.GN.run.txt
+tools/GNorm2/setup.SR.run.txt
 
 #tmvar3
 tools/tmvar/tmp/
@@ -241,6 +243,10 @@ tools/tmvar/Database/
 tools/tmvar/CRF/MentionExtractionUB.Model
 tools/tmvar/CRF/MentionExtractionUB.fulltext.Model
 tools/tmvar/CRF/.libs/
+tools/tmvar/CRF/autom4te.cache/
+tools/tmvar/CRF/configure~
+tools/GNorm2/CRF/autom4te.cache/
+tools/GNorm2/CRF/configure~
 
 #TaggerOne
 tools/TaggerOne/data/
