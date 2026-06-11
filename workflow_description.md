@@ -48,12 +48,13 @@ Before the main annotation tools run, two helper scripts prepare the input docum
 ### `scripts/prepare_supplementary.py`
 
 Converts supplementary files placed in `01_source/s/` into PDFs so that GROBID can process
-them. It handles three file types:
+them. It handles four file types:
 
 - **PDF** — copied as-is into `01_source/s/<stem>/<stem>.pdf`
 - **Word** (`.docx`, `.doc`) — converted to PDF, one PDF per document
 - **Excel** (`.xlsx`, `.xls`) — converted to one PDF per worksheet, placed in
   `01_source/s/<stem>/tab_NN/<stem>.pdf`
+- **PowerPoint** (`.pptx`, `.ppt`) — converted to PDF, one PDF per presentation
 
 This script runs automatically at the start of each pipeline run when `01_source/s/` is
 present. The converted PDFs are the inputs that GROBID and all subsequent annotation steps
@@ -61,10 +62,11 @@ actually see.
 
 ### LibreOffice (`soffice`)
 
-LibreOffice is used by `prepare_supplementary.py` as the preferred converter for Word and
-Excel files. It produces high-fidelity PDFs that preserve formatting and layout. When
-LibreOffice is not installed the script falls back to `python-docx` + `reportlab` for
-`.docx` files (with reduced fidelity) and skips `.doc` files entirely. Excel conversion
+LibreOffice is used by `prepare_supplementary.py` as the preferred converter for Word,
+Excel, and PowerPoint files. It produces high-fidelity PDFs that preserve formatting and
+layout. When LibreOffice is not installed the script falls back to `python-docx` +
+`reportlab` for `.docx` files and `python-pptx` + `reportlab` for `.pptx` files (both
+with reduced fidelity), and skips `.doc` and `.ppt` files entirely. Excel conversion
 without LibreOffice also uses a `reportlab` fallback. Install with:
 
 ```
