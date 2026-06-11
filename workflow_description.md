@@ -133,11 +133,24 @@ model-loading startup costs.
      └──────────────────────────────┴──────────────────────────────────────┘
                                     │
                           ▼ report_civic_pubtator.py
-                     report_<pmid>.html
-(04_tmvar3/ .PubTator → variants, genes, species, cell lines
- 06_nlmchem/ BioC XML → drugs (highlighted in purple)
- 07_taggerone/ BioC XML → diseases (highlighted in rose))
+              report_<pmid>.html    annotated full text + entity summary tables
+              report_<pmid>.tsv     normalized entity mention rows (one per unique mention+ID)
+(reads: 04_tmvar3/ .PubTator → variants, genes, species, cell lines
+        06_nlmchem/ BioC XML → chemicals (highlighted in purple)
+        07_taggerone/ BioC XML → diseases (highlighted in rose))
 ```
+
+### Output files
+
+Five files are written to the publication root directory at the end of each run.
+
+| File | Written by | Contents |
+|---|---|---|
+| `report_<pmid>.html` | `report_civic_pubtator.py` | Full annotated text for the main paper and each supplementary document, with entity mentions highlighted by type. Five collapsible summary tables (Variants, Genes, Chemicals, Diseases, Organisms) list each unique mention with its identifier, HGVS string (variants), and the documents it appears in. Pipeline stats and MANIFEST content are embedded at the top. |
+| `report_<pmid>.tsv` | `report_civic_pubtator.py` | Tab-separated version of the same entity tables. Columns: `entity_category`, `entity_type`, `mention`, `identifier`, `identifier_name`, `hgvs`, `count`, `doc_keys`. One row per unique (mention, identifier) pair, sorted by descending count within each category. Suitable for downstream filtering or programmatic use. |
+| `MANIFEST.txt` | `run_civic_pubtator.py` | Written at the start of the run. Records the tool version, run timestamp, input directory, and a size + modification-time inventory of all main and supplementary source files. |
+| `pipeline_stats.log` | `run_civic_pubtator.py` | Human-readable run log appended throughout the pipeline. For each tool step and each input group (main paper + each supplementary), records the output directory, character count, word count, and per-file elapsed time. Ends with a `# Intermediates cleared` marker when cleanup ran. |
+| `pipeline_stats.tsv` | `run_civic_pubtator.py` | Machine-readable counterpart to the log. Columns: `step_num`, `step_name`, `label`, `file`, `chars`, `words`, `time_s`. One row per output file per step, enabling cross-run performance comparisons. |
 
 ### Implementation notes vs. the PubTator 3.0 reference pipeline
 
