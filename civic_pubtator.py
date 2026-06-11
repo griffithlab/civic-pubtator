@@ -741,9 +741,11 @@ def run_nlmchem_batched(groups, args, log_path, tsv_path, base_dir):
                                       os.path.splitext(staging_name)[0] + '.tsv'))
 
         # --- Phase B: NLMChem normalization ---
+        os.makedirs(nlmchem_root, exist_ok=True)
         nlmchem_cmd = [
             sys.executable, os.path.join(STEPS_DIR, "run_nlmchem.py"),
             staging_in, abbr_staging, staging_out,
+            '--log', os.path.join(nlmchem_root, 'nlmchem.log'),
         ]
         if args.nlmchem_python:
             nlmchem_cmd += ['--nlmchem-python', args.nlmchem_python]

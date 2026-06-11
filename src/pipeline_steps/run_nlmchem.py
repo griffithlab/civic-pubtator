@@ -57,6 +57,9 @@ def main():
                              f"name. Defaults to the '{DEFAULT_ENV}' conda env. "
                              f"Examples: --nlmchem-python nlmchem-py39  (conda env name) or "
                              f"--nlmchem-python /opt/conda/envs/nlmchem-py39/bin/python3")
+    parser.add_argument('--log', default=None, metavar='PATH',
+                        help='Redirect NLMChem verbose output (MENTION/LOOKUP lines) to this '
+                             'file instead of stdout/stderr.')
     args = parser.parse_args()
 
     input_dir  = os.path.abspath(args.input_dir)
@@ -73,7 +76,13 @@ def main():
         abbr_dir, input_dir, output_dir,
     ]
     print('Running:', ' '.join(cmd))
-    result = subprocess.run(cmd, cwd=CHEM_NORM_DIR)
+    if args.log:
+        os.makedirs(os.path.dirname(os.path.abspath(args.log)), exist_ok=True)
+        with open(args.log, 'w') as log_fh:
+            result = subprocess.run(cmd, cwd=CHEM_NORM_DIR, stdout=log_fh, stderr=log_fh)
+        print(f'NLMChem output logged to: {args.log}')
+    else:
+        result = subprocess.run(cmd, cwd=CHEM_NORM_DIR)
     sys.exit(result.returncode)
 
 
