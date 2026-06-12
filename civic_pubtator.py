@@ -917,11 +917,6 @@ def process_input(top_dir, args):
     # Phase 6: TaggerOne — disease/chemical NER and normalization (skipped if no model given)
     run_taggerone_batched(groups, args, log_path, tsv_path, top_dir)
 
-    # Clear intermediate files and dirs
-    if args.clear_intermediates:
-        print(light_blue("Clearing intermediates ..."), file=sys.stderr)
-        clear_intermediates(source_dir, top_dir, log_path)
-
     # Write run footer
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(log_path, "a", encoding="utf-8") as f:
@@ -930,8 +925,13 @@ def process_input(top_dir, args):
         f.write(f"# TSV:      {tsv_path}\n")
         f.write(f"# Manifest: {manifest_path}\n")
 
-    # Generate HTML report and mentions TSV
+    # Generate HTML report and mentions TSV (must happen before clearing intermediates)
     report_html, report_tsv = generate_report(top_dir, log_path)
+
+    # Clear intermediate files and dirs
+    if args.clear_intermediates:
+        print(light_blue("Clearing intermediates ..."), file=sys.stderr)
+        clear_intermediates(source_dir, top_dir, log_path)
 
     last_root = taggerone_root if args.taggerone_model else nlmchem_root
     print(light_blue(f"\nDone: {top_dir}  →  {last_root}"), file=sys.stderr)
