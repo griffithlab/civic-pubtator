@@ -257,18 +257,19 @@ def enforce_max_chars(output_dir, max_chars, log_path, step_name, label):
 
 
 def clear_intermediates(input_dir, base_dir, log_path):
-    """Remove all pipeline output dirs (02–07) and stem dirs created under 01_source/s/."""
-    # Remove entire pipeline output directories
-    for out_dir in [
-        os.path.join(base_dir, "02_grobid"),
-        os.path.join(base_dir, "03_gnorm2"),
-        os.path.join(base_dir, "04_tmvar3"),
-        os.path.join(base_dir, "05_aioner"),
-        os.path.join(base_dir, "06_nlmchem"),
-        os.path.join(base_dir, "07_taggerone"),
+    """Remove staging dirs and supplementary stem dirs; preserve 02–07 output directories."""
+    # Remove any staging dirs left behind by interrupted runs (normally cleaned in finally blocks)
+    for staging_dir in [
+        ".gnorm2_staging_in",   ".gnorm2_staging_out",
+        ".aioner_staging_in",   ".aioner_staging_out",
+        ".tmvar3_staging_in",   ".tmvar3_staging_out",
+        ".taggerone_staging_in", ".taggerone_staging_out",
+        ".nlmchem_staging_in",  ".nlmchem_staging_out",
+        ".nlmchem_abbr_staging",
     ]:
-        if os.path.isdir(out_dir):
-            shutil.rmtree(out_dir)
+        path = os.path.join(base_dir, staging_dir)
+        if os.path.isdir(path):
+            shutil.rmtree(path)
 
     # Remove stem-level directories created under 01_source/s/ (keep only the original files)
     s_dir = os.path.join(input_dir, "s")
