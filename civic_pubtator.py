@@ -712,6 +712,7 @@ def run_nlmchem_batched(groups, args, log_path, tsv_path, base_dir):
     if not all_files:
         return
 
+    nlmchem_root = os.path.join(base_dir, '06_nlmchem')
     staging_in   = os.path.join(base_dir, '.nlmchem_staging_in')
     staging_out  = os.path.join(base_dir, '.nlmchem_staging_out')
     abbr_staging = os.path.join(base_dir, '.nlmchem_abbr_staging')
@@ -1003,7 +1004,16 @@ def main():
                              "Examples: "
                              "--nlmchem-python nlmchem-py39  (conda env name) or "
                              "--nlmchem-python /path/to/envs/nlmchem-py39/bin/python3")
+    parser.add_argument("--quiet-tf", action="store_true",
+                        help="Suppress TensorFlow and HuggingFace Transformers "
+                             "informational messages (sets TF_CPP_MIN_LOG_LEVEL=3, "
+                             "TRANSFORMERS_VERBOSITY=error, and filters TF UserWarnings).")
     args = parser.parse_args()
+
+    if args.quiet_tf:
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+        os.environ['TRANSFORMERS_VERBOSITY'] = 'error'
+        os.environ['PYTHONWARNINGS'] = 'ignore::UserWarning:tensorflow'
 
     # Validate all inputs before starting any work
     validated = []
