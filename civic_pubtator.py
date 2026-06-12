@@ -847,8 +847,10 @@ def process_input(top_dir, args):
         f.write(f"# Input dir:  {top_dir}\n")
         f.write(f"# Source dir: {source_dir}\n")
 
+        max_rows_str  = f"{args.max_rows:,}"  if args.max_rows  else "unlimited"
         max_chars_str = f"{args.max_chars:,}" if args.max_chars else "unlimited"
-        f.write(f"# Max chars:  {max_chars_str}\n")
+        f.write(f"# Max rows (Excel): {max_rows_str}\n")
+        f.write(f"# Max chars:        {max_chars_str}\n")
         f.write(f"# Clear intermediates: {args.clear_intermediates}\n")
         gnorm2_py_str = args.gnorm2_python if args.gnorm2_python else f"{sys.executable} (default)"
         f.write(f"# GNorm2 Python: {gnorm2_py_str}\n")
@@ -861,6 +863,7 @@ def process_input(top_dir, args):
                     source_dir]
         if args.no_libreoffice:
             supp_cmd.append("--no-libreoffice")
+        supp_cmd += ["--max-rows", str(args.max_rows)]
         run("Supplementary prep", supp_cmd)
 
     # Write manifest of source files and tool version
@@ -965,10 +968,18 @@ def main():
 
     parser.add_argument("--no-libreoffice", action="store_true",
                         help="Use reportlab/python-docx fallback instead of LibreOffice")
+    parser.add_argument("--max-rows", type=int, default=1000, metavar="N",
+                        help="Maximum rows to read per Excel sheet tab when converting "
+                             "supplementary .xls/.xlsx files to PDF (default: 1000; "
+                             "use 0 for no limit). Applied first, at the conversion stage. "
+                             "See also --max-chars.")
     parser.add_argument("--max-chars", type=int, default=1_000_000, metavar="N",
-                        help="Skip any document whose output XML exceeds N characters "
-                             "at any step; remaining steps are skipped for that document "
-                             "(default: 1000000; use 0 for no limit)")
+                        help="Skip any document whose converted output exceeds N characters "
+                             "at any annotation step; all remaining steps are skipped for "
+                             "that document (default: 1000000; use 0 for no limit). Applied "
+                             "after --max-rows: --max-rows caps each Excel table at the PDF "
+                             "conversion stage; --max-chars then drops any document that is "
+                             "still too large for the annotation pipeline.")
     parser.add_argument("--memory", default="32G", metavar="SIZE",
                         help="Java max heap for GNorm2 and tmVar3 (default: 32G); "
                              "initial heap is set to half this value")

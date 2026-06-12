@@ -127,20 +127,66 @@ def process_powerpoint(src, stem, s_dir, soffice):
     print(f"  PowerPoint → PDF (reportlab fallback): {dst}")
 
 
-def process_excel(src, stem, s_dir, soffice):
+def process_excel(src, stem, s_dir, soffice, max_rows):
+    ext = os.path.splitext(src)[1].lower()
+    tmp_xls_dir = None
+    if not max_rows:
+        max_rows = float('inf')
+
+    if ext == ".xls":
+        if soffice:
+            tmp_xls_dir = tempfile.mkdtemp()
+            env = os.environ.copy()
+            env['LD_LIBRARY_PATH'] = '/usr/lib/libreoffice/program:' + env.get('LD_LIBRARY_PATH', '')
+            result = subprocess.run(
+                [soffice, "--headless", "--convert-to", "xlsx", "--outdir", tmp_xls_dir, src],
+                capture_output=True, text=True, env=env,
+            )
+            if result.returncode != 0:
+                shutil.rmtree(tmp_xls_dir, ignore_errors=True)
+                raise RuntimeError(
+                    f"soffice .xls→.xlsx failed:\nSTDERR: {result.stderr.strip()}\nSTDOUT: {result.stdout.strip()}"
+                )
+            src = os.path.join(tmp_xls_dir, stem + ".xlsx")
+            print(f"  .xls → .xlsx (soffice): {src}")
+        else:
+            # fallback: xlrd reads .xls; write to temp .xlsx so openpyxl can load it below
+            try:
+                import xlrd
+            except ImportError:
+                sys.exit("ERROR: .xls requires LibreOffice or xlrd. Run: pip3 install xlrd")
+            try:
+                import openpyxl as _openpyxl
+            except ImportError:
+                sys.exit("ERROR: openpyxl not installed. Run: pip3 install openpyxl")
+            tmp_xls_dir = tempfile.mkdtemp()
+            wb_xls = xlrd.open_workbook(src)
+            wb_out = _openpyxl.Workbook()
+            wb_out.remove(wb_out.active)
+            for sname in wb_xls.sheet_names():
+                ws_in = wb_xls.sheet_by_name(sname)
+                ws_out = wb_out.create_sheet(title=sname)
+                for i in range(min(ws_in.nrows, max_rows)):
+                    ws_out.append(ws_in.row_values(i))
+            wb_xls.release_resources()
+            tmp_xlsx = os.path.join(tmp_xls_dir, stem + ".xlsx")
+            wb_out.save(tmp_xlsx)
+            wb_out.close()
+            src = tmp_xlsx
+            print(f"  .xls → .xlsx (xlrd): {src}")
+
     try:
         import openpyxl
     except ImportError:
         sys.exit("ERROR: openpyxl not installed. Run: pip3 install openpyxl")
 
-    MAX_ROWS = 1000
     wb = openpyxl.load_workbook(src, data_only=True)
 
     for tab_num, sheet_name in enumerate(wb.sheetnames, start=1):
         ws = wb[sheet_name]
         rows = []
         for i, row in enumerate(ws.iter_rows(values_only=True)):
-            if i >= MAX_ROWS:
+            if i >= max_rows:
                 break
             rows.append(row)
 
@@ -235,6 +281,8 @@ def process_excel(src, stem, s_dir, soffice):
             print(f"  Sheet '{sheet_name}' (tab {tab_num}, {len(rows)} rows) → {dst} (reportlab fallback)")
 
     wb.close()
+    if tmp_xls_dir:
+        shutil.rmtree(tmp_xls_dir, ignore_errors=True)
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -248,6 +296,13 @@ def main():
                         help="Source directory containing an s/ subdirectory")
     parser.add_argument("--no-libreoffice", action="store_true",
                         help="Use the reportlab/python-docx fallback even if LibreOffice is installed")
+    parser.add_argument("--max-rows", type=int, default=1000, metavar="N",
+                        help="Maximum rows to read per Excel sheet tab when converting "
+                             ".xls/.xlsx to PDF (default: 1000; use 0 for no limit). "
+                             "This caps the size of each converted table. In the main "
+                             "pipeline a second filter, --max-chars, removes any document "
+                             "whose total converted text still exceeds the character limit "
+                             "after this row cap is applied.")
     args = parser.parse_args()
 
     if args.no_libreoffice:
@@ -286,7 +341,7 @@ def main():
         elif ext in (".docx", ".doc"):
             process_word(fpath, stem, s_dir, soffice)
         elif ext in (".xlsx", ".xls"):
-            process_excel(fpath, stem, s_dir, soffice)
+            process_excel(fpath, stem, s_dir, soffice, args.max_rows)
         elif ext in (".pptx", ".ppt"):
             process_powerpoint(fpath, stem, s_dir, soffice)
         else:
