@@ -109,7 +109,10 @@ python3 civic_pubtator.py /data/pub-data/28783719/
 # Upload results for one paper
 bash src/cloud/sync_pub_data.sh --bucket civic-pubtator-pub-data up 28783719
 
-# Delete the VM when done to avoid ongoing charges
+# Stop the VM to save money (preserves disk; restart with: gcloud compute instances start <instance-name> --zone us-central1-f --project <gcp-project>)
+gcloud compute instances stop <instance-name> --zone us-central1-f --project <gcp-project>
+
+# Delete the VM when done to avoid ongoing charges (also frees disk)
 gcloud compute instances delete <instance-name> --zone us-central1-f --project <gcp-project>
 ```
 
