@@ -116,6 +116,15 @@ gcloud compute instances stop <instance-name> --zone us-central1-f --project <gc
 gcloud compute instances delete <instance-name> --zone us-central1-f --project <gcp-project>
 ```
 
+**Ballpark costs (us-central1, on-demand, default config):**
+
+| State | Components | ~Cost/day |
+|---|---|---|
+| Running | n1-highmem-8 ($0.47/hr) + T4 GPU ($0.35/hr) + 750 GB pd-ssd ($0.17/GB/mo) | ~$24 |
+| Stopped | 750 GB pd-ssd only | ~$4 |
+
+Stopping vs. deleting is worthwhile if you plan to resume within ~30 days.
+
 ---
 
 ## Directory structure
