@@ -238,6 +238,7 @@ tools/GNorm2/setup.GN.run.txt
 tools/GNorm2/setup.SR.run.txt
 
 #tmvar3
+tools/tmvar/src/tmVarlib/*.class
 tools/tmvar/tmp/
 tools/tmvar/Database/
 tools/tmvar/CRF/MentionExtractionUB.Model
