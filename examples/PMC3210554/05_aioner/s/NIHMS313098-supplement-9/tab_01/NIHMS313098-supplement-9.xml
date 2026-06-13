@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<collection>
+  <source>PubMed</source>
+  <date>20220101</date>
+  <key>BioC.key</key>
+  <document>
+    <id>27127057</id>
+    <passage>
+      <infon key="type">title</infon>
+      <offset>0</offset>
+      <text>NIHMS313098-supplement-9 — tab_01</text>
+    </passage>
+    <passage>
+      <infon key="type">body</infon>
+      <offset>34</offset>
+      <text>not detected by RNA-seq automated analysis SS Splice site mutations ** indels and mutations at splice sites were not part of our automated analysis of RNA-seq n/a refers to samples for which either RNA-seq or targeted resequencing was not performed Tab 1 Mutations in MLL2 found by targeted MLL2 resequencing Sample 87-33462 87-33462 06-19817 06-19817 SU-DHL-6 SU-DHL-6 SU-DHL-9 Toledo 01-11023 06-20427 06-20952 06-20952 05-26600 06-23741 06-23741 96-13639 96-13639 99-24271 99-24271 06-24121 06-24121 06-30342 06-30389 06-12968 06-12968 07-10201 00-22950 06-28477 06-28477 04-40070 92-31120 07-21038 07-21038 07-22884 07-18927 05-15587 05-15587 07-20462 07-20462 05-12472 05-12472 05-14545 05-19843 03-10481 04-28117 08-10448 92-33015 03-28399 03-28399 05-14545 03-28399 04-11156 04-11156 03-33266 04-23426 98-22532 04-39108 07-35482 07-31833 07-31833 06-16316 95-32814 95-32814 08-21175 08-21175 96-20883 07-37968 DB DB Karpas 422 MD903 MD903 NU-DHL-1 NU-DUL-1 NU-DUL-1 OCI-Ly1 OCI-Ly1 Pfeiffer Additional mutations at splice sites in MLL2 detected by Trans-ABySS Chromosome locus chr12:47731299 chr12:47720827 chr12:47731577 chr12:47719922 chr12:47734070 chr12:47709228 chr12:47731793 chr12:47706741 chr12:47728117 chr12:47718602 chr12:47706246 chr12:47706727 chr12:47719661 chr12:47731461 chr12:47733524 chr12:47729734 chr12:47719040 chr12:47721300 chr12:47728117 chr12:47707855 chr12:47718680 chr12:47717409 chr12:47724315 chr12:47711008 chr12:47734195 chr12:47711624 chr12:47719271 chr12:47718918 chr12:47713018 chr12:47720103 chr12:47702684 chr12:47713509 chr12:47731159 chr12:47717445 chr12:47709482 chr12:47714889 chr12:47717767 chr12:47722866 chr12:47720228 chr12:47704937 chr12:47726475 chr12:47702165 chr12:47713960 chr12:47713064 chr12:47723788 chr12:47704873 chr12:47719320 chr12:47702170 chr12:47718081 chr12:47704646 chr12:47714203 chr12:47718680 chr12:47726113 chr12:47730448 chr12:47724460 chr12:47712844 chr12:47724319 chr12:47706936 chr12:47723144 chr12:47710329 chr12:47719628 chr12:47732160 chr12:47718251 chr12:47719327 chr12:47710444 chr12:47709214 chr12:47733683 chr12:47719508 chr12:47732295 chr12:47717574 chr12:47717760 chr12:47720598 chr12:47702767 chr12:47712865 chr12:47729996 chr12:47722866 chr12:47707230 chr12:47717493 05-25439 chr12:47733693 05-25439 chr12:47714115 Mutation GAG &gt; TAG -A -GCTGGAGGAGTCACCC TCA &gt; TAA CAG &gt; TAG GAG&gt; TAG +C TGC&gt; TAC ++ homozygous mutations -AT TCA &gt; TGA GAC&gt; GTC CGA &gt; TGA CGA &gt; TGA GAG &gt; TAG T &gt; C CAG &gt; TAG G &gt; A CAG &gt; TAG -AT CAG &gt; TAG -AAGT CAG &gt; TAG -CA CGA &gt; TGA -GCAGCGCTG TGG &gt; TGA G &gt; A CGA &gt; TGA CAG&gt; TAG -G CGG&gt; TGG -ACAG +T CGA &gt; TGA +AT -G +TA +T CGA &gt; TGA -C CGA&gt; TGA G &gt; A -CG +T CAG &gt; TAG +T -C CGC&gt; CAC +CGACTCT -TG +G +G +A -AAGT T &gt; G +G TAT&gt; TAA CAA &gt; TAA -A CGA &gt; CAA -ACAG G &gt; A CAG&gt; TAG -AG -TA CGA &gt; TGA +C -G CGC&gt; GGC CAG &gt; TAG -C CAA &gt; TAA GAG &gt; TAG +A TCC&gt; TTC CAG &gt; TAG -G CGA&gt; TGA -C -GTTTGGCTGGGTCCCA T &gt; G T &gt; G Event E812* Frameshift deletion Frameshift deletion S2633* Q211* E4712* Frameshift insertion ++ C5092Y_PHD domain Frameshift deletion S2935* D5257V_FYRC domain R5097* R2685* E758* SS end6 Q1302* SS beg34 Q2174* Frameshift deletion Q4881* Frameshift deletion Q3333* Frameshift deletion ++ R4536* Frameshift deletion (SSbeg5) W4377* SS end33 R2830* Q3913* Frameshift deletion ++ R5432W_SET domain Frameshift deletion Frameshift insertion R3321* Frameshift insertion Frameshift in-del Frameshift deletion R1903* Frameshift deletion R5282* SS beg16 Frameshift deletion in-del Q3599* Frameshift insertion Frameshift deletion R5303H_FYRC domain Frameshift insertion Frameshift deletion Frameshift insertion Frameshift insertion Frameshift insertion Frameshift deletion SS end17 Frameshift insertion Y1692* Q3971* Frameshift deletion R5027L_FYRC domain Frameshift deletion SS end42 Q2696* Frameshift deletion Frameshift deletion R2771* Frameshift insertion Frameshift deletion R228G_PHD domain Q2736* Frameshift deletion Q3278* E3216* Frameshift insertion S5404F_SET domain Q3964* Frameshift deletion A1903* Frameshift deletion Frameshift deletion ++ SS end38 SS beg6 Lymphoma FL FL FL FL GCB-DLBCLcl GBC-DLBCLcl ABC-DLBCLcl GBC-DLBCLcl FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL FL GCB-DLBCL GCB-DLBCL GCB-DLBCL GCB-DLBCL GCB-DLBCL ABC-DLBCL GCB-DLBCL GCB-DLBCL GCB-DLBCL GCB-DLBCL GCB-DLBCL GCB-DLBCL ABC-DLBCL ABC-DLBCL GCB-DLBCL GCB-DLBCL GCB-DLBCLcl GCB-DLBCLcl GCB-DLBCLcl ABC-DLBCLcl ABC-DLBCLcl GBC-DLBCLcl ABC-DLBCLcl ABC-DLBCLcl GBC-DLBCLcl GBC-DLBCLcl GBC-DLBCLcl DLBCL DLBCL Somatic status somatic somatic somatic somatic cell line cell line cell line cell line somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic somatic undetermined undetermined undetermined undetermined undetermined undetermined undetermined undetermined undetermined undetermined undetermined undetermined somatic somatic somatic somatic somatic somatic somatic undetermined undetermined somatic undetermined somatic somatic undetermined somatic undetermined cell line cell line cell line cell line cell line cell line cell line cell line cell line cell line cell line somatic somatic Transcriptome non-ref/ref n/a n/a n/a n/a 2/2* 3/5* n/a n/a n/a n/a n/a n/a n/a n/a n/a n/a n/a n/a n/a n/a n/a n/a n/a 9/9 0/6** n/a n/a 15/21 17/19 n/a n/a 2/30** 34/20** n/a n/a n/a n/a n/a n/a 4/8* 0/0** 9/70** 9/21 5/21** 11/9** 21/26 1/4** 14/65** 4/16** 19/66 4/28 0/22** 0/0** 5/3** 1/5* 3/1* 1/6** 2/8* 0/9** 2/2** 2/3* 6/13** 3/19** 0/0* 0/1** 0/1** 0/1* 7/0 0/0** 2/5* n/a n/a 18/3 39/19 6/13** 2/4 1/2** n/a 10/1 2/0 MLL2 targeted seq non-ref/ref 157/164 504/1242 152/312 440/463 481/458 881/23 887/539 1077/997 130/1037 90/101 1520/1615 1468/1789 24/56 14/44 41/82 177/517 1348/925 647/14 224/355 929/1014 480/610 688/697 861/236 564/478 346/646 588/555 269/552 558/290 719/744 324/821 138/285 257/420 72/384 92/519 221/395 245/796 193/1137 1000/2331 59/330 197/234 419/877 44/39 176/280 190/534 0/973 0/1232 191/688 126/675 99/1272 848/839 854/1197 103/729 166/409 219/640 250/507 408/561 642/1030 486/491 782/2277 2091/1792 796/1314 8/14 18/33 426/1044 785/1071 800/77 1355/1404 1195/2232 693/876 794/1140 63/234 1480/1472 1118/2 1146/619 336/852 557/829 209/1074 23/58 n/a n/a *</text>
+      <annotation id="0">
+        <infon key="type">Chemical</infon>
+        <location offset="386" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="1">
+        <infon key="type">Chemical</infon>
+        <location offset="395" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="2">
+        <infon key="type">Chemical</infon>
+        <location offset="404" length="8"/>
+        <text>SU-DHL-9</text>
+      </annotation>
+      <annotation id="3">
+        <infon key="type">Mutation</infon>
+        <location offset="2671" length="2"/>
+        <text>-C</text>
+      </annotation>
+      <annotation id="4">
+        <infon key="type">Mutation</infon>
+        <location offset="2709" length="2"/>
+        <text>-C</text>
+      </annotation>
+      <annotation id="5">
+        <infon key="type">Mutation</infon>
+        <location offset="2778" length="1"/>
+        <text>A</text>
+      </annotation>
+      <annotation id="6">
+        <infon key="type">Mutation</infon>
+        <location offset="2829" length="5"/>
+        <text>+C -G</text>
+      </annotation>
+      <annotation id="7">
+        <infon key="type">Mutation</infon>
+        <location offset="2854" length="2"/>
+        <text>-C</text>
+      </annotation>
+      <annotation id="8">
+        <infon key="type">Mutation</infon>
+        <location offset="2878" length="1"/>
+        <text>A</text>
+      </annotation>
+      <annotation id="9">
+        <infon key="type">Mutation</infon>
+        <location offset="2900" length="1"/>
+        <text>G</text>
+      </annotation>
+      <annotation id="10">
+        <infon key="type">Mutation</infon>
+        <location offset="2911" length="2"/>
+        <text>-C</text>
+      </annotation>
+      <annotation id="11">
+        <infon key="type">Mutation</infon>
+        <location offset="2934" length="9"/>
+        <text>&gt; G T &gt; G</text>
+      </annotation>
+      <annotation id="12">
+        <infon key="type">Mutation</infon>
+        <location offset="3958" length="5"/>
+        <text>Q3278</text>
+      </annotation>
+      <annotation id="13">
+        <infon key="type">Mutation</infon>
+        <location offset="3965" length="5"/>
+        <text>E3216</text>
+      </annotation>
+      <annotation id="14">
+        <infon key="type">Mutation</infon>
+        <location offset="3993" length="6"/>
+        <text>S5404F</text>
+      </annotation>
+      <annotation id="15">
+        <infon key="type">Mutation</infon>
+        <location offset="4011" length="5"/>
+        <text>Q3964</text>
+      </annotation>
+      <annotation id="16">
+        <infon key="type">Mutation</infon>
+        <location offset="4038" length="5"/>
+        <text>A1903</text>
+      </annotation>
+      <annotation id="17">
+        <infon key="type">Disease</infon>
+        <location offset="4105" length="8"/>
+        <text>Lymphoma</text>
+      </annotation>
+      <annotation id="18">
+        <infon key="type">Disease</infon>
+        <location offset="4126" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="19">
+        <infon key="type">Disease</infon>
+        <location offset="4303" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="20">
+        <infon key="type">Disease</infon>
+        <location offset="4313" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="21">
+        <infon key="type">Disease</infon>
+        <location offset="4323" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="22">
+        <infon key="type">Disease</infon>
+        <location offset="4333" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="23">
+        <infon key="type">Disease</infon>
+        <location offset="4343" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="24">
+        <infon key="type">Disease</infon>
+        <location offset="4363" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="25">
+        <infon key="type">Disease</infon>
+        <location offset="4373" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="26">
+        <infon key="type">Disease</infon>
+        <location offset="4383" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="27">
+        <infon key="type">Disease</infon>
+        <location offset="4393" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="28">
+        <infon key="type">Disease</infon>
+        <location offset="4403" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="29">
+        <infon key="type">Disease</infon>
+        <location offset="4413" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="30">
+        <infon key="type">Disease</infon>
+        <location offset="4443" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="31">
+        <infon key="type">Disease</infon>
+        <location offset="4453" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="32">
+        <infon key="type">Disease</infon>
+        <location offset="4463" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="33">
+        <infon key="type">Disease</infon>
+        <location offset="4475" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="34">
+        <infon key="type">Disease</infon>
+        <location offset="4487" length="3"/>
+        <text>GCB</text>
+      </annotation>
+    </passage>
+  </document>
+</collection>

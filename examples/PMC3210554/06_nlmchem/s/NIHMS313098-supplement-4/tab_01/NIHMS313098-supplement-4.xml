@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<collection>
+  <source>PubMed</source>
+  <date>20220101</date>
+  <key>BioC.key</key>
+  <document>
+    <id>77835138</id>
+    <passage>
+      <infon key="type">title</infon>
+      <offset>0</offset>
+      <text>NIHMS313098-supplement-4 — tab_01</text>
+    </passage>
+    <passage>
+      <infon key="type">body</infon>
+      <offset>34</offset>
+      <text>T910A;T940A L252P,I165V 1 For genes with hot spot mutations, cSNVs are identified by the exact change, otherwise the total number of cSNVs detected in the gene in that library/sample are reported Mutations in bold indicates the mutation has been shown to be somatic, either in this study or in published studies For MLL2, an asterisk indicates identified by RNA-seq only, others were identified by either genome or amplicon sequencing For EZH2, the annotation is based on two refseq isoforms. Y646 is the same as Y641 as described in Morin et al, 2010. The two mutations in EZH2 not corresponding to the known hot spot were confirmed to be somatic. COO subtype is shown from Affymetrix expression values where available (Wright et al, 2003)</text>
+    </passage>
+  </document>
+</collection>

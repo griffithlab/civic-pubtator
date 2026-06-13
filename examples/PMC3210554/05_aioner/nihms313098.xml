@@ -1,0 +1,1844 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<collection>
+  <source>PubMed</source>
+  <date>20220101</date>
+  <key>BioC.key</key>
+  <document>
+    <id>33427848</id>
+    <passage>
+      <infon key="type">title</infon>
+      <offset>0</offset>
+      <text>Frequent mutation of histone-modifying genes in non-Hodgkin lymphoma</text>
+      <annotation id="0">
+        <infon key="type">Gene</infon>
+        <location offset="21" length="7"/>
+        <text>histone</text>
+      </annotation>
+      <annotation id="1">
+        <infon key="type">Disease</infon>
+        <location offset="48" length="20"/>
+        <text>non-Hodgkin lymphoma</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">abstract</infon>
+      <offset>69</offset>
+      <text>Users may view, print, copy, and download text and data-mine the content in such documents, for the purposes of academic research, subject always to the full Conditions of use:</text>
+    </passage>
+    <passage>
+      <infon key="type">body</infon>
+      <offset>246</offset>
+      <text>Non-Hodgkin lymphomas (NHLs) are cancers of B, T or natural killer lymphocytes. The two most common types of NHL, follicular lymphoma (FL) and diffuse large B-cell lymphoma (DLBCL), together comprise 60% of new B-cell NHL diagnoses each year in North America  1  . FL is an indolent and typically incurable disease characterized by clinical and genetic heterogeneity. DLBCL is aggressive and likewise heterogeneous, comprising at least two distinct subtypes that respond differently to standard treatments. Both FL and the germinal centre B-cell (GCB) cell of origin (COO) subtype of DLBCL derive from germinal centre B cells whereas the activated B-cell (ABC) variety, which exhibits a more aggressive clinical course, is thought to originate from B cells that have exited, or are poised to exit, the germinal centre  2  . Current knowledge of the specific genetic events leading to DLBCL and FL is limited to the presence of a few recurrent genetic abnormalities  2  . For example, 85-90% of FL and 30-40% of GCB DLBCL cases  3, 4  harbour t(14;18)(q32;q21), which results in deregulated expression of the BCL2 oncoprotein. Other genetic abnormalities unique to GCB DLBCL include amplification of the c-REL gene and of the miR-17-92 microRNA cluster  5  . In contrast to GCB cases, 24% of ABC DLBCLs harbour structural alterations or inactivating mutations affecting PRDM1, which is involved in differentiation of GCB cells into antibody-secreting plasma cells  6  . ABC-specific mutations also affect genes regulating NF-κB signalling  7, 8, 9  , with TNFAIP3 (A20) and MYD88  10  the most abundantly mutated in 24% and 39% of cases respectively. To enhance our understanding of the genetic architecture of B-cell NHL, we undertook a study to (1) identify somatic mutations and (2) determine the prevalence, expression and focal recurrence of mutations in FL and DLBCL. Using strategies and techniques applied to cancer genome and transcriptome characterization by ourselves and others  11, 12, 13  , we sequenced tumour DNA and/or RNA from 117 tumour samples and 10 cell lines (Supplementary Tables  S1  and S2 ) and identified 651 genes (Supplementary Figure  S1 ) with evidence of somatic mutation in B-cell NHL. After validation, we showed that 109 genes were somatically mutated in 2 or more NHL cases. We further characterised the frequency and nature of mutations within MLL2 and MEF2B, which were among the most frequently mutated genes with no previously known role in lymphoma. We sequenced the genomes or exomes of 14 NHL cases, all with matched constitutional DNA sequenced to comparable depths (Supplementary Tables  S1  and S2 ). After screening for single nucleotide variants followed by subtraction of known polymorphisms and visual inspection of the sequence read alignments, we identified 717 nonsynonymous (coding single nucleotide variants; cSNVs) affecting 651 genes (Supplementary Figure  S1 ; Methods). We identified between 20 and 135 cSNVs in each of these genomes. Only 25 of the 651 genes with cSNVs were represented in the cancer gene census (December, 2010 release)  14  . We performed RNA sequencing (RNA-seq) on these 14 NHL cases and an expanded set of 113 samples comprising 83 DLBCL, 12 FL and 8 B-cell NHL cases with other histologies and 10 DLBCL-derived cell lines (Supplementary Table  S2 ). We analysed these data to identify novel fusion transcripts (Supplementary Table  S3 ) and cSNVs (Figure  1 ). We identified 240 genes with at least one cSNV in a genome/exome or an RNA-seq "mutation hot spot" (below), and with cSNVs in at least three cases in total (Supplementary Table  S4 ). We selected cSNVs from each of these 240 genes for re-sequencing to confirm their somatic status. We did not re-sequence genes with previously documented mutations in lymphoma (e.g. CD79B, BCL2). We confirmed the somatic status of 543 cSNVs in 317 genes, with 109 genes having at least two confirmed somatic mutations (Supplementary Table  S4  and S5 ). Of the successfully re-sequenced cSNVs predicted from the genomes, 171 (94.5%) were confirmed somatic, 7 were false calls and 3 were present in the germ line. These 109 recurrently mutated genes were significantly enriched for genes implicated in lymphocyte activation (P=8.3×10 -4 ; e.g. STAT6, BCL10), lymphocyte differentiation (P=3.5×10 -3 ; e.g. CARD11), and regulation of apoptosis (P=1.9×10 -3 ; e.g. BTG1, BTG2). Also significantly enriched were genes linked to transcriptional regulation (P= 5.4×10 -4 ; e.g. TP53) and genes involved in methylation (P=2.2×10 -4 ) and acetylation (P=1.2×10 -2 ), including histone methyltransferase (HMT) and acetyltransferase (HAT) enzymes known previously to be mutated in lymphoma (e.g. EZH2  13  and CREBBP 15 ; Methods). Mutation hot spots can result from mutations at sites under strong selective pressure and we have previously identified such sites using RNA-seq data  13  . We searched our RNA-seq data for genes with mutation hot spots, and identified 10 genes that were not mutated in the 14 genomes (PIM1, FOXO1, CCND3, TP53, IRF4, BTG2, CD79B, BCL7A, IKZF3 and B2M), of which five (FOXO1, CCND3, BTG2, IKZF3 and B2M) were not previously known targets of point mutation in NHL (Supplementary Table  S6 ; Methods). FOXO1, BCL7A and B2M exhibited hot spots affecting their start codons. The effect of a FOXO1 start codon mutation, which was observed in three cases, was further studied using a cell line in which the initiating ATG was mutated to TTG. Western blots probed with a FOXO1 antibody revealed a band with a reduced molecular weight, indicative of a FOXO1 N-terminal truncation (Supplementary Figure  S2 ) consistent with utilization of the next in-frame ATG for translation initiation. A second hot spot in FOXO1 at T24 was mutated in two cases. T24 is reportedly phosphorylated by AKT subsequent to B-cell receptor (BCR) stimulation  16  inducing FOXO1 nuclear export. We analysed the RNA-seq data to determine whether any of the somatic mutations in the 109 recurrently mutated genes showed evidence for allelic imbalance with expression favouring one allele. Of 380 expressed heterozygous mutant alleles, we observed preferential expression of the mutation for 16.8% (64/380) and preferential expression of the wild-type for 27.8% (106/380; Supplementary Table  S7 ). Seven genes displayed evidence for significant preferential expression of the mutant allele in at least two cases: (BCL2, CARD11, CD79B, EZH2, IRF4, MEF2B and TP53; Methods). In 27 of 43 cases with BCL2 cSNVs, expression favoured the mutant allele, consistent with the previously-described hypothesis that the translocated (and hence, transcriptionally deregulated) allele of BCL2 is targeted by somatic hypermutation  17  . Examples of mutations at known oncogenic hot spot sites such as F123I in CARD11  18  exhibited allelic imbalance favouring the mutant allele in some cases. Similarly, we noted expression favouring two novel hot spot mutations in MEF2B (Y69 and D83) and two sites in EZH2 not previously reported as mutated in lymphoma (A682G and A692V). We sought to distinguish new cancer-related mutations from passenger mutations using the approach proposed by Greenman et al  19  . We reasoned that this would reveal genes with strong selection signatures, and mutations in such genes would be good candidate cancer drivers. We identified 26 genes with significant evidence for positive selection (FDR 0.03, Methods), with either selective pressure for acquiring non-synonymous point mutations or truncating/nonsense mutations (Methods; Table  1 ; Supplementary Table  S8 ). Included were known lymphoma oncogenes (BCL2, CD79B 9 , CARD11 18 , MYD88 10 and EZH2  13  ), all of which exhibited signatures indicative of selection for non-synonymous variants. We expected tumour suppressor genes to exhibit strong selection for the acquisition of nonsense mutations. In our analysis, the eight most significant genes included seven with strong selective pressure for nonsense mutations, including the known tumour suppressor genes TP53 and TNFRSF14 20 (Table  1 ). CREBBP, recently reported as commonly inactivated in DLBCL  15  , also showed some evidence for acquisition of nonsense mutations and cSNVs (Supplementary Figure  S3 ; Supplementary Table  S9 ). We also observed enrichment for nonsense mutations in BCL10, a positive regulator of NF-κB, in which oncogenic truncated products have been described in lymphomas  21  . The remaining strongly significant genes (BTG1, GNA13, SGK1 and MLL2) had no reported role in lymphoma. GNA13 was affected by mutations in 22 cases including multiple nonsense mutations. GNA13 encodes the alpha subunit of a heterotrimeric G-protein coupled receptor responsible for modulating RhoA activity  22  . Some of the mutated residues negatively impact its function  23, 24  , including a T203A mutation, which also exhibited allelic imbalance favouring the mutant allele (Supplementary Table  S7 ). GNA13 protein was reduced or absent on Western blots in cell lines harbouring either a nonsense mutation, a stop codon deletion, a frame shifting deletion, or changes affecting splice sites (Methods; Supplementary Figure  S4 ). SGK1 encodes a PI3K-regulated kinase with functions including regulation of FOXO transcription factors  25  , regulation of NF-κB by phosphorylating IkB kinase  26  , and negative regulation of NOTCH signalling  27  . SGK1 also resides within a region of chromosome 6 commonly deleted in DLBCL (Figure  1 )  5  . The mechanism by which SGK1 and GNA13 inactivation may contribute to lymphoma is unclear but the strong degree of apparent selection towards their inactivation and their overall high mutation frequency (each mutated in 18 of 106 DLBCL cases) suggests that their loss contributes to B-cell NHL. Certain genes are known to be mutated more commonly in GCB DLBCLs (e.g. TP53  28  and EZH2  13  ). Here, both SGK1 and GNA13 mutations were found only in GCB cases (P = 1.93×10 -3 and 2.28×10 -4 , Fisher exact test; n=15 and 18, respectively)(Figure  2 ). Two additional genes (MEF2B and TNFRSF14) with no previously described role in DLBCL showed a similar restriction to GCB cases (Figure  2 ). MLL2 showed the most significant evidence for selection and the largest number of nonsense SNVs. Our RNA-seq analysis indicated that 26.0% (33/127) of cases carried at least one MLL2 cSNV. To address the possibility that variable RNA-seq coverage of MLL2 failed to capture some mutations, we PCR amplified the entire MLL2 locus (~36kb) in 89 cases (35 primary FLs, 17 DLBCL cell lines, and 37 DLBCLs). 58 of these cases were among the RNA-seq cohort. Illumina amplicon resequencing (Methods) revealed 78 mutations, confirming the RNA-seq mutations in the overlapping cases and identifying 33 additional mutations. We confirmed the somatic status of 46 variants using Sanger sequencing (Supplementary Table  S10 ), and showed that 20 of the 33 additional mutations were insertions or deletions (indels). Three SNVs at splice sites were also detected, as were 10 new cSNVs that had not been detected by RNA-seq. The somatic mutations were distributed across MLL2 (Figure  3A ). 37% (n=29/78) of these were nonsense mutations, 46% (n=36/78) were indels that altered the reading frame, 8% (n=6/78) were point mutations at splice sites and 9% (n=7/78) were non-synonymous amino acid substitutions (Table  2 ). Four of the somatic splice site mutations had effects on MLL2 transcript length and structure. For example, two heterozygous splice site mutations resulted in the use of a novel splice donor site and an intron retention event. Approximately half of the NHL cases we sequenced had two MLL2 mutations (Supplementary Table  S10 ). We used BAC clone sequencing in eight FL cases to show that in all eight cases the mutations were in trans, affecting both MLL2 alleles. This observation is consistent with the notion that there is a complete, or near-complete, loss of MLL2 in the tumour cells of such patients. With the exception of two primary FL cases and two DLBCL cell lines (Pfeiffer and SU-DHL-9), the majority of MLL2 mutations appeared to be heterozygous. Analysis of Affymetrix 500k SNP array data from two FL cases with apparent homozygous mutations revealed that both tumours exhibited copy number neutral loss of heterozygosity (LOH) for the region of chromosome 12 containing MLL2 (Methods). Thus, in addition to bi-allelic mutation, LOH is a second, albeit less common mechanism by which MLL2 function is lost. MLL2 was the most frequently mutated gene in FL, and among the most frequently mutated genes in DLBCL (Figure  2 ). We confirmed MLL2 mutations in 31 of 35 FL patients (89%), in 12 of 37 DLBCL patients (32%), in 10 of 17 DLBCL cell lines (59%) and in none of the eight normal centroblast samples we sequenced. Our analysis predicted that the majority of the somatic mutations observed in MLL2 were inactivating (91% disrupted the reading frame or were truncating point mutations), suggesting to us that MLL2 is a tumour suppressor of significance in NHL. Our selective pressure analysis also revealed genes with stronger pressure for acquisition of amino acid substitutions than for nonsense mutations. One such gene was MEF2B, which had not previously been linked to lymphoma. 20 (15.7%) cases had MEF2B cSNVs and 4 (3.1%) cases had MEF2C cSNVs. All cSNVs detected by RNA-seq affected either the MADS box or MEF2 domains. To determine the frequency and scope of MEF2B mutations, we Sanger-sequenced exons 2 and 3 in 261 primary FL samples; 259 DLBCL primary tumours; 17 cell lines; 35 cases of assorted NHL (IBL, composite FL and PBMCL); and eight non-malignant centroblast samples. We also used a capture strategy (Methods) to sequence the entire MEF2B coding region in the 261 FL samples, revealing six additional variants outside exons 2 and 3. We thus identified 69 cases (34 DLBCL; 12.67% and 35 FL; 15.33%) with MEF2B cSNVs or indels, failing to observe novel variants in other NHL and non-malignant samples. 55 (80%) of the variants affected residues within the MADS box and MEF2 domains encoded by exons 2 and 3 (Supplementary Table  S11 ; Figure  3B ). Each patient generally had a single MEF2B variant and we observed relatively few (8 total, 10.7%) truncation-inducing SNVs or indels. Non-synonymous SNVs were by far the most common type of change observed, with 59.4% of detected variants affecting K4, Y69, N81 or D83. In 12 cases MEF2B mutations were shown to be somatic, including representative mutations at each of K4, Y69, N81 and D83 (Supplementary Table  S12 ). We did not detect mutations in ABC cases, indicating that somatic mutations in MEF2B play a role unique to the development of GCB DLBCL and FL (Figure  2 ). In our study of genome, transcriptome and exome sequences from 127 B-cell NHL cases, we identified 109 genes with clear evidence of somatic mutation in multiple individuals. Significant selection appears to act on at least 26 of these for the acquisition of either nonsense or missense mutations. To the best of our knowledge, the majority of these genes had not previously been associated with any cancer type. We observed an enrichment of somatic mutations affecting genes involved in transcriptional regulation and, more specifically, chromatin modification. MLL2 emerged from our analysis as a major tumour suppressor locus in NHL. It is one of six human H3K4-specific methyltransferases in the MLL family, all of which share homology with the Drosophila trithorax gene  29  . Trimethylated H3K4 (H3K4me3) is an epigenetic mark associated with the promoters of actively transcribed genes. By laying down this mark, MLLs are responsible for the transcriptional regulation of developmental genes including the homeobox (Hox) gene family  30  which collectively control segment specificity and cell fate in the developing embryo  31, 32  . Each MLL family member is thought to target different subsets of Hox genes  33  and in addition, MLL2 is known to regulate the transcription of a diverse set of genes  34  . Recently, MLL2 mutations were reported in a smallcell lung cancer cell line  35  and in renal carcinoma  36  but the frequency of nonsense mutations affecting MLL2 in these cancers was not established in these reports. Parsons and colleagues recently reported inactivating mutations in MLL2 or MLL3 in 16% of medulloblastoma patients  37  further implicating MLL2 as a cancer gene. Our data link MLL2 somatic mutations to B-cell NHL. The reported mutations are likely to be inactivating and in eight of the cases with multiple mutations, we confirmed that both alleles were affected, presumably resulting in essentially complete loss of MLL2 function. The high prevalence of MLL2 mutations in FL (89%) equals the frequency of the t(14;18) (q32;q21) translocation, which is considered the most prevalent genetic abnormality in FL  3  . In DLBCL tumour samples and cell lines, MLL2 mutation frequencies were 32% and 59% respectively, also exceeding the prevalence of the most frequent cytogenetic abnormalities, such as the various translocations involving 3q27, which occur in 25-30% of DLBCLs and are enriched in ABC cases  38  . Importantly, we found MLL2 mutated in both DLBCL subtypes (Figure  2 ). Our analyses thus indicate that MLL2 acts as a central tumour suppressor in FL and both DLBCL subtypes. The MEF2 gene family encodes four related transcription factors that recruit histonemodifying enzymes including histone deacetylases (HDACs) and HATs in a calciumregulated manner. Although truncating variants were detected in our analysis of MEF2 gene family members, our analysis suggests that, in contrast to MLL2, MEF2 family members tend to selectively acquire non-synonymous amino acid substitutions. In the case of MEF2B, 59.4% of all the cSNVs were found at four sites within the protein (K4, Y69, N81 and D83), and all four of these sites were confirmed to be targets of somatic mutation. 39% of the MEF2B alterations affect D83, resulting in replacement of the charged aspartate with any of alanine, glycine or valine. Although we cannot yet predict the consequences of these substitutions on protein function, it seems likely that their effect would impact the ability of MEF2B to facilitate gene expression and thus play a role in promoting the malignant transformation of germinal centre B cells to lymphoma (Supplementary Discussion). MEF2B mutations can be linked to CREBBP and EP300 mutations, and to recurrent Y641 mutations in EZH2  13  . One target of CREBBP/EP300 HAT activity is H3K27, which is methylated by EZH2 to repress transcription. There is evidence that the action of EZH2 antagonizes that of CREBBP/EP300  39  . One function of MEF2 is to recruit either HDACs or CREBBP/EP300 to target genes  40  , and it has been suggested that HDACs compete with CREBBP/EP300 for the same binding site on MEF2  41  . Under normal Ca 2+ levels, MEF2 is bound by type IIa HDACs, which maintain the tails of histone proteins in a deacetylated repressive chromatin state  42  . Increased cytoplasmic Ca 2+ levels induce the nuclear export of HDACs, enabling the recruitment of HATs such as CREBBP/EP300, facilitating transcription at MEF2 target genes. Mutation of CREBBP, EP300 or MEF2B may impact expression of MEF2 target genes owing to reduced acetylation of nucleosomes near these genes (Supplementary Figure  S5 ; Supplementary Discussion). In light of the recent finding that heterozygous EZH2 Y641 mutations enhance overall H3K27 trimethylation activity of PCR2  43, 44  , it is possible that mutation of both MLL2 and EZH2 could cooperate in reducing the expression of some of the same target genes. Our data imply that (1) post-transcriptional modification of histones is of key importance in germinal centre B cells and (2) deregulated histone modification due to these mutations likely results in reduced acetylation and enhanced methylation and acts as a core driver event in the development of NHL (Supplementary Figure  S5 ). All samples analysed contained at least 50% tumour cells. Genomes, exomes and transcriptomes were sequenced using a combination of Illumina GAIIx and HiSeq 2000 instruments to read lengths of between 36 and 100 nucleotides. Exome capture was performed using the Agilent SureSelect Target Enrichment System Protocol (Version 1.0, September 2009). Alignment was accomplished using BWA  45  and variants were identified using SNVmix  46  . Variants were manually reviewed in IGV and were confirmed (where applicable) by PCR followed by either Sanger sequencing or Illumina re-sequencing. Structural rearrangements in genomes and transcriptomes were identified using ABySS  47  . Gene expression values used for subtype assignment were calculated as RPKM values  48  and subtypes were assigned using an adaptation of the method developed for data from Affymetrix expression arrays  49  trained with samples previously classified by this standard approach. Sequencing and Bioinformatics Teams at the Genome Sciences Centre. The content of this publication does not necessarily reflect the views of policies of the Department of Health and Human Services, nor does mention of trade names, commercial products, or organizations imply endorsement by the U.S. Government. All raw sequence data can be accessed using the DCC portal ( http://cgap.nci.nih.gov/Data_Access ), study accession phs000235.v2.p1. Overview of structural rearrangements and copy number variations (CNVs) in the 11 DLBCL genomes and cSNVs in the 109 recurrently mutated genes identified in our analysis. Inner arcs represent somatic fusion transcripts identified in one of the 11 genomes. The CNVs and LOH detected in each of the 11 DLBCL tumour/normal pairs are displayed on the concentric sets of rings. The inner 11 rings show regions of enhanced homozygosity plotted with blue (interpreted as LOH). The outer 11 rings show somatic CNVs. Purple circles indicate the position of genes with at least two confirmed somatic mutations with circle diameter proportional to the number of cases with cSNVs detected in that gene. Circles representing the genes with significant evidence for positive selection are labelled. Coincidence between recurrently mutated genes and regions of gain/loss are colour-coded in the labels (green=loss, red=gain). For example B2M, which encodes beta-2-microglobulin, is recurrently mutated and is deleted in two cases.  (A) Re-sequencing the MLL2 locus in 89 samples revealed mainly nonsense (red circles) and frameshift-inducing indel mutations (orange triangles). A smaller number of nonsynonymous somatic mutations (green circles) and point mutations or deletions affecting splice sites (yellow stars) were also observed. All of the non-synonymous point mutations affected a residue within either the catalytic SET domain, the FYRC domain ("FY-rich Cterminal domain") or PHD zinc finger domains. The effect of these splice site mutations on MLL2 splicing was also explored (Supplementary Figure  S7 ). (B) The cSNVs and somatic mutations found in MEF2B in all FL and DLBCL cases sequenced are shown with the same symbols. Only the amino acids with variants in at least two patients are labelled. cSNVs were most prevalent in the first two protein coding exons of MEF2B (exons 2 and 3). The crystal structure of MEF2 bound to EP300 supports the idea that two of the mutated sites (L67 and Y69) are important in the interaction between these proteins (Supplementary Figure  S8 ; Supplementary Discussion)  50  . Overview of cSNVs and confirmed somatic mutations in most frequently mutated genes Individual cases with nonsynonymous (NS), synonymous (S) and truncating (T) mutations and total number of mutations of each class is shown separately as some genes contained multiple mutations in the same case. The P values indicated in bold are the upper limit on the P value for that gene determined with the approach described by Greenman et al (see Methods) 19 , q is the Benjamini-corrected q value, and NS, SP and T SP refer to selective pressure estimates from this model for the acquisition of nonsynonymous or truncating mutations, respectively. † genes significant at an FDR of 0.03. SNVs in BCL2 and previously confirmed hot spot mutations in EZH2 and CD79B are likely somatic in these samples based on published observations of others. Nature. Author manuscript; available in PMC 2012 February 18.</text>
+      <annotation id="2">
+        <infon key="type">Disease</infon>
+        <location offset="246" length="21"/>
+        <text>Non-Hodgkin lymphomas</text>
+      </annotation>
+      <annotation id="3">
+        <infon key="type">Disease</infon>
+        <location offset="269" length="4"/>
+        <text>NHLs</text>
+      </annotation>
+      <annotation id="4">
+        <infon key="type">Disease</infon>
+        <location offset="279" length="12"/>
+        <text>cancers of B</text>
+      </annotation>
+      <annotation id="5">
+        <infon key="type">Disease</infon>
+        <location offset="355" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="6">
+        <infon key="type">Disease</infon>
+        <location offset="360" length="19"/>
+        <text>follicular lymphoma</text>
+      </annotation>
+      <annotation id="7">
+        <infon key="type">Disease</infon>
+        <location offset="381" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="8">
+        <infon key="type">Disease</infon>
+        <location offset="389" length="29"/>
+        <text>diffuse large B-cell lymphoma</text>
+      </annotation>
+      <annotation id="9">
+        <infon key="type">Disease</infon>
+        <location offset="420" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="10">
+        <infon key="type">Disease</infon>
+        <location offset="457" length="10"/>
+        <text>B-cell NHL</text>
+      </annotation>
+      <annotation id="11">
+        <infon key="type">Disease</infon>
+        <location offset="511" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="12">
+        <infon key="type">Disease</infon>
+        <location offset="614" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="13">
+        <infon key="type">Disease</infon>
+        <location offset="758" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="14">
+        <infon key="type">Disease</infon>
+        <location offset="830" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="15">
+        <infon key="type">Disease</infon>
+        <location offset="1130" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="16">
+        <infon key="type">Disease</infon>
+        <location offset="1140" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="17">
+        <infon key="type">Disease</infon>
+        <location offset="1189" length="21"/>
+        <text>genetic abnormalities</text>
+      </annotation>
+      <annotation id="18">
+        <infon key="type">Disease</infon>
+        <location offset="1240" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="19">
+        <infon key="type">Disease</infon>
+        <location offset="1257" length="9"/>
+        <text>GCB DLBCL</text>
+      </annotation>
+      <annotation id="20">
+        <infon key="type">Gene</infon>
+        <location offset="1354" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="21">
+        <infon key="type">Disease</infon>
+        <location offset="1378" length="21"/>
+        <text>genetic abnormalities</text>
+      </annotation>
+      <annotation id="22">
+        <infon key="type">Disease</infon>
+        <location offset="1410" length="9"/>
+        <text>GCB DLBCL</text>
+      </annotation>
+      <annotation id="23">
+        <infon key="type">Gene</infon>
+        <location offset="1449" length="5"/>
+        <text>c-REL</text>
+      </annotation>
+      <annotation id="24">
+        <infon key="type">Gene</infon>
+        <location offset="1471" length="9"/>
+        <text>miR-17-92</text>
+      </annotation>
+      <annotation id="25">
+        <infon key="type">Gene</infon>
+        <location offset="1490" length="10"/>
+        <text>cluster  5</text>
+      </annotation>
+      <annotation id="26">
+        <infon key="type">Disease</infon>
+        <location offset="1537" length="10"/>
+        <text>ABC DLBCLs</text>
+      </annotation>
+      <annotation id="27">
+        <infon key="type">Gene</infon>
+        <location offset="1615" length="5"/>
+        <text>PRDM1</text>
+      </annotation>
+      <annotation id="28">
+        <infon key="type">Gene</infon>
+        <location offset="1767" length="25"/>
+        <text>NF-κB signalling  7, 8, 9</text>
+      </annotation>
+      <annotation id="29">
+        <infon key="type">Gene</infon>
+        <location offset="1801" length="7"/>
+        <text>TNFAIP3</text>
+      </annotation>
+      <annotation id="30">
+        <infon key="type">Gene</infon>
+        <location offset="1810" length="3"/>
+        <text>A20</text>
+      </annotation>
+      <annotation id="31">
+        <infon key="type">Gene</infon>
+        <location offset="1819" length="9"/>
+        <text>MYD88  10</text>
+      </annotation>
+      <annotation id="32">
+        <infon key="type">Disease</infon>
+        <location offset="1956" length="10"/>
+        <text>B-cell NHL</text>
+      </annotation>
+      <annotation id="33">
+        <infon key="type">Disease</infon>
+        <location offset="2105" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="34">
+        <infon key="type">Disease</infon>
+        <location offset="2112" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="35">
+        <infon key="type">Disease</infon>
+        <location offset="2162" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="36">
+        <infon key="type">Disease</infon>
+        <location offset="2263" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="37">
+        <infon key="type">Disease</infon>
+        <location offset="2294" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="38">
+        <infon key="type">CellLine</infon>
+        <location offset="2358" length="2"/>
+        <text>S2</text>
+      </annotation>
+      <annotation id="39">
+        <infon key="type">Disease</infon>
+        <location offset="2453" length="10"/>
+        <text>B-cell NHL</text>
+      </annotation>
+      <annotation id="40">
+        <infon key="type">Disease</infon>
+        <location offset="2546" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="41">
+        <infon key="type">Gene</infon>
+        <location offset="2627" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="42">
+        <infon key="type">Gene</infon>
+        <location offset="2636" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="43">
+        <infon key="type">Disease</infon>
+        <location offset="2727" length="8"/>
+        <text>lymphoma</text>
+      </annotation>
+      <annotation id="44">
+        <infon key="type">Disease</infon>
+        <location offset="2778" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="45">
+        <infon key="type">CellLine</infon>
+        <location offset="2887" length="2"/>
+        <text>S2</text>
+      </annotation>
+      <annotation id="46">
+        <infon key="type">Disease</infon>
+        <location offset="3300" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="47">
+        <infon key="type">Disease</infon>
+        <location offset="3401" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="48">
+        <infon key="type">Disease</infon>
+        <location offset="3460" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="49">
+        <infon key="type">Disease</infon>
+        <location offset="3470" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="50">
+        <infon key="type">Disease</infon>
+        <location offset="3479" length="10"/>
+        <text>B-cell NHL</text>
+      </annotation>
+      <annotation id="51">
+        <infon key="type">Disease</infon>
+        <location offset="3526" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="52">
+        <infon key="type">CellLine</infon>
+        <location offset="3573" length="2"/>
+        <text>S2</text>
+      </annotation>
+      <annotation id="53">
+        <infon key="type">Disease</infon>
+        <location offset="4041" length="8"/>
+        <text>lymphoma</text>
+      </annotation>
+      <annotation id="54">
+        <infon key="type">Gene</infon>
+        <location offset="4056" length="5"/>
+        <text>CD79B</text>
+      </annotation>
+      <annotation id="55">
+        <infon key="type">Gene</infon>
+        <location offset="4063" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="56">
+        <infon key="type">Gene</infon>
+        <location offset="4517" length="5"/>
+        <text>STAT6</text>
+      </annotation>
+      <annotation id="57">
+        <infon key="type">Gene</infon>
+        <location offset="4524" length="5"/>
+        <text>BCL10</text>
+      </annotation>
+      <annotation id="58">
+        <infon key="type">Gene</infon>
+        <location offset="4579" length="6"/>
+        <text>CARD11</text>
+      </annotation>
+      <annotation id="59">
+        <infon key="type">Gene</infon>
+        <location offset="4636" length="4"/>
+        <text>BTG1</text>
+      </annotation>
+      <annotation id="60">
+        <infon key="type">Gene</infon>
+        <location offset="4642" length="4"/>
+        <text>BTG2</text>
+      </annotation>
+      <annotation id="61">
+        <infon key="type">Gene</infon>
+        <location offset="4746" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="62">
+        <infon key="type">Gene</infon>
+        <location offset="4843" length="25"/>
+        <text>histone methyltransferase</text>
+      </annotation>
+      <annotation id="63">
+        <infon key="type">Gene</infon>
+        <location offset="4870" length="3"/>
+        <text>HMT</text>
+      </annotation>
+      <annotation id="64">
+        <infon key="type">Gene</infon>
+        <location offset="4879" length="17"/>
+        <text>acetyltransferase</text>
+      </annotation>
+      <annotation id="65">
+        <infon key="type">Gene</infon>
+        <location offset="4898" length="3"/>
+        <text>HAT</text>
+      </annotation>
+      <annotation id="66">
+        <infon key="type">Disease</infon>
+        <location offset="4945" length="8"/>
+        <text>lymphoma</text>
+      </annotation>
+      <annotation id="67">
+        <infon key="type">Gene</infon>
+        <location offset="4960" length="8"/>
+        <text>EZH2  13</text>
+      </annotation>
+      <annotation id="68">
+        <infon key="type">Gene</infon>
+        <location offset="4974" length="9"/>
+        <text>CREBBP 15</text>
+      </annotation>
+      <annotation id="69">
+        <infon key="type">Gene</infon>
+        <location offset="5282" length="4"/>
+        <text>PIM1</text>
+      </annotation>
+      <annotation id="70">
+        <infon key="type">Gene</infon>
+        <location offset="5288" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="71">
+        <infon key="type">Gene</infon>
+        <location offset="5295" length="5"/>
+        <text>CCND3</text>
+      </annotation>
+      <annotation id="72">
+        <infon key="type">Gene</infon>
+        <location offset="5302" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="73">
+        <infon key="type">Gene</infon>
+        <location offset="5308" length="4"/>
+        <text>IRF4</text>
+      </annotation>
+      <annotation id="74">
+        <infon key="type">Gene</infon>
+        <location offset="5314" length="4"/>
+        <text>BTG2</text>
+      </annotation>
+      <annotation id="75">
+        <infon key="type">Gene</infon>
+        <location offset="5320" length="5"/>
+        <text>CD79B</text>
+      </annotation>
+      <annotation id="76">
+        <infon key="type">Gene</infon>
+        <location offset="5327" length="5"/>
+        <text>BCL7A</text>
+      </annotation>
+      <annotation id="77">
+        <infon key="type">Gene</infon>
+        <location offset="5334" length="5"/>
+        <text>IKZF3</text>
+      </annotation>
+      <annotation id="78">
+        <infon key="type">Gene</infon>
+        <location offset="5344" length="3"/>
+        <text>B2M</text>
+      </annotation>
+      <annotation id="79">
+        <infon key="type">Gene</infon>
+        <location offset="5365" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="80">
+        <infon key="type">Gene</infon>
+        <location offset="5372" length="5"/>
+        <text>CCND3</text>
+      </annotation>
+      <annotation id="81">
+        <infon key="type">Gene</infon>
+        <location offset="5379" length="4"/>
+        <text>BTG2</text>
+      </annotation>
+      <annotation id="82">
+        <infon key="type">Gene</infon>
+        <location offset="5385" length="5"/>
+        <text>IKZF3</text>
+      </annotation>
+      <annotation id="83">
+        <infon key="type">Gene</infon>
+        <location offset="5395" length="3"/>
+        <text>B2M</text>
+      </annotation>
+      <annotation id="84">
+        <infon key="type">Disease</infon>
+        <location offset="5455" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="85">
+        <infon key="type">Gene</infon>
+        <location offset="5496" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="86">
+        <infon key="type">Gene</infon>
+        <location offset="5503" length="5"/>
+        <text>BCL7A</text>
+      </annotation>
+      <annotation id="87">
+        <infon key="type">Gene</infon>
+        <location offset="5513" length="3"/>
+        <text>B2M</text>
+      </annotation>
+      <annotation id="88">
+        <infon key="type">Gene</infon>
+        <location offset="5583" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="89">
+        <infon key="type">Mutation</infon>
+        <location offset="5724" length="6"/>
+        <text>to TTG</text>
+      </annotation>
+      <annotation id="90">
+        <infon key="type">Gene</infon>
+        <location offset="5760" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="91">
+        <infon key="type">Gene</infon>
+        <location offset="5840" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="92">
+        <infon key="type">CellLine</infon>
+        <location offset="5891" length="2"/>
+        <text>S2</text>
+      </annotation>
+      <annotation id="93">
+        <infon key="type">Gene</infon>
+        <location offset="5998" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="94">
+        <infon key="type">Gene</infon>
+        <location offset="6073" length="3"/>
+        <text>AKT</text>
+      </annotation>
+      <annotation id="95">
+        <infon key="type">Gene</infon>
+        <location offset="6091" length="15"/>
+        <text>B-cell receptor</text>
+      </annotation>
+      <annotation id="96">
+        <infon key="type">Gene</infon>
+        <location offset="6108" length="3"/>
+        <text>BCR</text>
+      </annotation>
+      <annotation id="97">
+        <infon key="type">Gene</infon>
+        <location offset="6139" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="98">
+        <infon key="type">Gene</infon>
+        <location offset="6678" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="99">
+        <infon key="type">Gene</infon>
+        <location offset="6684" length="6"/>
+        <text>CARD11</text>
+      </annotation>
+      <annotation id="100">
+        <infon key="type">Gene</infon>
+        <location offset="6692" length="5"/>
+        <text>CD79B</text>
+      </annotation>
+      <annotation id="101">
+        <infon key="type">Gene</infon>
+        <location offset="6699" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="102">
+        <infon key="type">Gene</infon>
+        <location offset="6705" length="4"/>
+        <text>IRF4</text>
+      </annotation>
+      <annotation id="103">
+        <infon key="type">Gene</infon>
+        <location offset="6711" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="104">
+        <infon key="type">Gene</infon>
+        <location offset="6721" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="105">
+        <infon key="type">Gene</infon>
+        <location offset="6760" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="106">
+        <infon key="type">Gene</infon>
+        <location offset="6938" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="107">
+        <infon key="type">Mutation</infon>
+        <location offset="7051" length="5"/>
+        <text>F123I</text>
+      </annotation>
+      <annotation id="108">
+        <infon key="type">Gene</infon>
+        <location offset="7060" length="10"/>
+        <text>CARD11  18</text>
+      </annotation>
+      <annotation id="109">
+        <infon key="type">Gene</infon>
+        <location offset="7216" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="110">
+        <infon key="type">Gene</infon>
+        <location offset="7253" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="111">
+        <infon key="type">Disease</infon>
+        <location offset="7296" length="8"/>
+        <text>lymphoma</text>
+      </annotation>
+      <annotation id="112">
+        <infon key="type">Mutation</infon>
+        <location offset="7306" length="5"/>
+        <text>A682G</text>
+      </annotation>
+      <annotation id="113">
+        <infon key="type">Mutation</infon>
+        <location offset="7316" length="5"/>
+        <text>A692V</text>
+      </annotation>
+      <annotation id="114">
+        <infon key="type">Disease</infon>
+        <location offset="7353" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="115">
+        <infon key="type">Disease</infon>
+        <location offset="7583" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="116">
+        <infon key="type">FamilyName</infon>
+        <location offset="7869" length="18"/>
+        <text>lymphoma oncogenes</text>
+      </annotation>
+      <annotation id="117">
+        <infon key="type">Gene</infon>
+        <location offset="7889" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="118">
+        <infon key="type">Gene</infon>
+        <location offset="7895" length="7"/>
+        <text>CD79B 9</text>
+      </annotation>
+      <annotation id="119">
+        <infon key="type">Gene</infon>
+        <location offset="7905" length="9"/>
+        <text>CARD11 18</text>
+      </annotation>
+      <annotation id="120">
+        <infon key="type">Gene</infon>
+        <location offset="7917" length="8"/>
+        <text>MYD88 10</text>
+      </annotation>
+      <annotation id="121">
+        <infon key="type">Gene</infon>
+        <location offset="7930" length="8"/>
+        <text>EZH2  13</text>
+      </annotation>
+      <annotation id="122">
+        <infon key="type">Disease</infon>
+        <location offset="8042" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="123">
+        <infon key="type">Disease</infon>
+        <location offset="8277" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="124">
+        <infon key="type">Gene</infon>
+        <location offset="8301" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="125">
+        <infon key="type">Gene</infon>
+        <location offset="8310" length="8"/>
+        <text>TNFRSF14</text>
+      </annotation>
+      <annotation id="126">
+        <infon key="type">Gene</infon>
+        <location offset="8335" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
+      <annotation id="127">
+        <infon key="type">Disease</infon>
+        <location offset="8388" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="128">
+        <infon key="type">Gene</infon>
+        <location offset="8584" length="5"/>
+        <text>BCL10</text>
+      </annotation>
+      <annotation id="129">
+        <infon key="type">Gene</infon>
+        <location offset="8615" length="5"/>
+        <text>NF-κB</text>
+      </annotation>
+      <annotation id="130">
+        <infon key="type">Disease</infon>
+        <location offset="8683" length="13"/>
+        <text>lymphomas  21</text>
+      </annotation>
+      <annotation id="131">
+        <infon key="type">Gene</infon>
+        <location offset="8742" length="4"/>
+        <text>BTG1</text>
+      </annotation>
+      <annotation id="132">
+        <infon key="type">Gene</infon>
+        <location offset="8748" length="5"/>
+        <text>GNA13</text>
+      </annotation>
+      <annotation id="133">
+        <infon key="type">Gene</infon>
+        <location offset="8755" length="4"/>
+        <text>SGK1</text>
+      </annotation>
+      <annotation id="134">
+        <infon key="type">Gene</infon>
+        <location offset="8764" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="135">
+        <infon key="type">Disease</infon>
+        <location offset="8794" length="8"/>
+        <text>lymphoma</text>
+      </annotation>
+      <annotation id="136">
+        <infon key="type">Gene</infon>
+        <location offset="8804" length="5"/>
+        <text>GNA13</text>
+      </annotation>
+      <annotation id="137">
+        <infon key="type">Gene</infon>
+        <location offset="8887" length="5"/>
+        <text>GNA13</text>
+      </annotation>
+      <annotation id="138">
+        <infon key="type">Gene</infon>
+        <location offset="8905" length="16"/>
+        <text>alpha subunit of</text>
+      </annotation>
+      <annotation id="139">
+        <infon key="type">Gene</infon>
+        <location offset="8939" length="26"/>
+        <text>G-protein coupled receptor</text>
+      </annotation>
+      <annotation id="140">
+        <infon key="type">Gene</infon>
+        <location offset="8993" length="4"/>
+        <text>RhoA</text>
+      </annotation>
+      <annotation id="141">
+        <infon key="type">Mutation</infon>
+        <location offset="9097" length="5"/>
+        <text>T203A</text>
+      </annotation>
+      <annotation id="142">
+        <infon key="type">Gene</infon>
+        <location offset="9208" length="5"/>
+        <text>GNA13</text>
+      </annotation>
+      <annotation id="143">
+        <infon key="type">Gene</infon>
+        <location offset="9436" length="4"/>
+        <text>SGK1</text>
+      </annotation>
+      <annotation id="144">
+        <infon key="type">Gene</infon>
+        <location offset="9451" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="145">
+        <infon key="type">Gene</infon>
+        <location offset="9466" length="6"/>
+        <text>kinase</text>
+      </annotation>
+      <annotation id="146">
+        <infon key="type">Gene</infon>
+        <location offset="9512" length="30"/>
+        <text>FOXO transcription factors  25</text>
+      </annotation>
+      <annotation id="147">
+        <infon key="type">Gene</infon>
+        <location offset="9560" length="5"/>
+        <text>NF-κB</text>
+      </annotation>
+      <annotation id="148">
+        <infon key="type">Gene</infon>
+        <location offset="9585" length="14"/>
+        <text>IkB kinase  26</text>
+      </annotation>
+      <annotation id="149">
+        <infon key="type">Gene</infon>
+        <location offset="9630" length="5"/>
+        <text>NOTCH</text>
+      </annotation>
+      <annotation id="150">
+        <infon key="type">Gene</infon>
+        <location offset="9654" length="4"/>
+        <text>SGK1</text>
+      </annotation>
+      <annotation id="151">
+        <infon key="type">Disease</infon>
+        <location offset="9724" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="152">
+        <infon key="type">Gene</infon>
+        <location offset="9772" length="4"/>
+        <text>SGK1</text>
+      </annotation>
+      <annotation id="153">
+        <infon key="type">Gene</infon>
+        <location offset="9781" length="5"/>
+        <text>GNA13</text>
+      </annotation>
+      <annotation id="154">
+        <infon key="type">Disease</infon>
+        <location offset="9818" length="8"/>
+        <text>lymphoma</text>
+      </annotation>
+      <annotation id="155">
+        <infon key="type">Disease</infon>
+        <location offset="9978" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="156">
+        <infon key="type">Disease</infon>
+        <location offset="10031" length="10"/>
+        <text>B-cell NHL</text>
+      </annotation>
+      <annotation id="157">
+        <infon key="type">Disease</infon>
+        <location offset="10102" length="6"/>
+        <text>DLBCLs</text>
+      </annotation>
+      <annotation id="158">
+        <infon key="type">Gene</infon>
+        <location offset="10115" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="159">
+        <infon key="type">Gene</infon>
+        <location offset="10129" length="8"/>
+        <text>EZH2  13</text>
+      </annotation>
+      <annotation id="160">
+        <infon key="type">Gene</infon>
+        <location offset="10153" length="4"/>
+        <text>SGK1</text>
+      </annotation>
+      <annotation id="161">
+        <infon key="type">Gene</infon>
+        <location offset="10162" length="5"/>
+        <text>GNA13</text>
+      </annotation>
+      <annotation id="162">
+        <infon key="type">Gene</infon>
+        <location offset="10321" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="163">
+        <infon key="type">Gene</infon>
+        <location offset="10331" length="8"/>
+        <text>TNFRSF14</text>
+      </annotation>
+      <annotation id="164">
+        <infon key="type">Disease</infon>
+        <location offset="10378" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="165">
+        <infon key="type">Gene</infon>
+        <location offset="10440" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="166">
+        <infon key="type">Gene</infon>
+        <location offset="10618" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="167">
+        <infon key="type">Gene</infon>
+        <location offset="10690" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="168">
+        <infon key="type">Gene</infon>
+        <location offset="10757" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="169">
+        <infon key="type">Disease</infon>
+        <location offset="10800" length="3"/>
+        <text>FLs</text>
+      </annotation>
+      <annotation id="170">
+        <infon key="type">Disease</infon>
+        <location offset="10808" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="171">
+        <infon key="type">Disease</infon>
+        <location offset="10833" length="6"/>
+        <text>DLBCLs</text>
+      </annotation>
+      <annotation id="172">
+        <infon key="type">Gene</infon>
+        <location offset="11396" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="173">
+        <infon key="type">Gene</infon>
+        <location offset="11702" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="174">
+        <infon key="type">Disease</infon>
+        <location offset="11898" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="175">
+        <infon key="type">Gene</infon>
+        <location offset="11929" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="176">
+        <infon key="type">Disease</infon>
+        <location offset="12011" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="177">
+        <infon key="type">Gene</infon>
+        <location offset="12096" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="178">
+        <infon key="type">Gene</infon>
+        <location offset="12209" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="179">
+        <infon key="type">Disease</infon>
+        <location offset="12221" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="180">
+        <infon key="type">Species</infon>
+        <location offset="12242" length="8"/>
+        <text>patients</text>
+      </annotation>
+      <annotation id="181">
+        <infon key="type">Disease</infon>
+        <location offset="12286" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="182">
+        <infon key="type">Disease</infon>
+        <location offset="12303" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="183">
+        <infon key="type">CellLine</infon>
+        <location offset="12334" length="8"/>
+        <text>SU-DHL-9</text>
+      </annotation>
+      <annotation id="184">
+        <infon key="type">Gene</infon>
+        <location offset="12361" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="185">
+        <infon key="type">Disease</infon>
+        <location offset="12457" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="186">
+        <infon key="type">Disease</infon>
+        <location offset="12520" length="7"/>
+        <text>tumours</text>
+      </annotation>
+      <annotation id="187">
+        <infon key="type">Gene</infon>
+        <location offset="12630" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="188">
+        <infon key="type">Gene</infon>
+        <location offset="12743" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="189">
+        <infon key="type">Gene</infon>
+        <location offset="12766" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="190">
+        <infon key="type">Disease</infon>
+        <location offset="12811" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="191">
+        <infon key="type">Disease</infon>
+        <location offset="12862" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="192">
+        <infon key="type">Gene</infon>
+        <location offset="12895" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="193">
+        <infon key="type">Disease</infon>
+        <location offset="12922" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="194">
+        <infon key="type">Species</infon>
+        <location offset="12925" length="8"/>
+        <text>patients</text>
+      </annotation>
+      <annotation id="195">
+        <infon key="type">Disease</infon>
+        <location offset="12953" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="196">
+        <infon key="type">Species</infon>
+        <location offset="12959" length="8"/>
+        <text>patients</text>
+      </annotation>
+      <annotation id="197">
+        <infon key="type">Disease</infon>
+        <location offset="12987" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="198">
+        <infon key="type">Gene</infon>
+        <location offset="13154" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="199">
+        <infon key="type">Gene</infon>
+        <location offset="13269" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="200">
+        <infon key="type">Disease</infon>
+        <location offset="13279" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="201">
+        <infon key="type">Disease</infon>
+        <location offset="13316" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="202">
+        <infon key="type">Gene</infon>
+        <location offset="13487" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="203">
+        <infon key="type">Disease</infon>
+        <location offset="13534" length="8"/>
+        <text>lymphoma</text>
+      </annotation>
+      <annotation id="204">
+        <infon key="type">Gene</infon>
+        <location offset="13565" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="205">
+        <infon key="type">Gene</infon>
+        <location offset="13600" length="5"/>
+        <text>MEF2C</text>
+      </annotation>
+      <annotation id="206">
+        <infon key="type">Gene</infon>
+        <location offset="13675" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="207">
+        <infon key="type">Gene</infon>
+        <location offset="13729" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="208">
+        <infon key="type">Disease</infon>
+        <location offset="13795" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="209">
+        <infon key="type">Disease</infon>
+        <location offset="13811" length="21"/>
+        <text>DLBCL primary tumours</text>
+      </annotation>
+      <annotation id="210">
+        <infon key="type">Disease</infon>
+        <location offset="13870" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="211">
+        <infon key="type">Disease</infon>
+        <location offset="13875" length="3"/>
+        <text>IBL</text>
+      </annotation>
+      <annotation id="212">
+        <infon key="type">Disease</infon>
+        <location offset="13890" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="213">
+        <infon key="type">Disease</infon>
+        <location offset="13897" length="5"/>
+        <text>PBMCL</text>
+      </annotation>
+      <annotation id="214">
+        <infon key="type">Gene</infon>
+        <location offset="14015" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="215">
+        <infon key="type">Disease</infon>
+        <location offset="14046" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="216">
+        <infon key="type">Disease</infon>
+        <location offset="14147" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="217">
+        <infon key="type">Disease</infon>
+        <location offset="14168" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="218">
+        <infon key="type">Gene</infon>
+        <location offset="14185" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="219">
+        <infon key="type">Disease</infon>
+        <location offset="14251" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="220">
+        <infon key="type">Gene</infon>
+        <location offset="14349" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="221">
+        <infon key="type">Species</infon>
+        <location offset="14434" length="7"/>
+        <text>patient</text>
+      </annotation>
+      <annotation id="222">
+        <infon key="type">Gene</infon>
+        <location offset="14465" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="223">
+        <infon key="type">Gene</infon>
+        <location offset="14711" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="224">
+        <infon key="type">Gene</infon>
+        <location offset="14928" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="225">
+        <infon key="type">Disease</infon>
+        <location offset="14975" length="9"/>
+        <text>GCB DLBCL</text>
+      </annotation>
+      <annotation id="226">
+        <infon key="type">Disease</infon>
+        <location offset="14989" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="227">
+        <infon key="type">Disease</infon>
+        <location offset="15073" length="10"/>
+        <text>B-cell NHL</text>
+      </annotation>
+      <annotation id="228">
+        <infon key="type">Disease</infon>
+        <location offset="15405" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="229">
+        <infon key="type">Gene</infon>
+        <location offset="15568" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="230">
+        <infon key="type">Disease</infon>
+        <location offset="15610" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="231">
+        <infon key="type">Disease</infon>
+        <location offset="15637" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="232">
+        <infon key="type">Species</infon>
+        <location offset="15659" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="233">
+        <infon key="type">Gene</infon>
+        <location offset="15665" length="32"/>
+        <text>H3K4-specific methyltransferases</text>
+      </annotation>
+      <annotation id="234">
+        <infon key="type">Gene</infon>
+        <location offset="15705" length="3"/>
+        <text>MLL</text>
+      </annotation>
+      <annotation id="235">
+        <infon key="type">Species</infon>
+        <location offset="15754" length="10"/>
+        <text>Drosophila</text>
+      </annotation>
+      <annotation id="236">
+        <infon key="type">Gene</infon>
+        <location offset="15765" length="18"/>
+        <text>trithorax gene  29</text>
+      </annotation>
+      <annotation id="237">
+        <infon key="type">Gene</infon>
+        <location offset="15807" length="7"/>
+        <text>H3K4me3</text>
+      </annotation>
+      <annotation id="238">
+        <infon key="type">Gene</infon>
+        <location offset="15925" length="4"/>
+        <text>MLLs</text>
+      </annotation>
+      <annotation id="239">
+        <infon key="type">Gene</infon>
+        <location offset="16018" length="30"/>
+        <text>homeobox (Hox) gene family  30</text>
+      </annotation>
+      <annotation id="240">
+        <infon key="type">Gene</infon>
+        <location offset="16152" length="3"/>
+        <text>MLL</text>
+      </annotation>
+      <annotation id="241">
+        <infon key="type">Gene</infon>
+        <location offset="16244" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="242">
+        <infon key="type">Gene</infon>
+        <location offset="16331" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="243">
+        <infon key="type">Disease</infon>
+        <location offset="16375" length="11"/>
+        <text>lung cancer</text>
+      </annotation>
+      <annotation id="244">
+        <infon key="type">Disease</infon>
+        <location offset="16409" length="15"/>
+        <text>renal carcinoma</text>
+      </annotation>
+      <annotation id="245">
+        <infon key="type">Gene</infon>
+        <location offset="16480" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="246">
+        <infon key="type">Disease</infon>
+        <location offset="16494" length="7"/>
+        <text>cancers</text>
+      </annotation>
+      <annotation id="247">
+        <infon key="type">Gene</infon>
+        <location offset="16607" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="248">
+        <infon key="type">Gene</infon>
+        <location offset="16615" length="4"/>
+        <text>MLL3</text>
+      </annotation>
+      <annotation id="249">
+        <infon key="type">Disease</infon>
+        <location offset="16630" length="15"/>
+        <text>medulloblastoma</text>
+      </annotation>
+      <annotation id="250">
+        <infon key="type">Species</infon>
+        <location offset="16646" length="8"/>
+        <text>patients</text>
+      </annotation>
+      <annotation id="251">
+        <infon key="type">Gene</infon>
+        <location offset="16680" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="252">
+        <infon key="type">Disease</infon>
+        <location offset="16690" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="253">
+        <infon key="type">Gene</infon>
+        <location offset="16717" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="254">
+        <infon key="type">Disease</infon>
+        <location offset="16743" length="10"/>
+        <text>B-cell NHL</text>
+      </annotation>
+      <annotation id="255">
+        <infon key="type">Gene</infon>
+        <location offset="16958" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="256">
+        <infon key="type">Gene</infon>
+        <location offset="16996" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="257">
+        <infon key="type">Disease</infon>
+        <location offset="17014" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="258">
+        <infon key="type">Disease</infon>
+        <location offset="17124" length="19"/>
+        <text>genetic abnormality</text>
+      </annotation>
+      <annotation id="259">
+        <infon key="type">Disease</infon>
+        <location offset="17147" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="260">
+        <infon key="type">Disease</infon>
+        <location offset="17159" length="12"/>
+        <text>DLBCL tumour</text>
+      </annotation>
+      <annotation id="261">
+        <infon key="type">Gene</infon>
+        <location offset="17196" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="262">
+        <infon key="type">Disease</infon>
+        <location offset="17304" length="11"/>
+        <text>cytogenetic</text>
+      </annotation>
+      <annotation id="263">
+        <infon key="type">Disease</infon>
+        <location offset="17407" length="6"/>
+        <text>DLBCLs</text>
+      </annotation>
+      <annotation id="264">
+        <infon key="type">Gene</infon>
+        <location offset="17473" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="265">
+        <infon key="type">Disease</infon>
+        <location offset="17494" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="266">
+        <infon key="type">Gene</infon>
+        <location offset="17555" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="267">
+        <infon key="type">Disease</infon>
+        <location offset="17578" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="268">
+        <infon key="type">Disease</infon>
+        <location offset="17599" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="269">
+        <infon key="type">Disease</infon>
+        <location offset="17611" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="270">
+        <infon key="type">Gene</infon>
+        <location offset="17631" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="271">
+        <infon key="type">Gene</infon>
+        <location offset="17739" length="20"/>
+        <text>histone deacetylases</text>
+      </annotation>
+      <annotation id="272">
+        <infon key="type">Gene</infon>
+        <location offset="17761" length="5"/>
+        <text>HDACs</text>
+      </annotation>
+      <annotation id="273">
+        <infon key="type">Gene</infon>
+        <location offset="17772" length="4"/>
+        <text>HATs</text>
+      </annotation>
+      <annotation id="274">
+        <infon key="type">Chemical</infon>
+        <location offset="17782" length="16"/>
+        <text>calciumregulated</text>
+      </annotation>
+      <annotation id="275">
+        <infon key="type">Gene</infon>
+        <location offset="17869" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="276">
+        <infon key="type">Gene</infon>
+        <location offset="17938" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="277">
+        <infon key="type">Gene</infon>
+        <location offset="17944" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="278">
+        <infon key="type">Gene</infon>
+        <location offset="18048" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="279">
+        <infon key="type">Gene</infon>
+        <location offset="18235" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="280">
+        <infon key="type">Gene</infon>
+        <location offset="18509" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="281">
+        <infon key="type">Disease</infon>
+        <location offset="18638" length="8"/>
+        <text>lymphoma</text>
+      </annotation>
+      <annotation id="282">
+        <infon key="type">Gene</infon>
+        <location offset="18675" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="283">
+        <infon key="type">Gene</infon>
+        <location offset="18708" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
+      <annotation id="284">
+        <infon key="type">Gene</infon>
+        <location offset="18719" length="5"/>
+        <text>EP300</text>
+      </annotation>
+      <annotation id="285">
+        <infon key="type">Gene</infon>
+        <location offset="18771" length="8"/>
+        <text>EZH2  13</text>
+      </annotation>
+      <annotation id="286">
+        <infon key="type">Gene</infon>
+        <location offset="18797" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
+      <annotation id="287">
+        <infon key="type">Gene</infon>
+        <location offset="18804" length="5"/>
+        <text>EP300</text>
+      </annotation>
+      <annotation id="288">
+        <infon key="type">Gene</infon>
+        <location offset="18810" length="3"/>
+        <text>HAT</text>
+      </annotation>
+      <annotation id="289">
+        <infon key="type">Gene</infon>
+        <location offset="18826" length="5"/>
+        <text>H3K27</text>
+      </annotation>
+      <annotation id="290">
+        <infon key="type">Gene</infon>
+        <location offset="18856" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="291">
+        <infon key="type">Gene</infon>
+        <location offset="18924" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="292">
+        <infon key="type">Gene</infon>
+        <location offset="18949" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
+      <annotation id="293">
+        <infon key="type">Gene</infon>
+        <location offset="18956" length="9"/>
+        <text>EP300  39</text>
+      </annotation>
+      <annotation id="294">
+        <infon key="type">Gene</infon>
+        <location offset="18985" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="295">
+        <infon key="type">Gene</infon>
+        <location offset="19011" length="5"/>
+        <text>HDACs</text>
+      </annotation>
+      <annotation id="296">
+        <infon key="type">Gene</infon>
+        <location offset="19020" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
+      <annotation id="297">
+        <infon key="type">Gene</infon>
+        <location offset="19027" length="5"/>
+        <text>EP300</text>
+      </annotation>
+      <annotation id="298">
+        <infon key="type">Gene</infon>
+        <location offset="19087" length="5"/>
+        <text>HDACs</text>
+      </annotation>
+      <annotation id="299">
+        <infon key="type">Gene</infon>
+        <location offset="19106" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
+      <annotation id="300">
+        <infon key="type">Gene</infon>
+        <location offset="19113" length="5"/>
+        <text>EP300</text>
+      </annotation>
+      <annotation id="301">
+        <infon key="type">Gene</infon>
+        <location offset="19148" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="302">
+        <infon key="type">Chemical</infon>
+        <location offset="19173" length="5"/>
+        <text>Ca 2+</text>
+      </annotation>
+      <annotation id="303">
+        <infon key="type">Gene</infon>
+        <location offset="19187" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="304">
+        <infon key="type">Gene</infon>
+        <location offset="19204" length="14"/>
+        <text>type IIa HDACs</text>
+      </annotation>
+      <annotation id="305">
+        <infon key="type">Gene</infon>
+        <location offset="19248" length="7"/>
+        <text>histone</text>
+      </annotation>
+      <annotation id="306">
+        <infon key="type">Chemical</infon>
+        <location offset="19339" length="5"/>
+        <text>Ca 2+</text>
+      </annotation>
+      <annotation id="307">
+        <infon key="type">Gene</infon>
+        <location offset="19381" length="5"/>
+        <text>HDACs</text>
+      </annotation>
+      <annotation id="308">
+        <infon key="type">Gene</infon>
+        <location offset="19416" length="4"/>
+        <text>HATs</text>
+      </annotation>
+      <annotation id="309">
+        <infon key="type">Gene</infon>
+        <location offset="19429" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
+      <annotation id="310">
+        <infon key="type">Gene</infon>
+        <location offset="19436" length="5"/>
+        <text>EP300</text>
+      </annotation>
+      <annotation id="311">
+        <infon key="type">Gene</infon>
+        <location offset="19473" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="312">
+        <infon key="type">Gene</infon>
+        <location offset="19504" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
+      <annotation id="313">
+        <infon key="type">Gene</infon>
+        <location offset="19512" length="5"/>
+        <text>EP300</text>
+      </annotation>
+      <annotation id="314">
+        <infon key="type">Gene</infon>
+        <location offset="19521" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="315">
+        <infon key="type">Gene</infon>
+        <location offset="19552" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="316">
+        <infon key="type">Gene</infon>
+        <location offset="19735" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="317">
+        <infon key="type">Gene</infon>
+        <location offset="19771" length="5"/>
+        <text>H3K27</text>
+      </annotation>
+      <annotation id="318">
+        <infon key="type">Gene</infon>
+        <location offset="19804" length="4"/>
+        <text>PCR2</text>
+      </annotation>
+      <annotation id="319">
+        <infon key="type">Gene</infon>
+        <location offset="19857" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="320">
+        <infon key="type">Gene</infon>
+        <location offset="19866" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="321">
+        <infon key="type">Gene</infon>
+        <location offset="20009" length="8"/>
+        <text>histones</text>
+      </annotation>
+      <annotation id="322">
+        <infon key="type">Gene</infon>
+        <location offset="20086" length="7"/>
+        <text>histone</text>
+      </annotation>
+      <annotation id="323">
+        <infon key="type">Disease</infon>
+        <location offset="20247" length="3"/>
+        <text>NHL</text>
+      </annotation>
+      <annotation id="324">
+        <infon key="type">Disease</infon>
+        <location offset="20324" length="6"/>
+        <text>tumour</text>
+      </annotation>
+      <annotation id="325">
+        <infon key="type">Species</infon>
+        <location offset="21414" length="5"/>
+        <text>Human</text>
+      </annotation>
+      <annotation id="326">
+        <infon key="type">Disease</infon>
+        <location offset="21758" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="327">
+        <infon key="type">Disease</infon>
+        <location offset="21976" length="12"/>
+        <text>DLBCL tumour</text>
+      </annotation>
+      <annotation id="328">
+        <infon key="type">Gene</infon>
+        <location offset="22599" length="3"/>
+        <text>B2M</text>
+      </annotation>
+      <annotation id="329">
+        <infon key="type">Gene</infon>
+        <location offset="22618" length="20"/>
+        <text>beta-2-microglobulin</text>
+      </annotation>
+      <annotation id="330">
+        <infon key="type">Gene</infon>
+        <location offset="22715" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="331">
+        <infon key="type">Gene</infon>
+        <location offset="23217" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="332">
+        <infon key="type">Gene</infon>
+        <location offset="23323" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="333">
+        <infon key="type">Disease</infon>
+        <location offset="23336" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="334">
+        <infon key="type">Disease</infon>
+        <location offset="23343" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="335">
+        <infon key="type">Species</infon>
+        <location offset="23449" length="8"/>
+        <text>patients</text>
+      </annotation>
+      <annotation id="336">
+        <infon key="type">Gene</infon>
+        <location offset="23539" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+      <annotation id="337">
+        <infon key="type">Gene</infon>
+        <location offset="23587" length="4"/>
+        <text>MEF2</text>
+      </annotation>
+      <annotation id="338">
+        <infon key="type">Gene</infon>
+        <location offset="23601" length="5"/>
+        <text>EP300</text>
+      </annotation>
+      <annotation id="339">
+        <infon key="type">Chemical</infon>
+        <location offset="24282" length="2"/>
+        <text>SP</text>
+      </annotation>
+      <annotation id="340">
+        <infon key="type">Chemical</infon>
+        <location offset="24291" length="2"/>
+        <text>SP</text>
+      </annotation>
+      <annotation id="341">
+        <infon key="type">Gene</infon>
+        <location offset="24471" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="342">
+        <infon key="type">Gene</infon>
+        <location offset="24523" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="343">
+        <infon key="type">Gene</infon>
+        <location offset="24532" length="5"/>
+        <text>CD79B</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">fig_caption</infon>
+      <offset>24679</offset>
+      <text>Figure 2 . Figure 2. Overview of mutations and potential cooperative interactions in NHLThis heat map displays possible trends towards co-occurrence (red) and mutual exclusion (blue) of somatic mutations and structural rearrangements. Colours were assigned by taking the minimum value of a left-and right-tailed Fisher exact test. To capture trends a P-value threshold of 0.3 was used, with the darkest shade of the colour indicating those meeting statistical significance (P &lt;=0.05). The relative frequency of mutations in ABC (blue), GCB (red), unclassifiable (black) DLBCLs and FL (yellow) cases is shown on the left. Genes were arranged with those having significant (P&lt;0.05, Fisher exact test) enrichment for mutations in ABC cases (blue triangle) towards the top (and left) and those with significant enrichment for mutations in GCB cases (red triangle) towards the bottom (and right). The total number of cases in which each gene contained either cSNVs or confirmed somatic mutations is shown at the top. The cluster of blue squares (upper-right) results from the mutual exclusion of the ABC-enriched mutations (e.g. MYD88, CD79B) from the GCBenriched mutations (e.g. EZH2, GNA13). Presence of structural rearrangements involving the two oncogenes BCL6 and BCL2 (indicated as BCL6s and BCL2s) was determined with FISH techniques utilizing break-apart probes (Methods).</text>
+      <annotation id="344">
+        <infon key="type">Gene</infon>
+        <location offset="25203" length="3"/>
+        <text>ABC</text>
+      </annotation>
+      <annotation id="345">
+        <infon key="type">Gene</infon>
+        <location offset="25215" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="346">
+        <infon key="type">Disease</infon>
+        <location offset="25249" length="6"/>
+        <text>DLBCLs</text>
+      </annotation>
+      <annotation id="347">
+        <infon key="type">Disease</infon>
+        <location offset="25260" length="2"/>
+        <text>FL</text>
+      </annotation>
+      <annotation id="348">
+        <infon key="type">Disease</infon>
+        <location offset="25406" length="3"/>
+        <text>ABC</text>
+      </annotation>
+      <annotation id="349">
+        <infon key="type">Disease</infon>
+        <location offset="25514" length="3"/>
+        <text>GCB</text>
+      </annotation>
+      <annotation id="350">
+        <infon key="type">Gene</infon>
+        <location offset="25774" length="3"/>
+        <text>ABC</text>
+      </annotation>
+      <annotation id="351">
+        <infon key="type">Gene</infon>
+        <location offset="25803" length="5"/>
+        <text>MYD88</text>
+      </annotation>
+      <annotation id="352">
+        <infon key="type">Gene</infon>
+        <location offset="25810" length="5"/>
+        <text>CD79B</text>
+      </annotation>
+      <annotation id="353">
+        <infon key="type">Gene</infon>
+        <location offset="25854" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="354">
+        <infon key="type">Gene</infon>
+        <location offset="25860" length="5"/>
+        <text>GNA13</text>
+      </annotation>
+      <annotation id="355">
+        <infon key="type">Gene</infon>
+        <location offset="25924" length="9"/>
+        <text>oncogenes</text>
+      </annotation>
+      <annotation id="356">
+        <infon key="type">Gene</infon>
+        <location offset="25934" length="4"/>
+        <text>BCL6</text>
+      </annotation>
+      <annotation id="357">
+        <infon key="type">Gene</infon>
+        <location offset="25943" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="358">
+        <infon key="type">Gene</infon>
+        <location offset="25962" length="5"/>
+        <text>BCL6s</text>
+      </annotation>
+      <annotation id="359">
+        <infon key="type">Gene</infon>
+        <location offset="25972" length="5"/>
+        <text>BCL2s</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">fig_caption</infon>
+      <offset>26055</offset>
+      <text>Figure 3 . Figure 3. Summary and effect of somatic mutations affecting MLL2 and MEF2B</text>
+      <annotation id="360">
+        <infon key="type">Gene</infon>
+        <location offset="26126" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="361">
+        <infon key="type">Gene</infon>
+        <location offset="26135" length="5"/>
+        <text>MEF2B</text>
+      </annotation>
+    </passage>
+  </document>
+</collection>

@@ -1,0 +1,1394 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<collection>
+  <source>PubMed</source>
+  <date>20220101</date>
+  <key>BioC.key</key>
+  <document>
+    <id>10471528</id>
+    <passage>
+      <infon key="type">title</infon>
+      <offset>0</offset>
+      <text>NIHMS313098-supplement-10 — tab_01</text>
+    </passage>
+    <passage>
+      <infon key="type">body</infon>
+      <offset>35</offset>
+      <text>cell_line_mutations.txt Tab 1 Chromosome Position Ensembl gene Gene name Mutation Effect (all isoforms) Cell Line chr6 31346876 ENSG00000204525 HLA-C C&gt;G W188S;W191S OCI-Ly19 chr4 88266320 ENSG00000172493 AFF1 C&gt;T P866P OCI-Ly7 chr15 32962122 ENSG00000021776 AQR G&gt;C A1013G DB chr2 96327146 ENSG00000144028 ASCC3L1 T&gt;C M387V OCI-Ly1 chr2 96328113 ENSG00000144028 ASCC3L1 T&gt;C N313D OCI-Ly7 chr18 59136364 ENSG00000171791 BCL2 G&gt;A N172N DB chr18 59136525 ENSG00000171791 BCL2 G&gt;A L119L DB chr18 59136331 ENSG00000171791 BCL2 C&gt;G R183R Karpas422 chr18 59136704 ENSG00000171791 BCL2 G&gt;A P59L Karpas422 chr18 59136740 ENSG00000171791 BCL2 C&gt;T G47D Karpas422 chr18 59136691 ENSG00000171791 BCL2 C&gt;T R63R NU-DHL-1 chr18 59136876 ENSG00000171791 BCL2 C&gt;T A2T NU-DHL-1 chr18 59136664 ENSG00000171791 BCL2 C&gt;T L72L SU-DHL-6 chr18 59136667 ENSG00000171791 BCL2 C&gt;T P71P SU-DHL-6 chr18 59136738 ENSG00000171791 BCL2 T&gt;A I48F SU-DHL-6 chr18 59136675 ENSG00000171791 BCL2 T&gt;G T69P WSU-DLCL2 chr18 59136841 ENSG00000171791 BCL2 C&gt;G E13D WSU-DLCL2 chr18 59136320 ENSG00000171791 BCL2 G&gt;A T187I OCI-Ly1 chr18 59136397 ENSG00000171791 BCL2 G&gt;A S161S OCI-Ly1 chr18 59136488 ENSG00000171791 BCL2 G&gt;A A131V OCI-Ly1 chr18 59136619 ENSG00000171791 BCL2 G&gt;A S87S OCI-Ly1 chr18 59136625 ENSG00000171791 BCL2 C&gt;T A85A OCI-Ly1 chr18 59136735 ENSG00000171791 BCL2 A&gt;G F49L OCI-Ly1 chr18 59136820 ENSG00000171791 BCL2 A&gt;G H20H OCI-Ly1 chr18 59136850 ENSG00000171791 BCL2 A&gt;G D10D OCI-Ly1 chr18 59136865 ENSG00000171791 BCL2 C&gt;T G5G OCI-Ly1 chr3 188926060 ENSG00000113916 BCL6 G&gt;T A587D OCI-Ly7 chr3 188926058 ENSG00000113916 BCL6 T&gt;G N588H OCI-Ly19 chr12 120944382 ENSG00000110987 BCL7A T&gt;G M1R OCI-Ly1 chr12 120944465 ENSG00000110987 BCL7A C&gt;T R29C OCI-Ly7 chr7 2946085 ENSG00000198286 CARD11 C&gt;T D223N;D230N;D247N Karpas422 chr11 3015937 ENSG00000110619 CARS G&gt;A H147H;H157H;H240H OCI-Ly7 chr6 42011685 ENSG00000112576 CCND3 G&gt;A P234S;P280S;P284S NU-DHL-1 chr6 42011688 ENSG00000112576 CCND3 T&gt;C T233A;T279A;T283A OCI-Ly7 chr6 42011670 ENSG00000112576 CCND3 C&gt;G A239P;A285P;A289P OCI-Ly19 chr9 94181943 ENSG00000188312 CENPP G&gt;A R141H;R182H NU-DUL-1 chr16 3741795 ENSG00000005339 CREBBP C&gt;A E1238*;E1268* Karpas422 chr16 3782006 ENSG00000005339 CREBBP G&gt;A A436V NU-DHL-1 chr16 3840589 ENSG00000005339 CREBBP G&gt;A Q170*;Q238* NU-DHL-1 chr10 53128032 ENSG00000177613 CSTF2T T&gt;A L428F DOHH-2 chr5 176826548 ENSG00000113758 DBN1 C&gt;T R226Q;R228Q DB chr7 44579978 ENSG00000136271 DDX56 G&gt;A L14L WSU-DLCL2 chr1 229623762 ENSG00000135766 EGLN1 T&gt;G S166R OCI-Ly19 chr7 148139661 ENSG00000106462 EZH2 A&gt;T Y602N;Y646N DB chr7 148139661 ENSG00000106462 EZH2 A&gt;T Y602N;Y646N Karpas422 cell_line_mutations.txt Tab 1 chr7 148139661 ENSG00000106462 EZH2 A&gt;T Y602N;Y646N SU-DHL-6 chr7 148139660 ENSG00000106462 EZH2 T&gt;A Y602F;Y646F WSU-DLCL2 chr7 148139661 ENSG00000106462 EZH2 A&gt;T Y602N;Y646N OCI-Ly1 chr4 126592007 ENSG00000196159 FAT4 C&gt;A I1760I;I3462I Karpas422 chr13 40138322 ENSG00000150907 FOXO1 T&gt;C I10V OCI-Ly1 chr13 40138349 ENSG00000150907 FOXO1 T&gt;A M1L OCI-Ly1 chr12 119059485 ENSG00000089154 GCN1L1 A&gt;G L2229L OCI-Ly1 chr17 60482907 ENSG00000120063 GNA13 G&gt;C Y89* DOHH-2 chr17 60441048 ENSG00000120063 GNA13 T&gt;G Y308S SU-DHL-6 chr17 60441237 ENSG00000120063 GNA13 A&gt;G F245S WSU-DLCL2 chr17 60441381 ENSG00000120063 GNA13 A&gt;T L197Q OCI-Ly1 chr17 60483073 ENSG00000120063 GNA13 A&gt;G I34T OCI-Ly1 chr16 27427390 ENSG00000077235 GTF3C1 C&gt;T R403Q;R405Q OCI-Ly7 chr12 52962876 ENSG00000135486 HNRNPA1 T&gt;G G234G OCI-Ly19 chr21 33721114 ENSG00000159128 IFNGR2 A&gt;C I77L;I156L;I175L OCI-Ly1 chr17 35201308 ENSG00000161405 IKZF3 T&gt;C N73S;N160S DOHH-2 chr17 35201302 ENSG00000161405 IKZF3 A&gt;C L75R;L162R NU-DUL-1 chr11 1864566 ENSG00000130592 LSP1 G&gt;A R187H;R249H;R253H;R256H;R377H WSU-DLCL2 chr19 12812852 ENSG00000105613 MAST1 G&gt;A A74T DB chr19 19121045 ENSG00000064489 MEF2B T&gt;A D83V DB chr5 88136224 ENSG00000081189 MEF2C A&gt;G Y69H DB chr5 88155321 ENSG00000081189 MEF2C T&gt;G E14A OCI-Ly1 chr5 88155348 ENSG00000081189 MEF2C T&gt;G K5T OCI-Ly1 chr10 129797163 ENSG00000148773 MKI67 T&gt;G K617N;K977N SU-DHL-6 chr12 47712527 ENSG00000167548 MLL2 C&gt;A L3496L DB chr12 47719508 ENSG00000167548 MLL2 G&gt;A Q2156* DB chr12 47702767 ENSG00000167548 MLL2 G&gt;A S4824F NU-DHL-1 chr12 47722866 ENSG00000167548 MLL2 G&gt;A R1323* OCI-Ly1 chr12 47712865 ENSG00000167548 MLL2 G&gt;A Q3384* NU-DUL-1 chr12 47729995 ENSG00000167548 MLL2 C&gt;A D635Y NU-DUL-1 chr12 53187912 ENSG00000123338 NCKAP1L A&gt;G V105V OCI-Ly19 chr5 140838045 ENSG00000081853 PCDHGC5 A&gt;G L726L WSU-DLCL2 chr16 80491802 ENSG00000197943 PLCG2 C&gt;T G426G OCI-Ly7 chr21 42129748 ENSG00000141956 PRDM15 G&gt;C L361V;L398V;L727V SU-DHL-6 chr10 73251775 ENSG00000197746 PSAP A&gt;T L260H WSU-DLCL2 chr20 33760595 ENSG00000131051 RBM39 A&gt;G I240T;I247T;I397T OCI-Ly7 chr3 16450446 ENSG00000131378 RFTN1 T&gt;A H83L OCI-Ly1 chr15 54174873 ENSG00000181827 RFXDC2 C&gt;T W685* NU-DUL-1 chr5 141338522 ENSG00000013561 RNF14 G&gt;T Q133H;Q259H OCI-Ly1 chr17 2142634 ENSG00000070366 SMG6 G&gt;A R767C OCI-Ly1 chr14 49718978 ENSG00000100485 SOS2 T&gt;C S271G Karpas422 chr2 54723758 ENSG00000115306 SPTBN1 C&gt;A D1318E;D1331E;D1344E DB chr12 55785345 ENSG00000166888 STAT6 T&gt;C Q286R NU-DHL-1 chr12 55784603 ENSG00000166888 STAT6 C&gt;G G375R OCI-Ly1 chr6 138241376 ENSG00000118503 TNFAIP3 G&gt;A G367G DOHH-2 chr17 7518264 ENSG00000141510 TP53 G&gt;A R155W;R248W DB cell_line_mutations.txt Tab 1 chr17 7517616 ENSG00000141510 TP53 T&gt;A K319* Karpas422 chr17 7518305 ENSG00000141510 TP53 T&gt;C Y141C;Y234C SU-DHL-6 chr17 7519129 ENSG00000141510 TP53 A&gt;C C83G;C176G OCI-Ly1 chr17 7519182 ENSG00000141510 TP53 C&gt;T R65H;R158H OCI-Ly1 chr17 7518272 ENSG00000141510 TP53 C&gt;T G152D;G245D OCI-Ly7 chr17 7519228 ENSG00000141510 TP53 C&gt;T V50M;V143M NU-DUL-1 chr17 71031975 ENSG00000182173 TSEN54 C&gt;T R490W OCI-Ly1 chr17 71032081 ENSG00000182173 TSEN54 G&gt;C G525A OCI-Ly1 chr2 61346729 ENSG00000115464 USP34 T&gt;A S1685S;S1837S SU-DHL-6 chr20 45311525 ENSG00000101040 ZMYND8 C&gt;G V518L;V537L;V538L;V543L;V563L OCI-Ly7</text>
+      <annotation id="0">
+        <infon key="type">Gene</infon>
+        <location offset="179" length="5"/>
+        <text>HLA-C</text>
+      </annotation>
+      <annotation id="1">
+        <infon key="type">Mutation</infon>
+        <location offset="185" length="3"/>
+        <text>C&gt;G</text>
+      </annotation>
+      <annotation id="2">
+        <infon key="type">Mutation</infon>
+        <location offset="189" length="11"/>
+        <text>W188S;W191S</text>
+      </annotation>
+      <annotation id="3">
+        <infon key="type">Gene</infon>
+        <location offset="201" length="8"/>
+        <text>OCI-Ly19</text>
+      </annotation>
+      <annotation id="4">
+        <infon key="type">Gene</infon>
+        <location offset="240" length="4"/>
+        <text>AFF1</text>
+      </annotation>
+      <annotation id="5">
+        <infon key="type">Mutation</infon>
+        <location offset="245" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="6">
+        <infon key="type">Mutation</infon>
+        <location offset="249" length="5"/>
+        <text>P866P</text>
+      </annotation>
+      <annotation id="7">
+        <infon key="type">Gene</infon>
+        <location offset="255" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="8">
+        <infon key="type">Gene</infon>
+        <location offset="294" length="3"/>
+        <text>AQR</text>
+      </annotation>
+      <annotation id="9">
+        <infon key="type">Mutation</infon>
+        <location offset="299" length="2"/>
+        <text>&gt;C</text>
+      </annotation>
+      <annotation id="10">
+        <infon key="type">Mutation</infon>
+        <location offset="302" length="6"/>
+        <text>A1013G</text>
+      </annotation>
+      <annotation id="11">
+        <infon key="type">Gene</infon>
+        <location offset="342" length="7"/>
+        <text>ASCC3L1</text>
+      </annotation>
+      <annotation id="12">
+        <infon key="type">Mutation</infon>
+        <location offset="350" length="3"/>
+        <text>T&gt;C</text>
+      </annotation>
+      <annotation id="13">
+        <infon key="type">Mutation</infon>
+        <location offset="354" length="5"/>
+        <text>M387V</text>
+      </annotation>
+      <annotation id="14">
+        <infon key="type">Gene</infon>
+        <location offset="360" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="15">
+        <infon key="type">Gene</infon>
+        <location offset="398" length="7"/>
+        <text>ASCC3L1</text>
+      </annotation>
+      <annotation id="16">
+        <infon key="type">Mutation</infon>
+        <location offset="406" length="3"/>
+        <text>T&gt;C</text>
+      </annotation>
+      <annotation id="17">
+        <infon key="type">Mutation</infon>
+        <location offset="410" length="5"/>
+        <text>N313D</text>
+      </annotation>
+      <annotation id="18">
+        <infon key="type">Gene</infon>
+        <location offset="416" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="19">
+        <infon key="type">Gene</infon>
+        <location offset="455" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="20">
+        <infon key="type">Mutation</infon>
+        <location offset="460" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="21">
+        <infon key="type">Mutation</infon>
+        <location offset="464" length="5"/>
+        <text>N172N</text>
+      </annotation>
+      <annotation id="22">
+        <infon key="type">Gene</infon>
+        <location offset="504" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="23">
+        <infon key="type">Mutation</infon>
+        <location offset="510" length="8"/>
+        <text>&gt;A L119L</text>
+      </annotation>
+      <annotation id="24">
+        <infon key="type">Gene</infon>
+        <location offset="553" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="25">
+        <infon key="type">Mutation</infon>
+        <location offset="558" length="3"/>
+        <text>C&gt;G</text>
+      </annotation>
+      <annotation id="26">
+        <infon key="type">Mutation</infon>
+        <location offset="562" length="5"/>
+        <text>R183R</text>
+      </annotation>
+      <annotation id="27">
+        <infon key="type">Gene</infon>
+        <location offset="609" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="28">
+        <infon key="type">Mutation</infon>
+        <location offset="614" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="29">
+        <infon key="type">Mutation</infon>
+        <location offset="633" length="39"/>
+        <text>chr18 59136740 ENSG00000171791 BCL2 C&gt;T</text>
+      </annotation>
+      <annotation id="30">
+        <infon key="type">Gene</infon>
+        <location offset="719" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="31">
+        <infon key="type">Mutation</infon>
+        <location offset="724" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="32">
+        <infon key="type">Gene</infon>
+        <location offset="733" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="33">
+        <infon key="type">Gene</infon>
+        <location offset="773" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="34">
+        <infon key="type">Mutation</infon>
+        <location offset="778" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="35">
+        <infon key="type">Gene</infon>
+        <location offset="786" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="36">
+        <infon key="type">Gene</infon>
+        <location offset="826" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="37">
+        <infon key="type">Mutation</infon>
+        <location offset="831" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="38">
+        <infon key="type">Gene</infon>
+        <location offset="840" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="39">
+        <infon key="type">Gene</infon>
+        <location offset="880" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="40">
+        <infon key="type">Mutation</infon>
+        <location offset="885" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="41">
+        <infon key="type">Gene</infon>
+        <location offset="894" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="42">
+        <infon key="type">Gene</infon>
+        <location offset="934" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="43">
+        <infon key="type">Mutation</infon>
+        <location offset="939" length="3"/>
+        <text>T&gt;A</text>
+      </annotation>
+      <annotation id="44">
+        <infon key="type">Gene</infon>
+        <location offset="948" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="45">
+        <infon key="type">Gene</infon>
+        <location offset="988" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="46">
+        <infon key="type">Mutation</infon>
+        <location offset="993" length="3"/>
+        <text>T&gt;G</text>
+      </annotation>
+      <annotation id="47">
+        <infon key="type">Gene</infon>
+        <location offset="1002" length="3"/>
+        <text>WSU</text>
+      </annotation>
+      <annotation id="48">
+        <infon key="type">Gene</infon>
+        <location offset="1006" length="5"/>
+        <text>DLCL2</text>
+      </annotation>
+      <annotation id="49">
+        <infon key="type">Gene</infon>
+        <location offset="1043" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="50">
+        <infon key="type">Mutation</infon>
+        <location offset="1048" length="3"/>
+        <text>C&gt;G</text>
+      </annotation>
+      <annotation id="51">
+        <infon key="type">Gene</infon>
+        <location offset="1057" length="3"/>
+        <text>WSU</text>
+      </annotation>
+      <annotation id="52">
+        <infon key="type">Gene</infon>
+        <location offset="1061" length="5"/>
+        <text>DLCL2</text>
+      </annotation>
+      <annotation id="53">
+        <infon key="type">Gene</infon>
+        <location offset="1098" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="54">
+        <infon key="type">Mutation</infon>
+        <location offset="1103" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="55">
+        <infon key="type">Gene</infon>
+        <location offset="1113" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="56">
+        <infon key="type">Gene</infon>
+        <location offset="1152" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="57">
+        <infon key="type">Mutation</infon>
+        <location offset="1157" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="58">
+        <infon key="type">Gene</infon>
+        <location offset="1167" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="59">
+        <infon key="type">Gene</infon>
+        <location offset="1206" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="60">
+        <infon key="type">Mutation</infon>
+        <location offset="1211" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="61">
+        <infon key="type">Gene</infon>
+        <location offset="1221" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="62">
+        <infon key="type">Gene</infon>
+        <location offset="1260" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="63">
+        <infon key="type">Mutation</infon>
+        <location offset="1265" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="64">
+        <infon key="type">Gene</infon>
+        <location offset="1274" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="65">
+        <infon key="type">Gene</infon>
+        <location offset="1313" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="66">
+        <infon key="type">Mutation</infon>
+        <location offset="1318" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="67">
+        <infon key="type">Mutation</infon>
+        <location offset="1322" length="4"/>
+        <text>A85A</text>
+      </annotation>
+      <annotation id="68">
+        <infon key="type">Gene</infon>
+        <location offset="1327" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="69">
+        <infon key="type">Gene</infon>
+        <location offset="1366" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="70">
+        <infon key="type">Mutation</infon>
+        <location offset="1371" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="71">
+        <infon key="type">Mutation</infon>
+        <location offset="1375" length="4"/>
+        <text>F49L</text>
+      </annotation>
+      <annotation id="72">
+        <infon key="type">Gene</infon>
+        <location offset="1380" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="73">
+        <infon key="type">Gene</infon>
+        <location offset="1419" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="74">
+        <infon key="type">Mutation</infon>
+        <location offset="1424" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="75">
+        <infon key="type">Mutation</infon>
+        <location offset="1428" length="4"/>
+        <text>H20H</text>
+      </annotation>
+      <annotation id="76">
+        <infon key="type">Gene</infon>
+        <location offset="1433" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="77">
+        <infon key="type">Gene</infon>
+        <location offset="1472" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="78">
+        <infon key="type">Mutation</infon>
+        <location offset="1477" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="79">
+        <infon key="type">Mutation</infon>
+        <location offset="1481" length="4"/>
+        <text>D10D</text>
+      </annotation>
+      <annotation id="80">
+        <infon key="type">Gene</infon>
+        <location offset="1486" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="81">
+        <infon key="type">Gene</infon>
+        <location offset="1525" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="82">
+        <infon key="type">Mutation</infon>
+        <location offset="1530" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="83">
+        <infon key="type">Mutation</infon>
+        <location offset="1534" length="3"/>
+        <text>G5G</text>
+      </annotation>
+      <annotation id="84">
+        <infon key="type">Gene</infon>
+        <location offset="1538" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="85">
+        <infon key="type">Gene</infon>
+        <location offset="1577" length="4"/>
+        <text>BCL6</text>
+      </annotation>
+      <annotation id="86">
+        <infon key="type">Mutation</infon>
+        <location offset="1582" length="3"/>
+        <text>G&gt;T</text>
+      </annotation>
+      <annotation id="87">
+        <infon key="type">Mutation</infon>
+        <location offset="1586" length="5"/>
+        <text>A587D</text>
+      </annotation>
+      <annotation id="88">
+        <infon key="type">Gene</infon>
+        <location offset="1592" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="89">
+        <infon key="type">Gene</infon>
+        <location offset="1631" length="4"/>
+        <text>BCL6</text>
+      </annotation>
+      <annotation id="90">
+        <infon key="type">Mutation</infon>
+        <location offset="1636" length="3"/>
+        <text>T&gt;G</text>
+      </annotation>
+      <annotation id="91">
+        <infon key="type">Mutation</infon>
+        <location offset="1640" length="5"/>
+        <text>N588H</text>
+      </annotation>
+      <annotation id="92">
+        <infon key="type">Gene</infon>
+        <location offset="1646" length="8"/>
+        <text>OCI-Ly19</text>
+      </annotation>
+      <annotation id="93">
+        <infon key="type">Gene</infon>
+        <location offset="1687" length="5"/>
+        <text>BCL7A</text>
+      </annotation>
+      <annotation id="94">
+        <infon key="type">Mutation</infon>
+        <location offset="1693" length="3"/>
+        <text>T&gt;G</text>
+      </annotation>
+      <annotation id="95">
+        <infon key="type">Gene</infon>
+        <location offset="1701" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="96">
+        <infon key="type">Gene</infon>
+        <location offset="1741" length="5"/>
+        <text>BCL7A</text>
+      </annotation>
+      <annotation id="97">
+        <infon key="type">Mutation</infon>
+        <location offset="1747" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="98">
+        <infon key="type">Gene</infon>
+        <location offset="1756" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="99">
+        <infon key="type">Gene</infon>
+        <location offset="1793" length="6"/>
+        <text>CARD11</text>
+      </annotation>
+      <annotation id="100">
+        <infon key="type">Mutation</infon>
+        <location offset="1800" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="101">
+        <infon key="type">Mutation</infon>
+        <location offset="1867" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="102">
+        <infon key="type">Gene</infon>
+        <location offset="1889" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="103">
+        <infon key="type">Mutation</infon>
+        <location offset="1933" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="104">
+        <infon key="type">Gene</infon>
+        <location offset="1955" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="105">
+        <infon key="type">Mutation</infon>
+        <location offset="2000" length="3"/>
+        <text>T&gt;C</text>
+      </annotation>
+      <annotation id="106">
+        <infon key="type">Gene</infon>
+        <location offset="2022" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="107">
+        <infon key="type">Mutation</infon>
+        <location offset="2066" length="3"/>
+        <text>C&gt;G</text>
+      </annotation>
+      <annotation id="108">
+        <infon key="type">Gene</infon>
+        <location offset="2088" length="8"/>
+        <text>OCI-Ly19</text>
+      </annotation>
+      <annotation id="109">
+        <infon key="type">Mutation</infon>
+        <location offset="2133" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="110">
+        <infon key="type">Gene</infon>
+        <location offset="2149" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="111">
+        <infon key="type">Gene</infon>
+        <location offset="2152" length="5"/>
+        <text>DUL-1</text>
+      </annotation>
+      <annotation id="112">
+        <infon key="type">Mutation</infon>
+        <location offset="2195" length="3"/>
+        <text>C&gt;A</text>
+      </annotation>
+      <annotation id="113">
+        <infon key="type">Mutation</infon>
+        <location offset="2260" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="114">
+        <infon key="type">Gene</infon>
+        <location offset="2270" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="115">
+        <infon key="type">Mutation</infon>
+        <location offset="2316" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="116">
+        <infon key="type">Gene</infon>
+        <location offset="2332" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="117">
+        <infon key="type">Mutation</infon>
+        <location offset="2379" length="3"/>
+        <text>T&gt;A</text>
+      </annotation>
+      <annotation id="118">
+        <infon key="type">Gene</infon>
+        <location offset="2389" length="6"/>
+        <text>DOHH-2</text>
+      </annotation>
+      <annotation id="119">
+        <infon key="type">Mutation</infon>
+        <location offset="2432" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="120">
+        <infon key="type">Mutation</infon>
+        <location offset="2487" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="121">
+        <infon key="type">Gene</infon>
+        <location offset="2496" length="3"/>
+        <text>WSU</text>
+      </annotation>
+      <annotation id="122">
+        <infon key="type">Gene</infon>
+        <location offset="2500" length="5"/>
+        <text>DLCL2</text>
+      </annotation>
+      <annotation id="123">
+        <infon key="type">Mutation</infon>
+        <location offset="2543" length="3"/>
+        <text>T&gt;G</text>
+      </annotation>
+      <annotation id="124">
+        <infon key="type">Gene</infon>
+        <location offset="2553" length="8"/>
+        <text>OCI-Ly19</text>
+      </annotation>
+      <annotation id="125">
+        <infon key="type">Gene</infon>
+        <location offset="2593" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="126">
+        <infon key="type">Mutation</infon>
+        <location offset="2598" length="3"/>
+        <text>A&gt;T</text>
+      </annotation>
+      <annotation id="127">
+        <infon key="type">Mutation</infon>
+        <location offset="2602" length="11"/>
+        <text>Y602N;Y646N</text>
+      </annotation>
+      <annotation id="128">
+        <infon key="type">Gene</infon>
+        <location offset="2648" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="129">
+        <infon key="type">Mutation</infon>
+        <location offset="2653" length="3"/>
+        <text>A&gt;T</text>
+      </annotation>
+      <annotation id="130">
+        <infon key="type">Mutation</infon>
+        <location offset="2657" length="11"/>
+        <text>Y602N;Y646N</text>
+      </annotation>
+      <annotation id="131">
+        <infon key="type">Gene</infon>
+        <location offset="2740" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="132">
+        <infon key="type">Mutation</infon>
+        <location offset="2745" length="3"/>
+        <text>A&gt;T</text>
+      </annotation>
+      <annotation id="133">
+        <infon key="type">Mutation</infon>
+        <location offset="2749" length="11"/>
+        <text>Y602N;Y646N</text>
+      </annotation>
+      <annotation id="134">
+        <infon key="type">Gene</infon>
+        <location offset="2761" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="135">
+        <infon key="type">Gene</infon>
+        <location offset="2801" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="136">
+        <infon key="type">Mutation</infon>
+        <location offset="2806" length="3"/>
+        <text>T&gt;A</text>
+      </annotation>
+      <annotation id="137">
+        <infon key="type">Mutation</infon>
+        <location offset="2810" length="11"/>
+        <text>Y602F;Y646F</text>
+      </annotation>
+      <annotation id="138">
+        <infon key="type">Gene</infon>
+        <location offset="2822" length="3"/>
+        <text>WSU</text>
+      </annotation>
+      <annotation id="139">
+        <infon key="type">Gene</infon>
+        <location offset="2826" length="5"/>
+        <text>DLCL2</text>
+      </annotation>
+      <annotation id="140">
+        <infon key="type">Gene</infon>
+        <location offset="2863" length="4"/>
+        <text>EZH2</text>
+      </annotation>
+      <annotation id="141">
+        <infon key="type">Mutation</infon>
+        <location offset="2868" length="3"/>
+        <text>A&gt;T</text>
+      </annotation>
+      <annotation id="142">
+        <infon key="type">Mutation</infon>
+        <location offset="2872" length="11"/>
+        <text>Y602N;Y646N</text>
+      </annotation>
+      <annotation id="143">
+        <infon key="type">Gene</infon>
+        <location offset="2884" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="144">
+        <infon key="type">Gene</infon>
+        <location offset="2923" length="4"/>
+        <text>FAT4</text>
+      </annotation>
+      <annotation id="145">
+        <infon key="type">Mutation</infon>
+        <location offset="2928" length="3"/>
+        <text>C&gt;A</text>
+      </annotation>
+      <annotation id="146">
+        <infon key="type">Mutation</infon>
+        <location offset="2932" length="13"/>
+        <text>I1760I;I3462I</text>
+      </annotation>
+      <annotation id="147">
+        <infon key="type">Gene</infon>
+        <location offset="2987" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="148">
+        <infon key="type">Mutation</infon>
+        <location offset="2993" length="3"/>
+        <text>T&gt;C</text>
+      </annotation>
+      <annotation id="149">
+        <infon key="type">Mutation</infon>
+        <location offset="2997" length="4"/>
+        <text>I10V</text>
+      </annotation>
+      <annotation id="150">
+        <infon key="type">Gene</infon>
+        <location offset="3002" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="151">
+        <infon key="type">Gene</infon>
+        <location offset="3041" length="5"/>
+        <text>FOXO1</text>
+      </annotation>
+      <annotation id="152">
+        <infon key="type">Mutation</infon>
+        <location offset="3047" length="3"/>
+        <text>T&gt;A</text>
+      </annotation>
+      <annotation id="153">
+        <infon key="type">Gene</infon>
+        <location offset="3055" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="154">
+        <infon key="type">Gene</infon>
+        <location offset="3095" length="6"/>
+        <text>GCN1L1</text>
+      </annotation>
+      <annotation id="155">
+        <infon key="type">Mutation</infon>
+        <location offset="3102" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="156">
+        <infon key="type">Gene</infon>
+        <location offset="3113" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="157">
+        <infon key="type">Disease</infon>
+        <location offset="3171" length="170"/>
+        <text>-2 chr17 60441048 ENSG00000120063 GNA13 T&gt;G Y308S SU-DHL-6 chr17 60441237 ENSG00000120063 GNA13 A&gt;G F245S WSU-DLCL2 chr17 60441381 ENSG00000120063 GNA13 A&gt;T L197Q OCI-Ly1</text>
+      </annotation>
+      <annotation id="158">
+        <infon key="type">Mutation</infon>
+        <location offset="3379" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="159">
+        <infon key="type">Gene</infon>
+        <location offset="3388" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="160">
+        <infon key="type">Mutation</infon>
+        <location offset="3434" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="161">
+        <infon key="type">Gene</infon>
+        <location offset="3450" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="162">
+        <infon key="type">Mutation</infon>
+        <location offset="3497" length="3"/>
+        <text>T&gt;G</text>
+      </annotation>
+      <annotation id="163">
+        <infon key="type">Gene</infon>
+        <location offset="3507" length="8"/>
+        <text>OCI-Ly19</text>
+      </annotation>
+      <annotation id="164">
+        <infon key="type">Mutation</infon>
+        <location offset="3554" length="3"/>
+        <text>A&gt;C</text>
+      </annotation>
+      <annotation id="165">
+        <infon key="type">Gene</infon>
+        <location offset="3575" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="166">
+        <infon key="type">Mutation</infon>
+        <location offset="3620" length="3"/>
+        <text>T&gt;C</text>
+      </annotation>
+      <annotation id="167">
+        <infon key="type">Gene</infon>
+        <location offset="3635" length="6"/>
+        <text>DOHH-2</text>
+      </annotation>
+      <annotation id="168">
+        <infon key="type">Mutation</infon>
+        <location offset="3679" length="3"/>
+        <text>A&gt;C</text>
+      </annotation>
+      <annotation id="169">
+        <infon key="type">Gene</infon>
+        <location offset="3694" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="170">
+        <infon key="type">Gene</infon>
+        <location offset="3697" length="5"/>
+        <text>DUL-1</text>
+      </annotation>
+      <annotation id="171">
+        <infon key="type">Mutation</infon>
+        <location offset="3738" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="172">
+        <infon key="type">Gene</infon>
+        <location offset="3772" length="3"/>
+        <text>WSU</text>
+      </annotation>
+      <annotation id="173">
+        <infon key="type">Gene</infon>
+        <location offset="3776" length="5"/>
+        <text>DLCL2</text>
+      </annotation>
+      <annotation id="174">
+        <infon key="type">Mutation</infon>
+        <location offset="3819" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="175">
+        <infon key="type">Mutation</infon>
+        <location offset="3868" length="3"/>
+        <text>T&gt;A</text>
+      </annotation>
+      <annotation id="176">
+        <infon key="type">Gene</infon>
+        <location offset="3910" length="5"/>
+        <text>MEF2C</text>
+      </annotation>
+      <annotation id="177">
+        <infon key="type">Mutation</infon>
+        <location offset="3916" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="178">
+        <infon key="type">Gene</infon>
+        <location offset="3958" length="5"/>
+        <text>MEF2C</text>
+      </annotation>
+      <annotation id="179">
+        <infon key="type">Mutation</infon>
+        <location offset="3964" length="3"/>
+        <text>T&gt;G</text>
+      </annotation>
+      <annotation id="180">
+        <infon key="type">Gene</infon>
+        <location offset="3973" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="181">
+        <infon key="type">Gene</infon>
+        <location offset="4011" length="5"/>
+        <text>MEF2C</text>
+      </annotation>
+      <annotation id="182">
+        <infon key="type">Mutation</infon>
+        <location offset="4017" length="3"/>
+        <text>T&gt;G</text>
+      </annotation>
+      <annotation id="183">
+        <infon key="type">Mutation</infon>
+        <location offset="4021" length="3"/>
+        <text>K5T</text>
+      </annotation>
+      <annotation id="184">
+        <infon key="type">Gene</infon>
+        <location offset="4025" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="185">
+        <infon key="type">Gene</infon>
+        <location offset="4065" length="5"/>
+        <text>MKI67</text>
+      </annotation>
+      <annotation id="186">
+        <infon key="type">Mutation</infon>
+        <location offset="4071" length="3"/>
+        <text>T&gt;G</text>
+      </annotation>
+      <annotation id="187">
+        <infon key="type">Mutation</infon>
+        <location offset="4075" length="11"/>
+        <text>K617N;K977N</text>
+      </annotation>
+      <annotation id="188">
+        <infon key="type">Gene</infon>
+        <location offset="4087" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="189">
+        <infon key="type">Gene</infon>
+        <location offset="4127" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="190">
+        <infon key="type">Mutation</infon>
+        <location offset="4132" length="3"/>
+        <text>C&gt;A</text>
+      </annotation>
+      <annotation id="191">
+        <infon key="type">Mutation</infon>
+        <location offset="4136" length="6"/>
+        <text>L3496L</text>
+      </annotation>
+      <annotation id="192">
+        <infon key="type">Gene</infon>
+        <location offset="4177" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="193">
+        <infon key="type">Mutation</infon>
+        <location offset="4182" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="194">
+        <infon key="type">Mutation</infon>
+        <location offset="4186" length="5"/>
+        <text>Q2156</text>
+      </annotation>
+      <annotation id="195">
+        <infon key="type">Gene</infon>
+        <location offset="4227" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="196">
+        <infon key="type">Mutation</infon>
+        <location offset="4232" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="197">
+        <infon key="type">Gene</infon>
+        <location offset="4243" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="198">
+        <infon key="type">Gene</infon>
+        <location offset="4283" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="199">
+        <infon key="type">Mutation</infon>
+        <location offset="4288" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="200">
+        <infon key="type">Mutation</infon>
+        <location offset="4292" length="5"/>
+        <text>R1323</text>
+      </annotation>
+      <annotation id="201">
+        <infon key="type">Gene</infon>
+        <location offset="4299" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="202">
+        <infon key="type">Gene</infon>
+        <location offset="4338" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="203">
+        <infon key="type">Mutation</infon>
+        <location offset="4343" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="204">
+        <infon key="type">Gene</infon>
+        <location offset="4354" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="205">
+        <infon key="type">Gene</infon>
+        <location offset="4357" length="5"/>
+        <text>DUL-1</text>
+      </annotation>
+      <annotation id="206">
+        <infon key="type">Gene</infon>
+        <location offset="4394" length="4"/>
+        <text>MLL2</text>
+      </annotation>
+      <annotation id="207">
+        <infon key="type">Mutation</infon>
+        <location offset="4399" length="3"/>
+        <text>C&gt;A</text>
+      </annotation>
+      <annotation id="208">
+        <infon key="type">Gene</infon>
+        <location offset="4409" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="209">
+        <infon key="type">Gene</infon>
+        <location offset="4412" length="5"/>
+        <text>DUL-1</text>
+      </annotation>
+      <annotation id="210">
+        <infon key="type">Gene</infon>
+        <location offset="4449" length="7"/>
+        <text>NCKAP1L</text>
+      </annotation>
+      <annotation id="211">
+        <infon key="type">Mutation</infon>
+        <location offset="4457" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="212">
+        <infon key="type">Mutation</infon>
+        <location offset="4461" length="5"/>
+        <text>V105V</text>
+      </annotation>
+      <annotation id="213">
+        <infon key="type">Gene</infon>
+        <location offset="4467" length="8"/>
+        <text>OCI-Ly19</text>
+      </annotation>
+      <annotation id="214">
+        <infon key="type">Mutation</infon>
+        <location offset="4515" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="215">
+        <infon key="type">Gene</infon>
+        <location offset="4525" length="3"/>
+        <text>WSU</text>
+      </annotation>
+      <annotation id="216">
+        <infon key="type">Gene</infon>
+        <location offset="4529" length="5"/>
+        <text>DLCL2</text>
+      </annotation>
+      <annotation id="217">
+        <infon key="type">Mutation</infon>
+        <location offset="4572" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="218">
+        <infon key="type">Gene</infon>
+        <location offset="4582" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="219">
+        <infon key="type">Gene</infon>
+        <location offset="4650" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="220">
+        <infon key="type">Mutation</infon>
+        <location offset="4695" length="3"/>
+        <text>A&gt;T</text>
+      </annotation>
+      <annotation id="221">
+        <infon key="type">Gene</infon>
+        <location offset="4705" length="3"/>
+        <text>WSU</text>
+      </annotation>
+      <annotation id="222">
+        <infon key="type">Gene</infon>
+        <location offset="4709" length="5"/>
+        <text>DLCL2</text>
+      </annotation>
+      <annotation id="223">
+        <infon key="type">Mutation</infon>
+        <location offset="4752" length="3"/>
+        <text>A&gt;G</text>
+      </annotation>
+      <annotation id="224">
+        <infon key="type">Gene</infon>
+        <location offset="4774" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="225">
+        <infon key="type">Mutation</infon>
+        <location offset="4818" length="3"/>
+        <text>T&gt;A</text>
+      </annotation>
+      <annotation id="226">
+        <infon key="type">Gene</infon>
+        <location offset="4827" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="227">
+        <infon key="type">Mutation</infon>
+        <location offset="4873" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="228">
+        <infon key="type">Gene</infon>
+        <location offset="4883" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="229">
+        <infon key="type">Gene</infon>
+        <location offset="4886" length="5"/>
+        <text>DUL-1</text>
+      </annotation>
+      <annotation id="230">
+        <infon key="type">Mutation</infon>
+        <location offset="4929" length="3"/>
+        <text>G&gt;T</text>
+      </annotation>
+      <annotation id="231">
+        <infon key="type">Gene</infon>
+        <location offset="4945" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="232">
+        <infon key="type">Mutation</infon>
+        <location offset="4988" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="233">
+        <infon key="type">Gene</infon>
+        <location offset="4998" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="234">
+        <infon key="type">Mutation</infon>
+        <location offset="5042" length="3"/>
+        <text>T&gt;C</text>
+      </annotation>
+      <annotation id="235">
+        <infon key="type">Mutation</infon>
+        <location offset="5099" length="3"/>
+        <text>C&gt;A</text>
+      </annotation>
+      <annotation id="236">
+        <infon key="type">Mutation</infon>
+        <location offset="5164" length="3"/>
+        <text>T&gt;C</text>
+      </annotation>
+      <annotation id="237">
+        <infon key="type">Gene</infon>
+        <location offset="5174" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="238">
+        <infon key="type">Mutation</infon>
+        <location offset="5220" length="3"/>
+        <text>C&gt;G</text>
+      </annotation>
+      <annotation id="239">
+        <infon key="type">Gene</infon>
+        <location offset="5230" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="240">
+        <infon key="type">Gene</infon>
+        <location offset="5269" length="7"/>
+        <text>TNFAIP3</text>
+      </annotation>
+      <annotation id="241">
+        <infon key="type">Mutation</infon>
+        <location offset="5277" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="242">
+        <infon key="type">Mutation</infon>
+        <location offset="5281" length="5"/>
+        <text>G367G</text>
+      </annotation>
+      <annotation id="243">
+        <infon key="type">Gene</infon>
+        <location offset="5287" length="6"/>
+        <text>DOHH-2</text>
+      </annotation>
+      <annotation id="244">
+        <infon key="type">Gene</infon>
+        <location offset="5324" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="245">
+        <infon key="type">Mutation</infon>
+        <location offset="5329" length="3"/>
+        <text>G&gt;A</text>
+      </annotation>
+      <annotation id="246">
+        <infon key="type">Mutation</infon>
+        <location offset="5333" length="11"/>
+        <text>R155W;R248W</text>
+      </annotation>
+      <annotation id="247">
+        <infon key="type">Gene</infon>
+        <location offset="5408" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="248">
+        <infon key="type">Mutation</infon>
+        <location offset="5413" length="8"/>
+        <text>T&gt;A K319</text>
+      </annotation>
+      <annotation id="249">
+        <infon key="type">Gene</infon>
+        <location offset="5463" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="250">
+        <infon key="type">Mutation</infon>
+        <location offset="5468" length="3"/>
+        <text>T&gt;C</text>
+      </annotation>
+      <annotation id="251">
+        <infon key="type">Mutation</infon>
+        <location offset="5472" length="11"/>
+        <text>Y141C;Y234C</text>
+      </annotation>
+      <annotation id="252">
+        <infon key="type">Gene</infon>
+        <location offset="5484" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="253">
+        <infon key="type">Gene</infon>
+        <location offset="5523" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="254">
+        <infon key="type">Mutation</infon>
+        <location offset="5528" length="3"/>
+        <text>A&gt;C</text>
+      </annotation>
+      <annotation id="255">
+        <infon key="type">Mutation</infon>
+        <location offset="5532" length="10"/>
+        <text>C83G;C176G</text>
+      </annotation>
+      <annotation id="256">
+        <infon key="type">Gene</infon>
+        <location offset="5543" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="257">
+        <infon key="type">Gene</infon>
+        <location offset="5581" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="258">
+        <infon key="type">Mutation</infon>
+        <location offset="5586" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="259">
+        <infon key="type">Mutation</infon>
+        <location offset="5590" length="10"/>
+        <text>R65H;R158H</text>
+      </annotation>
+      <annotation id="260">
+        <infon key="type">Gene</infon>
+        <location offset="5601" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="261">
+        <infon key="type">Gene</infon>
+        <location offset="5639" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="262">
+        <infon key="type">Mutation</infon>
+        <location offset="5644" length="15"/>
+        <text>C&gt;T G152D;G245D</text>
+      </annotation>
+      <annotation id="263">
+        <infon key="type">Gene</infon>
+        <location offset="5660" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+      <annotation id="264">
+        <infon key="type">Gene</infon>
+        <location offset="5698" length="4"/>
+        <text>TP53</text>
+      </annotation>
+      <annotation id="265">
+        <infon key="type">Mutation</infon>
+        <location offset="5703" length="14"/>
+        <text>C&gt;T V50M;V143M</text>
+      </annotation>
+      <annotation id="266">
+        <infon key="type">Gene</infon>
+        <location offset="5718" length="2"/>
+        <text>NU</text>
+      </annotation>
+      <annotation id="267">
+        <infon key="type">Gene</infon>
+        <location offset="5721" length="5"/>
+        <text>DUL-1</text>
+      </annotation>
+      <annotation id="268">
+        <infon key="type">Mutation</infon>
+        <location offset="5765" length="3"/>
+        <text>C&gt;T</text>
+      </annotation>
+      <annotation id="269">
+        <infon key="type">Gene</infon>
+        <location offset="5775" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="270">
+        <infon key="type">Gene</infon>
+        <location offset="5831" length="7"/>
+        <text>OCI-Ly1</text>
+      </annotation>
+      <annotation id="271">
+        <infon key="type">Mutation</infon>
+        <location offset="5875" length="3"/>
+        <text>T&gt;A</text>
+      </annotation>
+      <annotation id="272">
+        <infon key="type">Gene</infon>
+        <location offset="5893" length="8"/>
+        <text>SU-DHL-6</text>
+      </annotation>
+      <annotation id="273">
+        <infon key="type">Mutation</infon>
+        <location offset="5940" length="3"/>
+        <text>C&gt;G</text>
+      </annotation>
+      <annotation id="274">
+        <infon key="type">Gene</infon>
+        <location offset="5974" length="7"/>
+        <text>OCI-Ly7</text>
+      </annotation>
+    </passage>
+  </document>
+</collection>
