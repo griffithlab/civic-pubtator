@@ -26,6 +26,8 @@ def main():
                         help="Hide ambiguous/multiple mappings")
     parser.add_argument("--tmp-dir", default=None, metavar="DIR",
                         help="Temporary file directory (default: <output>/tmp)")
+    parser.add_argument("--timeout-per-doc", type=int, default=0, metavar="SECONDS",
+                        help="Per-document timeout in seconds (0 = no limit)")
     args = parser.parse_args()
 
     if not os.path.isfile(JAR):
@@ -83,6 +85,7 @@ def main():
         "true"  if args.rs_only else "false",
         "true"  if args.hide_multiple else "false",
         tmp_dir,
+        str(args.timeout_per_doc),
     ]
 
     print("Running:", " ".join(cmd))

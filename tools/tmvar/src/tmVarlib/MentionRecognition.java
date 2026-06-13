@@ -14,8 +14,17 @@ import org.tartarus.snowball.ext.englishStemmer;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
-public class MentionRecognition 
+public class MentionRecognition
 {
+	private volatile Process currentCRFProcess = null;
+
+	public void destroyCurrentProcess() {
+		Process p = currentCRFProcess;
+		if (p != null) {
+			p.destroyForcibly();
+		}
+	}
+
 	public void FeatureExtraction(String Filename,String FilenameData,String FilenameLoca,String TrainTest)
 	{
 		/*
@@ -1315,24 +1324,28 @@ public class MentionRecognition
 	    
 	    try {
 	    	Process process = runtime.exec(cmd);
-	    	InputStream is = process.getInputStream();
-	    	InputStreamReader isr = new InputStreamReader(is);
-	    	BufferedReader br = new BufferedReader(isr);
-	    	String line="";
-		    while ( (line = br.readLine()) != null) 
-		    {
-		    	fr.write(line);
-		    	fr.newLine();
-		        fr.flush();
-		    }
-		    is.close();
-		    isr.close();
-		    br.close();
-		    fr.close();
+	    	currentCRFProcess = process;
+	    	try {
+		    	InputStream is = process.getInputStream();
+		    	InputStreamReader isr = new InputStreamReader(is);
+		    	BufferedReader br = new BufferedReader(isr);
+		    	String line="";
+			    while ( (line = br.readLine()) != null)
+			    {
+			    	fr.write(line);
+			    	fr.newLine();
+			        fr.flush();
+			    }
+			    is.close();
+			    isr.close();
+			    br.close();
+			    fr.close();
+	    	} finally {
+	    		currentCRFProcess = null;
+	    	}
 	    }
 	    catch (IOException e) {
-	    	System.out.println(e);
-	    	runtime.exit(0);
+	    	throw e;
 	    }
 	}
 	

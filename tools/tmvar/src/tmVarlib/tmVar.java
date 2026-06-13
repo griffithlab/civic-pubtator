@@ -17,6 +17,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -117,6 +124,11 @@ public class tmVar
 			{
 				TmpFolder=args[6];
 			}
+		}
+		long timeoutSeconds = 0;
+		if(args.length>7)
+		{
+			try { timeoutSeconds = Long.parseLong(args[7]); } catch(NumberFormatException e) {}
 		}
 		new File(TmpFolder).mkdirs();
 		
@@ -438,174 +450,209 @@ public class tmVar
 			
 		}
 		
+		final long timeoutSecondsF = timeoutSeconds;
+		final String fInputFolder = InputFolder;
+		final String fOutputFolder = OutputFolder;
+		final String fTmpFolder = TmpFolder;
+		final String fTrainTest = TrainTest;
+		final String fDeleteTmp = DeleteTmp;
+		final String fDisplayRSnumOnly = DisplayRSnumOnly;
+		final String fHideMultipleResult = HideMultipleResult;
 		File folder = new File(InputFolder);
 		File[] listOfFiles = folder.listFiles();
 		Arrays.sort(listOfFiles);
+		ExecutorService executor = Executors.newSingleThreadExecutor(r -> {
+			Thread t = Executors.defaultThreadFactory().newThread(r);
+			t.setDaemon(true);
+			return t;
+		});
 		for (int i = 0; i < listOfFiles.length; i++)
 		{
-			if (listOfFiles[i].isFile()) 
+			if (listOfFiles[i].isFile())
 			{
-				String InputFile = listOfFiles[i].getName();
-				
+				final String InputFile = listOfFiles[i].getName();
+
 				File f = new File(OutputFolder+"/"+InputFile+".PubTator");
 				File f_BioC = new File(OutputFolder+"/"+InputFile+".BioC.XML");
 
-				if(f.exists() && !f.isDirectory()) 
-				{ 
+				if(f.exists() && !f.isDirectory())
+				{
 					System.out.println(InputFolder+"/"+InputFile+" - Done. (The output file (PubTator) exists in output folder)");
 				}
-				else if(f_BioC.exists() && !f_BioC.isDirectory()) 
-				{ 
+				else if(f_BioC.exists() && !f_BioC.isDirectory())
+				{
 					System.out.println(InputFolder+"/"+InputFile+" - Done. (The output file (BioC) exists in output folder)");
 				}
 				else
 				{
-					/*
-					 * Mention recognition by CRF++
-					 */
-					if(TrainTest.equals("Test") || TrainTest.equals("Test_FullText") || TrainTest.equals("Test_FullText") || TrainTest.equals("Train"))
-					{
+					final MentionRecognition MR = new MentionRecognition();
+					Callable<Void> task = () -> {
+						Thread.interrupted(); // clear any prior interrupt flag on this thread
 						/*
-						 * Format Check 
+						 * Mention recognition by CRF++
 						 */
-						String Format = "";
-						String checkR=BC.BioCFormatCheck(InputFolder+"/"+InputFile);
-						if(checkR.equals("BioC"))
+						if(fTrainTest.equals("Test") || fTrainTest.equals("Test_FullText") || fTrainTest.equals("Train"))
 						{
-							Format = "BioC";
-						}
-						else if(checkR.equals("PubTator"))
-						{
-							Format = "PubTator";
-						}
-						else
-						{
-							System.out.println(checkR);
-							System.exit(0);
-						}
-						
-						System.out.print(InputFolder+"/"+InputFile+" - ("+Format+" format) : Processing ... \r");
-						 
-						/*
-						 * Pre-processing
-						 */
-						MentionRecognition MR= new MentionRecognition();
-						if(Format.equals("BioC"))
-						{
-							BC.BioC2PubTator(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile);
-							MR.FeatureExtraction(TmpFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".data",TmpFolder+"/"+InputFile+".location",TrainTest);
-						}
-						else if(Format.equals("PubTator"))
-						{
-							MR.FeatureExtraction(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".data",TmpFolder+"/"+InputFile+".location",TrainTest);
-						}
-						if(TrainTest.equals("Test") || TrainTest.equals("Test_FullText"))
-						{
-							MR.CRF_test(TmpFolder+"/"+InputFile+".data",TmpFolder+"/"+InputFile+".output",TrainTest);
-						}
-						
-						/*
-						 * CRF++ output --> PubTator
-						 */
-						PostProcessing PP = new PostProcessing();
-						{
+							/*
+							 * Format Check
+							 */
+							String Format = "";
+							String checkR=BC.BioCFormatCheck(fInputFolder+"/"+InputFile);
+							if(checkR.equals("BioC"))
+							{
+								Format = "BioC";
+							}
+							else if(checkR.equals("PubTator"))
+							{
+								Format = "PubTator";
+							}
+							else
+							{
+								System.out.println(checkR);
+								return null;
+							}
+
+							System.out.print(fInputFolder+"/"+InputFile+" - ("+Format+" format) : Processing ... \r");
+
+							/*
+							 * Pre-processing
+							 */
 							if(Format.equals("BioC"))
 							{
-								PP.toME(TmpFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".output",TmpFolder+"/"+InputFile+".location",TmpFolder+"/"+InputFile+".ME");
-								PP.toPostME(TmpFolder+"/"+InputFile+".ME",TmpFolder+"/"+InputFile+".PostME");
-								PP.toPostMEData(TmpFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PostME",TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.data",TrainTest);
+								BC.BioC2PubTator(fInputFolder+"/"+InputFile,fTmpFolder+"/"+InputFile);
+								MR.FeatureExtraction(fTmpFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".data",fTmpFolder+"/"+InputFile+".location",fTrainTest);
 							}
 							else if(Format.equals("PubTator"))
 							{
-								PP.toME(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".output",TmpFolder+"/"+InputFile+".location",TmpFolder+"/"+InputFile+".ME");
-								PP.toPostME(TmpFolder+"/"+InputFile+".ME",TmpFolder+"/"+InputFile+".PostME");
-								PP.toPostMEData(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PostME",TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.data",TrainTest);
+								MR.FeatureExtraction(fInputFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".data",fTmpFolder+"/"+InputFile+".location",fTrainTest);
 							}
-							if(TrainTest.equals("Test") || TrainTest.equals("Test_FullText"))
+							if(fTrainTest.equals("Test") || fTrainTest.equals("Test_FullText"))
 							{
-								PP.toPostMEoutput(TmpFolder+"/"+InputFile+".PostME.data",TmpFolder+"/"+InputFile+".PostME.output");
+								MR.CRF_test(fTmpFolder+"/"+InputFile+".data",fTmpFolder+"/"+InputFile+".output",fTrainTest);
 							}
-							
-							else if(TrainTest.equals("Train"))
-							{
-								PP.toPostMEModel(TmpFolder+"/"+InputFile+".PostME.data");
-							}
-							
-							
+
 							/*
-							 * Post-processing
+							 * CRF++ output --> PubTator
 							 */
-							if(TrainTest.equals("Test") || TrainTest.equals("Test_FullText"))
+							PostProcessing PP = new PostProcessing();
 							{
-								GeneMention = true;
-								if(GeneMention == true) // MentionRecognition detect Gene mentions
-								{
-									PP.output2PubTator(TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.output",TmpFolder+"/"+InputFile+".PostME",TmpFolder+"/"+InputFile+".PubTator");
-									
-									if(Format.equals("BioC"))
-									{
-										PP.Normalization(TmpFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PubTator",OutputFolder+"/"+InputFile+".PubTator",DisplayRSnumOnly,HideMultipleResult,DisplayChromosome,DisplayRefSeq,DisplayGenomicRegion);
-									}
-									else if(Format.equals("PubTator"))
-									{
-										PP.Normalization(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PubTator",OutputFolder+"/"+InputFile+".PubTator",DisplayRSnumOnly,HideMultipleResult,DisplayChromosome,DisplayRefSeq,DisplayGenomicRegion);
-									}
-								}
-								else
-								{
-									PP.output2PubTator(TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.output",TmpFolder+"/"+InputFile+".PostME",OutputFolder+"/"+InputFile+".PubTator");
-								}
-								
 								if(Format.equals("BioC"))
 								{
-									BC.PubTator2BioC_AppendAnnotation(OutputFolder+"/"+InputFile+".PubTator",InputFolder+"/"+InputFile,OutputFolder+"/"+InputFile+".BioC.XML");
-								}			
+									PP.toME(fTmpFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".output",fTmpFolder+"/"+InputFile+".location",fTmpFolder+"/"+InputFile+".ME");
+									PP.toPostME(fTmpFolder+"/"+InputFile+".ME",fTmpFolder+"/"+InputFile+".PostME");
+									PP.toPostMEData(fTmpFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".PostME",fTmpFolder+"/"+InputFile+".PostME.ml",fTmpFolder+"/"+InputFile+".PostME.data",fTrainTest);
+								}
+								else if(Format.equals("PubTator"))
+								{
+									PP.toME(fInputFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".output",fTmpFolder+"/"+InputFile+".location",fTmpFolder+"/"+InputFile+".ME");
+									PP.toPostME(fTmpFolder+"/"+InputFile+".ME",fTmpFolder+"/"+InputFile+".PostME");
+									PP.toPostMEData(fInputFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".PostME",fTmpFolder+"/"+InputFile+".PostME.ml",fTmpFolder+"/"+InputFile+".PostME.data",fTrainTest);
+								}
+								if(fTrainTest.equals("Test") || fTrainTest.equals("Test_FullText"))
+								{
+									PP.toPostMEoutput(fTmpFolder+"/"+InputFile+".PostME.data",fTmpFolder+"/"+InputFile+".PostME.output");
+								}
+
+								else if(fTrainTest.equals("Train"))
+								{
+									PP.toPostMEModel(fTmpFolder+"/"+InputFile+".PostME.data");
+								}
+
+
+								/*
+								 * Post-processing
+								 */
+								if(fTrainTest.equals("Test") || fTrainTest.equals("Test_FullText"))
+								{
+									GeneMention = true;
+									if(GeneMention == true) // MentionRecognition detect Gene mentions
+									{
+										PP.output2PubTator(fTmpFolder+"/"+InputFile+".PostME.ml",fTmpFolder+"/"+InputFile+".PostME.output",fTmpFolder+"/"+InputFile+".PostME",fTmpFolder+"/"+InputFile+".PubTator");
+
+										if(Format.equals("BioC"))
+										{
+											PP.Normalization(fTmpFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".PubTator",fOutputFolder+"/"+InputFile+".PubTator",fDisplayRSnumOnly,fHideMultipleResult,DisplayChromosome,DisplayRefSeq,DisplayGenomicRegion);
+										}
+										else if(Format.equals("PubTator"))
+										{
+											PP.Normalization(fInputFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".PubTator",fOutputFolder+"/"+InputFile+".PubTator",fDisplayRSnumOnly,fHideMultipleResult,DisplayChromosome,DisplayRefSeq,DisplayGenomicRegion);
+										}
+									}
+									else
+									{
+										PP.output2PubTator(fTmpFolder+"/"+InputFile+".PostME.ml",fTmpFolder+"/"+InputFile+".PostME.output",fTmpFolder+"/"+InputFile+".PostME",fOutputFolder+"/"+InputFile+".PubTator");
+									}
+
+									if(Format.equals("BioC"))
+									{
+										BC.PubTator2BioC_AppendAnnotation(fOutputFolder+"/"+InputFile+".PubTator",fInputFolder+"/"+InputFile,fOutputFolder+"/"+InputFile+".BioC.XML");
+									}
+								}
+							}
+
+							/*
+							 * Time stamp - last
+							 */
+							double docEndTime = System.currentTimeMillis();
+							double docTotTime = docEndTime - startTime;
+							System.out.println(fInputFolder+"/"+InputFile+" - ("+Format+" format) : Processing Time:"+docTotTime/1000+"sec");
+
+							/*
+							 * remove tmp files
+							 */
+							if(fDeleteTmp.toLowerCase().equals("true"))
+							{
+								String path=fTmpFolder;
+						        File file = new File(path);
+						        File[] files = file.listFiles();
+						        for (File ftmp:files)
+						        {
+						        	if (ftmp.isFile() && ftmp.exists())
+						            {
+						        		if(ftmp.toString().matches(Pattern.quote(fTmpFolder)+"."+InputFile+".*"))
+							        	{
+						        			ftmp.delete();
+							        	}
+						        	}
+						        }
 							}
 						}
-						
-						/*
-						 * Time stamp - last
-						 */
-						endTime = System.currentTimeMillis();//ending time
-						totTime = endTime - startTime;
-						System.out.println(InputFolder+"/"+InputFile+" - ("+Format+" format) : Processing Time:"+totTime/1000+"sec");
-						
-						/*
-						 * remove tmp files
-						 */
-						if(DeleteTmp.toLowerCase().equals("true"))
+						else if(fTrainTest.equals("Train_Mention"))
 						{
-							String path=TmpFolder;
-					        File file = new File(path);
-					        File[] files = file.listFiles(); 
-					        for (File ftmp:files) 
-					        {
-					        	if (ftmp.isFile() && ftmp.exists()) 
-					            {
-					        		if(ftmp.toString().matches(Pattern.quote(TmpFolder)+"."+InputFile+".*"))
-						        	{
-					        			ftmp.delete();
-						        	}
-					        	}
-					        }
+							System.out.print(fInputFolder+"/"+InputFile+" - Processing ... \r");
+
+							PostProcessing PP = new PostProcessing();
+							PP.toPostMEData(fInputFolder+"/"+InputFile,fTmpFolder+"/"+InputFile+".PostME",fTmpFolder+"/"+InputFile+".PostME.ml",fTmpFolder+"/"+InputFile+".PostME.data","Train");
+
+							/*
+							 * Time stamp - last
+							 */
+							double docEndTime = System.currentTimeMillis();
+							double docTotTime = docEndTime - startTime;
+							System.out.println(fInputFolder+"/"+InputFile+" - Processing Time:"+docTotTime/1000+"sec");
 						}
-					}
-					else if(TrainTest.equals("Train_Mention"))
-					{
-						System.out.print(InputFolder+"/"+InputFile+" - Processing ... \r");
-						 
-						PostProcessing PP = new PostProcessing();
-						PP.toPostMEData(InputFolder+"/"+InputFile,TmpFolder+"/"+InputFile+".PostME",TmpFolder+"/"+InputFile+".PostME.ml",TmpFolder+"/"+InputFile+".PostME.data","Train");
-						
-						/*
-						 * Time stamp - last
-						 */
-						endTime = System.currentTimeMillis();//ending time
-						totTime = endTime - startTime;
-						System.out.println(InputFolder+"/"+InputFile+" - Processing Time:"+totTime/1000+"sec");
+						return null;
+					};
+
+					Future<Void> future = executor.submit(task);
+					try {
+						if(timeoutSecondsF > 0) {
+							future.get(timeoutSecondsF, TimeUnit.SECONDS);
+						} else {
+							future.get();
+						}
+					} catch(TimeoutException e) {
+						MR.destroyCurrentProcess();
+						future.cancel(true);
+						System.out.println(InputFolder+"/"+InputFile+" - TIMED OUT after "+timeoutSecondsF+"s");
+					} catch(ExecutionException e) {
+						System.err.println(InputFolder+"/"+InputFile+" - ERROR: "+e.getCause());
+					} catch(InterruptedException e) {
+						Thread.currentThread().interrupt();
 					}
 				}
 			}
 		}
+		executor.shutdownNow();
 	}
 }

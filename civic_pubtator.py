@@ -574,6 +574,8 @@ def run_tmvar3_batched(groups, args, log_path, tsv_path, base_dir):
             staging_in, staging_out,
             "--xmx", xmx, "--xms", xms,
         ]
+        if args.timeout_per_doc:
+            tmvar_cmd += ["--timeout-per-doc", str(args.timeout_per_doc)]
 
         _log_batch_header(log_path, "tmVar3", len(groups))
         t0 = time.time()
@@ -850,8 +852,10 @@ def process_input(top_dir, args):
 
         max_rows_str  = f"{args.max_rows:,}"  if args.max_rows  else "unlimited"
         max_chars_str = f"{args.max_chars:,}" if args.max_chars else "unlimited"
+        timeout_str   = f"{args.timeout_per_doc}s" if args.timeout_per_doc else "unlimited"
         f.write(f"# Max rows (Excel): {max_rows_str}\n")
         f.write(f"# Max chars:        {max_chars_str}\n")
+        f.write(f"# tmVar timeout/doc: {timeout_str}\n")
         f.write(f"# Clear intermediates: {args.clear_intermediates}\n")
         gnorm2_py_str = args.gnorm2_python if args.gnorm2_python else f"{sys.executable} (default)"
         f.write(f"# GNorm2 Python: {gnorm2_py_str}\n")
@@ -981,6 +985,10 @@ def main():
                              "after --max-rows: --max-rows caps each Excel table at the PDF "
                              "conversion stage; --max-chars then drops any document that is "
                              "still too large for the annotation pipeline.")
+    parser.add_argument("--timeout-per-doc", type=int, default=0, metavar="SECONDS",
+                        help="Per-document timeout for tmVar3 in seconds (0 = no limit). "
+                             "When a document exceeds this limit its CRF++ subprocess is "
+                             "killed and processing continues with the next document.")
     parser.add_argument("--memory", default="32G", metavar="SIZE",
                         help="Java max heap for GNorm2 and tmVar3 (default: 32G); "
                              "initial heap is set to half this value")
