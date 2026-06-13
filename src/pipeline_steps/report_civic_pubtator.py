@@ -14,7 +14,12 @@ ENTITY_STYLE = {
     'DNAMutation':     {'bg': '#fecaca', 'border': '#dc2626', 'label': 'DNA Mutation'},
     'SNP':             {'bg': '#e9d5ff', 'border': '#9333ea', 'label': 'SNP'},
     'Gene':            {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene'},
+    'FamilyName':      {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene Family'},
+    'GENERIF':         {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene (RIF)'},
+    'Domain':          {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene Domain'},
     'Species':         {'bg': '#bbf7d0', 'border': '#16a34a', 'label': 'Species'},
+    'Genus':           {'bg': '#bbf7d0', 'border': '#16a34a', 'label': 'Genus'},
+    'Strain':          {'bg': '#bbf7d0', 'border': '#16a34a', 'label': 'Strain'},
     'CellLine':        {'bg': '#ccfbf1', 'border': '#0d9488', 'label': 'Cell Line'},
     'Chemical':        {'bg': '#fae8ff', 'border': '#a21caf', 'label': 'Drug'},
     'Disease':         {'bg': '#ffe4e6', 'border': '#e11d48', 'label': 'Disease'},
@@ -22,10 +27,13 @@ ENTITY_STYLE = {
 DEFAULT_STYLE        = {'bg': '#e2e8f0', 'border': '#64748b', 'label': 'Other'}
 VARIANT_DEFAULT_STYLE = {'bg': '#e2e8f0', 'border': '#64748b', 'label': 'Sequence ID'}
 
-GENE_TYPES     = frozenset({'Gene'})
-ORGANISM_TYPES = frozenset({'Species', 'CellLine'})
+GENE_TYPES     = frozenset({'Gene', 'FamilyName', 'GENERIF', 'Domain'})
+ORGANISM_TYPES = frozenset({'Species', 'CellLine', 'Genus', 'Strain'})
 CHEMICAL_TYPES = frozenset({'Chemical'})
 DISEASE_TYPES  = frozenset({'Disease'})
+# All types produced by GNorm2 — used to filter out pass-throughs from tmVar3 PubTator
+GNORM2_TYPES   = frozenset({'Gene', 'FamilyName', 'GENERIF', 'Domain',
+                             'Species', 'Genus', 'Strain', 'CellLine'})
 
 
 def entity_style(etype):
@@ -159,6 +167,61 @@ def parse_bioc_diseases(path):
     return annotations
 
 
+_GNORM2_GENE_IDENTIFIER_KEY = {'Gene', 'FamilyName', 'GENERIF', 'Domain'}
+_GNORM2_TAXON_IDENTIFIER_KEY = {'Species', 'Genus', 'Strain', 'CellLine'}
+
+
+def parse_gnorm2_bioc(path):
+    """Parse GNorm2 BioC XML; return (passages, annotations) in same format as parse_pubtator()."""
+    if not os.path.isfile(path):
+        return [], []
+    with open(path, encoding='utf-8') as fh:
+        content = fh.read()
+    content = re.sub(r'<!DOCTYPE[^>]*>', '', content)
+    try:
+        root = ET.fromstring(content)
+    except ET.ParseError as exc:
+        print(f'warning: could not parse {path}: {exc}', file=sys.stderr)
+        return [], []
+    passages = []
+    annotations = []
+    for doc in root.findall('document'):
+        pmid = doc.findtext('id', '')
+        for passage in doc.findall('passage'):
+            infons = {i.get('key'): (i.text or '') for i in passage.findall('infon')}
+            ptype = infons.get('type', '')
+            text = passage.findtext('text', '')
+            if ptype and text:
+                passages.append({'pmid': pmid, 'ptype': ptype, 'text': text})
+            for ann in passage.findall('annotation'):
+                ainfons = {i.get('key'): (i.text or '') for i in ann.findall('infon')}
+                ann_type = ainfons.get('type', '')
+                if ann_type not in GNORM2_TYPES:
+                    continue
+                loc = ann.find('location')
+                if loc is None:
+                    continue
+                start = int(loc.get('offset', 0))
+                length = int(loc.get('length', 0))
+                mention = ann.findtext('text', '')
+                if ann_type in _GNORM2_GENE_IDENTIFIER_KEY:
+                    identifier = ainfons.get('NCBI Gene', '')
+                else:
+                    identifier = ainfons.get('NCBI Taxonomy', '')
+                annotations.append({
+                    'start': start,
+                    'end': start + length,
+                    'mention': mention,
+                    'type': ann_type,
+                    'identifier': identifier,
+                    'hgvs': '',
+                    'rs': '',
+                    'gene': '',
+                    'details': ainfons,
+                })
+    return passages, annotations
+
+
 def classify_pubtator_path(rel_path):
     parts = rel_path.replace('\\', '/').split('/')
     if len(parts) == 1:
@@ -185,6 +248,34 @@ def collect_pubtator_files(tmvar3_dir):
             full = os.path.join(dirpath, fname)
             rel = os.path.relpath(full, tmvar3_dir)
             category, label = classify_pubtator_path(rel)
+            files.append({'path': full, 'rel': rel, 'category': category, 'label': label})
+    files.sort(key=lambda x: (0 if x['category'] == 'Main Publication' else 1, x['rel']))
+    return files
+
+
+def classify_gnorm2_path(rel_path):
+    parts = rel_path.replace('\\', '/').split('/')
+    if len(parts) == 1:
+        stem = re.sub(r'\.xml$', '', parts[0])
+        return 'Main Publication', stem
+    if len(parts) == 3 and parts[0] == 's':
+        return 'Supplementary PDF', parts[1]
+    if len(parts) == 4 and parts[0] == 's':
+        return 'Supplementary Spreadsheet', f'{parts[1]} / {parts[2]}'
+    stem = re.sub(r'\.xml$', '', parts[-1])
+    return 'Other', stem
+
+
+def collect_gnorm2_files(gnorm2_dir):
+    files = []
+    for dirpath, dirnames, filenames in os.walk(gnorm2_dir):
+        dirnames[:] = [d for d in sorted(dirnames) if d != 'tmp']
+        for fname in sorted(filenames):
+            if not fname.endswith('.xml'):
+                continue
+            full = os.path.join(dirpath, fname)
+            rel = os.path.relpath(full, gnorm2_dir)
+            category, label = classify_gnorm2_path(rel)
             files.append({'path': full, 'rel': rel, 'category': category, 'label': label})
     files.sort(key=lambda x: (0 if x['category'] == 'Main Publication' else 1, x['rel']))
     return files
@@ -744,7 +835,9 @@ def build_annotation_legend(annotations):
         return ''
     ordered = [
         'ProteinMutation', 'ProteinAllele', 'DNAMutation', 'SNP',
-        'Gene', 'Species', 'CellLine', 'Chemical', 'Disease',
+        'Gene', 'FamilyName', 'GENERIF', 'Domain',
+        'Species', 'Genus', 'Strain', 'CellLine',
+        'Chemical', 'Disease',
     ]
     chips = []
     for etype in ordered:
@@ -1260,13 +1353,23 @@ def main():
     stats_rows = parse_pipeline_stats(os.path.join(run_dir, 'pipeline_stats.tsv'))
 
     tmvar3_dir = os.path.join(run_dir, '04_tmvar3')
-    if not os.path.isdir(tmvar3_dir):
-        print(f'error: 04_tmvar3/ not found in {run_dir}', file=sys.stderr)
-        sys.exit(1)
+    tmvar3_dir = tmvar3_dir if os.path.isdir(tmvar3_dir) else None
 
-    pubtator_files = collect_pubtator_files(tmvar3_dir)
-    if not pubtator_files:
-        print('warning: no .PubTator files found', file=sys.stderr)
+    gnorm2_dir = os.path.join(run_dir, '03_gnorm2')
+    gnorm2_dir = gnorm2_dir if os.path.isdir(gnorm2_dir) else None
+
+    # Use GNorm2 BioC XML as primary source when available (survives tmVar3 timeouts).
+    # Fall back to tmVar3 PubTator alone for backwards compatibility.
+    gnorm2_files = collect_gnorm2_files(gnorm2_dir) if gnorm2_dir else []
+    if gnorm2_files:
+        primary_files = gnorm2_files
+    elif tmvar3_dir:
+        primary_files = collect_pubtator_files(tmvar3_dir)
+        if not primary_files:
+            print('warning: no .PubTator files found', file=sys.stderr)
+    else:
+        print(f'error: neither 03_gnorm2/ nor 04_tmvar3/ found in {run_dir}', file=sys.stderr)
+        sys.exit(1)
 
     nlmchem_dir = os.path.join(run_dir, '06_nlmchem')
     if not os.path.isdir(nlmchem_dir):
@@ -1278,15 +1381,29 @@ def main():
 
     doc_data = []
     main_count = supp_count = 0
-    for i, pf in enumerate(pubtator_files):
+    for i, pf in enumerate(primary_files):
         if pf['category'] == 'Main Publication':
             main_count += 1
             key = f'm{main_count}'
         else:
             supp_count += 1
             key = f's{supp_count}'
-        passages, annotations = parse_pubtator(pf['path'])
-        rel_xml = pf['rel'][:-len('.PubTator')] if pf['rel'].endswith('.PubTator') else pf['rel']
+
+        if gnorm2_files:
+            # Primary: GNorm2 BioC XML → passages + Gene/Species/CellLine/etc.
+            passages, annotations = parse_gnorm2_bioc(pf['path'])
+            rel_xml = pf['rel']  # e.g. "nihms313098.xml" or "s/foo/foo.xml"
+            # Supplement with tmVar3 variant annotations when available
+            if tmvar3_dir:
+                pubtator_path = os.path.join(tmvar3_dir, rel_xml + '.PubTator')
+                if os.path.isfile(pubtator_path):
+                    _, tmvar_anns = parse_pubtator(pubtator_path)
+                    annotations.extend(a for a in tmvar_anns if a['type'] not in GNORM2_TYPES)
+        else:
+            # Legacy path: tmVar3 PubTator only
+            passages, annotations = parse_pubtator(pf['path'])
+            rel_xml = pf['rel'][:-len('.PubTator')] if pf['rel'].endswith('.PubTator') else pf['rel']
+
         if nlmchem_dir:
             chem_anns = parse_bioc_chemicals(os.path.join(nlmchem_dir, rel_xml))
             annotations.extend(chem_anns)
