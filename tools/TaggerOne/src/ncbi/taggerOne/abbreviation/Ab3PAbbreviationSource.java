@@ -81,9 +81,11 @@ public class Ab3PAbbreviationSource implements AbbreviationSource {
 			while (line != null) {
 				if (line.startsWith("  ")) {
 					String[] split = line.trim().split("\\|");
-					abbreviations.put(split[0], split[1]);
-					// TODO Add support for checks similar to FileAbbreviationSource
-					logger.debug("Found abbreviation pair: " + split[0] + "->" + split[1]);
+					if (split.length >= 2) {
+						abbreviations.put(split[0], split[1]);
+						// TODO Add support for checks similar to FileAbbreviationSource
+						logger.debug("Found abbreviation pair: " + split[0] + "->" + split[1]);
+					}
 				}
 				line = reader.readLine();
 			}
