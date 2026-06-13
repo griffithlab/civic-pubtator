@@ -1,0 +1,140 @@
+entity_category	entity_type	mention	identifier	identifier_name	hgvs	count	doc_keys
+Variant	ProteinMutation	p.M90I	6016	RIT1	p.M90I	10	m1,s1,s3
+Variant	ProteinMutation	Q79L	6016	RIT1	p.Q79L	6	m1
+Variant	ProteinMutation	Q40L	6016	RIT1	p.Q40L	4	m1
+Variant	ProteinMutation	p.A77S	6016	RIT1	p.A77S	2	m1
+Variant	ProteinMutation	M90I	6016	RIT1	p.M90I	2	m1
+Variant	ProteinMutation	G12V	3845	KRAS	p.G12V	2	m1,s1
+Variant	ProteinMutation	L858R	1956	EGFR	p.L858R	2	m1,s1
+Variant	ProteinAllele	Q79	6016	RIT1		2	m1
+Variant	DNAMutation	270G>T	113451	AZIN2	c.270G>T	2	s1
+Variant	ProteinMutation	p.A77P	6016	RIT1	p.A77P	1	m1
+Variant	ProteinMutation	p.R122L	6016	RIT1	p.R122L	1	m1
+Variant	ProteinMutation	F82L	6016	RIT1	p.F82L	1	m1
+Variant	ProteinAllele	Q40	6016	RIT1		1	m1
+Variant	ProteinMutation	glutamine 79 to leucine	6016	RIT1	p.Q79L	1	m1
+Variant	ProteinMutation	alanine 77				1	m1
+Variant	DNAMutation	c.227_228insTTTGGATAC	113451	AZIN2	c.227_228insTTTGGATAC	1	s1
+Variant	ProteinMutation	p.TA83del	113451	AZIN2	p.TA83del	1	s1
+Variant	DNAMutation	c.248_253delCAGCCA	113451	AZIN2	c.248_253delCAGCCA	1	s1
+Variant	ProteinMutation	p.F82L	113451	AZIN2	p.F82L	1	s1
+Variant	DNAMutation	574G>A	113451	AZIN2	c.574G>A	1	s1
+Variant	DNAMutation	246T>G	113451	AZIN2	c.246T>G	1	s1
+Variant	DNAMutation	229G>C	113451	AZIN2	c.229G>C	1	s1
+Variant	DNAMutation	119A>T	113451	AZIN2	c.119A>T	1	s1
+Variant	ProteinMutation	p.Q40L	113451	AZIN2	p.Q40L	1	s1
+Variant	DNAMutation	365G>T	113451	AZIN2	c.365G>T	1	s1
+Variant	ProteinMutation	A192T	113451	AZIN2	p.A192T	1	s1
+Variant	ProteinMutation	p.A77P	113451	AZIN2	p.A77P	1	s1
+Variant	DNAMutation	270G>A	113451	AZIN2	c.270G>A	1	s1
+Variant	ProteinMutation	p.R122L	113451	AZIN2	p.R122L	1	s1
+Variant	ProteinMutation	G12	3845	KRAS		1	s1
+Variant	ProteinMutation	p.S335C	6016	RIT1	p.S335C	1	s3
+Variant	ProteinMutation	p.Q56P	6016	RIT1	p.Q56P	1	s3
+Gene	Gene	RIT1	6016	RIT1		111	m1,s3,s4
+Gene	Gene	KRAS	3845	KRAS		29	m1,s3
+Gene	Gene	RIT1	19769	Rit1		27	m1,s1
+Gene	Gene	EGFR	1956	EGFR		21	m1,s3
+Gene	Gene	MEK	5609	MAP2K7		21	m1
+Gene	Gene	PI3K	5291	PIK3CB		16	m1
+Gene	Gene	BRAF	673	BRAF		10	m1,s3
+Gene	Gene	ERK	5594	MAPK1		10	m1
+Gene	Gene	ALK	238	ALK		8	m1,s3
+Gene	Gene	KRAS	16653	Kras		8	s1
+Gene	Gene	Adc	242669	Azin2		8	s1
+Gene	Gene	AKT	207	AKT1		7	m1
+Gene	Gene	RAC1	19353	Rac1		7	s1
+Gene	Gene	ERBB2	2064	ERBB2		6	m1,s3
+Gene	Gene	NRAS	4893	NRAS		6	m1,s3
+Gene	Gene	RAC2	19354	Rac2		6	s1
+Gene	Gene	HRAS	3265	HRAS		5	m1
+Gene	Gene	ROS1	6098	ROS1		4	m1,s3
+Gene	Gene	MET	79811	SLTM		4	m1,s3
+Gene	Gene	mTOR	2475	MTOR		4	m1
+Gene	Gene	RET	5979	RET		3	m1
+Gene	Gene	EML4	27436	EML4		3	m1
+Gene	Gene	MAP2K1	5604	MAP2K1		3	m1
+Gene	Gene	Rit	6016	RIT1		3	m1
+Gene	Gene	p38	1432	MAPK14		2	m1
+Gene	Gene	PIK3CA	5290	PIK3CA		2	s3
+Gene	Gene	Ras-like	221547	RANP1		1	m1
+Gene	Gene	RIT2	6014	RIT2		1	m1
+Gene	Gene	RIN	6014	RIT2		1	m1
+Gene	Gene	vinculin	7414	VCL		1	m1
+Gene	Gene	MEK	17242	Mdk		1	m1
+Gene	Gene	PI3K	18708	Pik3r1		1	m1
+Gene	Gene	vinculin	22330	Vcl		1	m1
+Gene	Gene	EGFR	13649	Egfr		1	s1
+Chemical	Chemical	agar	MESH:D000362			14	m1
+Chemical	Chemical	GDC-0941	MESH:C532162			11	m1
+Chemical	Chemical	erlotinib	MESH:D000069347			4	m1
+Chemical	Chemical	puromycin	MESH:D011691			4	m1,s1
+Chemical	Chemical	acid	MESH:D000143			4	s1
+Chemical	Chemical	PD98059	MESH:C093973			3	m1
+Chemical	Chemical	LY294002	MESH:C085911			3	m1
+Chemical	Chemical	AZD-6244	MESH:C517975			3	m1
+Chemical	Chemical	DMEM				3	m1
+Chemical	Chemical	dimethylsulfoxide	MESH:D004121			3	m1
+Chemical	Chemical	GTP	MESH:D006160			2	m1
+Chemical	Chemical	PBS	MESH:D007854			2	m1
+Chemical	Chemical	Iressa	MESH:D000077156			1	m1
+Chemical	Chemical	gefitinib	MESH:D000077156			1	m1
+Chemical	Chemical	Tarceva	MESH:D000069347			1	m1
+Chemical	Chemical	crizotinib	MESH:D000077547			1	m1
+Chemical	Chemical	reactive oxygen species	MESH:D017382			1	m1
+Chemical	Chemical	ROS	MESH:D017382			1	m1
+Chemical	Chemical	AZD6244	MESH:C517975			1	m1
+Chemical	Chemical	Agar	MESH:D000362			1	m1
+Chemical	Chemical	methylcellulose	MESH:D008747			1	m1
+Chemical	Chemical	Tween-80	MESH:D011136			1	m1
+Chemical	Chemical	SDS	MESH:D012967			1	m1
+Chemical	Chemical	D8.9				1	m1
+Disease	Disease	lung adenocarcinoma	MESH:C538231			25	m1,s1
+Disease	Disease	tumors	MESH:D009369			10	m1,s1
+Disease	Disease	lung adenocarcinomas	MESH:C538231			7	m1,s1
+Disease	Disease	tumor	MESH:D009369			7	m1
+Disease	Disease	NSCLC	MESH:D002289			6	s1,s3
+Disease	Disease	cancer	MESH:D009369			5	m1
+Disease	Disease	cancers	MESH:D009369			3	m1
+Disease	Disease	myeloid malignancies	OMIM:601308			3	m1
+Disease	Disease	squamous	MESH:D002294			3	m1,s1
+Disease	Disease	melanoma	MESH:D008545			2	m1
+Disease	Disease	Noonan syndrome	MESH:D009634			2	m1
+Disease	Disease	Sigma-Aldrich				2	m1
+Disease	Disease	FBS	MESH:D005198			2	m1
+Disease	Disease	Lung adenocarcinoma	MESH:C538231			1	m1
+Disease	Disease	malignancy	MESH:D009369			1	m1
+Disease	Disease	adenocarcinomas	MESH:D000230			1	m1
+Disease	Disease	malignancies other than lung adenocarcinoma	MESH:C538231			1	m1
+Disease	Disease	acute myelogenous leukemia	MESH:D015470			1	m1
+Disease	Disease	cervical carcinoma	MESH:D065311			1	m1
+Disease	Disease	lung adenocarcinoma data	MESH:C538231			1	m1
+Disease	Disease	salivary gland carcinoma, endometrial carcinoma, myeloid malignancies	MESH:D016889			1	m1
+Disease	Disease	primary lung adenocarcinomas	MESH:C538231			1	m1
+Disease	Disease	impaired tumor	MESH:D009369			1	m1
+Disease	Disease	pheochromocytoma	MESH:D010673			1	m1
+Disease	Disease	a developmental disorder	MESH:D002658			1	m1
+Disease	Disease	adenocarcinoma	MESH:D000230			1	m1
+Disease	Disease	FBS				1	m1
+Disease	Disease	Tumors	MESH:D009369			1	m1
+Disease	Disease	Sigma-Aldrich	MESH:D014923			1	m1
+Disease	Disease	Atlas lung adenocarcinoma	MESH:C538231			1	s1
+Disease	Disease	N ND HCC364 Adeno BRAF N ND H2087 Adeno BRAF N ND H1395 Adeno BRAF N ND H1755 Adeno BRAF N ND	MESH:C537849			1	s3
+Disease	Disease	BRAF N ND H3255 Adeno EGFR N ND H1975 Adeno EGFR N ND HCC2279 Adeno EGFR N ND HCC4006 Adeno	MESH:C537849			1	s3
+Disease	Disease	NSCLC EGFR N ND	MESH:C537849			1	s3
+Disease	Disease	N ND H2347 Adeno NRAS N ND HCC1195 Adeno NRAS N ND A427 Adeno KRAS N ND A549 Adeno KRAS N ND	MESH:C537849			1	s3
+Disease	Disease	Adeno KRAS N ND H1734 Adeno KRAS N ND H1792 Adeno KRAS N ND H1944 Adeno KRAS N ND	MESH:C537849			1	s3
+Disease	Disease	Adeno KRAS N ND H2030 Adeno KRAS N ND H2122 Adeno KRAS N ND H441 Adeno KRAS N ND	MESH:C537849			1	s3
+Disease	Disease	Adeno KRAS N ND HCC515 Adeno KRAS N ND SKLU1 Adeno KRAS N ND H647 ADSQ KRAS N ND	MESH:C537849			1	s3
+Disease	Disease	KRAS N ND H2444 NSCLC KRAS N ND H2887 NSCLC KRAS N ND HCC1171 NSCLC KRAS N ND HCC44 NSCLC KRAS N	MESH:C537849			1	s3
+Disease	Disease	lung cancer	MESH:D008175			1	s4
+Organism	CellLine	NIH3T3	10090	house mouse		10	m1,s1
+Organism	CellLine	NCI-H2110	9606	human		10	m1
+Organism	Species	human	9606	human		7	m1
+Organism	Species	nude mice	10090	house mouse		5	m1,s1
+Organism	Species	mice	10090	house mouse		5	m1
+Organism	Species	patient	9606	human		3	m1
+Organism	Species	patients	9606	human		3	m1
+Organism	CellLine	NCI-H1299	9606	human		3	m1
+Organism	CellLine	293T	9606	human		2	m1
+Organism	CellLine	NCI-H1993	9606	human		1	m1

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE collection SYSTEM "BioC.dtd">
+<collection>
+<source>PubMed</source>
+<date>20220101</date>
+<key>BioC.key</key>
+<document>
+<id>67926033</id>
+  <passage>
+    <infon key="type">title</infon>
+    <offset>0</offset>
+    <text>41388_2014_BFonc2013581_MOESM16_ESM — tab_01</text>
+  </passage>
+  <passage>
+    <infon key="type">body</infon>
+    <offset>45</offset>
+    <text>CCLE name Cell</text>
+  </passage>
+</document>
+</collection>

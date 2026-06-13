@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<collection>
+  <source>PubMed</source>
+  <date>20220101</date>
+  <key>BioC.key</key>
+  <document>
+    <id>11840318</id>
+    <passage>
+      <infon key="type">title</infon>
+      <offset>0</offset>
+      <text>41388_2014_BFonc2013581_MOESM17_ESM — tab_01</text>
+    </passage>
+    <passage>
+      <infon key="type">body</infon>
+      <offset>45</offset>
+      <text>Supplementary Table 5 Tab 1 Berger et al. Supplementary Table 5 RIT1 seq? RIT1 mutation? Cell line Subtype Driver mutation from Thomas et al., Sos et al. Other mutations N ND H1563 Adeno PIK3CA ERBB2 p.S335C N ND H596 ADSQ PIK3CA MET exon 14 skipping N ND H1781 BA ERBB2 N ND HCC364 Adeno BRAF N ND H2087 Adeno BRAF N ND H1395 Adeno BRAF N ND H1755 Adeno BRAF N ND H1666 BA BRAF N ND H3255 Adeno EGFR N ND H1975 Adeno EGFR N ND HCC2279 Adeno EGFR N ND HCC4006 Adeno EGFR N ND PC9 Adeno EGFR N ND HCC827 Adeno EGFR N ND H1650 BA EGFR N ND LouNH91 N/A EGFR N ND HCC2935 NSCLC EGFR N ND H820 BA EGFR N ND H2347 Adeno NRAS N ND HCC1195 Adeno NRAS N ND A427 Adeno KRAS N ND A549 Adeno KRAS N ND H1355 Adeno KRAS N ND H1734 Adeno KRAS N ND H1792 Adeno KRAS N ND H1944 Adeno KRAS N ND H2009 Adeno KRAS N ND H2030 Adeno KRAS N ND H2122 Adeno KRAS N ND H441 Adeno KRAS N ND HCC461 Adeno KRAS N ND HCC515 Adeno KRAS N ND SKLU1 Adeno KRAS N ND H647 ADSQ KRAS N ND H358 BA KRAS N ND H2444 NSCLC KRAS N ND H2887 NSCLC KRAS N ND HCC1171 NSCLC KRAS N ND HCC44 NSCLC KRAS N ND H1437 Adeno none MAP2K1 p.Q56P Y N H2228 Adeno ALK fusion Y N H3122 NSCLC ALK fusion Y N HCC78 Adeno none ROS1 fusion Supplementary Table 5 Tab 1 Y N Calu3 Adeno none Y N Colo699 Adeno none Y N DV90 Adeno none Y N EKVX Adeno none Y N H1568 Adeno none Y N H1819 Adeno none Y N H1838 Adeno none Y N H1993 Adeno none Y p.M90I H2110 NSCLC none Y N H2172 NSCLC none Y N H23 Adeno none Y N H2882 NSCLC none Y N H322 BA none Y N H522 Adeno none Y N HCC1833 Adeno none Y N HCC193 Adeno none Y N HCC2429 NSCLC none Y N HCC366 ADSQ none Y N HOP-62 Adeno none N ND H2077 Adeno none N ND H1648 Adeno none</text>
+    </passage>
+  </document>
+</collection>

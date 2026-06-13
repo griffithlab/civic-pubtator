@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<collection>
+  <source>PubMed</source>
+  <date>20220101</date>
+  <key>BioC.key</key>
+  <document>
+    <id>67926033</id>
+    <passage>
+      <infon key="type">title</infon>
+      <offset>0</offset>
+      <text>41388_2014_BFonc2013581_MOESM16_ESM — tab_01</text>
+      <annotation id="0">
+        <infon key="type">Gene</infon>
+        <location offset="24" length="7"/>
+        <text>MOESM16</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">body</infon>
+      <offset>45</offset>
+      <text>CCLE name Cell</text>
+    </passage>
+  </document>
+</collection>

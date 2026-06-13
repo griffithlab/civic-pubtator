@@ -1,0 +1,2709 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<collection>
+  <source>PubMed</source>
+  <date>20220101</date>
+  <key>BioC.key</key>
+  <document>
+    <id>7114261</id>
+    <passage>
+      <infon key="type">title</infon>
+      <offset>0</offset>
+      <text>Oncogenic RIT1 mutations in lung adenocarcinoma</text>
+      <annotation id="0">
+        <infon key="type">Gene</infon>
+        <location offset="10" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="1">
+        <infon key="type">Disease</infon>
+        <location offset="28" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">abstract</infon>
+      <offset>48</offset>
+      <text>Lung adenocarcinoma is comprised of distinct mutational subtypes characterized by mutually exclusive oncogenic mutations in RTK/RAS pathway members KRAS, EGFR, BRAF and ERBB2, and translocations involving ALK, RET and ROS1. Identification of these oncogenic events has transformed the treatment of lung adenocarcinoma via application of therapies targeted toward specific genetic lesions in stratified patient populations. However, such mutations have been reported in only B55% of lung adenocarcinoma cases in the United States, suggesting other mechanisms of malignancy are involved in the remaining cases. Here we report somatic mutations in the small GTPase gene RIT1 in B2% of lung adenocarcinoma cases that cluster in a hotspot near the switch II domain of the protein. RIT1 switch II domain mutations are mutually exclusive with all other known lung adenocarcinoma driver mutations. Ectopic expression of mutated RIT1 induces cellular transformation in vitro and in vivo, which can be reversed by combined PI3K and MEK inhibition. These data identify RIT1 as a driver oncogene in a specific subset of lung adenocarcinomas and suggest PI3K and MEK inhibition as a potential therapeutic strategy in RIT1-mutated tumors.</text>
+      <annotation id="2">
+        <infon key="type">Disease</infon>
+        <location offset="48" length="19"/>
+        <text>Lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="3">
+        <infon key="type">Gene</infon>
+        <location offset="172" length="3"/>
+        <text>RTK</text>
+      </annotation>
+      <annotation id="4">
+        <infon key="type">Gene</infon>
+        <location offset="176" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="5">
+        <infon key="type">Gene</infon>
+        <location offset="196" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="6">
+        <infon key="type">Gene</infon>
+        <location offset="202" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="7">
+        <infon key="type">Gene</infon>
+        <location offset="208" length="4"/>
+        <text>BRAF</text>
+      </annotation>
+      <annotation id="8">
+        <infon key="type">Gene</infon>
+        <location offset="217" length="5"/>
+        <text>ERBB2</text>
+      </annotation>
+      <annotation id="9">
+        <infon key="type">Gene</infon>
+        <location offset="253" length="3"/>
+        <text>ALK</text>
+      </annotation>
+      <annotation id="10">
+        <infon key="type">Gene</infon>
+        <location offset="258" length="3"/>
+        <text>RET</text>
+      </annotation>
+      <annotation id="11">
+        <infon key="type">Gene</infon>
+        <location offset="266" length="4"/>
+        <text>ROS1</text>
+      </annotation>
+      <annotation id="12">
+        <infon key="type">Disease</infon>
+        <location offset="346" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="13">
+        <infon key="type">Disease</infon>
+        <location offset="420" length="15"/>
+        <text>genetic lesions</text>
+      </annotation>
+      <annotation id="14">
+        <infon key="type">Species</infon>
+        <location offset="450" length="7"/>
+        <text>patient</text>
+      </annotation>
+      <annotation id="15">
+        <infon key="type">Disease</infon>
+        <location offset="530" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="16">
+        <infon key="type">Disease</infon>
+        <location offset="609" length="10"/>
+        <text>malignancy</text>
+      </annotation>
+      <annotation id="17">
+        <infon key="type">Gene</infon>
+        <location offset="697" length="12"/>
+        <text>small GTPase</text>
+      </annotation>
+      <annotation id="18">
+        <infon key="type">Gene</infon>
+        <location offset="715" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="19">
+        <infon key="type">Disease</infon>
+        <location offset="730" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="20">
+        <infon key="type">Gene</infon>
+        <location offset="824" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="21">
+        <infon key="type">Disease</infon>
+        <location offset="900" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="22">
+        <infon key="type">Gene</infon>
+        <location offset="968" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="23">
+        <infon key="type">Gene</infon>
+        <location offset="1061" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="24">
+        <infon key="type">Gene</infon>
+        <location offset="1070" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="25">
+        <infon key="type">Gene</infon>
+        <location offset="1106" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="26">
+        <infon key="type">Disease</infon>
+        <location offset="1156" length="20"/>
+        <text>lung adenocarcinomas</text>
+      </annotation>
+      <annotation id="27">
+        <infon key="type">Gene</infon>
+        <location offset="1189" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="28">
+        <infon key="type">Gene</infon>
+        <location offset="1198" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="29">
+        <infon key="type">Gene</infon>
+        <location offset="1252" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="30">
+        <infon key="type">Disease</infon>
+        <location offset="1265" length="6"/>
+        <text>tumors</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">body</infon>
+      <offset>1273</offset>
+      <text>Lung adenocarcinomas contain characteristic, mutually exclusive mutations in receptor tyrosine kinase (RTK) and RAS pathway oncogenes including frequent mutation of KRAS or EGFR in B30 or 10% of US cases, respectively.  [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]  Rarely, translocations are seen involving EML4 and ALK (1-4%), RET (1%) or ROS1 (2%)  2, 5  (The Cancer Genome Atlas, manuscript submitted). Additional rare oncogenic mutations are seen in HRAS, NRAS, BRAF, ERBB2, MET and MAP2K1.  1, 2  Together these oncogenic events are found in B55% of lung adenocarcinomas in the US population.  2  The importance of identifying such 'driver' mutations is exemplified by the success of targeted therapies directed against these eventsthe prototypical example being the use of the small molecule EGFR inhibitors Iressa (gefitinib) and Tarceva (erlotinib) in EGFR-mutated lung adenocarcinoma.  14  Among patients with EGFR mutations, single-line EGFR-targeted therapy significantly extends progressionfree survival compared with conventional chemotherapy.  7, 8  Patients without EGFR mutations, however, typically do not benefit from targeted therapy, underscoring the need to genotype patient tumor resections and/or biopsies to guide appropriate treatment decisions. Modeling this paradigm, clinical trials of the ALK inhibitor crizotinib for treatment of tumors with EML4-ALK translocation were rapidly reported  15  only 3 years after the identification of the EML4-ALK event.  5  Therefore, continued identification of oncogenic driver genes in the remaining B45% of 'oncogene-negative' lung adenocarcinoma cases may allow further patient stratification and targeted therapies. Recent genomic analyses of lung adenocarcinoma have identified novel mutations in diverse genes, but few additional oncogenic mutations have been identified that display mutual exclusivity with known lung adenocarcinoma driver oncogenes.  1, 16  Here we report the genomic and functional characterization of somatic RIT1 mutations that we identify as novel driver mutations in lung adenocarcinoma. To identify rare oncogenic driver mutations, we and others in The Cancer Genome Atlas (TCGA) Research Network performed a targeted analysis of 'oncogene-negative' tumors that lack mutations in the known lung adenocarcinoma driver oncogenes KRAS, EGFR, BRAF, ERBB2, MAP2K1, MET, HRAS, NRAS and/or fusions involving ALK, RET or ROS1 (TCGA, manuscript submitted). In 87 'oncogene-negative' samples lacking mutations/fusions in the known driver genes, RIT1 (Ras-like in all tissues) was among the top significantly mutated genes. 5/87 samples in this group harbored somatic RIT1 mutations. In contrast, no mutations in RIT1 were found in the 143 samples containing known driver oncogenic mutations (Po0.01 by Fisher's exact test). Moreover, we identified five additional RIT1-mutant samples in sequence data from an independent cohort of 183 lung adenocarcinomas.  1  In total, non-synonymous somatic mutations of RIT1 were identified in 10/413 (2.4%) lung adenocarcinomas subjected to whole exome sequencing (Figure  1a , Supplementary Table  1 ). Mutations in RIT1 consisted of missense mutations and small inframe insertion/deletions. In all, 7/10 RIT1 mutations were clustered near the switch II domain region (Figures  1a  and b ), including three recurrent p.M90I mutations. The switch II domain in RIT1 is homologous to the switch II region in RAS genes that contains glutamine 61 (Supplementary Figure  1 ), which is directly involved in GTP hydrolysis and also a hotspot of mutation in RAS genes.  17  This switch II domain hotspot is distinct from the P29 hotspot in RAC genes recently reported in melanoma and other cancers  [18] [19] [20]  (Supplementary Figure  1 ). Recurrent alteration of RIT1 alanine 77 was also observed; one of the ten mutated samples from this analysis harbored a p.A77P mutation and an additional TCGA sample (TCGA-73-4666) harbored a p.A77S mutation. TCGA-73-4666 was excluded from the 230 tumor TCGA data set due to lack of data from its paired normal sample. We hence cannot rule out that p.A77S represents a rare germline variant, though it is unlikely given its absence in sequence data generated from 1092 normal genomes by the 1000 Genomes Project.  21  All seven samples with switch II domain RIT1 mutations lacked oncogenic driver mutations in EGFR, KRAS, BRAF, ERBB2, HRAS, NRAS and MAP2K1. This pattern of mutational mutual exclusivity is consistent with the possibility that RIT1 switch II domain mutations may function as RAS/RTK pathway lung adenocarcinoma oncogenes. However, one of three non-switch II domain mutations, p.R122L, co-occurred with a KRAS mutation (Supplementary Figure  2 ). We surveyed recent exome sequencing data from other diverse cancer types to determine whether RIT1 is mutated in malignancies other than lung adenocarcinoma. Most tumor types had no mutations, or rare RIT1 variants of unknown significance (Supplementary Table  2 ). However, one sample each from acute myelogenous leukemia  22  and cervical carcinoma sequencing studies harbored the RIT1 p.M90I variant seen recurrently in lung adenocarcinoma. In line with these observations, somatic RIT1 mutation was recently reported in myeloid malignancies.  23  The mutations observed in myeloid malignancies overlap with the mutations we report in lung adenocarcinoma (F82L, M90I) and include additional mutations clustering in the switch II domain. To test whether mutated RIT1 is capable of inducing cellular transformation, we expressed wild-type or mutated RIT1 cDNA constructs in NIH3T3 cells and assayed the ability of these cells to form colonies in soft agar. A constitutively active form of RIT1, RIT1 Q79L,  24  was used as a positive control. With the exception of RIT1 Q40L, all other RIT1 mutations robustly induced colony formation of NIH3T3 cells in soft agar (Figure  2a ). To confirm that these cells were indeed transformed, we injected RIT1-transduced cells subcutaneously into nude mice and assessed tumor-forming capability. Six of six switch II domain mutations induced significant tumor formation by 3 weeks post-injection, comparable to transformation induced by KRAS G12V or EGFR L858R (Figure  2b  and Supplementary Figure  3 ), whereas transformation capability of non-switch II domain mutations varied. RIT1 Q40L, although consistently less active than other RIT1 variants, showed intermediate transforming capability in the xenograft assay (Supplementary Figure  3 ). It remains possible that RIT1 Q40L is weakly activating, and should be noted that RIT1 Q40 is homologous to KRAS Q22, which is found mutated in Noonan syndrome  25  and rarely in somatic cancers. In addition to the lung adenocarcinoma mutations, we tested the transforming capability of RIT1 mutations reported in myeloid malignancies  23  or curated in COSMIC  26  from diverse tumor types (Supplementary Table  3 ). Consistent with the lung adenocarcinoma data, transforming mutations were mainly clustered in the switch II domain. We identified transforming RIT1 mutations in salivary gland carcinoma, endometrial carcinoma, myeloid malignancies and melanoma. These data indicate that rare RIT1 mutations may have a role in the pathogenesis of diverse cancers. RIT1 mutation is mutually exclusive with mutations in other RAS/RTK-pathway genes, so we hypothesized that RIT1 may activate PI3K and MEK. To investigate the signaling changes induced by mutated RIT1, we expressed wild-type or mutated RIT1 in PC6 cells and analyzed downstream signaling changes by western blot. Transformation potential of RIT1 mutants correlated with their ability to activate MEK and ERK pathways; all RIT1 mutations with the exception of RIT1 Q40L induced phosphorylation of MEK and ERK (Figure  2c ). Treatment of RIT1-expressing cells with the specific MEK inhibitor, PD98059, completely inhibited RIT1-induced ERK phosphorylation, indicating that RIT1 induces ERK phosphorylation via activation of MEK (Figure  2d ). In addition to MEK/ERK signaling, we observed robust activation of PI3K/AKT signaling by mutated RIT1. Oncogenic RIT1 mutants induced phosphorylation of AKT (S473 and T308), which could be inhibited by treatment with the PI3K/mTOR inhibitor LY294002 (Figure  2e ). RIT1-activated MEK and PI3K signaling independently, as MEK inhibition failed to impair AKT phosphorylation and PI3K/mTOR inhibition failed to impair ERK phosphorylation. To determine if activation of MEK and PI3K was responsible for RIT1-induced transformation, we assayed the ability of RIT1 mutants to form colonies in soft agar in the presence or absence of different kinase inhibitors. Either MEK inhibition with 1 mM AZD-6244 or PI3K/mTOR inhibition with 1 mM GDC-0941 significantly impaired colony formation (Figure  2f ), whereas treatment with the EGFR inhibitor erlotinib (1 mM) showed no effect. Combination MEK and PI3K inhibition almost completely abrogated colony formation (Figure  2f ). Given the prevalence of RIT1 mutation in primary human lung adenocarcinomas, we hypothesized that human lung adenocarcinoma cell lines may also harbor mutations in RIT1 and that identification of these cell lines would facilitate study of RIT1 function in human cancer pathogenesis. On the basis of the pattern of RIT1 mutation mutual-exclusivity with driver mutations in primary samples, we focused our efforts on 'oncogene-negative' human non-squamous non-small cell lung cancer cell lines. We curated the mutational status of all known lung adenocarcinoma driver genes from non-squamous non-small cell lung cancer lines in the Cancer Cell Line Encyclopedia.  27  Among 35 'oncogene-negative' cell lines, NCI-H2110 showed the highest level of RIT1 mRNA expression (Supplementary Figure  4  and Supplementary Table  4 ). Next, we sequenced the switch II domain of RIT1 in cDNA from 19 'oncogene-negative' cell lines and 3 'oncogene-positive' cell lines (Supplementary Table  5 ). In all, 1/19 'oncogene-negative' and 0/3 'oncogene-positive cell lines' had a non-synonymous change in RIT1; NCI-H2110 cells harbored the p.M90I mutation also seen in human primary lung adenocarcinomas (Figure  3a ). To determine if RIT1-mediated PI3K and MEK activation are involved in RIT1-mutated human lung adenocarcinoma, we interrogated the role of these pathways in NCI-H2110 cells. Using lentiviral delivery of RIT1-targeting (shRIT1-1, shRIT1-2 and shRIT1-3) and non-targeting (shLacZ) short hairpin RNA, we knocked down RIT1 levels in NCI-H2110 and NCI-H1299 cells, the latter of which express low or no RIT1 (Figure  3b ). Knockdown of RIT1 in NCI-H2110 cells resulted in loss of AKT phosphorylation and a reduction in MEK and ERK phosphorylation, whereas expression of the same hairpins in NCI-H1299 cells had no consistent effect. Therefore, RIT1 regulates PI3K and MEK signaling in NCI-H2110 cells. Given the potent ability of the PI3K/mTOR inhibitor GDC-0941 to inhibit RIT1-induced cellular transformation (Figure  2f ), we sought to determine whether GDC-0941 would impair the growth of RIT1-mutated human lung adenocarcinoma cells. NCI-H2110 xenografts were generated via subcutaneous injection into the flanks of nude mice. After tumors were established, mice were dosed daily with 150 mg/kg GDC-0941 as previously described.  28  GDC-0941 significantly impaired tumor growth (Figure  3c ), resulting in markedly smaller tumor masses in the GDC-0941-treated group at the experimental end point (Figure  3d ). RIT1 encodes a RAS-family small GTPase  24, 29  with significant domain and sequence homology to KRAS, HRAS and NRAS (Figures  1a  and b ). Although RIT1 is ubiquitously expressed, expression of its closest homolog, RIT2/RIN, is restricted to the nervous system.  29  Like RAS proteins, RIT1 possesses intrinsic GTP hydrolysis activity,  24  which can be inactivated by construction of a point mutation, Q79L, at the glutamine homologous to Q61 in RAS.  24  Expression of Q79L RIT1 is sufficient to transform NIH3T3 cells  30  and induces activation of p38, ERK or AKT signaling pathways depending on cellular context.  31, 32  Interestingly, the codon for Q79 also provides the 5 0 splice site for intron 4-5 of RIT1; mutation of glutamine 79 to leucine would be predicted to disrupt the splice site, which may make natural Q79L mutation incompatible with RIT1 expression. In PC6 cells, a derivative of the PC12 pheochromocytoma line commonly used for study of RAS/MAPK signaling and neuronal differentiation,  33, 34  RIT1 activates MEK/ERK through direct binding with BRAF.  31  Moreover, RIT1 activity is induced by stimulation with EGF or NGF in PC6 cells.  31  Recently, studies in Rit knockout mice demonstrated that Rit promotes survival after oxidative stress through activation of a p38-AKT-BAD signaling cascade.  35  Rit À / À cells are hypersensitive to apoptosis after exposure to reactive oxygen species (ROS) whereas cells expressing Q79L RIT1 are protected.  35  The RIT1 switch II domain mutations identified here in B2% of lung adenocarcinomas define a new subset of lung adenocarcinoma. RIT1 switch II domain mutations are mutually exclusive with all other known lung adenocarcinoma oncogenes and rapidly induce transformation in vitro and in vivo. RIT1 mutation induces activation of PI3K and MEK signaling and these pathways are required for RIT1-mediated cellular transformation. These experimental and observational data indicate that RIT1 likely acts in the RTK/MAPK pathway to promote tumorigenesis. In agreement with this notion is the recent identification of germline RIT1 mutations in Noonan syndrome, a developmental disorder caused by mutations in RAS-pathway genes.  36  In cancer, targeted inhibition of PI3K and MEK should be explored as a possible therapeutic strategy for patients with RIT1 mutations. Somatic RIT1 mutations were identified in two independent cohorts of lung adenocarcinoma sequence data from Imielinski et al.  1  or The Cancer Genome Atlas ( http://cancergenome.nih.gov , manuscript submitted). Construct generation and virus production pDONR223-RIT1 was obtained from the Broad Institute's ORF collection  37  and confirmed to be wild-type by Sanger sequencing. Mutations were introduced into pDONR223-RIT1 by site-directed mutagenesis using the Quikchange II kit (Agilent Technologies, Santa Clara, CA, USA) according to the manufacturer's protocol. Primer sequences are available upon request. RIT1 mutations were then subcloned from pDONR223 into pBabe-puro for generation of retrovirus or p3xFlag-CMV10 (Sigma-Aldrich, St Louis, MO, USA) for transient transfection experiments. Retrovirus was generated by cotransfection of pBabe-puro and a pCL-Eco packaging vector into 293T cells using Fugene6 (Promega, Madison, WI, USA). Forty-eight hours posttransfection, virus was harvested and filtered through a 0.45 mm syringe filter before addition to exponentially growing NIH3T3 cells. Forty-eight hours post-infection, cells were selected with 2 mg/ml puromycin for 2-3 days before proceeding with downstream soft agar assays or other experiments. We considered 'known' adenocarcinoma oncogenes as previously defined, 2 with the addition of the recently identified MET exon 14 skipping variant.  16, 38  We curated the genotypes of these genes in 64 nonsquamous cell lines (Supplementary Table  5 ) from previously generated Oncomap data.  39, 40  Nineteen cell lines lacking known lung adenocarcinoma oncogenes and three control cell lines were selected for RIT1 cDNA sequencing. Cell line culturing and cDNA preparation was as previously described.  41  The switch II domain region of RIT1 was PCR amplified using the following primers: RIT1-c-ex3-F, TCATCAGCCACCG ATTCC; RIT1-c-ex5-R, CGTCGGACTCGATAAATAAGC. PCR was performed using the HotStarTaq mastermix (Qiagen, Valencia, CA, USA) with the following thermocycling conditions: 5 min at 95 1C, 38 cycles of 15 s at 94 1C, 1 min at 50 1C, 1 min at 72 1C and an additional extension time of 10 min at 72 1C. PCR products were purified using the Qiaquick PCR purification kit (Qiagen) and sequenced by Sanger sequencing (Genewiz, Cambridge, MA, USA) using the same primers as above. Seqman (DNAStar, Madison, WI, USA) was used to align sequencing traces and identify single nucleotide polymorphisms. The p.M90I mutation identified in NCI-H2110 cells was validated in an independent cDNA sample from an independent aliquot of cells obtained directly from ATCC. NIH3T3 cells were transduced with retrovirus generated with pBabe-puro-RIT1 plasmids or pBabe-puro empty vector. Forty-eight hours postinfection, cells were selected with 2 ug/ml puromycin. After 48 h of selection, cells were split for seeding in a soft agar assay or lysis for verification of protein expression by western blotting. For the soft agar assay, 5 Â 10 3 -5 Â 10 4 cells were suspended in 1 ml of 0.33% select agar in DMEM/FBS and plated on a bottom layer of 0.5% select agar in DMEM/FBS in six-well dishes. Each cell line/mutation was analyzed in triplicate. Colonies were photographed after 14-21 days and quantified using CellProfiler.  42  An anti-RIT1 antibody (#ab13322, Abcam, Cambridge, UK) and an anti-vinculin (loading control) antibody (Sigma-Aldrich) were used to confirm RIT1 expression. For soft agar inhibitor experiments, AZD6244, erlotinib or GDC-0941 were purchased from Selleckchem, Houston, TX, USA and suspended in the top agar solution at a final concentration of 1 mM. Agar wells were hydrated weekly with media containing 1 mM drug. Xenografts were performed as previously described.  43  For transformation assays, RIT1-or empty vector-transduced NIH3T3 cells, generated as above, were harvested by trypsinization, washed in PBS and resuspended at 10 6 cells/ml in PBS. Two hundred microliters (2 Â 10 5 cells) were injected into each injection site, n ¼ 9 sites per cell line, in 4-6-week-old female nu/ nu mice (Jackson Laboratory, Bar Harbor, ME, USA). Cells were allowed to engraft for 1 week, then tumors were measured every 3 days using a digital caliper (VWR, Radnor, PA, USA). Tumor volume was calculated with the formula 0.5 Â L Â W 2 where L is the longest diameter and W is the diameter perpendicular to L. NCI-H2110 studies, cells were prepared as above and then resuspended at 10 7 cells/ml. Two hundred microliters (2 Â 10 6 cells) were injected per site into flanks of nu/nu mice. Tumors were monitored until B100 mm 3 , at which time inhibitor dosing was initiated. GDC-0941 (Selleckchem) was resuspended at 20 mg/ml in 0.5% methylcellulose/0.2% Tween-80 and 150 mg/kg administered daily by oral gavage. All animal experiments were carried out in accordance with the DFCI Institutional Animal Care and Use Committee guidelines. Monolayers of PC6 cells were transfected with 2 mg of plasmid DNA per well of a six-well plate as described previously.  31  After a 60 h incubation, whole cell lysates were prepared in kinase lysis buffer, an equal amount of protein from each lysate was resolved by 10% SDS-PAGE and subjected to immunoblot analysis with the indicated antibody as described previously.  31  For inhibitor experiments, cells were pre-treated with 10 mM PD98059 or LY294002 or dimethylsulfoxide for 30 min prior to transfection. 60 h post-transfection, cells were serum-starved for 5 h in the presence of the inhibitor or dimethylsulfoxide before lysis in kinase buffer. Commercial antibodies were used to total-and phospho-specific MEK, ERK, AKT (Cell Signaling, Danvers, MA, USA), Flag (Sigma-Aldrich) and RIT1 (Abcam). Hairpins targeting RIT1 (shRIT1-1, -2 and -3) and a non-targeting hairpin (shLacZ) were obtained from The RNAi Consortium (TRC) in the pLKO lentiviral backbone. Virus was generated by co-transfection of pLKO, VSV-G and D8.9 packaging vectors in 293T cells. Lentivirus was harvested in DMEM þ 30% FBS and filtered or frozen before application to exponentially growing NCI-H1299 or NCI-H2110 cells. Cells were selected in 2 mg/ml puromycin for 3 days and then expanded for 1-2 weeks before analysis. Hairpin TRC clone IDs and target sequences were as follows: shLacZ,/TRCN0000072223, TGTTCGCATTATCCGAACCAT shRIT1-1/TRCN0000047888, CGCTACTATATTGATGATGTT shRIT1-2/CGTCGAAGTTTCCATGAAGTT, CGTCGAAGTTTCCATGAAGTT shRIT1-3/TRCN0000047890, CGAGAATTCAGCTGTCCCTTT. &amp; 2014 Macmillan Publishers Limited All rights reserved 0950-9232/14 www.nature.com/onc &amp; 2014 Macmillan Publishers Limited Oncogene (2014) 4418 -4423 Oncogene (2014) 4418 -4423&amp; 2014 Macmillan Publishers Limited</text>
+      <annotation id="31">
+        <infon key="type">Disease</infon>
+        <location offset="1273" length="20"/>
+        <text>Lung adenocarcinomas</text>
+      </annotation>
+      <annotation id="32">
+        <infon key="type">Gene</infon>
+        <location offset="1350" length="24"/>
+        <text>receptor tyrosine kinase</text>
+      </annotation>
+      <annotation id="33">
+        <infon key="type">Gene</infon>
+        <location offset="1376" length="3"/>
+        <text>RTK</text>
+      </annotation>
+      <annotation id="34">
+        <infon key="type">Gene</infon>
+        <location offset="1385" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="35">
+        <infon key="type">Gene</infon>
+        <location offset="1438" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="36">
+        <infon key="type">Gene</infon>
+        <location offset="1446" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="37">
+        <infon key="type">Gene</infon>
+        <location offset="1592" length="4"/>
+        <text>EML4</text>
+      </annotation>
+      <annotation id="38">
+        <infon key="type">Gene</infon>
+        <location offset="1601" length="3"/>
+        <text>ALK</text>
+      </annotation>
+      <annotation id="39">
+        <infon key="type">Gene</infon>
+        <location offset="1613" length="3"/>
+        <text>RET</text>
+      </annotation>
+      <annotation id="40">
+        <infon key="type">Gene</infon>
+        <location offset="1625" length="4"/>
+        <text>ROS1</text>
+      </annotation>
+      <annotation id="41">
+        <infon key="type">Disease</infon>
+        <location offset="1647" length="6"/>
+        <text>Cancer</text>
+      </annotation>
+      <annotation id="42">
+        <infon key="type">Gene</infon>
+        <location offset="1739" length="4"/>
+        <text>HRAS</text>
+      </annotation>
+      <annotation id="43">
+        <infon key="type">Gene</infon>
+        <location offset="1745" length="4"/>
+        <text>NRAS</text>
+      </annotation>
+      <annotation id="44">
+        <infon key="type">Gene</infon>
+        <location offset="1751" length="4"/>
+        <text>BRAF</text>
+      </annotation>
+      <annotation id="45">
+        <infon key="type">Gene</infon>
+        <location offset="1757" length="5"/>
+        <text>ERBB2</text>
+      </annotation>
+      <annotation id="46">
+        <infon key="type">Gene</infon>
+        <location offset="1764" length="3"/>
+        <text>MET</text>
+      </annotation>
+      <annotation id="47">
+        <infon key="type">Gene</infon>
+        <location offset="1772" length="6"/>
+        <text>MAP2K1</text>
+      </annotation>
+      <annotation id="48">
+        <infon key="type">Disease</infon>
+        <location offset="1840" length="20"/>
+        <text>lung adenocarcinomas</text>
+      </annotation>
+      <annotation id="49">
+        <infon key="type">Gene</infon>
+        <location offset="2083" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="50">
+        <infon key="type">Chemical</infon>
+        <location offset="2099" length="6"/>
+        <text>Iressa</text>
+      </annotation>
+      <annotation id="51">
+        <infon key="type">Chemical</infon>
+        <location offset="2107" length="9"/>
+        <text>gefitinib</text>
+      </annotation>
+      <annotation id="52">
+        <infon key="type">Chemical</infon>
+        <location offset="2122" length="7"/>
+        <text>Tarceva</text>
+      </annotation>
+      <annotation id="53">
+        <infon key="type">Chemical</infon>
+        <location offset="2131" length="9"/>
+        <text>erlotinib</text>
+      </annotation>
+      <annotation id="54">
+        <infon key="type">Gene</infon>
+        <location offset="2145" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="55">
+        <infon key="type">Disease</infon>
+        <location offset="2158" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="56">
+        <infon key="type">Species</infon>
+        <location offset="2190" length="8"/>
+        <text>patients</text>
+      </annotation>
+      <annotation id="57">
+        <infon key="type">Gene</infon>
+        <location offset="2204" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="58">
+        <infon key="type">Gene</infon>
+        <location offset="2232" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="59">
+        <infon key="type">Species</infon>
+        <location offset="2349" length="8"/>
+        <text>Patients</text>
+      </annotation>
+      <annotation id="60">
+        <infon key="type">Gene</infon>
+        <location offset="2366" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="61">
+        <infon key="type">Species</infon>
+        <location offset="2473" length="7"/>
+        <text>patient</text>
+      </annotation>
+      <annotation id="62">
+        <infon key="type">Disease</infon>
+        <location offset="2481" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="63">
+        <infon key="type">Gene</infon>
+        <location offset="2603" length="3"/>
+        <text>ALK</text>
+      </annotation>
+      <annotation id="64">
+        <infon key="type">Chemical</infon>
+        <location offset="2617" length="10"/>
+        <text>crizotinib</text>
+      </annotation>
+      <annotation id="65">
+        <infon key="type">Disease</infon>
+        <location offset="2645" length="6"/>
+        <text>tumors</text>
+      </annotation>
+      <annotation id="66">
+        <infon key="type">Gene</infon>
+        <location offset="2657" length="4"/>
+        <text>EML4</text>
+      </annotation>
+      <annotation id="67">
+        <infon key="type">Gene</infon>
+        <location offset="2662" length="3"/>
+        <text>ALK</text>
+      </annotation>
+      <annotation id="68">
+        <infon key="type">Gene</infon>
+        <location offset="2752" length="4"/>
+        <text>EML4</text>
+      </annotation>
+      <annotation id="69">
+        <infon key="type">Gene</infon>
+        <location offset="2757" length="3"/>
+        <text>ALK</text>
+      </annotation>
+      <annotation id="70">
+        <infon key="type">Disease</infon>
+        <location offset="2879" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="71">
+        <infon key="type">Species</infon>
+        <location offset="2923" length="7"/>
+        <text>patient</text>
+      </annotation>
+      <annotation id="72">
+        <infon key="type">Disease</infon>
+        <location offset="2997" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="73">
+        <infon key="type">Disease</infon>
+        <location offset="3170" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="74">
+        <infon key="type">Gene</infon>
+        <location offset="3286" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="75">
+        <infon key="type">Disease</infon>
+        <location offset="3347" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="76">
+        <infon key="type">Disease</infon>
+        <location offset="3434" length="6"/>
+        <text>Cancer</text>
+      </annotation>
+      <annotation id="77">
+        <infon key="type">Disease</infon>
+        <location offset="3531" length="6"/>
+        <text>tumors</text>
+      </annotation>
+      <annotation id="78">
+        <infon key="type">Disease</infon>
+        <location offset="3571" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="79">
+        <infon key="type">Gene</infon>
+        <location offset="3608" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="80">
+        <infon key="type">Gene</infon>
+        <location offset="3614" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="81">
+        <infon key="type">Gene</infon>
+        <location offset="3620" length="4"/>
+        <text>BRAF</text>
+      </annotation>
+      <annotation id="82">
+        <infon key="type">Gene</infon>
+        <location offset="3626" length="5"/>
+        <text>ERBB2</text>
+      </annotation>
+      <annotation id="83">
+        <infon key="type">Gene</infon>
+        <location offset="3633" length="6"/>
+        <text>MAP2K1</text>
+      </annotation>
+      <annotation id="84">
+        <infon key="type">Gene</infon>
+        <location offset="3641" length="3"/>
+        <text>MET</text>
+      </annotation>
+      <annotation id="85">
+        <infon key="type">Gene</infon>
+        <location offset="3646" length="4"/>
+        <text>HRAS</text>
+      </annotation>
+      <annotation id="86">
+        <infon key="type">Gene</infon>
+        <location offset="3652" length="4"/>
+        <text>NRAS</text>
+      </annotation>
+      <annotation id="87">
+        <infon key="type">Gene</infon>
+        <location offset="3682" length="3"/>
+        <text>ALK</text>
+      </annotation>
+      <annotation id="88">
+        <infon key="type">Gene</infon>
+        <location offset="3687" length="3"/>
+        <text>RET</text>
+      </annotation>
+      <annotation id="89">
+        <infon key="type">Gene</infon>
+        <location offset="3694" length="4"/>
+        <text>ROS1</text>
+      </annotation>
+      <annotation id="90">
+        <infon key="type">Gene</infon>
+        <location offset="3816" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="91">
+        <infon key="type">Gene</infon>
+        <location offset="3822" length="3"/>
+        <text>Ras</text>
+      </annotation>
+      <annotation id="92">
+        <infon key="type">Gene</infon>
+        <location offset="3938" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="93">
+        <infon key="type">Gene</infon>
+        <location offset="3983" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="94">
+        <infon key="type">Gene</infon>
+        <location offset="4135" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="95">
+        <infon key="type">Disease</infon>
+        <location offset="4206" length="20"/>
+        <text>lung adenocarcinomas</text>
+      </annotation>
+      <annotation id="96">
+        <infon key="type">Gene</infon>
+        <location offset="4278" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="97">
+        <infon key="type">Disease</infon>
+        <location offset="4316" length="20"/>
+        <text>lung adenocarcinomas</text>
+      </annotation>
+      <annotation id="98">
+        <infon key="type">Gene</infon>
+        <location offset="4426" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="99">
+        <infon key="type">Gene</infon>
+        <location offset="4515" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="100">
+        <infon key="type">Mutation</infon>
+        <location offset="4629" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="101">
+        <infon key="type">Gene</infon>
+        <location offset="4669" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="102">
+        <infon key="type">Gene</infon>
+        <location offset="4715" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="103">
+        <infon key="type">Chemical</infon>
+        <location offset="4810" length="3"/>
+        <text>GTP</text>
+      </annotation>
+      <annotation id="104">
+        <infon key="type">Gene</infon>
+        <location offset="4859" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="105">
+        <infon key="type">FamilyName</infon>
+        <location offset="4941" length="3"/>
+        <text>RAC</text>
+      </annotation>
+      <annotation id="106">
+        <infon key="type">Disease</infon>
+        <location offset="4972" length="8"/>
+        <text>melanoma</text>
+      </annotation>
+      <annotation id="107">
+        <infon key="type">Disease</infon>
+        <location offset="4991" length="7"/>
+        <text>cancers</text>
+      </annotation>
+      <annotation id="108">
+        <infon key="type">Gene</infon>
+        <location offset="5068" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="109">
+        <infon key="type">Mutation</infon>
+        <location offset="5073" length="10"/>
+        <text>alanine 77</text>
+      </annotation>
+      <annotation id="110">
+        <infon key="type">Mutation</infon>
+        <location offset="5166" length="4"/>
+        <text>A77P</text>
+      </annotation>
+      <annotation id="111">
+        <infon key="type">Mutation</infon>
+        <location offset="5238" length="4"/>
+        <text>A77S</text>
+      </annotation>
+      <annotation id="112">
+        <infon key="type">Disease</infon>
+        <location offset="5292" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="113">
+        <infon key="type">Mutation</infon>
+        <location offset="5395" length="4"/>
+        <text>A77S</text>
+      </annotation>
+      <annotation id="114">
+        <infon key="type">Gene</infon>
+        <location offset="5602" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="115">
+        <infon key="type">Gene</infon>
+        <location offset="5654" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="116">
+        <infon key="type">Gene</infon>
+        <location offset="5660" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="117">
+        <infon key="type">Gene</infon>
+        <location offset="5666" length="4"/>
+        <text>BRAF</text>
+      </annotation>
+      <annotation id="118">
+        <infon key="type">Gene</infon>
+        <location offset="5672" length="5"/>
+        <text>ERBB2</text>
+      </annotation>
+      <annotation id="119">
+        <infon key="type">Gene</infon>
+        <location offset="5679" length="4"/>
+        <text>HRAS</text>
+      </annotation>
+      <annotation id="120">
+        <infon key="type">Gene</infon>
+        <location offset="5685" length="4"/>
+        <text>NRAS</text>
+      </annotation>
+      <annotation id="121">
+        <infon key="type">Gene</infon>
+        <location offset="5694" length="6"/>
+        <text>MAP2K1</text>
+      </annotation>
+      <annotation id="122">
+        <infon key="type">Gene</infon>
+        <location offset="5788" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="123">
+        <infon key="type">Gene</infon>
+        <location offset="5836" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="124">
+        <infon key="type">Gene</infon>
+        <location offset="5840" length="3"/>
+        <text>RTK</text>
+      </annotation>
+      <annotation id="125">
+        <infon key="type">Disease</infon>
+        <location offset="5857" length="24"/>
+        <text>adenocarcinoma oncogenes</text>
+      </annotation>
+      <annotation id="126">
+        <infon key="type">Mutation</infon>
+        <location offset="5939" length="5"/>
+        <text>R122L</text>
+      </annotation>
+      <annotation id="127">
+        <infon key="type">Gene</infon>
+        <location offset="5965" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="128">
+        <infon key="type">Disease</infon>
+        <location offset="6067" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="129">
+        <infon key="type">Gene</infon>
+        <location offset="6101" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="130">
+        <infon key="type">Disease</infon>
+        <location offset="6120" length="12"/>
+        <text>malignancies</text>
+      </annotation>
+      <annotation id="131">
+        <infon key="type">Disease</infon>
+        <location offset="6144" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="132">
+        <infon key="type">Disease</infon>
+        <location offset="6170" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="133">
+        <infon key="type">Gene</infon>
+        <location offset="6208" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="134">
+        <infon key="type">Disease</infon>
+        <location offset="6303" length="30"/>
+        <text>acute myelogenous leukemia  22</text>
+      </annotation>
+      <annotation id="135">
+        <infon key="type">Disease</infon>
+        <location offset="6339" length="18"/>
+        <text>cervical carcinoma</text>
+      </annotation>
+      <annotation id="136">
+        <infon key="type">Gene</infon>
+        <location offset="6390" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="137">
+        <infon key="type">Mutation</infon>
+        <location offset="6397" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="138">
+        <infon key="type">Disease</infon>
+        <location offset="6430" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="139">
+        <infon key="type">Gene</infon>
+        <location offset="6492" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="140">
+        <infon key="type">Disease</infon>
+        <location offset="6531" length="20"/>
+        <text>myeloid malignancies</text>
+      </annotation>
+      <annotation id="141">
+        <infon key="type">Disease</infon>
+        <location offset="6584" length="20"/>
+        <text>myeloid malignancies</text>
+      </annotation>
+      <annotation id="142">
+        <infon key="type">Disease</infon>
+        <location offset="6645" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="143">
+        <infon key="type">Mutation</infon>
+        <location offset="6666" length="4"/>
+        <text>F82L</text>
+      </annotation>
+      <annotation id="144">
+        <infon key="type">Mutation</infon>
+        <location offset="6672" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="145">
+        <infon key="type">Gene</infon>
+        <location offset="6771" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="146">
+        <infon key="type">Gene</infon>
+        <location offset="6858" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="147">
+        <infon key="type">CellLine</infon>
+        <location offset="6882" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="148">
+        <infon key="type">Chemical</infon>
+        <location offset="6959" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="149">
+        <infon key="type">Gene</infon>
+        <location offset="6997" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="150">
+        <infon key="type">Gene</infon>
+        <location offset="7003" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="151">
+        <infon key="type">Mutation</infon>
+        <location offset="7008" length="9"/>
+        <text>Q79L,  24</text>
+      </annotation>
+      <annotation id="152">
+        <infon key="type">Gene</infon>
+        <location offset="7073" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="153">
+        <infon key="type">Mutation</infon>
+        <location offset="7078" length="4"/>
+        <text>Q40L</text>
+      </annotation>
+      <annotation id="154">
+        <infon key="type">Gene</infon>
+        <location offset="7094" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="155">
+        <infon key="type">CellLine</infon>
+        <location offset="7146" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="156">
+        <infon key="type">Chemical</infon>
+        <location offset="7167" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="157">
+        <infon key="type">Gene</infon>
+        <location offset="7252" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="158">
+        <infon key="type">Species</infon>
+        <location offset="7299" length="4"/>
+        <text>mice</text>
+      </annotation>
+      <annotation id="159">
+        <infon key="type">Disease</infon>
+        <location offset="7317" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="160">
+        <infon key="type">Disease</infon>
+        <location offset="7401" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="161">
+        <infon key="type">Gene</infon>
+        <location offset="7484" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="162">
+        <infon key="type">Mutation</infon>
+        <location offset="7489" length="4"/>
+        <text>G12V</text>
+      </annotation>
+      <annotation id="163">
+        <infon key="type">Gene</infon>
+        <location offset="7497" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="164">
+        <infon key="type">Mutation</infon>
+        <location offset="7502" length="5"/>
+        <text>L858R</text>
+      </annotation>
+      <annotation id="165">
+        <infon key="type">Gene</infon>
+        <location offset="7628" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="166">
+        <infon key="type">Mutation</infon>
+        <location offset="7633" length="4"/>
+        <text>Q40L</text>
+      </annotation>
+      <annotation id="167">
+        <infon key="type">Gene</infon>
+        <location offset="7684" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="168">
+        <infon key="type">Gene</infon>
+        <location offset="7819" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="169">
+        <infon key="type">Mutation</infon>
+        <location offset="7824" length="4"/>
+        <text>Q40L</text>
+      </annotation>
+      <annotation id="170">
+        <infon key="type">Gene</infon>
+        <location offset="7876" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="171">
+        <infon key="type">Gene</infon>
+        <location offset="7902" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="172">
+        <infon key="type">Disease</infon>
+        <location offset="7938" length="19"/>
+        <text>Noonan syndrome  25</text>
+      </annotation>
+      <annotation id="173">
+        <infon key="type">Disease</infon>
+        <location offset="7981" length="7"/>
+        <text>cancers</text>
+      </annotation>
+      <annotation id="174">
+        <infon key="type">Disease</infon>
+        <location offset="8009" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="175">
+        <infon key="type">Gene</infon>
+        <location offset="8081" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="176">
+        <infon key="type">Disease</infon>
+        <location offset="8108" length="20"/>
+        <text>myeloid malignancies</text>
+      </annotation>
+      <annotation id="177">
+        <infon key="type">Disease</infon>
+        <location offset="8173" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="178">
+        <infon key="type">Disease</infon>
+        <location offset="8232" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="179">
+        <infon key="type">Gene</infon>
+        <location offset="8355" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="180">
+        <infon key="type">Disease</infon>
+        <location offset="8373" length="24"/>
+        <text>salivary gland carcinoma</text>
+      </annotation>
+      <annotation id="181">
+        <infon key="type">Disease</infon>
+        <location offset="8399" length="21"/>
+        <text>endometrial carcinoma</text>
+      </annotation>
+      <annotation id="182">
+        <infon key="type">Disease</infon>
+        <location offset="8422" length="20"/>
+        <text>myeloid malignancies</text>
+      </annotation>
+      <annotation id="183">
+        <infon key="type">Disease</infon>
+        <location offset="8447" length="8"/>
+        <text>melanoma</text>
+      </annotation>
+      <annotation id="184">
+        <infon key="type">Gene</infon>
+        <location offset="8487" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="185">
+        <infon key="type">Disease</infon>
+        <location offset="8549" length="7"/>
+        <text>cancers</text>
+      </annotation>
+      <annotation id="186">
+        <infon key="type">Gene</infon>
+        <location offset="8558" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="187">
+        <infon key="type">Gene</infon>
+        <location offset="8618" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="188">
+        <infon key="type">Gene</infon>
+        <location offset="8622" length="3"/>
+        <text>RTK</text>
+      </annotation>
+      <annotation id="189">
+        <infon key="type">Gene</infon>
+        <location offset="8665" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="190">
+        <infon key="type">Gene</infon>
+        <location offset="8683" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="191">
+        <infon key="type">Gene</infon>
+        <location offset="8692" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="192">
+        <infon key="type">Gene</infon>
+        <location offset="8753" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="193">
+        <infon key="type">Gene</infon>
+        <location offset="8793" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="194">
+        <infon key="type">CellLine</infon>
+        <location offset="8801" length="3"/>
+        <text>PC6</text>
+      </annotation>
+      <annotation id="195">
+        <infon key="type">Gene</infon>
+        <location offset="8898" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="196">
+        <infon key="type">Gene</infon>
+        <location offset="8953" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="197">
+        <infon key="type">Gene</infon>
+        <location offset="8961" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="198">
+        <infon key="type">Gene</infon>
+        <location offset="8979" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="199">
+        <infon key="type">Gene</infon>
+        <location offset="9016" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="200">
+        <infon key="type">Mutation</infon>
+        <location offset="9021" length="4"/>
+        <text>Q40L</text>
+      </annotation>
+      <annotation id="201">
+        <infon key="type">Gene</infon>
+        <location offset="9053" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="202">
+        <infon key="type">Gene</infon>
+        <location offset="9061" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="203">
+        <infon key="type">Gene</infon>
+        <location offset="9093" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="204">
+        <infon key="type">Gene</infon>
+        <location offset="9133" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="205">
+        <infon key="type">Chemical</infon>
+        <location offset="9148" length="7"/>
+        <text>PD98059</text>
+      </annotation>
+      <annotation id="206">
+        <infon key="type">Gene</infon>
+        <location offset="9178" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="207">
+        <infon key="type">Gene</infon>
+        <location offset="9191" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="208">
+        <infon key="type">Gene</infon>
+        <location offset="9228" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="209">
+        <infon key="type">Gene</infon>
+        <location offset="9241" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="210">
+        <infon key="type">Gene</infon>
+        <location offset="9279" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="211">
+        <infon key="type">Gene</infon>
+        <location offset="9313" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="212">
+        <infon key="type">Gene</infon>
+        <location offset="9317" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="213">
+        <infon key="type">Gene</infon>
+        <location offset="9365" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="214">
+        <infon key="type">Gene</infon>
+        <location offset="9370" length="3"/>
+        <text>AKT</text>
+      </annotation>
+      <annotation id="215">
+        <infon key="type">Gene</infon>
+        <location offset="9395" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="216">
+        <infon key="type">Gene</infon>
+        <location offset="9411" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="217">
+        <infon key="type">Gene</infon>
+        <location offset="9451" length="3"/>
+        <text>AKT</text>
+      </annotation>
+      <annotation id="218">
+        <infon key="type">Gene</infon>
+        <location offset="9519" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="219">
+        <infon key="type">Gene</infon>
+        <location offset="9524" length="4"/>
+        <text>mTOR</text>
+      </annotation>
+      <annotation id="220">
+        <infon key="type">Chemical</infon>
+        <location offset="9539" length="8"/>
+        <text>LY294002</text>
+      </annotation>
+      <annotation id="221">
+        <infon key="type">Gene</infon>
+        <location offset="9563" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="222">
+        <infon key="type">Gene</infon>
+        <location offset="9578" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="223">
+        <infon key="type">Gene</infon>
+        <location offset="9586" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="224">
+        <infon key="type">Gene</infon>
+        <location offset="9619" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="225">
+        <infon key="type">Gene</infon>
+        <location offset="9651" length="3"/>
+        <text>AKT</text>
+      </annotation>
+      <annotation id="226">
+        <infon key="type">Gene</infon>
+        <location offset="9675" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="227">
+        <infon key="type">Gene</infon>
+        <location offset="9680" length="4"/>
+        <text>mTOR</text>
+      </annotation>
+      <annotation id="228">
+        <infon key="type">Gene</infon>
+        <location offset="9713" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="229">
+        <infon key="type">Gene</infon>
+        <location offset="9764" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="230">
+        <infon key="type">Gene</infon>
+        <location offset="9772" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="231">
+        <infon key="type">Gene</infon>
+        <location offset="9797" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="232">
+        <infon key="type">Gene</infon>
+        <location offset="9852" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="233">
+        <infon key="type">Chemical</infon>
+        <location offset="9890" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="234">
+        <infon key="type">Gene</infon>
+        <location offset="9961" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="235">
+        <infon key="type">Chemical</infon>
+        <location offset="9986" length="8"/>
+        <text>AZD-6244</text>
+      </annotation>
+      <annotation id="236">
+        <infon key="type">Gene</infon>
+        <location offset="9998" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="237">
+        <infon key="type">Gene</infon>
+        <location offset="10003" length="4"/>
+        <text>mTOR</text>
+      </annotation>
+      <annotation id="238">
+        <infon key="type">Chemical</infon>
+        <location offset="10029" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="239">
+        <infon key="type">Gene</infon>
+        <location offset="10120" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="240">
+        <infon key="type">Chemical</infon>
+        <location offset="10135" length="9"/>
+        <text>erlotinib</text>
+      </annotation>
+      <annotation id="241">
+        <infon key="type">Gene</infon>
+        <location offset="10182" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="242">
+        <infon key="type">Gene</infon>
+        <location offset="10190" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="243">
+        <infon key="type">Gene</infon>
+        <location offset="10290" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="244">
+        <infon key="type">Species</infon>
+        <location offset="10315" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="245">
+        <infon key="type">Disease</infon>
+        <location offset="10321" length="20"/>
+        <text>lung adenocarcinomas</text>
+      </annotation>
+      <annotation id="246">
+        <infon key="type">Species</infon>
+        <location offset="10364" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="247">
+        <infon key="type">Disease</infon>
+        <location offset="10370" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="248">
+        <infon key="type">Gene</infon>
+        <location offset="10430" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="249">
+        <infon key="type">Gene</infon>
+        <location offset="10505" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="250">
+        <infon key="type">Species</infon>
+        <location offset="10522" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="251">
+        <infon key="type">Disease</infon>
+        <location offset="10528" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="252">
+        <infon key="type">Gene</infon>
+        <location offset="10580" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="253">
+        <infon key="type">Species</infon>
+        <location offset="10701" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="254">
+        <infon key="type">Disease</infon>
+        <location offset="10707" length="39"/>
+        <text>non-squamous non-small cell lung cancer</text>
+      </annotation>
+      <annotation id="255">
+        <infon key="type">Disease</infon>
+        <location offset="10805" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="256">
+        <infon key="type">Disease</infon>
+        <location offset="10843" length="39"/>
+        <text>non-squamous non-small cell lung cancer</text>
+      </annotation>
+      <annotation id="257">
+        <infon key="type">Disease</infon>
+        <location offset="10896" length="6"/>
+        <text>Cancer</text>
+      </annotation>
+      <annotation id="258">
+        <infon key="type">CellLine</infon>
+        <location offset="10973" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="259">
+        <infon key="type">Gene</infon>
+        <location offset="11011" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="260">
+        <infon key="type">Gene</infon>
+        <location offset="11131" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="261">
+        <infon key="type">Gene</infon>
+        <location offset="11350" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="262">
+        <infon key="type">CellLine</infon>
+        <location offset="11356" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="263">
+        <infon key="type">Mutation</infon>
+        <location offset="11387" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="264">
+        <infon key="type">Species</infon>
+        <location offset="11414" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="265">
+        <infon key="type">Disease</infon>
+        <location offset="11428" length="20"/>
+        <text>lung adenocarcinomas</text>
+      </annotation>
+      <annotation id="266">
+        <infon key="type">Gene</infon>
+        <location offset="11480" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="267">
+        <infon key="type">Gene</infon>
+        <location offset="11494" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="268">
+        <infon key="type">Gene</infon>
+        <location offset="11503" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="269">
+        <infon key="type">Gene</infon>
+        <location offset="11534" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="270">
+        <infon key="type">Species</infon>
+        <location offset="11547" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="271">
+        <infon key="type">Disease</infon>
+        <location offset="11553" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="272">
+        <infon key="type">CellLine</infon>
+        <location offset="11620" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="273">
+        <infon key="type">Gene</infon>
+        <location offset="11666" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="274">
+        <infon key="type">Gene</infon>
+        <location offset="11682" length="8"/>
+        <text>shRIT1-1</text>
+      </annotation>
+      <annotation id="275">
+        <infon key="type">Gene</infon>
+        <location offset="11692" length="8"/>
+        <text>shRIT1-2</text>
+      </annotation>
+      <annotation id="276">
+        <infon key="type">Gene</infon>
+        <location offset="11705" length="8"/>
+        <text>shRIT1-3</text>
+      </annotation>
+      <annotation id="277">
+        <infon key="type">Gene</infon>
+        <location offset="11734" length="6"/>
+        <text>shLacZ</text>
+      </annotation>
+      <annotation id="278">
+        <infon key="type">Gene</infon>
+        <location offset="11748" length="7"/>
+        <text>hairpin</text>
+      </annotation>
+      <annotation id="279">
+        <infon key="type">Gene</infon>
+        <location offset="11777" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="280">
+        <infon key="type">CellLine</infon>
+        <location offset="11792" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="281">
+        <infon key="type">CellLine</infon>
+        <location offset="11806" length="9"/>
+        <text>NCI-H1299</text>
+      </annotation>
+      <annotation id="282">
+        <infon key="type">Gene</infon>
+        <location offset="11861" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="283">
+        <infon key="type">Gene</infon>
+        <location offset="11894" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="284">
+        <infon key="type">CellLine</infon>
+        <location offset="11902" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="285">
+        <infon key="type">Gene</infon>
+        <location offset="11938" length="3"/>
+        <text>AKT</text>
+      </annotation>
+      <annotation id="286">
+        <infon key="type">Gene</infon>
+        <location offset="11977" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="287">
+        <infon key="type">Gene</infon>
+        <location offset="11985" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="288">
+        <infon key="type">CellLine</infon>
+        <location offset="12049" length="9"/>
+        <text>NCI-H1299</text>
+      </annotation>
+      <annotation id="289">
+        <infon key="type">Gene</infon>
+        <location offset="12102" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="290">
+        <infon key="type">Gene</infon>
+        <location offset="12117" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="291">
+        <infon key="type">Gene</infon>
+        <location offset="12126" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="292">
+        <infon key="type">CellLine</infon>
+        <location offset="12143" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="293">
+        <infon key="type">Gene</infon>
+        <location offset="12192" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="294">
+        <infon key="type">Gene</infon>
+        <location offset="12197" length="4"/>
+        <text>mTOR</text>
+      </annotation>
+      <annotation id="295">
+        <infon key="type">Chemical</infon>
+        <location offset="12212" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="296">
+        <infon key="type">Gene</infon>
+        <location offset="12232" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="297">
+        <infon key="type">Chemical</infon>
+        <location offset="12315" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="298">
+        <infon key="type">Gene</infon>
+        <location offset="12351" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="299">
+        <infon key="type">Species</infon>
+        <location offset="12364" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="300">
+        <infon key="type">Disease</infon>
+        <location offset="12370" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="301">
+        <infon key="type">CellLine</infon>
+        <location offset="12397" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="302">
+        <infon key="type">Species</infon>
+        <location offset="12484" length="4"/>
+        <text>mice</text>
+      </annotation>
+      <annotation id="303">
+        <infon key="type">Disease</infon>
+        <location offset="12496" length="6"/>
+        <text>tumors</text>
+      </annotation>
+      <annotation id="304">
+        <infon key="type">Species</infon>
+        <location offset="12521" length="4"/>
+        <text>mice</text>
+      </annotation>
+      <annotation id="305">
+        <infon key="type">Chemical</infon>
+        <location offset="12558" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="306">
+        <infon key="type">Chemical</infon>
+        <location offset="12597" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="307">
+        <infon key="type">Disease</infon>
+        <location offset="12629" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="308">
+        <infon key="type">Disease</infon>
+        <location offset="12687" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="309">
+        <infon key="type">Chemical</infon>
+        <location offset="12707" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="310">
+        <infon key="type">Gene</infon>
+        <location offset="12775" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="311">
+        <infon key="type">Gene</infon>
+        <location offset="12790" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="312">
+        <infon key="type">Gene</infon>
+        <location offset="12807" length="14"/>
+        <text>GTPase  24, 29</text>
+      </annotation>
+      <annotation id="313">
+        <infon key="type">Gene</infon>
+        <location offset="12872" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="314">
+        <infon key="type">Gene</infon>
+        <location offset="12878" length="4"/>
+        <text>HRAS</text>
+      </annotation>
+      <annotation id="315">
+        <infon key="type">Gene</infon>
+        <location offset="12887" length="4"/>
+        <text>NRAS</text>
+      </annotation>
+      <annotation id="316">
+        <infon key="type">Gene</infon>
+        <location offset="12924" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="317">
+        <infon key="type">Gene</infon>
+        <location offset="12991" length="4"/>
+        <text>RIT2</text>
+      </annotation>
+      <annotation id="318">
+        <infon key="type">Gene</infon>
+        <location offset="12996" length="3"/>
+        <text>RIN</text>
+      </annotation>
+      <annotation id="319">
+        <infon key="type">FamilyName</infon>
+        <location offset="13048" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="320">
+        <infon key="type">Gene</infon>
+        <location offset="13062" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="321">
+        <infon key="type">Chemical</infon>
+        <location offset="13087" length="3"/>
+        <text>GTP</text>
+      </annotation>
+      <annotation id="322">
+        <infon key="type">Mutation</infon>
+        <location offset="13179" length="4"/>
+        <text>Q79L</text>
+      </annotation>
+      <annotation id="323">
+        <infon key="type">Mutation</infon>
+        <location offset="13216" length="3"/>
+        <text>Q61</text>
+      </annotation>
+      <annotation id="324">
+        <infon key="type">Gene</infon>
+        <location offset="13223" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="325">
+        <infon key="type">Mutation</infon>
+        <location offset="13247" length="9"/>
+        <text>Q79L RIT1</text>
+      </annotation>
+      <annotation id="326">
+        <infon key="type">CellLine</infon>
+        <location offset="13284" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="327">
+        <infon key="type">Gene</infon>
+        <location offset="13328" length="3"/>
+        <text>p38</text>
+      </annotation>
+      <annotation id="328">
+        <infon key="type">Gene</infon>
+        <location offset="13333" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="329">
+        <infon key="type">Gene</infon>
+        <location offset="13340" length="3"/>
+        <text>AKT</text>
+      </annotation>
+      <annotation id="330">
+        <infon key="type">Gene</infon>
+        <location offset="13488" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="331">
+        <infon key="type">Mutation</infon>
+        <location offset="13506" length="23"/>
+        <text>glutamine 79 to leucine</text>
+      </annotation>
+      <annotation id="332">
+        <infon key="type">Mutation</infon>
+        <location offset="13600" length="4"/>
+        <text>Q79L</text>
+      </annotation>
+      <annotation id="333">
+        <infon key="type">Gene</infon>
+        <location offset="13632" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="334">
+        <infon key="type">CellLine</infon>
+        <location offset="13652" length="3"/>
+        <text>PC6</text>
+      </annotation>
+      <annotation id="335">
+        <infon key="type">CellLine</infon>
+        <location offset="13683" length="21"/>
+        <text>PC12 pheochromocytoma</text>
+      </annotation>
+      <annotation id="336">
+        <infon key="type">Gene</infon>
+        <location offset="13737" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="337">
+        <infon key="type">Gene</infon>
+        <location offset="13741" length="4"/>
+        <text>MAPK</text>
+      </annotation>
+      <annotation id="338">
+        <infon key="type">Gene</infon>
+        <location offset="13795" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="339">
+        <infon key="type">Gene</infon>
+        <location offset="13810" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="340">
+        <infon key="type">Gene</infon>
+        <location offset="13814" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="341">
+        <infon key="type">Gene</infon>
+        <location offset="13846" length="4"/>
+        <text>BRAF</text>
+      </annotation>
+      <annotation id="342">
+        <infon key="type">Gene</infon>
+        <location offset="13867" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="343">
+        <infon key="type">Gene</infon>
+        <location offset="13912" length="3"/>
+        <text>EGF</text>
+      </annotation>
+      <annotation id="344">
+        <infon key="type">Gene</infon>
+        <location offset="13919" length="3"/>
+        <text>NGF</text>
+      </annotation>
+      <annotation id="345">
+        <infon key="type">CellLine</infon>
+        <location offset="13926" length="3"/>
+        <text>PC6</text>
+      </annotation>
+      <annotation id="346">
+        <infon key="type">Gene</infon>
+        <location offset="13963" length="3"/>
+        <text>Rit</text>
+      </annotation>
+      <annotation id="347">
+        <infon key="type">Species</infon>
+        <location offset="13976" length="4"/>
+        <text>mice</text>
+      </annotation>
+      <annotation id="348">
+        <infon key="type">Gene</infon>
+        <location offset="13999" length="3"/>
+        <text>Rit</text>
+      </annotation>
+      <annotation id="349">
+        <infon key="type">Gene</infon>
+        <location offset="14068" length="3"/>
+        <text>p38</text>
+      </annotation>
+      <annotation id="350">
+        <infon key="type">Gene</infon>
+        <location offset="14072" length="3"/>
+        <text>AKT</text>
+      </annotation>
+      <annotation id="351">
+        <infon key="type">Gene</infon>
+        <location offset="14076" length="3"/>
+        <text>BAD</text>
+      </annotation>
+      <annotation id="352">
+        <infon key="type">Gene</infon>
+        <location offset="14104" length="3"/>
+        <text>Rit</text>
+      </annotation>
+      <annotation id="353">
+        <infon key="type">Chemical</infon>
+        <location offset="14170" length="23"/>
+        <text>reactive oxygen species</text>
+      </annotation>
+      <annotation id="354">
+        <infon key="type">Chemical</infon>
+        <location offset="14195" length="3"/>
+        <text>ROS</text>
+      </annotation>
+      <annotation id="355">
+        <infon key="type">Mutation</infon>
+        <location offset="14225" length="9"/>
+        <text>Q79L RIT1</text>
+      </annotation>
+      <annotation id="356">
+        <infon key="type">Gene</infon>
+        <location offset="14259" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="357">
+        <infon key="type">Disease</infon>
+        <location offset="14317" length="20"/>
+        <text>lung adenocarcinomas</text>
+      </annotation>
+      <annotation id="358">
+        <infon key="type">Disease</infon>
+        <location offset="14361" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="359">
+        <infon key="type">Gene</infon>
+        <location offset="14382" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="360">
+        <infon key="type">Disease</infon>
+        <location offset="14463" length="24"/>
+        <text>adenocarcinoma oncogenes</text>
+      </annotation>
+      <annotation id="361">
+        <infon key="type">Gene</infon>
+        <location offset="14544" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="362">
+        <infon key="type">Gene</infon>
+        <location offset="14580" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="363">
+        <infon key="type">Gene</infon>
+        <location offset="14589" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="364">
+        <infon key="type">Gene</infon>
+        <location offset="14639" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="365">
+        <infon key="type">Gene</infon>
+        <location offset="14734" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="366">
+        <infon key="type">Gene</infon>
+        <location offset="14758" length="3"/>
+        <text>RTK</text>
+      </annotation>
+      <annotation id="367">
+        <infon key="type">Gene</infon>
+        <location offset="14762" length="4"/>
+        <text>MAPK</text>
+      </annotation>
+      <annotation id="368">
+        <infon key="type">Disease</infon>
+        <location offset="14786" length="13"/>
+        <text>tumorigenesis</text>
+      </annotation>
+      <annotation id="369">
+        <infon key="type">Gene</infon>
+        <location offset="14872" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="370">
+        <infon key="type">Disease</infon>
+        <location offset="14890" length="15"/>
+        <text>Noonan syndrome</text>
+      </annotation>
+      <annotation id="371">
+        <infon key="type">Disease</infon>
+        <location offset="14909" length="22"/>
+        <text>developmental disorder</text>
+      </annotation>
+      <annotation id="372">
+        <infon key="type">Gene</infon>
+        <location offset="14955" length="3"/>
+        <text>RAS</text>
+      </annotation>
+      <annotation id="373">
+        <infon key="type">Disease</infon>
+        <location offset="14982" length="6"/>
+        <text>cancer</text>
+      </annotation>
+      <annotation id="374">
+        <infon key="type">Gene</infon>
+        <location offset="15013" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="375">
+        <infon key="type">Gene</infon>
+        <location offset="15022" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="376">
+        <infon key="type">Species</infon>
+        <location offset="15084" length="8"/>
+        <text>patients</text>
+      </annotation>
+      <annotation id="377">
+        <infon key="type">Gene</infon>
+        <location offset="15098" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="378">
+        <infon key="type">Gene</infon>
+        <location offset="15122" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="379">
+        <infon key="type">Disease</infon>
+        <location offset="15183" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="380">
+        <infon key="type">Disease</infon>
+        <location offset="15251" length="6"/>
+        <text>Cancer</text>
+      </annotation>
+      <annotation id="381">
+        <infon key="type">Gene</infon>
+        <location offset="15368" length="13"/>
+        <text>pDONR223-RIT1</text>
+      </annotation>
+      <annotation id="382">
+        <infon key="type">Gene</infon>
+        <location offset="15525" length="13"/>
+        <text>pDONR223-RIT1</text>
+      </annotation>
+      <annotation id="383">
+        <infon key="type">Gene</infon>
+        <location offset="15728" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="384">
+        <infon key="type">CellLine</infon>
+        <location offset="16007" length="4"/>
+        <text>293T</text>
+      </annotation>
+      <annotation id="385">
+        <infon key="type">CellLine</infon>
+        <location offset="16204" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="386">
+        <infon key="type">Disease</infon>
+        <location offset="16241" length="9"/>
+        <text>infection</text>
+      </annotation>
+      <annotation id="387">
+        <infon key="type">Chemical</infon>
+        <location offset="16285" length="9"/>
+        <text>puromycin</text>
+      </annotation>
+      <annotation id="388">
+        <infon key="type">Chemical</infon>
+        <location offset="16347" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="389">
+        <infon key="type">Disease</infon>
+        <location offset="16403" length="24"/>
+        <text>adenocarcinoma oncogenes</text>
+      </annotation>
+      <annotation id="390">
+        <infon key="type">Gene</infon>
+        <location offset="16498" length="3"/>
+        <text>MET</text>
+      </annotation>
+      <annotation id="391">
+        <infon key="type">Disease</infon>
+        <location offset="16720" length="24"/>
+        <text>adenocarcinoma oncogenes</text>
+      </annotation>
+      <annotation id="392">
+        <infon key="type">Gene</infon>
+        <location offset="16792" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="393">
+        <infon key="type">Gene</infon>
+        <location offset="16920" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="394">
+        <infon key="type">Gene</infon>
+        <location offset="16972" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="395">
+        <infon key="type">Mutation</infon>
+        <location offset="16979" length="5"/>
+        <text>ex3-F</text>
+      </annotation>
+      <annotation id="396">
+        <infon key="type">Gene</infon>
+        <location offset="17007" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="397">
+        <infon key="type">Mutation</infon>
+        <location offset="17012" length="7"/>
+        <text>c-ex5-R</text>
+      </annotation>
+      <annotation id="398">
+        <infon key="type">Mutation</infon>
+        <location offset="17021" length="21"/>
+        <text>CGTCGGACTCGATAAATAAGC</text>
+      </annotation>
+      <annotation id="399">
+        <infon key="type">Mutation</infon>
+        <location offset="17591" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="400">
+        <infon key="type">CellLine</infon>
+        <location offset="17619" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="401">
+        <infon key="type">CellLine</infon>
+        <location offset="17745" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="402">
+        <infon key="type">Gene</infon>
+        <location offset="17816" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="403">
+        <infon key="type">Chemical</infon>
+        <location offset="17924" length="9"/>
+        <text>puromycin</text>
+      </annotation>
+      <annotation id="404">
+        <infon key="type">Chemical</infon>
+        <location offset="17999" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="405">
+        <infon key="type">Chemical</infon>
+        <location offset="18092" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="406">
+        <infon key="type">Chemical</infon>
+        <location offset="18168" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="407">
+        <infon key="type">Chemical</infon>
+        <location offset="18176" length="4"/>
+        <text>DMEM</text>
+      </annotation>
+      <annotation id="408">
+        <infon key="type">Chemical</infon>
+        <location offset="18229" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="409">
+        <infon key="type">Chemical</infon>
+        <location offset="18237" length="4"/>
+        <text>DMEM</text>
+      </annotation>
+      <annotation id="410">
+        <infon key="type">Gene</infon>
+        <location offset="18410" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="411">
+        <infon key="type">Gene</infon>
+        <location offset="18469" length="8"/>
+        <text>vinculin</text>
+      </annotation>
+      <annotation id="412">
+        <infon key="type">Gene</infon>
+        <location offset="18542" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="413">
+        <infon key="type">Chemical</infon>
+        <location offset="18568" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="414">
+        <infon key="type">Chemical</infon>
+        <location offset="18596" length="7"/>
+        <text>AZD6244</text>
+      </annotation>
+      <annotation id="415">
+        <infon key="type">Chemical</infon>
+        <location offset="18605" length="9"/>
+        <text>erlotinib</text>
+      </annotation>
+      <annotation id="416">
+        <infon key="type">Chemical</infon>
+        <location offset="18618" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="417">
+        <infon key="type">Chemical</infon>
+        <location offset="18702" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="418">
+        <infon key="type">Chemical</infon>
+        <location offset="18750" length="4"/>
+        <text>Agar</text>
+      </annotation>
+      <annotation id="419">
+        <infon key="type">Gene</infon>
+        <location offset="18898" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="420">
+        <infon key="type">CellLine</infon>
+        <location offset="18930" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="421">
+        <infon key="type">Chemical</infon>
+        <location offset="19008" length="3"/>
+        <text>PBS</text>
+      </annotation>
+      <annotation id="422">
+        <infon key="type">Chemical</infon>
+        <location offset="19048" length="3"/>
+        <text>PBS</text>
+      </annotation>
+      <annotation id="423">
+        <infon key="type">Species</infon>
+        <location offset="19191" length="4"/>
+        <text>mice</text>
+      </annotation>
+      <annotation id="424">
+        <infon key="type">Disease</infon>
+        <location offset="19286" length="6"/>
+        <text>tumors</text>
+      </annotation>
+      <annotation id="425">
+        <infon key="type">Disease</infon>
+        <location offset="19368" length="5"/>
+        <text>Tumor</text>
+      </annotation>
+      <annotation id="426">
+        <infon key="type">CellLine</infon>
+        <location offset="19501" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="427">
+        <infon key="type">Species</infon>
+        <location offset="19673" length="4"/>
+        <text>mice</text>
+      </annotation>
+      <annotation id="428">
+        <infon key="type">Disease</infon>
+        <location offset="19679" length="6"/>
+        <text>Tumors</text>
+      </annotation>
+      <annotation id="429">
+        <infon key="type">Chemical</infon>
+        <location offset="19765" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="430">
+        <infon key="type">Chemical</infon>
+        <location offset="19824" length="15"/>
+        <text>methylcellulose</text>
+      </annotation>
+      <annotation id="431">
+        <infon key="type">Chemical</infon>
+        <location offset="19845" length="8"/>
+        <text>Tween-80</text>
+      </annotation>
+      <annotation id="432">
+        <infon key="type">CellLine</infon>
+        <location offset="20041" length="3"/>
+        <text>PC6</text>
+      </annotation>
+      <annotation id="433">
+        <infon key="type">Chemical</infon>
+        <location offset="20298" length="3"/>
+        <text>SDS</text>
+      </annotation>
+      <annotation id="434">
+        <infon key="type">Chemical</infon>
+        <location offset="20463" length="7"/>
+        <text>PD98059</text>
+      </annotation>
+      <annotation id="435">
+        <infon key="type">Chemical</infon>
+        <location offset="20474" length="8"/>
+        <text>LY294002</text>
+      </annotation>
+      <annotation id="436">
+        <infon key="type">Chemical</infon>
+        <location offset="20486" length="17"/>
+        <text>dimethylsulfoxide</text>
+      </annotation>
+      <annotation id="437">
+        <infon key="type">Chemical</infon>
+        <location offset="20631" length="17"/>
+        <text>dimethylsulfoxide</text>
+      </annotation>
+      <annotation id="438">
+        <infon key="type">Gene</infon>
+        <location offset="20742" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="439">
+        <infon key="type">Gene</infon>
+        <location offset="20747" length="3"/>
+        <text>ERK</text>
+      </annotation>
+      <annotation id="440">
+        <infon key="type">Gene</infon>
+        <location offset="20752" length="3"/>
+        <text>AKT</text>
+      </annotation>
+      <annotation id="441">
+        <infon key="type">Gene</infon>
+        <location offset="20792" length="4"/>
+        <text>Flag</text>
+      </annotation>
+      <annotation id="442">
+        <infon key="type">Gene</infon>
+        <location offset="20817" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="443">
+        <infon key="type">Gene</infon>
+        <location offset="20850" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="444">
+        <infon key="type">Gene</infon>
+        <location offset="20856" length="19"/>
+        <text>shRIT1-1, -2 and -3</text>
+      </annotation>
+      <annotation id="445">
+        <infon key="type">Gene</infon>
+        <location offset="20897" length="7"/>
+        <text>hairpin</text>
+      </annotation>
+      <annotation id="446">
+        <infon key="type">Gene</infon>
+        <location offset="20906" length="6"/>
+        <text>shLacZ</text>
+      </annotation>
+      <annotation id="447">
+        <infon key="type">Species</infon>
+        <location offset="21040" length="5"/>
+        <text>VSV-G</text>
+      </annotation>
+      <annotation id="448">
+        <infon key="type">Chemical</infon>
+        <location offset="21050" length="4"/>
+        <text>D8.9</text>
+      </annotation>
+      <annotation id="449">
+        <infon key="type">CellLine</infon>
+        <location offset="21076" length="4"/>
+        <text>293T</text>
+      </annotation>
+      <annotation id="450">
+        <infon key="type">Species</infon>
+        <location offset="21088" length="10"/>
+        <text>Lentivirus</text>
+      </annotation>
+      <annotation id="451">
+        <infon key="type">Chemical</infon>
+        <location offset="21116" length="4"/>
+        <text>DMEM</text>
+      </annotation>
+      <annotation id="452">
+        <infon key="type">CellLine</infon>
+        <location offset="21198" length="9"/>
+        <text>NCI-H1299</text>
+      </annotation>
+      <annotation id="453">
+        <infon key="type">CellLine</infon>
+        <location offset="21211" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="454">
+        <infon key="type">Chemical</infon>
+        <location offset="21259" length="9"/>
+        <text>puromycin</text>
+      </annotation>
+      <annotation id="455">
+        <infon key="type">Gene</infon>
+        <location offset="21329" length="7"/>
+        <text>Hairpin</text>
+      </annotation>
+      <annotation id="456">
+        <infon key="type">Gene</infon>
+        <location offset="21389" length="6"/>
+        <text>shLacZ</text>
+      </annotation>
+      <annotation id="457">
+        <infon key="type">Gene</infon>
+        <location offset="21397" length="14"/>
+        <text>TRCN0000072223</text>
+      </annotation>
+      <annotation id="458">
+        <infon key="type">Gene</infon>
+        <location offset="21435" length="8"/>
+        <text>shRIT1-1</text>
+      </annotation>
+      <annotation id="459">
+        <infon key="type">Gene</infon>
+        <location offset="21444" length="14"/>
+        <text>TRCN0000047888</text>
+      </annotation>
+      <annotation id="460">
+        <infon key="type">Mutation</infon>
+        <location offset="21460" length="21"/>
+        <text>CGCTACTATATTGATGATGTT</text>
+      </annotation>
+      <annotation id="461">
+        <infon key="type">Gene</infon>
+        <location offset="21482" length="8"/>
+        <text>shRIT1-2</text>
+      </annotation>
+      <annotation id="462">
+        <infon key="type">Mutation</infon>
+        <location offset="21491" length="21"/>
+        <text>CGTCGAAGTTTCCATGAAGTT</text>
+      </annotation>
+      <annotation id="463">
+        <infon key="type">Mutation</infon>
+        <location offset="21514" length="21"/>
+        <text>CGTCGAAGTTTCCATGAAGTT</text>
+      </annotation>
+      <annotation id="464">
+        <infon key="type">Gene</infon>
+        <location offset="21536" length="8"/>
+        <text>shRIT1-3</text>
+      </annotation>
+      <annotation id="465">
+        <infon key="type">Mutation</infon>
+        <location offset="21561" length="21"/>
+        <text>CGAGAATTCAGCTGTCCCTTT</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">fig_caption</infon>
+      <offset>21797</offset>
+      <text>Figure 1 . Figure 1. Somatic RIT1 mutations in lung adenocarcinoma. (a) 2D protein structure schematics of RIT1 and KRAS with major protein domains shaded as indicated. Numbers indicate amino-acid positions. Each box represents an independent somatic RIT1 mutation with missense and in-frame indel mutations represented in black or blue, respectively. Arrows indicate two mutational hotspots in KRAS. (b) Predicted protein structure of RIT1. A homology model of RIT1was generated from an alignment with HRAS (1AGP) using SWISS model and displayed using PYMOL. Amino acids near the switch II domain found mutated in this study are highlighted in yellow, in addition to Q79, which is shown for reference.</text>
+      <annotation id="466">
+        <infon key="type">Gene</infon>
+        <location offset="21826" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="467">
+        <infon key="type">Disease</infon>
+        <location offset="21844" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="468">
+        <infon key="type">Gene</infon>
+        <location offset="21904" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="469">
+        <infon key="type">Gene</infon>
+        <location offset="21913" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="470">
+        <infon key="type">Gene</infon>
+        <location offset="22048" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="471">
+        <infon key="type">Gene</infon>
+        <location offset="22192" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="472">
+        <infon key="type">Gene</infon>
+        <location offset="22233" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="473">
+        <infon key="type">Gene</infon>
+        <location offset="22259" length="7"/>
+        <text>RIT1was</text>
+      </annotation>
+      <annotation id="474">
+        <infon key="type">Gene</infon>
+        <location offset="22350" length="5"/>
+        <text>PYMOL</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">fig_caption</infon>
+      <offset>22500</offset>
+      <text>Figure 2 . Figure 2. Mutated RIT1 induces cellular transformation via activation of MEK and PI3K. (a) Soft agar transformation assay in NIH3T3 cells. Cells were transduced with retrovirus to ectopically express wild-type (WT) or mutated RIT1 constructs or empty vector (control), then plated in soft agar (Methods). Colonies were visualized at 14 days and quantified using CellProfiler. Top panel, data shown are mean þ s.e.m. of triplicate wells. Data shown are representative of at least three independent experiments. *Po0.05 by two-tailed t-test. Bottom panels, western blot showing expression of RIT1 or vinculin (loading control). 'INS' , T76_insTLDT. (b) Tumor growth of xenografts of NIH3T3 cells with or without expression of RIT1. Data shown is mean þ s.e.m. of nine replicates per construct. *Po0.01 by two-tailed t-test. Data shown are representative of at least two independent experiments per construct. (c) Western blot of PC6 cell lysates following transfection of wild-type or mutant RIT1 or vector control ('Emp'). Data shown is representative of at least three independent experiments. (d) Western blot of PC6 lysates following transfection of FLAG-RIT1 constructs or vector control ('Emp') in the presence or absence of 10 mM PD98059. Cells were serum starved for 5 h prior to lysis. (e) Western blot of PC6 cell lysates generated after transfection of FLAG-RIT1 mutant constructs in the presence or absence of 10 mM LY294002. Cells were serum starved for 5 h prior to lysis. (f ) Soft agar colony formation of NIH3T3 cells stably expressing RIT1 M90I or RIT1 Q79L in the presence or absence of 1 mM erlotinib, GDC-0941, AZD-6244 or GDC-0941/AZD-6244 or vehicle control (dimethylsulfoxide). 5 Â 10 3 cells were suspended in a top agar solution together with each respective drug to a final concentration of 1 mM in triplicate. After 15 days, colonies were photographed and quantified using CellProfiler. *Po0.05.</text>
+      <annotation id="475">
+        <infon key="type">Gene</infon>
+        <location offset="22529" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="476">
+        <infon key="type">Gene</infon>
+        <location offset="22584" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="477">
+        <infon key="type">Gene</infon>
+        <location offset="22592" length="5"/>
+        <text>PI3K.</text>
+      </annotation>
+      <annotation id="478">
+        <infon key="type">Chemical</infon>
+        <location offset="22607" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="479">
+        <infon key="type">CellLine</infon>
+        <location offset="22636" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="480">
+        <infon key="type">Gene</infon>
+        <location offset="22737" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="481">
+        <infon key="type">Chemical</infon>
+        <location offset="22800" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="482">
+        <infon key="type">Gene</infon>
+        <location offset="23101" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="483">
+        <infon key="type">Gene</infon>
+        <location offset="23109" length="8"/>
+        <text>vinculin</text>
+      </annotation>
+      <annotation id="484">
+        <infon key="type">Mutation</infon>
+        <location offset="23145" length="11"/>
+        <text>T76_insTLDT</text>
+      </annotation>
+      <annotation id="485">
+        <infon key="type">Disease</infon>
+        <location offset="23162" length="5"/>
+        <text>Tumor</text>
+      </annotation>
+      <annotation id="486">
+        <infon key="type">CellLine</infon>
+        <location offset="23192" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="487">
+        <infon key="type">Gene</infon>
+        <location offset="23235" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="488">
+        <infon key="type">CellLine</infon>
+        <location offset="23438" length="3"/>
+        <text>PC6</text>
+      </annotation>
+      <annotation id="489">
+        <infon key="type">Gene</infon>
+        <location offset="23501" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="490">
+        <infon key="type">CellLine</infon>
+        <location offset="23625" length="3"/>
+        <text>PC6</text>
+      </annotation>
+      <annotation id="491">
+        <infon key="type">Gene</infon>
+        <location offset="23663" length="4"/>
+        <text>FLAG</text>
+      </annotation>
+      <annotation id="492">
+        <infon key="type">Gene</infon>
+        <location offset="23668" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="493">
+        <infon key="type">Chemical</infon>
+        <location offset="23746" length="7"/>
+        <text>PD98059</text>
+      </annotation>
+      <annotation id="494">
+        <infon key="type">CellLine</infon>
+        <location offset="23824" length="3"/>
+        <text>PC6</text>
+      </annotation>
+      <annotation id="495">
+        <infon key="type">Gene</infon>
+        <location offset="23873" length="4"/>
+        <text>FLAG</text>
+      </annotation>
+      <annotation id="496">
+        <infon key="type">Gene</infon>
+        <location offset="23878" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="497">
+        <infon key="type">Chemical</infon>
+        <location offset="23937" length="8"/>
+        <text>LY294002</text>
+      </annotation>
+      <annotation id="498">
+        <infon key="type">Chemical</infon>
+        <location offset="24006" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="499">
+        <infon key="type">CellLine</infon>
+        <location offset="24031" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="500">
+        <infon key="type">Gene</infon>
+        <location offset="24062" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="501">
+        <infon key="type">Mutation</infon>
+        <location offset="24067" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="502">
+        <infon key="type">Gene</infon>
+        <location offset="24075" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="503">
+        <infon key="type">Mutation</infon>
+        <location offset="24080" length="4"/>
+        <text>Q79L</text>
+      </annotation>
+      <annotation id="504">
+        <infon key="type">Chemical</infon>
+        <location offset="24120" length="9"/>
+        <text>erlotinib</text>
+      </annotation>
+      <annotation id="505">
+        <infon key="type">Chemical</infon>
+        <location offset="24131" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="506">
+        <infon key="type">Chemical</infon>
+        <location offset="24141" length="8"/>
+        <text>AZD-6244</text>
+      </annotation>
+      <annotation id="507">
+        <infon key="type">Chemical</infon>
+        <location offset="24153" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="508">
+        <infon key="type">Chemical</infon>
+        <location offset="24162" length="8"/>
+        <text>AZD-6244</text>
+      </annotation>
+      <annotation id="509">
+        <infon key="type">Chemical</infon>
+        <location offset="24191" length="17"/>
+        <text>dimethylsulfoxide</text>
+      </annotation>
+      <annotation id="510">
+        <infon key="type">Chemical</infon>
+        <location offset="24250" length="4"/>
+        <text>agar</text>
+      </annotation>
+    </passage>
+    <passage>
+      <infon key="type">fig_caption</infon>
+      <offset>24433</offset>
+      <text>Figure 3 . Figure 3. Endogenous mutated RIT1 regulates MEK and PI3K in NCI-H2110 cells. (a) Sanger sequencing of RIT1 RT-PCR products generated from NCI-H1993 or NCI-H2110 cell line cDNA. Numbering in black bold refers to amino-acid positions and colored letters refer to nucleotide sequence. An arrow indicates the position of a heterozygous p.M90I mutation. (b) Western blot of lysates from NCI-H1299 and NCI-H2110 following expression of shRNA hairpins targeting RIT1 (shRIT1-1, -2 and -3) or non-targeting hairpin control (shlacZ). (c) Tumor volume of NCI-H2110 xenografts in nude mice. 2 Â 10 6 cells were injected subcutaneously into the flanks of nude mice. When tumors reached B100 mm 3 , drug treatment was initiated (day 0). Mice were treated daily with 150 mg/kg GDC-0941 or vehicle control by oral gavage. *Po0.05. n ¼ 9 tumors per condition. (d) Weight of tumors from NCI-H2110 xenografts shown in b. At day 18, animals were euthanized and tumors excised and weighed.</text>
+      <annotation id="511">
+        <infon key="type">Gene</infon>
+        <location offset="24473" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="512">
+        <infon key="type">Gene</infon>
+        <location offset="24488" length="3"/>
+        <text>MEK</text>
+      </annotation>
+      <annotation id="513">
+        <infon key="type">Gene</infon>
+        <location offset="24496" length="4"/>
+        <text>PI3K</text>
+      </annotation>
+      <annotation id="514">
+        <infon key="type">CellLine</infon>
+        <location offset="24504" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="515">
+        <infon key="type">Gene</infon>
+        <location offset="24546" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="516">
+        <infon key="type">CellLine</infon>
+        <location offset="24582" length="9"/>
+        <text>NCI-H1993</text>
+      </annotation>
+      <annotation id="517">
+        <infon key="type">CellLine</infon>
+        <location offset="24595" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="518">
+        <infon key="type">Mutation</infon>
+        <location offset="24778" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="519">
+        <infon key="type">CellLine</infon>
+        <location offset="24826" length="9"/>
+        <text>NCI-H1299</text>
+      </annotation>
+      <annotation id="520">
+        <infon key="type">CellLine</infon>
+        <location offset="24840" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="521">
+        <infon key="type">Gene</infon>
+        <location offset="24899" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="522">
+        <infon key="type">Gene</infon>
+        <location offset="24905" length="19"/>
+        <text>shRIT1-1, -2 and -3</text>
+      </annotation>
+      <annotation id="523">
+        <infon key="type">Disease</infon>
+        <location offset="24973" length="5"/>
+        <text>Tumor</text>
+      </annotation>
+      <annotation id="524">
+        <infon key="type">CellLine</infon>
+        <location offset="24989" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="525">
+        <infon key="type">Species</infon>
+        <location offset="25018" length="4"/>
+        <text>mice</text>
+      </annotation>
+      <annotation id="526">
+        <infon key="type">Species</infon>
+        <location offset="25092" length="4"/>
+        <text>mice</text>
+      </annotation>
+      <annotation id="527">
+        <infon key="type">Disease</infon>
+        <location offset="25103" length="6"/>
+        <text>tumors</text>
+      </annotation>
+      <annotation id="528">
+        <infon key="type">Species</infon>
+        <location offset="25168" length="4"/>
+        <text>Mice</text>
+      </annotation>
+      <annotation id="529">
+        <infon key="type">Chemical</infon>
+        <location offset="25207" length="8"/>
+        <text>GDC-0941</text>
+      </annotation>
+      <annotation id="530">
+        <infon key="type">Disease</infon>
+        <location offset="25266" length="6"/>
+        <text>tumors</text>
+      </annotation>
+      <annotation id="531">
+        <infon key="type">Disease</infon>
+        <location offset="25302" length="6"/>
+        <text>tumors</text>
+      </annotation>
+      <annotation id="532">
+        <infon key="type">CellLine</infon>
+        <location offset="25314" length="9"/>
+        <text>NCI-H2110</text>
+      </annotation>
+      <annotation id="533">
+        <infon key="type">Disease</infon>
+        <location offset="25386" length="6"/>
+        <text>tumors</text>
+      </annotation>
+    </passage>
+  </document>
+</collection>
