@@ -807,11 +807,14 @@ def build_disease_rows(doc_data, show_docs=True):
 
 
 def write_mentions_tsv(tsv_path, doc_data, gene_map=None, taxon_map=None):
-    """Write a normalized TSV combining all five mention tables from the HTML report."""
+    """Write a normalized TSV combining all mention tables from the HTML report."""
     if gene_map is None:
         gene_map = {}
     if taxon_map is None:
         taxon_map = {}
+
+    def _src(ann):
+        return ann.get('source', '')
 
     rows = []
 
@@ -824,14 +827,16 @@ def write_mentions_tsv(tsv_path, doc_data, gene_map=None, taxon_map=None):
                 continue
             skey = (ann['mention'], ann['type'], ann['hgvs'], ann['gene'])
             if skey not in summary:
-                summary[skey] = {'count': 0, 'docs': set()}
+                summary[skey] = {'count': 0, 'docs': set(), 'sources': set()}
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
+            summary[skey]['sources'].add(_src(ann))
     for (mention, etype, hgvs, gene), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         rows.append(('Variant', etype, mention,
                      gene or '', gene_map.get(gene, '') if gene else '',
                      hgvs or '',
-                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort)),
+                     ','.join(sorted(info['sources'] - {''}))))
 
     # Genes
     summary = {}
@@ -841,14 +846,16 @@ def write_mentions_tsv(tsv_path, doc_data, gene_map=None, taxon_map=None):
                 continue
             skey = (ann['mention'], ann['identifier'])
             if skey not in summary:
-                summary[skey] = {'count': 0, 'docs': set()}
+                summary[skey] = {'count': 0, 'docs': set(), 'sources': set()}
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
+            summary[skey]['sources'].add(_src(ann))
     for (mention, gene_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         rows.append(('Gene', 'Gene', mention,
                      gene_id or '', gene_map.get(gene_id, '') if gene_id else '',
                      '',
-                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort)),
+                     ','.join(sorted(info['sources'] - {''}))))
 
     # Chemicals
     summary = {}
@@ -858,14 +865,16 @@ def write_mentions_tsv(tsv_path, doc_data, gene_map=None, taxon_map=None):
                 continue
             skey = (ann['mention'], ann['identifier'])
             if skey not in summary:
-                summary[skey] = {'count': 0, 'docs': set()}
+                summary[skey] = {'count': 0, 'docs': set(), 'sources': set()}
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
+            summary[skey]['sources'].add(_src(ann))
     for (mention, mesh_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         mesh = mesh_id if (mesh_id and mesh_id != '-') else ''
         rows.append(('Chemical', 'Chemical', mention,
                      mesh, '', '',
-                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort)),
+                     ','.join(sorted(info['sources'] - {''}))))
 
     # Diseases
     summary = {}
@@ -875,13 +884,15 @@ def write_mentions_tsv(tsv_path, doc_data, gene_map=None, taxon_map=None):
                 continue
             skey = (ann['mention'], ann['identifier'])
             if skey not in summary:
-                summary[skey] = {'count': 0, 'docs': set()}
+                summary[skey] = {'count': 0, 'docs': set(), 'sources': set()}
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
+            summary[skey]['sources'].add(_src(ann))
     for (mention, mesh_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         rows.append(('Disease', 'Disease', mention,
                      mesh_id or '', '', '',
-                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort)),
+                     ','.join(sorted(info['sources'] - {''}))))
 
     # Organisms
     summary = {}
@@ -893,17 +904,34 @@ def write_mentions_tsv(tsv_path, doc_data, gene_map=None, taxon_map=None):
             mention_key = mention.lower() if ann['type'] == 'Species' else mention
             skey = (mention_key, ann['type'], ann['identifier'])
             if skey not in summary:
-                summary[skey] = {'count': 0, 'docs': set()}
+                summary[skey] = {'count': 0, 'docs': set(), 'sources': set()}
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
+            summary[skey]['sources'].add(_src(ann))
     for (mention, etype, taxid), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         rows.append(('Organism', etype, mention,
                      taxid or '', taxon_map.get(taxid, '') if taxid else '',
                      '',
-                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort))))
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort)),
+                     ','.join(sorted(info['sources'] - {''}))))
+
+    # AIONER NER (no normalization)
+    summary = {}
+    for doc in doc_data:
+        for ann in doc.get('aioner_annotations', []):
+            skey = (ann['mention'], ann['type'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
+    for (mention, etype), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        rows.append(('NER_AIONER', etype, mention,
+                     '', '', '',
+                     info['count'], ','.join(sorted(info['docs'], key=_doc_key_sort)),
+                     'AIONER'))
 
     with open(tsv_path, 'w', encoding='utf-8', newline='') as f:
-        f.write('entity_category\tentity_type\tmention\tidentifier\tidentifier_name\thgvs\tcount\tdoc_keys\n')
+        f.write('entity_category\tentity_type\tmention\tidentifier\tidentifier_name\thgvs\tcount\tdoc_keys\tsource\n')
         for row in rows:
             f.write('\t'.join(str(x) for x in row) + '\n')
 
@@ -1524,26 +1552,39 @@ def main():
         if gnorm2_files:
             # Primary: GNorm2 BioC XML → passages + Gene/Species/CellLine/etc.
             passages, annotations = parse_gnorm2_bioc(pf['path'])
+            for a in annotations:
+                a['source'] = 'GNorm2'
             rel_xml = pf['rel']  # e.g. "nihms313098.xml" or "s/foo/foo.xml"
             # Supplement with tmVar3 variant annotations when available
             if tmvar3_dir:
                 pubtator_path = os.path.join(tmvar3_dir, rel_xml + '.PubTator')
                 if os.path.isfile(pubtator_path):
                     _, tmvar_anns = parse_pubtator(pubtator_path)
-                    annotations.extend(a for a in tmvar_anns if a['type'] not in GNORM2_TYPES)
+                    for a in tmvar_anns:
+                        if a['type'] not in GNORM2_TYPES:
+                            a['source'] = 'tmVar3'
+                            annotations.append(a)
         else:
             # Legacy path: tmVar3 PubTator only
             passages, annotations = parse_pubtator(pf['path'])
+            for a in annotations:
+                a['source'] = 'tmVar3'
             rel_xml = pf['rel'][:-len('.PubTator')] if pf['rel'].endswith('.PubTator') else pf['rel']
 
         if nlmchem_dir:
             chem_anns = parse_bioc_chemicals(os.path.join(nlmchem_dir, rel_xml))
+            for a in chem_anns:
+                a['source'] = 'NLMChem'
             annotations.extend(chem_anns)
         if taggerone_dir:
             dis_anns = parse_bioc_diseases(os.path.join(taggerone_dir, rel_xml))
             gene_mentions = {a['mention'] for a in annotations if a['type'] in GENE_TYPES}
+            for a in dis_anns:
+                a['source'] = 'TaggerOne'
             annotations.extend(a for a in dis_anns if a['mention'] not in gene_mentions)
         aioner_anns = parse_aioner_bioc(os.path.join(aioner_dir, rel_xml)) if aioner_dir else []
+        for a in aioner_anns:
+            a['source'] = 'AIONER'
         doc_data.append({
             'doc_id': f'doc-{i}',
             'key': key,
