@@ -21,6 +21,7 @@ ENTITY_STYLE = {
     'Genus':           {'bg': '#bbf7d0', 'border': '#16a34a', 'label': 'Genus'},
     'Strain':          {'bg': '#bbf7d0', 'border': '#16a34a', 'label': 'Strain'},
     'CellLine':        {'bg': '#ccfbf1', 'border': '#0d9488', 'label': 'Cell Line'},
+    'Mutation':        {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'Mutation (NER)'},
     'Chemical':        {'bg': '#fae8ff', 'border': '#a21caf', 'label': 'Drug'},
     'Disease':         {'bg': '#ffe4e6', 'border': '#e11d48', 'label': 'Disease'},
 }
@@ -220,6 +221,85 @@ def parse_gnorm2_bioc(path):
                     'details': ainfons,
                 })
     return passages, annotations
+
+
+def parse_aioner_bioc(path):
+    """Parse AIONER BioC XML; return list of NER annotation dicts (no identifiers)."""
+    if not os.path.isfile(path):
+        return []
+    with open(path, encoding='utf-8') as fh:
+        content = fh.read()
+    content = re.sub(r'<!DOCTYPE[^>]*>', '', content)
+    try:
+        root = ET.fromstring(content)
+    except ET.ParseError as exc:
+        print(f'warning: could not parse {path}: {exc}', file=sys.stderr)
+        return []
+    annotations = []
+    for doc in root.findall('document'):
+        for passage in doc.findall('passage'):
+            for ann in passage.findall('annotation'):
+                ainfons = {i.get('key'): (i.text or '') for i in ann.findall('infon')}
+                ann_type = ainfons.get('type', '')
+                if not ann_type:
+                    continue
+                loc = ann.find('location')
+                if loc is None:
+                    continue
+                start = int(loc.get('offset', 0))
+                length = int(loc.get('length', 0))
+                mention = ann.findtext('text', '')
+                annotations.append({
+                    'start': start,
+                    'end': start + length,
+                    'mention': mention,
+                    'type': ann_type,
+                    'identifier': '',
+                    'hgvs': '',
+                    'rs': '',
+                    'gene': '',
+                    'details': {},
+                })
+    return annotations
+
+
+def collect_aioner_files(aioner_dir):
+    """Collect AIONER BioC XML files, mirroring the GNorm2 directory structure."""
+    return collect_gnorm2_files(aioner_dir)
+
+
+def build_aioner_rows(doc_data, show_docs=True):
+    """Build HTML rows for the flat AIONER NER table (Mention | Type | Count | Docs)."""
+    key_to_label = {doc['key']: doc['label'] for doc in doc_data}
+    summary = {}
+    for doc in doc_data:
+        for ann in doc.get('aioner_annotations', []):
+            skey = (ann['mention'], ann['type'])
+            if skey not in summary:
+                summary[skey] = {'count': 0, 'docs': set()}
+            summary[skey]['count'] += 1
+            summary[skey]['docs'].add(doc['key'])
+    rows = []
+    for (mention, etype), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
+        style = ENTITY_STYLE.get(etype, DEFAULT_STYLE)
+        type_chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
+                     f'border-radius:3px;padding:1px 6px;font-size:0.82em">'
+                     f'{html.escape(style["label"])}</span>')
+        docs_td = ''
+        if show_docs:
+            sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
+            keys_display = html.escape(', '.join(sorted_doc_keys))
+            labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
+            docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
+        rows.append(
+            f'<tr data-type="{html.escape(etype)}">'
+            f'<td>{html.escape(mention)}</td>'
+            f'<td>{type_chip}</td>'
+            f'<td>{info["count"]}</td>'
+            f'{docs_td}'
+            f'</tr>'
+        )
+    return '\n'.join(rows)
 
 
 def classify_pubtator_path(rel_path):
@@ -834,7 +914,7 @@ def build_annotation_legend(annotations):
     if not types_present:
         return ''
     ordered = [
-        'ProteinMutation', 'ProteinAllele', 'DNAMutation', 'SNP',
+        'ProteinMutation', 'ProteinAllele', 'DNAMutation', 'SNP', 'Mutation',
         'Gene', 'FamilyName', 'GENERIF', 'Domain',
         'Species', 'Genus', 'Strain', 'CellLine',
         'Chemical', 'Disease',
@@ -912,6 +992,31 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
 
     highlighted = highlight_text(full_text, doc['annotations'])
 
+    aioner_rows = build_aioner_rows([doc], show_docs=False)
+    if aioner_rows:
+        aioner_types = sorted({a['type'] for a in doc.get('aioner_annotations', [])})
+        aioner_filter = build_filter_bar(
+            set(aioner_types), DEFAULT_STYLE,
+            f'aioner-type-{doc_id}', f'applyAIONERFilters_{doc_id}()',
+            f'aioner-limit-{doc_id}', f'aioner-count-{doc_id}')
+        aioner_card = f'''
+  <div class="card">
+    <h2>NER Results (AIONER)</h2>
+    <p style="color:#64748b;font-size:0.88em;margin:0 0 0.75rem">Raw named entity spans from AIONER — not normalized to database identifiers.</p>
+    {aioner_filter}
+    <div style="overflow-x:auto">
+      <table class="data-table" id="aioner-tbl-{doc_id}"
+             data-filter-name="aioner-type-{doc_id}"
+             data-filter-limit="aioner-limit-{doc_id}"
+             data-filter-display="aioner-count-{doc_id}">
+        <thead><tr><th>Mention</th><th>Type</th><th>Count</th></tr></thead>
+        <tbody>{aioner_rows}</tbody>
+      </table>
+    </div>
+  </div>'''
+    else:
+        aioner_card = ''
+
     return f'''
 <div id="{doc_id}" class="doc-section" style="display:none">
   <div style="margin-bottom:1rem">
@@ -922,9 +1027,10 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
     <div style="color:#64748b;font-size:0.9em">{html.escape(category)}</div>
   </div>
   <div class="card">
-    <h2>Annotation Summary</h2>
+    <h2>Annotation Summary (Normalized)</h2>
     {build_tabbed_summary(f'doc-summary-{doc_id}', var_block, gene_block, org_block, chem_block, dis_block)}
   </div>
+  {aioner_card}
   <div class="card">
     <h2>Document Text</h2>
     {build_annotation_legend(doc['annotations'])}
@@ -1091,11 +1197,12 @@ function switchTab(containerId, tabName) {
   c.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.tab === tabName); });
   c.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.toggle('active', p.dataset.tab === tabName); });
 }
-function applyVariantFilters()  { applyTableFilters('variant-table',  'vfilter', 'variant-limit-select',  'variant-count-display'); }
-function applyGeneFilters()     { applyTableFilters('gene-table',     null,      'gene-limit-select',     'gene-count-display'); }
-function applyOrganismFilters() { applyTableFilters('organism-table', 'ofilter', 'organism-limit-select', 'organism-count-display'); }
-function applyChemicalFilters() { applyTableFilters('chemical-table', null,      'chemical-limit-select', 'chemical-count-display'); }
-function applyDiseaseFilters()  { applyTableFilters('disease-table',  null,      'disease-limit-select',  'disease-count-display'); }
+function applyVariantFilters()  { applyTableFilters('variant-table',  'vfilter',            'variant-limit-select',  'variant-count-display'); }
+function applyGeneFilters()     { applyTableFilters('gene-table',     null,                 'gene-limit-select',     'gene-count-display'); }
+function applyOrganismFilters() { applyTableFilters('organism-table', 'ofilter',            'organism-limit-select', 'organism-count-display'); }
+function applyChemicalFilters() { applyTableFilters('chemical-table', null,                 'chemical-limit-select', 'chemical-count-display'); }
+function applyDiseaseFilters()  { applyTableFilters('disease-table',  null,                 'disease-limit-select',  'disease-count-display'); }
+function applyAIONERFilters()   { applyTableFilters('aioner-table',   'aioner-type-filter', 'aioner-limit-select',   'aioner-count-display'); }
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.data-table').forEach(function(table) {
     var ths = table.querySelectorAll('th');
@@ -1108,6 +1215,7 @@ document.addEventListener('DOMContentLoaded', function() {
   applyOrganismFilters();
   applyChemicalFilters();
   applyDiseaseFilters();
+  applyAIONERFilters();
   document.querySelectorAll('.data-table[data-filter-limit]').forEach(function(table) {
     applyTableFilters(table.id, table.dataset.filterName || null,
                       table.dataset.filterLimit, table.dataset.filterDisplay);
@@ -1286,10 +1394,30 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
     ) if disease_rows else None
 
     annotation_section = (
-        f'<div class="card"><h2>Annotation Summary</h2>'
+        f'<div class="card"><h2>Annotation Summary (Normalized)</h2>'
         f'{build_tabbed_summary("main-summary", var_block, gene_block, org_block, chem_block, dis_block)}'
         f'</div>'
     )
+
+    aioner_rows = build_aioner_rows(doc_data)
+    if aioner_rows:
+        aioner_types = sorted({a['type'] for doc in doc_data for a in doc.get('aioner_annotations', [])})
+        aioner_filter_bar = build_filter_bar(
+            set(aioner_types), DEFAULT_STYLE,
+            'aioner-type-filter', 'applyAIONERFilters()',
+            'aioner-limit-select', 'aioner-count-display')
+        aioner_section = (
+            f'<div class="card"><h2>NER Results (AIONER)</h2>'
+            f'<p style="color:#64748b;font-size:0.88em;margin:0 0 0.75rem">Raw named entity spans from AIONER — not normalized to database identifiers.</p>'
+            f'{aioner_filter_bar}'
+            f'<div style="overflow-x:auto">'
+            f'<table class="data-table" id="aioner-table" data-filter-fn="applyAIONERFilters">'
+            f'<thead><tr><th>Mention</th><th>Type</th><th>Count</th><th>Docs</th></tr></thead>'
+            f'<tbody>{aioner_rows}</tbody></table></div>'
+            f'</div>'
+        )
+    else:
+        aioner_section = ''
 
     doc_index_rows = build_document_index(doc_data)
     doc_index = f'''
@@ -1326,6 +1454,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
     {stats_table_html}
     {doc_index}
     {annotation_section}
+    {aioner_section}
   </div>
   {doc_sections}
 </div>
@@ -1371,6 +1500,9 @@ def main():
         print(f'error: neither 03_gnorm2/ nor 04_tmvar3/ found in {run_dir}', file=sys.stderr)
         sys.exit(1)
 
+    aioner_dir = os.path.join(run_dir, '05_aioner')
+    aioner_dir = aioner_dir if os.path.isdir(aioner_dir) else None
+
     nlmchem_dir = os.path.join(run_dir, '06_nlmchem')
     if not os.path.isdir(nlmchem_dir):
         nlmchem_dir = None
@@ -1411,6 +1543,7 @@ def main():
             dis_anns = parse_bioc_diseases(os.path.join(taggerone_dir, rel_xml))
             gene_mentions = {a['mention'] for a in annotations if a['type'] in GENE_TYPES}
             annotations.extend(a for a in dis_anns if a['mention'] not in gene_mentions)
+        aioner_anns = parse_aioner_bioc(os.path.join(aioner_dir, rel_xml)) if aioner_dir else []
         doc_data.append({
             'doc_id': f'doc-{i}',
             'key': key,
@@ -1419,6 +1552,7 @@ def main():
             'rel': pf['rel'],
             'passages': passages,
             'annotations': annotations,
+            'aioner_annotations': aioner_anns,
         })
 
     gene_ids = set()
