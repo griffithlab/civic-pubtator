@@ -1,140 +1,344 @@
-entity_category	entity_type	mention	identifier	identifier_name	hgvs	count	doc_keys
-Variant	ProteinMutation	p.M90I	6016	RIT1	p.M90I	10	m1,s1,s3
-Variant	ProteinMutation	Q79L	6016	RIT1	p.Q79L	6	m1
-Variant	ProteinMutation	Q40L	6016	RIT1	p.Q40L	4	m1
-Variant	ProteinMutation	p.A77S	6016	RIT1	p.A77S	2	m1
-Variant	ProteinMutation	M90I	6016	RIT1	p.M90I	2	m1
-Variant	ProteinMutation	G12V	3845	KRAS	p.G12V	2	m1,s1
-Variant	ProteinMutation	L858R	1956	EGFR	p.L858R	2	m1,s1
-Variant	ProteinAllele	Q79	6016	RIT1		2	m1
-Variant	DNAMutation	270G>T	113451	AZIN2	c.270G>T	2	s1
-Variant	ProteinMutation	p.A77P	6016	RIT1	p.A77P	1	m1
-Variant	ProteinMutation	p.R122L	6016	RIT1	p.R122L	1	m1
-Variant	ProteinMutation	F82L	6016	RIT1	p.F82L	1	m1
-Variant	ProteinAllele	Q40	6016	RIT1		1	m1
-Variant	ProteinMutation	alanine 77				1	m1
-Variant	ProteinMutation	glutamine 79 to leucine	6016	RIT1	p.Q79L	1	m1
-Variant	DNAMutation	c.227_228insTTTGGATAC	113451	AZIN2	c.227_228insTTTGGATAC	1	s1
-Variant	ProteinMutation	p.TA83del	113451	AZIN2	p.TA83del	1	s1
-Variant	DNAMutation	c.248_253delCAGCCA	113451	AZIN2	c.248_253delCAGCCA	1	s1
-Variant	ProteinMutation	p.F82L	113451	AZIN2	p.F82L	1	s1
-Variant	DNAMutation	574G>A	113451	AZIN2	c.574G>A	1	s1
-Variant	DNAMutation	246T>G	113451	AZIN2	c.246T>G	1	s1
-Variant	DNAMutation	229G>C	113451	AZIN2	c.229G>C	1	s1
-Variant	DNAMutation	119A>T	113451	AZIN2	c.119A>T	1	s1
-Variant	ProteinMutation	p.Q40L	113451	AZIN2	p.Q40L	1	s1
-Variant	DNAMutation	365G>T	113451	AZIN2	c.365G>T	1	s1
-Variant	ProteinMutation	A192T	113451	AZIN2	p.A192T	1	s1
-Variant	ProteinMutation	p.A77P	113451	AZIN2	p.A77P	1	s1
-Variant	DNAMutation	270G>A	113451	AZIN2	c.270G>A	1	s1
-Variant	ProteinMutation	p.R122L	113451	AZIN2	p.R122L	1	s1
-Variant	ProteinMutation	G12	3845	KRAS		1	s1
-Variant	ProteinMutation	p.S335C	6016	RIT1	p.S335C	1	s3
-Variant	ProteinMutation	p.Q56P	6016	RIT1	p.Q56P	1	s3
-Gene	Gene	RIT1	6016	RIT1		111	m1,s3,s4
-Gene	Gene	KRAS	3845	KRAS		29	m1,s3
-Gene	Gene	RIT1	19769	Rit1		27	m1,s1
-Gene	Gene	EGFR	1956	EGFR		21	m1,s3
-Gene	Gene	MEK	5609	MAP2K7		21	m1
-Gene	Gene	PI3K	5291	PIK3CB		16	m1
-Gene	Gene	BRAF	673	BRAF		10	m1,s3
-Gene	Gene	ERK	5594	MAPK1		10	m1
-Gene	Gene	ALK	238	ALK		8	m1,s3
-Gene	Gene	KRAS	16653	Kras		8	s1
-Gene	Gene	Adc	242669	Azin2		8	s1
-Gene	Gene	AKT	207	AKT1		7	m1
-Gene	Gene	RAC1	19353	Rac1		7	s1
-Gene	Gene	ERBB2	2064	ERBB2		6	m1,s3
-Gene	Gene	NRAS	4893	NRAS		6	m1,s3
-Gene	Gene	RAC2	19354	Rac2		6	s1
-Gene	Gene	HRAS	3265	HRAS		5	m1
-Gene	Gene	ROS1	6098	ROS1		4	m1,s3
-Gene	Gene	MET	79811	SLTM		4	m1,s3
-Gene	Gene	mTOR	2475	MTOR		4	m1
-Gene	Gene	RET	5979	RET		3	m1
-Gene	Gene	EML4	27436	EML4		3	m1
-Gene	Gene	MAP2K1	5604	MAP2K1		3	m1
-Gene	Gene	Rit	6016	RIT1		3	m1
-Gene	Gene	p38	1432	MAPK14		2	m1
-Gene	Gene	PIK3CA	5290	PIK3CA		2	s3
-Gene	Gene	Ras-like	221547	RANP1		1	m1
-Gene	Gene	RIT2	6014	RIT2		1	m1
-Gene	Gene	RIN	6014	RIT2		1	m1
-Gene	Gene	vinculin	7414	VCL		1	m1
-Gene	Gene	MEK	17242	Mdk		1	m1
-Gene	Gene	PI3K	18708	Pik3r1		1	m1
-Gene	Gene	vinculin	22330	Vcl		1	m1
-Gene	Gene	EGFR	13649	Egfr		1	s1
-Chemical	Chemical	agar	MESH:D000362			14	m1
-Chemical	Chemical	GDC-0941	MESH:C532162			11	m1
-Chemical	Chemical	erlotinib	MESH:D000069347			4	m1
-Chemical	Chemical	puromycin	MESH:D011691			4	m1,s1
-Chemical	Chemical	acid	MESH:D000143			4	s1
-Chemical	Chemical	PD98059	MESH:C093973			3	m1
-Chemical	Chemical	LY294002	MESH:C085911			3	m1
-Chemical	Chemical	AZD-6244	MESH:C517975			3	m1
-Chemical	Chemical	DMEM				3	m1
-Chemical	Chemical	dimethylsulfoxide	MESH:D004121			3	m1
-Chemical	Chemical	GTP	MESH:D006160			2	m1
-Chemical	Chemical	PBS	MESH:D007854			2	m1
-Chemical	Chemical	Iressa	MESH:D000077156			1	m1
-Chemical	Chemical	gefitinib	MESH:D000077156			1	m1
-Chemical	Chemical	Tarceva	MESH:D000069347			1	m1
-Chemical	Chemical	crizotinib	MESH:D000077547			1	m1
-Chemical	Chemical	reactive oxygen species	MESH:D017382			1	m1
-Chemical	Chemical	ROS	MESH:D017382			1	m1
-Chemical	Chemical	AZD6244	MESH:C517975			1	m1
-Chemical	Chemical	Agar	MESH:D000362			1	m1
-Chemical	Chemical	methylcellulose	MESH:D008747			1	m1
-Chemical	Chemical	Tween-80	MESH:D011136			1	m1
-Chemical	Chemical	SDS	MESH:D012967			1	m1
-Chemical	Chemical	D8.9				1	m1
-Disease	Disease	lung adenocarcinoma	MESH:C538231			25	m1,s1
-Disease	Disease	tumors	MESH:D009369			10	m1,s1
-Disease	Disease	lung adenocarcinomas	MESH:C538231			7	m1,s1
-Disease	Disease	tumor	MESH:D009369			7	m1
-Disease	Disease	NSCLC	MESH:D002289			6	s1,s3
-Disease	Disease	cancer	MESH:D009369			5	m1
-Disease	Disease	cancers	MESH:D009369			3	m1
-Disease	Disease	myeloid malignancies	OMIM:601308			3	m1
-Disease	Disease	squamous	MESH:D002294			3	m1,s1
-Disease	Disease	melanoma	MESH:D008545			2	m1
-Disease	Disease	Noonan syndrome	MESH:D009634			2	m1
-Disease	Disease	Sigma-Aldrich				2	m1
-Disease	Disease	FBS	MESH:D005198			2	m1
-Disease	Disease	Lung adenocarcinoma	MESH:C538231			1	m1
-Disease	Disease	malignancy	MESH:D009369			1	m1
-Disease	Disease	adenocarcinomas	MESH:D000230			1	m1
-Disease	Disease	malignancies other than lung adenocarcinoma	MESH:C538231			1	m1
-Disease	Disease	acute myelogenous leukemia	MESH:D015470			1	m1
-Disease	Disease	cervical carcinoma	MESH:D065311			1	m1
-Disease	Disease	lung adenocarcinoma data	MESH:C538231			1	m1
-Disease	Disease	salivary gland carcinoma, endometrial carcinoma, myeloid malignancies	MESH:D016889			1	m1
-Disease	Disease	primary lung adenocarcinomas	MESH:C538231			1	m1
-Disease	Disease	impaired tumor	MESH:D009369			1	m1
-Disease	Disease	pheochromocytoma	MESH:D010673			1	m1
-Disease	Disease	a developmental disorder	MESH:D002658			1	m1
-Disease	Disease	adenocarcinoma	MESH:D000230			1	m1
-Disease	Disease	FBS				1	m1
-Disease	Disease	Tumors	MESH:D009369			1	m1
-Disease	Disease	Sigma-Aldrich	MESH:D014923			1	m1
-Disease	Disease	Atlas lung adenocarcinoma	MESH:C538231			1	s1
-Disease	Disease	N ND HCC364 Adeno BRAF N ND H2087 Adeno BRAF N ND H1395 Adeno BRAF N ND H1755 Adeno BRAF N ND	MESH:C537849			1	s3
-Disease	Disease	BRAF N ND H3255 Adeno EGFR N ND H1975 Adeno EGFR N ND HCC2279 Adeno EGFR N ND HCC4006 Adeno	MESH:C537849			1	s3
-Disease	Disease	NSCLC EGFR N ND	MESH:C537849			1	s3
-Disease	Disease	N ND H2347 Adeno NRAS N ND HCC1195 Adeno NRAS N ND A427 Adeno KRAS N ND A549 Adeno KRAS N ND	MESH:C537849			1	s3
-Disease	Disease	Adeno KRAS N ND H1734 Adeno KRAS N ND H1792 Adeno KRAS N ND H1944 Adeno KRAS N ND	MESH:C537849			1	s3
-Disease	Disease	Adeno KRAS N ND H2030 Adeno KRAS N ND H2122 Adeno KRAS N ND H441 Adeno KRAS N ND	MESH:C537849			1	s3
-Disease	Disease	Adeno KRAS N ND HCC515 Adeno KRAS N ND SKLU1 Adeno KRAS N ND H647 ADSQ KRAS N ND	MESH:C537849			1	s3
-Disease	Disease	KRAS N ND H2444 NSCLC KRAS N ND H2887 NSCLC KRAS N ND HCC1171 NSCLC KRAS N ND HCC44 NSCLC KRAS N	MESH:C537849			1	s3
-Disease	Disease	lung cancer	MESH:D008175			1	s4
-Organism	CellLine	NIH3T3	10090	house mouse		10	m1,s1
-Organism	CellLine	NCI-H2110	9606	human		9	m1
-Organism	Species	human	9606	human		7	m1
-Organism	Species	nude mice	10090	house mouse		5	m1,s1
-Organism	Species	mice	10090	house mouse		5	m1
-Organism	Species	patient	9606	human		3	m1
-Organism	Species	patients	9606	human		3	m1
-Organism	CellLine	NCI-H1299	9606	human		3	m1
-Organism	CellLine	293T	9606	human		2	m1
-Organism	CellLine	NCI-H1993	9606	human		1	m1
+entity_category	entity_type	mention	identifier	identifier_name	hgvs	count	doc_keys	source
+Variant	ProteinMutation	p.M90I	6016	RIT1	p.M90I	10	m1,s1,s3	tmVar3
+Variant	ProteinMutation	Q79L	6016	RIT1	p.Q79L	6	m1	tmVar3
+Variant	ProteinMutation	Q40L	6016	RIT1	p.Q40L	4	m1	tmVar3
+Variant	ProteinMutation	p.A77S	6016	RIT1	p.A77S	2	m1	tmVar3
+Variant	ProteinMutation	M90I	6016	RIT1	p.M90I	2	m1	tmVar3
+Variant	ProteinMutation	G12V	3845	KRAS	p.G12V	2	m1,s1	tmVar3
+Variant	ProteinMutation	L858R	1956	EGFR	p.L858R	2	m1,s1	tmVar3
+Variant	ProteinAllele	Q79	6016	RIT1		2	m1	tmVar3
+Variant	DNAMutation	270G>T	113451	AZIN2	c.270G>T	2	s1	tmVar3
+Variant	ProteinMutation	p.A77P	6016	RIT1	p.A77P	1	m1	tmVar3
+Variant	ProteinMutation	p.R122L	6016	RIT1	p.R122L	1	m1	tmVar3
+Variant	ProteinMutation	F82L	6016	RIT1	p.F82L	1	m1	tmVar3
+Variant	ProteinAllele	Q40	6016	RIT1		1	m1	tmVar3
+Variant	ProteinMutation	glutamine 79 to leucine	6016	RIT1	p.Q79L	1	m1	tmVar3
+Variant	ProteinMutation	alanine 77				1	m1	tmVar3
+Variant	DNAMutation	c.227_228insTTTGGATAC	113451	AZIN2	c.227_228insTTTGGATAC	1	s1	tmVar3
+Variant	ProteinMutation	p.TA83del	113451	AZIN2	p.TA83del	1	s1	tmVar3
+Variant	DNAMutation	c.248_253delCAGCCA	113451	AZIN2	c.248_253delCAGCCA	1	s1	tmVar3
+Variant	ProteinMutation	p.F82L	113451	AZIN2	p.F82L	1	s1	tmVar3
+Variant	DNAMutation	574G>A	113451	AZIN2	c.574G>A	1	s1	tmVar3
+Variant	DNAMutation	246T>G	113451	AZIN2	c.246T>G	1	s1	tmVar3
+Variant	DNAMutation	229G>C	113451	AZIN2	c.229G>C	1	s1	tmVar3
+Variant	DNAMutation	119A>T	113451	AZIN2	c.119A>T	1	s1	tmVar3
+Variant	ProteinMutation	p.Q40L	113451	AZIN2	p.Q40L	1	s1	tmVar3
+Variant	DNAMutation	365G>T	113451	AZIN2	c.365G>T	1	s1	tmVar3
+Variant	ProteinMutation	A192T	113451	AZIN2	p.A192T	1	s1	tmVar3
+Variant	ProteinMutation	p.A77P	113451	AZIN2	p.A77P	1	s1	tmVar3
+Variant	DNAMutation	270G>A	113451	AZIN2	c.270G>A	1	s1	tmVar3
+Variant	ProteinMutation	p.R122L	113451	AZIN2	p.R122L	1	s1	tmVar3
+Variant	ProteinMutation	G12	3845	KRAS		1	s1	tmVar3
+Variant	ProteinMutation	p.S335C	6016	RIT1	p.S335C	1	s3	tmVar3
+Variant	ProteinMutation	p.Q56P	6016	RIT1	p.Q56P	1	s3	tmVar3
+Gene	Gene	RIT1	6016	RIT1		111	m1,s3,s4	GNorm2
+Gene	Gene	KRAS	3845	KRAS		29	m1,s3	GNorm2
+Gene	Gene	RIT1	19769	Rit1		27	m1,s1	GNorm2
+Gene	Gene	EGFR	1956	EGFR		21	m1,s3	GNorm2
+Gene	Gene	MEK	5609	MAP2K7		21	m1	GNorm2
+Gene	Gene	PI3K	5291	PIK3CB		16	m1	GNorm2
+Gene	Gene	BRAF	673	BRAF		10	m1,s3	GNorm2
+Gene	Gene	ERK	5594	MAPK1		10	m1	GNorm2
+Gene	Gene	ALK	238	ALK		8	m1,s3	GNorm2
+Gene	Gene	KRAS	16653	Kras		8	s1	GNorm2
+Gene	Gene	Adc	242669	Azin2		8	s1	GNorm2
+Gene	Gene	AKT	207	AKT1		7	m1	GNorm2
+Gene	Gene	RAC1	19353	Rac1		7	s1	GNorm2
+Gene	Gene	ERBB2	2064	ERBB2		6	m1,s3	GNorm2
+Gene	Gene	NRAS	4893	NRAS		6	m1,s3	GNorm2
+Gene	Gene	RAC2	19354	Rac2		6	s1	GNorm2
+Gene	Gene	HRAS	3265	HRAS		5	m1	GNorm2
+Gene	Gene	ROS1	6098	ROS1		4	m1,s3	GNorm2
+Gene	Gene	MET	79811	SLTM		4	m1,s3	GNorm2
+Gene	Gene	mTOR	2475	MTOR		4	m1	GNorm2
+Gene	Gene	RET	5979	RET		3	m1	GNorm2
+Gene	Gene	EML4	27436	EML4		3	m1	GNorm2
+Gene	Gene	MAP2K1	5604	MAP2K1		3	m1	GNorm2
+Gene	Gene	Rit	6016	RIT1		3	m1	GNorm2
+Gene	Gene	p38	1432	MAPK14		2	m1	GNorm2
+Gene	Gene	PIK3CA	5290	PIK3CA		2	s3	GNorm2
+Gene	Gene	Ras-like	221547	RANP1		1	m1	GNorm2
+Gene	Gene	RIT2	6014	RIT2		1	m1	GNorm2
+Gene	Gene	RIN	6014	RIT2		1	m1	GNorm2
+Gene	Gene	vinculin	7414	VCL		1	m1	GNorm2
+Gene	Gene	MEK	17242	Mdk		1	m1	GNorm2
+Gene	Gene	PI3K	18708	Pik3r1		1	m1	GNorm2
+Gene	Gene	vinculin	22330	Vcl		1	m1	GNorm2
+Gene	Gene	EGFR	13649	Egfr		1	s1	GNorm2
+Chemical	Chemical	agar	MESH:D000362			14	m1	NLMChem
+Chemical	Chemical	GDC-0941	MESH:C532162			11	m1	NLMChem
+Chemical	Chemical	erlotinib	MESH:D000069347			4	m1	NLMChem
+Chemical	Chemical	puromycin	MESH:D011691			4	m1,s1	NLMChem
+Chemical	Chemical	acid	MESH:D000143			4	s1	NLMChem
+Chemical	Chemical	PD98059	MESH:C093973			3	m1	NLMChem
+Chemical	Chemical	LY294002	MESH:C085911			3	m1	NLMChem
+Chemical	Chemical	AZD-6244	MESH:C517975			3	m1	NLMChem
+Chemical	Chemical	DMEM				3	m1	NLMChem
+Chemical	Chemical	dimethylsulfoxide	MESH:D004121			3	m1	NLMChem
+Chemical	Chemical	GTP	MESH:D006160			2	m1	NLMChem
+Chemical	Chemical	PBS	MESH:D007854			2	m1	NLMChem
+Chemical	Chemical	Iressa	MESH:D000077156			1	m1	NLMChem
+Chemical	Chemical	gefitinib	MESH:D000077156			1	m1	NLMChem
+Chemical	Chemical	Tarceva	MESH:D000069347			1	m1	NLMChem
+Chemical	Chemical	crizotinib	MESH:D000077547			1	m1	NLMChem
+Chemical	Chemical	reactive oxygen species	MESH:D017382			1	m1	NLMChem
+Chemical	Chemical	ROS	MESH:D017382			1	m1	NLMChem
+Chemical	Chemical	AZD6244	MESH:C517975			1	m1	NLMChem
+Chemical	Chemical	Agar	MESH:D000362			1	m1	NLMChem
+Chemical	Chemical	methylcellulose	MESH:D008747			1	m1	NLMChem
+Chemical	Chemical	Tween-80	MESH:D011136			1	m1	NLMChem
+Chemical	Chemical	SDS	MESH:D012967			1	m1	NLMChem
+Chemical	Chemical	D8.9				1	m1	NLMChem
+Disease	Disease	lung adenocarcinoma	MESH:C538231			25	m1,s1	TaggerOne
+Disease	Disease	tumors	MESH:D009369			10	m1,s1	TaggerOne
+Disease	Disease	lung adenocarcinomas	MESH:C538231			7	m1,s1	TaggerOne
+Disease	Disease	tumor	MESH:D009369			7	m1	TaggerOne
+Disease	Disease	NSCLC	MESH:D002289			6	s1,s3	TaggerOne
+Disease	Disease	cancer	MESH:D009369			5	m1	TaggerOne
+Disease	Disease	cancers	MESH:D009369			3	m1	TaggerOne
+Disease	Disease	myeloid malignancies	OMIM:601308			3	m1	TaggerOne
+Disease	Disease	squamous	MESH:D002294			3	m1,s1	TaggerOne
+Disease	Disease	melanoma	MESH:D008545			2	m1	TaggerOne
+Disease	Disease	Noonan syndrome	MESH:D009634			2	m1	TaggerOne
+Disease	Disease	Sigma-Aldrich				2	m1	TaggerOne
+Disease	Disease	FBS	MESH:D005198			2	m1	TaggerOne
+Disease	Disease	Lung adenocarcinoma	MESH:C538231			1	m1	TaggerOne
+Disease	Disease	malignancy	MESH:D009369			1	m1	TaggerOne
+Disease	Disease	adenocarcinomas	MESH:D000230			1	m1	TaggerOne
+Disease	Disease	malignancies other than lung adenocarcinoma	MESH:C538231			1	m1	TaggerOne
+Disease	Disease	acute myelogenous leukemia	MESH:D015470			1	m1	TaggerOne
+Disease	Disease	cervical carcinoma	MESH:D065311			1	m1	TaggerOne
+Disease	Disease	lung adenocarcinoma data	MESH:C538231			1	m1	TaggerOne
+Disease	Disease	salivary gland carcinoma, endometrial carcinoma, myeloid malignancies	MESH:D016889			1	m1	TaggerOne
+Disease	Disease	primary lung adenocarcinomas	MESH:C538231			1	m1	TaggerOne
+Disease	Disease	impaired tumor	MESH:D009369			1	m1	TaggerOne
+Disease	Disease	pheochromocytoma	MESH:D010673			1	m1	TaggerOne
+Disease	Disease	a developmental disorder	MESH:D002658			1	m1	TaggerOne
+Disease	Disease	adenocarcinoma	MESH:D000230			1	m1	TaggerOne
+Disease	Disease	FBS				1	m1	TaggerOne
+Disease	Disease	Tumors	MESH:D009369			1	m1	TaggerOne
+Disease	Disease	Sigma-Aldrich	MESH:D014923			1	m1	TaggerOne
+Disease	Disease	Atlas lung adenocarcinoma	MESH:C538231			1	s1	TaggerOne
+Disease	Disease	N ND HCC364 Adeno BRAF N ND H2087 Adeno BRAF N ND H1395 Adeno BRAF N ND H1755 Adeno BRAF N ND	MESH:C537849			1	s3	TaggerOne
+Disease	Disease	BRAF N ND H3255 Adeno EGFR N ND H1975 Adeno EGFR N ND HCC2279 Adeno EGFR N ND HCC4006 Adeno	MESH:C537849			1	s3	TaggerOne
+Disease	Disease	NSCLC EGFR N ND	MESH:C537849			1	s3	TaggerOne
+Disease	Disease	N ND H2347 Adeno NRAS N ND HCC1195 Adeno NRAS N ND A427 Adeno KRAS N ND A549 Adeno KRAS N ND	MESH:C537849			1	s3	TaggerOne
+Disease	Disease	Adeno KRAS N ND H1734 Adeno KRAS N ND H1792 Adeno KRAS N ND H1944 Adeno KRAS N ND	MESH:C537849			1	s3	TaggerOne
+Disease	Disease	Adeno KRAS N ND H2030 Adeno KRAS N ND H2122 Adeno KRAS N ND H441 Adeno KRAS N ND	MESH:C537849			1	s3	TaggerOne
+Disease	Disease	Adeno KRAS N ND HCC515 Adeno KRAS N ND SKLU1 Adeno KRAS N ND H647 ADSQ KRAS N ND	MESH:C537849			1	s3	TaggerOne
+Disease	Disease	KRAS N ND H2444 NSCLC KRAS N ND H2887 NSCLC KRAS N ND HCC1171 NSCLC KRAS N ND HCC44 NSCLC KRAS N	MESH:C537849			1	s3	TaggerOne
+Disease	Disease	lung cancer	MESH:D008175			1	s4	TaggerOne
+Organism	CellLine	NIH3T3	10090	house mouse		10	m1,s1	GNorm2
+Organism	CellLine	NCI-H2110	9606	human		10	m1	GNorm2
+Organism	Species	human	9606	human		7	m1	GNorm2
+Organism	Species	nude mice	10090	house mouse		5	m1,s1	GNorm2
+Organism	Species	mice	10090	house mouse		5	m1	GNorm2
+Organism	Species	patient	9606	human		3	m1	GNorm2
+Organism	Species	patients	9606	human		3	m1	GNorm2
+Organism	CellLine	NCI-H1299	9606	human		3	m1	GNorm2
+Organism	CellLine	293T	9606	human		2	m1	GNorm2
+Organism	CellLine	NCI-H1993	9606	human		1	m1	GNorm2
+NER_AIONER	Gene	RIT1				130	m1,s1,s3,s4	AIONER
+NER_AIONER	Gene	KRAS				34	m1,s1,s3	AIONER
+NER_AIONER	CellLine	Adeno				33	s3	AIONER
+NER_AIONER	Disease	lung adenocarcinoma				25	m1,s1	AIONER
+NER_AIONER	Gene	EGFR				22	m1,s1,s3	AIONER
+NER_AIONER	Gene	MEK				22	m1	AIONER
+NER_AIONER	Gene	PI3K				16	m1	AIONER
+NER_AIONER	CellLine	NCI-H2110				15	m1	AIONER
+NER_AIONER	Chemical	agar				14	m1	AIONER
+NER_AIONER	Mutation	M90I				12	m1,s1,s3	AIONER
+NER_AIONER	Gene	RAS				11	m1,s1	AIONER
+NER_AIONER	Disease	tumors				11	m1,s1	AIONER
+NER_AIONER	Chemical	GDC-0941				11	m1	AIONER
+NER_AIONER	Disease	NSCLC				11	s1,s3	AIONER
+NER_AIONER	Gene	BRAF				10	m1,s3	AIONER
+NER_AIONER	CellLine	NIH3T3				10	m1,s1	AIONER
+NER_AIONER	Gene	ERK				10	m1	AIONER
+NER_AIONER	Disease	tumor				9	m1,s1	AIONER
+NER_AIONER	Species	mice				9	m1,s1	AIONER
+NER_AIONER	Gene	ALK				8	m1,s3	AIONER
+NER_AIONER	Disease	lung adenocarcinomas				8	m1,s1	AIONER
+NER_AIONER	Disease	Cancer				7	m1,s1,s4	AIONER
+NER_AIONER	CellLine	PC6				7	m1	AIONER
+NER_AIONER	Gene	AKT				7	m1	AIONER
+NER_AIONER	Species	human				7	m1	AIONER
+NER_AIONER	Gene	ERBB2				6	m1,s3	AIONER
+NER_AIONER	Gene	NRAS				6	m1,s3	AIONER
+NER_AIONER	Gene	RTK				5	m1	AIONER
+NER_AIONER	Gene	MET				5	m1,s1,s3	AIONER
+NER_AIONER	Mutation	Q40L				5	m1,s1	AIONER
+NER_AIONER	Gene	ROS1				4	m1,s3	AIONER
+NER_AIONER	Gene	HRAS				4	m1	AIONER
+NER_AIONER	Chemical	erlotinib				4	m1	AIONER
+NER_AIONER	Disease	adenocarcinoma oncogenes				4	m1	AIONER
+NER_AIONER	Disease	myeloid malignancies				4	m1	AIONER
+NER_AIONER	Gene	mTOR				4	m1	AIONER
+NER_AIONER	CellLine	NCI-H1299				4	m1	AIONER
+NER_AIONER	Chemical	puromycin				4	m1,s1	AIONER
+NER_AIONER	Disease	Tumor				4	m1,s1	AIONER
+NER_AIONER	Gene	RAC1 RAC2 RIT1				4	s1	AIONER
+NER_AIONER	Chemical	acid				4	s1	AIONER
+NER_AIONER	Disease	LUAD				4	s1	AIONER
+NER_AIONER	CellLine	CCLE				4	s4	AIONER
+NER_AIONER	Gene	RET				3	m1	AIONER
+NER_AIONER	Species	patient				3	m1	AIONER
+NER_AIONER	Gene	EML4				3	m1	AIONER
+NER_AIONER	Gene	MAP2K1				3	m1	AIONER
+NER_AIONER	Disease	cancers				3	m1	AIONER
+NER_AIONER	Disease	cancer				3	m1	AIONER
+NER_AIONER	Chemical	PD98059				3	m1	AIONER
+NER_AIONER	Chemical	LY294002				3	m1	AIONER
+NER_AIONER	Chemical	AZD-6244				3	m1	AIONER
+NER_AIONER	Gene	shLacZ				3	m1	AIONER
+NER_AIONER	Mutation	Q79L				3	m1	AIONER
+NER_AIONER	Gene	Rit				3	m1	AIONER
+NER_AIONER	Chemical	DMEM				3	m1	AIONER
+NER_AIONER	Chemical	dimethylsulfoxide				3	m1	AIONER
+NER_AIONER	Gene	RAC1				3	s1	AIONER
+NER_AIONER	Disease	Adc				3	s1	AIONER
+NER_AIONER	Species	patients				2	m1	AIONER
+NER_AIONER	Chemical	GTP				2	m1	AIONER
+NER_AIONER	Disease	melanoma				2	m1	AIONER
+NER_AIONER	Mutation	A77P				2	m1,s1	AIONER
+NER_AIONER	Mutation	A77S				2	m1	AIONER
+NER_AIONER	Mutation	R122L				2	m1,s1	AIONER
+NER_AIONER	Mutation	F82L				2	m1,s1	AIONER
+NER_AIONER	Mutation	G12V				2	m1,s1	AIONER
+NER_AIONER	Mutation	L858R				2	m1,s1	AIONER
+NER_AIONER	Disease	non-squamous non-small cell lung cancer				2	m1	AIONER
+NER_AIONER	Gene	shRIT1-1				2	m1	AIONER
+NER_AIONER	Gene	shRIT1-2				2	m1	AIONER
+NER_AIONER	Gene	shRIT1-3				2	m1	AIONER
+NER_AIONER	Gene	hairpin				2	m1	AIONER
+NER_AIONER	Mutation	Q79L RIT1				2	m1	AIONER
+NER_AIONER	Gene	p38				2	m1	AIONER
+NER_AIONER	Gene	MAPK				2	m1	AIONER
+NER_AIONER	Gene	pDONR223-RIT1				2	m1	AIONER
+NER_AIONER	CellLine	293T				2	m1	AIONER
+NER_AIONER	Gene	vinculin				2	m1	AIONER
+NER_AIONER	Chemical	PBS				2	m1	AIONER
+NER_AIONER	Gene	shRIT1-1, -2 and -3				2	m1	AIONER
+NER_AIONER	Mutation	CGTCGAAGTTTCCATGAAGTT				2	m1	AIONER
+NER_AIONER	Gene	FLAG				2	m1	AIONER
+NER_AIONER	Gene	ESM				2	s1,s4	AIONER
+NER_AIONER	Gene	RAC2				2	s1	AIONER
+NER_AIONER	Gene	Adc IIIA				2	s1	AIONER
+NER_AIONER	Disease	Adc IA				2	s1	AIONER
+NER_AIONER	Disease	Adc IIB				2	s1	AIONER
+NER_AIONER	Mutation	c.270G>T				2	s1	AIONER
+NER_AIONER	Gene	PIK3CA				2	s3	AIONER
+NER_AIONER	Disease	Lung adenocarcinoma				1	m1	AIONER
+NER_AIONER	Disease	genetic lesions				1	m1	AIONER
+NER_AIONER	Disease	malignancy				1	m1	AIONER
+NER_AIONER	Gene	small GTPase				1	m1	AIONER
+NER_AIONER	Disease	Lung adenocarcinomas				1	m1	AIONER
+NER_AIONER	Gene	receptor tyrosine kinase				1	m1	AIONER
+NER_AIONER	Chemical	Iressa				1	m1	AIONER
+NER_AIONER	Chemical	gefitinib				1	m1	AIONER
+NER_AIONER	Chemical	Tarceva				1	m1	AIONER
+NER_AIONER	Species	Patients				1	m1	AIONER
+NER_AIONER	Chemical	crizotinib				1	m1	AIONER
+NER_AIONER	Gene	Ras				1	m1	AIONER
+NER_AIONER	FamilyName	RAC				1	m1	AIONER
+NER_AIONER	Mutation	alanine 77				1	m1	AIONER
+NER_AIONER	Disease	malignancies				1	m1	AIONER
+NER_AIONER	Disease	acute myelogenous leukemia  22				1	m1	AIONER
+NER_AIONER	Disease	cervical carcinoma				1	m1	AIONER
+NER_AIONER	Mutation	Q79L,  24				1	m1	AIONER
+NER_AIONER	Disease	Noonan syndrome  25				1	m1	AIONER
+NER_AIONER	Disease	salivary gland carcinoma				1	m1	AIONER
+NER_AIONER	Disease	endometrial carcinoma				1	m1	AIONER
+NER_AIONER	Gene	GTPase  24, 29				1	m1	AIONER
+NER_AIONER	Gene	RIT2				1	m1	AIONER
+NER_AIONER	Gene	RIN				1	m1	AIONER
+NER_AIONER	FamilyName	RAS				1	m1	AIONER
+NER_AIONER	Mutation	Q61				1	m1	AIONER
+NER_AIONER	Mutation	glutamine 79 to leucine				1	m1	AIONER
+NER_AIONER	CellLine	PC12 pheochromocytoma				1	m1	AIONER
+NER_AIONER	Gene	EGF				1	m1	AIONER
+NER_AIONER	Gene	NGF				1	m1	AIONER
+NER_AIONER	Gene	BAD				1	m1	AIONER
+NER_AIONER	Chemical	reactive oxygen species				1	m1	AIONER
+NER_AIONER	Chemical	ROS				1	m1	AIONER
+NER_AIONER	Disease	tumorigenesis				1	m1	AIONER
+NER_AIONER	Disease	Noonan syndrome				1	m1	AIONER
+NER_AIONER	Disease	developmental disorder				1	m1	AIONER
+NER_AIONER	Disease	infection				1	m1	AIONER
+NER_AIONER	Mutation	ex3-F				1	m1	AIONER
+NER_AIONER	Mutation	c-ex5-R				1	m1	AIONER
+NER_AIONER	Mutation	CGTCGGACTCGATAAATAAGC				1	m1	AIONER
+NER_AIONER	Chemical	AZD6244				1	m1	AIONER
+NER_AIONER	Chemical	Agar				1	m1	AIONER
+NER_AIONER	Disease	Tumors				1	m1	AIONER
+NER_AIONER	Chemical	methylcellulose				1	m1	AIONER
+NER_AIONER	Chemical	Tween-80				1	m1	AIONER
+NER_AIONER	Chemical	SDS				1	m1	AIONER
+NER_AIONER	Gene	Flag				1	m1	AIONER
+NER_AIONER	Species	VSV-G				1	m1	AIONER
+NER_AIONER	Chemical	D8.9				1	m1	AIONER
+NER_AIONER	Species	Lentivirus				1	m1	AIONER
+NER_AIONER	Gene	Hairpin				1	m1	AIONER
+NER_AIONER	Gene	TRCN0000072223				1	m1	AIONER
+NER_AIONER	Gene	TRCN0000047888				1	m1	AIONER
+NER_AIONER	Mutation	CGCTACTATATTGATGATGTT				1	m1	AIONER
+NER_AIONER	Mutation	CGAGAATTCAGCTGTCCCTTT				1	m1	AIONER
+NER_AIONER	Gene	RIT1was				1	m1	AIONER
+NER_AIONER	Gene	PYMOL				1	m1	AIONER
+NER_AIONER	Gene	PI3K.				1	m1	AIONER
+NER_AIONER	Mutation	T76_insTLDT				1	m1	AIONER
+NER_AIONER	CellLine	NCI-H1993				1	m1	AIONER
+NER_AIONER	Species	Mice				1	m1	AIONER
+NER_AIONER	Gene	MOESM15				1	s1	AIONER
+NER_AIONER	Gene	RAC				1	s1	AIONER
+NER_AIONER	FamilyName	small GTPases				1	s1	AIONER
+NER_AIONER	Gene	H2110				1	s1	AIONER
+NER_AIONER	Mutation	c.119A>T				1	s1	AIONER
+NER_AIONER	Mutation	c.229G>C				1	s1	AIONER
+NER_AIONER	Gene	CHTN				1	s1	AIONER
+NER_AIONER	Mutation	c.270G>A				1	s1	AIONER
+NER_AIONER	Gene	LUAD				1	s1	AIONER
+NER_AIONER	Mutation	c.365G>T				1	s1	AIONER
+NER_AIONER	Mutation	A192T				1	s1	AIONER
+NER_AIONER	Mutation	c.574G>A				1	s1	AIONER
+NER_AIONER	Mutation	p.76_76T>TLDT				1	s1	AIONER
+NER_AIONER	Mutation	c.227_228insTTTGGATAC				1	s1	AIONER
+NER_AIONER	Mutation	c.246T>G				1	s1	AIONER
+NER_AIONER	Mutation	TA83del				1	s1	AIONER
+NER_AIONER	Mutation	c.248_253delCAGCCA				1	s1	AIONER
+NER_AIONER	Disease	Adc IIIA				1	s1	AIONER
+NER_AIONER	Gene	MOESM16				1	s2	AIONER
+NER_AIONER	Gene	MOESM17				1	s3	AIONER
+NER_AIONER	Mutation	N ND H1563				1	s3	AIONER
+NER_AIONER	Mutation	S335C				1	s3	AIONER
+NER_AIONER	CellLine	PC9				1	s3	AIONER
+NER_AIONER	Gene	NSCLC				1	s3	AIONER
+NER_AIONER	CellLine	A549 Adeno				1	s3	AIONER
+NER_AIONER	Mutation	Q56P				1	s3	AIONER
+NER_AIONER	CellLine	H2228 Adeno				1	s3	AIONER
+NER_AIONER	Mutation	H3122				1	s3	AIONER
+NER_AIONER	CellLine	HCC78				1	s3	AIONER
+NER_AIONER	CellLine	Calu3				1	s3	AIONER
+NER_AIONER	CellLine	Colo699 Adeno				1	s3	AIONER
+NER_AIONER	CellLine	DV90 Adeno				1	s3	AIONER
+NER_AIONER	Mutation	EKVX				1	s3	AIONER
+NER_AIONER	CellLine	H1568 Adeno				1	s3	AIONER
+NER_AIONER	CellLine	H1819 Adeno				1	s3	AIONER
+NER_AIONER	CellLine	H1838 Adeno				1	s3	AIONER
+NER_AIONER	CellLine	H1993				1	s3	AIONER
+NER_AIONER	CellLine	H2110				1	s3	AIONER
+NER_AIONER	CellLine	H2172				1	s3	AIONER
+NER_AIONER	CellLine	H23				1	s3	AIONER
+NER_AIONER	CellLine	H2882				1	s3	AIONER
+NER_AIONER	Mutation	H322				1	s3	AIONER
+NER_AIONER	Mutation	N				1	s3	AIONER
+NER_AIONER	CellLine	H522 Adeno				1	s3	AIONER
+NER_AIONER	CellLine	HCC1833 Adeno				1	s3	AIONER
+NER_AIONER	CellLine	HCC193 Adeno				1	s3	AIONER
+NER_AIONER	CellLine	HCC2429				1	s3	AIONER
+NER_AIONER	CellLine	HCC366 ADSQ				1	s3	AIONER
+NER_AIONER	CellLine	HOP-62 Adeno				1	s3	AIONER
+NER_AIONER	CellLine	H2077				1	s3	AIONER
+NER_AIONER	CellLine	H1648				1	s3	AIONER
+NER_AIONER	Gene	MOESM18				1	s4	AIONER
+NER_AIONER	Disease	lung cancer				1	s4	AIONER
