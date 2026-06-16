@@ -75,14 +75,15 @@ def main():
         CONFIG, 'biocxml',
         abbr_dir, input_dir, output_dir,
     ]
+    env = {**os.environ, "PYTHONNOUSERSITE": "1"}
     print('Running:', ' '.join(cmd))
     if args.log:
         os.makedirs(os.path.dirname(os.path.abspath(args.log)), exist_ok=True)
         with open(args.log, 'w') as log_fh:
-            result = subprocess.run(cmd, cwd=CHEM_NORM_DIR, stdout=log_fh, stderr=log_fh)
+            result = subprocess.run(cmd, cwd=CHEM_NORM_DIR, stdout=log_fh, stderr=log_fh, env=env)
         print(f'NLMChem output logged to: {args.log}')
     else:
-        result = subprocess.run(cmd, cwd=CHEM_NORM_DIR)
+        result = subprocess.run(cmd, cwd=CHEM_NORM_DIR, env=env)
     sys.exit(result.returncode)
 
 

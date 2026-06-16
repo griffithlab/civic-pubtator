@@ -136,7 +136,7 @@ def main():
     # TF 2.15 where Keras 2.x is the default, so the flag must NOT be set there.
     # Only set it when a full Python path is explicitly given (path separator present),
     # which indicates a system Python that may carry TF >= 2.16.
-    env = {**os.environ}
+    env = {**os.environ, "PYTHONNOUSERSITE": "1"}
     if args.ml_python is not None and (os.sep in args.ml_python or args.ml_python.startswith("~")):
         env["TF_USE_LEGACY_KERAS"] = "1"
 
