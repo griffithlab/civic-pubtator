@@ -713,10 +713,11 @@ def build_gene_rows(doc_data, gene_map=None, show_docs=True, civic_gene_map=None
     rows = []
     for (mention, gene_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         if gene_id and gene_id in gene_map:
-            gene_cell = (f'<span title="Gene ID: {html.escape(gene_id)}">'
-                         f'{html.escape(gene_map[gene_id])}</span>')
+            symbol = gene_map[gene_id]
+            inner = civic_gene_link(symbol, civic_gene_map)
+            gene_cell = f'<span title="Gene ID: {html.escape(gene_id)}">{inner}</span>'
         else:
-            gene_cell = html.escape(gene_id)
+            gene_cell = civic_gene_link(gene_id, civic_gene_map) if gene_id else ''
         docs_td = ''
         if show_docs:
             sorted_doc_keys = sorted(info['docs'], key=_doc_key_sort)
