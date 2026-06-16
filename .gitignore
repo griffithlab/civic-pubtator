@@ -257,10 +257,14 @@ tools/TaggerOne/output/
 tools/NLMChem/NLMChemTaggerNormalizer/CHEM_NORM/data
 
 #reference datasets
-example_data/36922589/01_source/s/
-example_data/36922589/02_grobid/s/
-example_data/36922589/03_gnorm2/s/
-example_data/36922589/04_tmvar3/s/
+examples/PMC4150988/01_source/s/41388_2014_BFonc2013581_MOESM15_ESM/
+examples/PMC4150988/01_source/s/41388_2014_BFonc2013581_MOESM16_ESM/
+examples/PMC4150988/01_source/s/41388_2014_BFonc2013581_MOESM17_ESM/
+examples/PMC4150988/01_source/s/41388_2014_BFonc2013581_MOESM18_ESM/
+examples/PMC4150988/.tmvar3_staging_in/
+examples/PMC4150988/.tmvar3_staging_out/
+examples/PMC4150988/.nlmchem_abbr_staging/
+examples/PMC4150988/.nlmchem_staging_in/
 
 #Other data
 gene_info.gz

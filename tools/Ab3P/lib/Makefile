@@ -1,4 +1,4 @@
-NCBITEXTLIB=/opt/civic-pubtator/NCBITextLib
+NCBITEXTLIB=/opt/civic-pubtator/tools/NCBITextLib
 SRC_DIR=./
 TRASHFILES = *.o *~ *.bak core *.a
 LIB_INC=-I. -I$(NCBITEXTLIB)/include

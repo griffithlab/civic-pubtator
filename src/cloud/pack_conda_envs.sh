@@ -73,6 +73,10 @@ for env in "${ENVS[@]}"; do
 
     echo ""
     echo "=== Packing ${env} → ${out} ==="
+    # Env may have been set up as root, leaving __pycache__ files with 600
+    # permissions that conda-pack can't read as a non-root user.
+    env_dir="${CONDA_BASE}/envs/${env}"
+    sudo chmod -R a+rX "$env_dir" 2>/dev/null || true
     "$CONDA_PACK" -n "$env" -o "$out" --ignore-missing-files
 
     size=$(du -sh "$out" | cut -f1)

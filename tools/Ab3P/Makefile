@@ -1,4 +1,4 @@
-NCBITEXTLIB=/opt/civic-pubtator/NCBITextLib
+NCBITEXTLIB=/opt/civic-pubtator/tools/NCBITextLib
 LIBPATH=./lib
 OS=-g
 # OS=-O

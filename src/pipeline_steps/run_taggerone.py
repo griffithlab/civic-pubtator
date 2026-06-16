@@ -56,7 +56,14 @@ def main():
             f"ERROR: Ab3P binary not found: {ab3p_bin}\n"
             f"       Build Ab3P with: cd {AB3P_DIR} && make"
         )
-    os.chmod(ab3p_bin, os.stat(ab3p_bin).st_mode | 0o111)
+    try:
+        os.chmod(ab3p_bin, os.stat(ab3p_bin).st_mode | 0o111)
+    except PermissionError:
+        if not os.access(ab3p_bin, os.X_OK):
+            raise RuntimeError(
+                f'Binary not executable and cannot chmod (not owner): {ab3p_bin}\n'
+                f'Run: sudo chmod a+x {ab3p_bin}'
+            )
 
     os.makedirs(output_dir, exist_ok=True)
 

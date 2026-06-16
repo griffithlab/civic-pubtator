@@ -157,9 +157,10 @@ SSH into it:
 
 Watch startup progress (from inside the VM):
     sudo journalctl -u google-startup-scripts -f
+    cat /var/log/civic-pubtator-setup.log
 
-Once setup is complete, sync tool data from GCS:
-    bash /opt/civic-pubtator/src/cloud/sync_tool_data.sh down
+First-login setup (run once after startup completes):
+    python3 /opt/civic-pubtator/src/cloud/user_environment_config.py
 
 Delete the instance when done:
     gcloud compute instances delete ${INSTANCE_NAME} --zone ${ZONE} --project ${PROJECT}

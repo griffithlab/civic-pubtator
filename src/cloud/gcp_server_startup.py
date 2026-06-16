@@ -20,6 +20,7 @@ import sys
 # ── constants ─────────────────────────────────────────────────────────────────
 
 REPO_DIR     = '/opt/civic-pubtator'
+TOOL_DIR     = '/opt/civic-pubtator/tools'
 GCS_CONDA_ENVS = 'gs://civic-pubtator-tool-data/conda-envs'
 DATA_DIR     = '/data'
 PUB_DIR      = '/data/pub-data'
@@ -71,14 +72,18 @@ def restore_conda_env(conda, env_name):
     log(f'  unpacking {env_name} into {env_dir} ...')
     os.makedirs(env_dir, exist_ok=True)
     run(f'tar -xzf {tmp_tar} -C {env_dir}')
-    run(f'{env_dir}/bin/conda-unpack')
+    run(f'{env_dir}/bin/python {env_dir}/bin/conda-unpack')
+    # conda-unpack runs as root and may write __pycache__ .pyc files with 600
+    # permissions; make the env world-readable so non-root users can pack it.
+    run(f'chmod -R a+rX {env_dir}')
     run(f'rm -f {tmp_tar}')
     log(f'  restored {env_name} from GCS pack')
     return True
 
 
 SYSTEM_PACKAGES = [
-    'openjdk-21-jdk',       # tmVar.jar requires Java 21 (class file version 65.0); also runs GROBID/GNorm2
+    'openjdk-21-jdk',       # tmVar.jar requires Java 21 (class file version 65.0); also runs GNorm2
+    'openjdk-17-jdk',       # GROBID build requires Java 17: its bundled Gradle rejects Java 21 API changes
     'git',
     'curl',
     'wget',
@@ -107,7 +112,8 @@ def run(cmd, check=True):
 
 def log(msg):
     print(msg, flush=True)
-    os.system(f'echo "{msg}" >> {LOG}')
+    with open(LOG, 'a') as _fh:
+        _fh.write(msg + '\n')
 
 
 def sentinel_path(step_name):
@@ -222,9 +228,11 @@ def compile_tmvar_crf():
                         links executables as PIE by default and object files must match.
     """
     crf_dir = f'{REPO_DIR}/tools/tmvar/CRF'
+    run(f'chmod +x {crf_dir}/configure')
     run(f'cd {crf_dir} && ./configure')
     run(f"sed -i 's/std::make_pair<int, int>(/std::make_pair(/g' {crf_dir}/feature_index.cpp")
     run(f'cd {crf_dir} && make clean && make CXXFLAGS="-std=c++14 -O3 -Wall -fPIE" crf_test crf_learn')
+    run(f'chmod a+x {crf_dir}/crf_test {crf_dir}/crf_learn')
     log(f'  compiled: {crf_dir}/crf_test, {crf_dir}/crf_learn')
 
 
@@ -247,6 +255,7 @@ def compile_gnorm2_crf():
     run(f'cd {crf_dir} && ./configure')
     run(f"sed -i 's/std::make_pair<int, int>(/std::make_pair(/g' {crf_dir}/feature_index.cpp")
     run(f'cd {crf_dir} && make clean && make CXXFLAGS="-std=c++14 -O3 -Wall -fPIE" crf_test crf_learn')
+    run(f'chmod a+x {crf_dir}/crf_test {crf_dir}/crf_learn')
     log(f'  compiled: {crf_dir}/crf_test, {crf_dir}/crf_learn')
 
 
@@ -267,13 +276,18 @@ def install_ab3p():
     """Build Ab3P abbreviation resolver from source checked into the repo.
 
     Ab3P identifies abbreviation long-form/short-form pairs in biomedical text.
-    The Makefiles are pre-configured with the NCBITEXTLIB path.  `make` runs
+    The Makefiles hardcode an old repo-root path for NCBITEXTLIB; we patch both
+    to the correct tools/ location before building.  `make` runs
     three sub-targets in sequence: library (libAb3P.a) → programs (binaries)
     → data (converts WordData text files into binary hash/set formats that
     identify_abbr loads at runtime; output is gitignored and rebuilt each VM).
     Source is vendored directly in the repo (no external clone needed).
     """
     dest = f'{REPO_DIR}/tools/Ab3P'
+    ncbi_lib = f'{REPO_DIR}/tools/NCBITextLib'
+    # Both Makefiles hardcode the old repo-root path; patch to the tools/ location.
+    for mf in [f'{dest}/Makefile', f'{dest}/lib/Makefile']:
+        run(f"sed -i 's|NCBITEXTLIB=.*|NCBITEXTLIB={ncbi_lib}|' {mf}")
     run(f'cd {dest} && make')
     log(f'  built: {dest}/identify_abbr')
 
@@ -292,7 +306,11 @@ def install_grobid():
     run(f'unzip -q {archive} -d /tmp/')
     run(f'mv /tmp/grobid-{grobid_ver} {grobid_dir}')
     run(f'chmod +x {grobid_dir}/gradlew')
-    run(f'cd {grobid_dir} && ./gradlew clean install -x test --no-daemon -q')
+    # GROBID 0.8.1's build.gradle uses report.enabled() which was removed in Gradle 8.x,
+    # and its bundled Gradle doesn't support Java 21.  Build under Java 17 to avoid both;
+    # GROBID's compiled classes run fine on the Java 21 system default at runtime.
+    run(f'cd {grobid_dir} && JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 '
+        f'./gradlew clean install -x test --no-daemon -q')
 
 
 @step('install_grobid_service')
@@ -341,6 +359,21 @@ def sync_tool_data():
     """
     sync_script = f'{REPO_DIR}/src/cloud/sync_tool_data.sh'
     run(f'bash {sync_script}')
+    # Tools write runtime files into their own directories (e.g. GNorm2 writes
+    # setup.SR.run.txt).  Make the tree writable by all users so the pipeline
+    # works before the user has run user_environment_config.py.
+    run(f'chmod -R a+w {REPO_DIR}/tools')
+    # GCS sync strips POSIX execute bits — restore them on known binaries.
+    # CRF++ binaries are handled separately in compile_tmvar_crf/compile_gnorm2_crf
+    # (they're compiled after the sync), but GNorm2's pre-built Ab3P binaries arrive
+    # from GCS and need their execute bits set here.
+    for binary in [
+        f'{REPO_DIR}/tools/GNorm2/Ab3P',
+        f'{REPO_DIR}/tools/GNorm2/identify_abbr',
+        f'{REPO_DIR}/tools/Ab3P/identify_abbr',
+    ]:
+        if os.path.isfile(binary):
+            os.chmod(binary, os.stat(binary).st_mode | 0o111)
 
 
 @step('setup_conda_gnorm2')
@@ -403,9 +436,14 @@ def setup_conda_aioner_gpu():
     pulls in cudatoolkit=11.2 and cudnn=8.1 automatically as dependencies; the GCP
     DL VM driver (CUDA 12.x) supports the CUDA 11.2 runtime via backward compatibility.
 
-    TF 2.6 requires h5py>=3.1.0 and numpy>=1.19.2, so those pins differ from the
-    CPU requirements file — they are installed inline here rather than from the
-    shared requirements_aioner_linux.txt.
+    Version pins are strict matches to TF 2.6.0's own requirements:
+      numpy~=1.19.2        TF requires ~=1.19.2; h5py's dep pulls 1.24+ without this pin
+      h5py~=3.1.0          TF requires ~=3.1.0; conda installs 2.10.0 which mismatches
+      typing_extensions==3.7.4.3   TF requires ~=3.7.4; pip/conda conflict leaves old .py
+      typeguard==2.13.3    tensorflow-addons 0.14.0 works with 2.x only; 3.x/4.x require
+                           is_typeddict from typing_extensions which 3.7.4.3 lacks
+    h5py and the typing pins are installed last with --force-reinstall so pip actually
+    overwrites the conda-managed files rather than leaving the dist-info/file out of sync.
     """
     conda = find_conda() or f'{CONDA_PREFIX}/bin/conda'
     env = 'aioner-tf23-gpu'
@@ -416,13 +454,17 @@ def setup_conda_aioner_gpu():
     run(f'{conda} install -y -n {env} -c conda-forge tensorflow-gpu=2.6.0')
     run(f'{conda} run -n {env} pip install tensorflow-addons==0.14.0 --root-user-action=ignore')
     run(f'{conda} run -n {env} pip install '
-        f'h5py>=3.1.0 "numpy>=1.19.2,<2.0" '
+        f'"numpy~=1.19.2" '
         f'transformers==4.18.0 tokenizers==0.12.1 huggingface-hub==0.5.1 '
         f'stanza==1.4.0 spacy==2.3.9 '
         f'bioc==2.0.post4 lxml==4.8.0 '
         f'tqdm==4.64.0 scipy==1.4.1 torch==1.11.0 '
         f'--root-user-action=ignore')
     run(f'{conda} run -n {env} python -m spacy download en_core_web_sm')
+    # Force-reinstall to overwrite conda-managed files that pip's resolver leaves stale.
+    run(f'{conda} run -n {env} pip install '
+        f'"h5py~=3.1.0" "typing_extensions==3.7.4.3" "typeguard==2.13.3" '
+        f'--force-reinstall --root-user-action=ignore')
 
 
 @step('setup_conda_nlmchem')
@@ -483,11 +525,11 @@ def main():
     accept_conda_tos()
     configure_git()
     clone_repo()
-    install_ncbitextlib()
-    install_ab3p()
     install_grobid()
     install_grobid_service()
     sync_tool_data()
+    install_ncbitextlib()  # source arrives from GCS via sync_tool_data
+    install_ab3p()         # same
     compile_tmvar_crf()    # must run after sync_tool_data: CRF source comes from GCS
     compile_gnorm2_crf()   # same reason: GNorm2/CRF/ binaries are not portable across machines
     setup_conda_base()
@@ -499,11 +541,14 @@ def main():
 
     log('=== startup complete ===')
     log('Next steps:')
-    log('  1. Activate conda in your shell (once per login):')
+    log('  1. Run per-user setup (once, first SSH login only):')
+    log(f'       python3 {REPO_DIR}/src/cloud/user_environment_config.py')
+    log('     This fixes directory ownership, configures git, and sets up your GitHub SSH key.')
+    log('  2. Activate conda in your shell (once per login):')
     log('       source ~/.bashrc')
-    log('  2. Sync publication data from GCS:')
+    log('  3. Sync publication data from GCS:')
     log(f'       bash {REPO_DIR}/src/cloud/sync_pub_data.sh down')
-    log('  3. Available conda environments:')
+    log('  4. Available conda environments:')
     log('       conda activate gnorm2-tf215')
     log('       conda activate aioner-tf23')
     log('       conda activate aioner-tf23-gpu')

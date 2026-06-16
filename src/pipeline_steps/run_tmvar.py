@@ -44,11 +44,20 @@ def main():
     os.makedirs(tmp_dir, exist_ok=True)
 
     # GCS sync doesn't preserve POSIX permissions — ensure CRF binaries are executable.
+    # If the file is root-owned (startup ran as root), os.chmod raises PermissionError;
+    # verify the bit is already set and raise a clear error if it is not.
     for binary in ("CRF/crf_test", "CRF/crf_learn",
                    "CRF/.libs/crf_test", "CRF/.libs/crf_learn"):
         p = os.path.join(TMVAR_DIR, binary)
         if os.path.isfile(p):
-            os.chmod(p, os.stat(p).st_mode | 0o111)
+            try:
+                os.chmod(p, os.stat(p).st_mode | 0o111)
+            except PermissionError:
+                if not os.access(p, os.X_OK):
+                    raise RuntimeError(
+                        f'Binary not executable and cannot chmod (not owner): {p}\n'
+                        f'Run: sudo chmod a+x {p}'
+                    )
 
     # Smoke-test CRF++ before launching Java — a broken install produces a very
     # cryptic empty-.ME failure deep in the pipeline with no obvious cause.

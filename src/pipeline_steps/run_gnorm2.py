@@ -116,10 +116,20 @@ def main():
     _write_setup_with_tmp(os.path.join(GNORM2_DIR, "setup.GN.txt"), gnorm2_tmp, setup_gn)
 
     # GCS sync doesn't preserve POSIX permissions — ensure binaries are executable.
+    # If the file is owned by root (startup script ran as root), os.chmod will raise
+    # PermissionError; in that case verify the bit is already set (startup should have
+    # done it) and raise a clear error if it is not.
     for binary in ("Ab3P", "identify_abbr", "CRF/crf_test", "CRF/crf_learn"):
         p = os.path.join(GNORM2_DIR, binary)
         if os.path.isfile(p):
-            os.chmod(p, os.stat(p).st_mode | 0o111)
+            try:
+                os.chmod(p, os.stat(p).st_mode | 0o111)
+            except PermissionError:
+                if not os.access(p, os.X_OK):
+                    raise RuntimeError(
+                        f'Binary not executable and cannot chmod (not owner): {p}\n'
+                        f'Run: sudo chmod a+x {p}'
+                    )
 
     # TF_USE_LEGACY_KERAS=1 is needed for TF >= 2.16 where tensorflow.keras was
     # restructured and must redirect to tf_keras. The gnorm2-tf215 conda env uses

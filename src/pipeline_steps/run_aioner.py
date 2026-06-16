@@ -41,7 +41,11 @@ def ml_cmd_prefix(aioner_python):
 
 def run(cmd):
     print("Running:", " ".join(cmd))
-    result = subprocess.run(cmd, cwd=AIONER_DIR)
+    # PYTHONNOUSERSITE prevents ~/.local/lib/python*/site-packages from being
+    # added to sys.path, which can shadow conda env packages when run as a
+    # non-root user.
+    env = {**os.environ, "PYTHONNOUSERSITE": "1"}
+    result = subprocess.run(cmd, cwd=AIONER_DIR, env=env)
     if result.returncode != 0:
         sys.exit(result.returncode)
 
