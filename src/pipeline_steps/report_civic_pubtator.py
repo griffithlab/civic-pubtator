@@ -1026,7 +1026,8 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
         aioner_filter = build_filter_bar(
             set(aioner_types), DEFAULT_STYLE,
             f'aioner-type-{doc_id}', f'applyAIONERFilters_{doc_id}()',
-            f'aioner-limit-{doc_id}', f'aioner-count-{doc_id}')
+            f'aioner-limit-{doc_id}', f'aioner-count-{doc_id}',
+            type_order=AIONER_TYPE_ORDER)
         aioner_card = f'''
   <div class="card">
     <h2>NER Results (AIONER)</h2>
@@ -1252,12 +1253,20 @@ document.addEventListener('DOMContentLoaded', function() {
 '''
 
 
+AIONER_TYPE_ORDER = ['Mutation', 'Gene', 'FamilyName', 'Chemical', 'Disease', 'Species', 'CellLine']
+
+
 def build_filter_bar(types_present, default_style, filter_name, onchange_js, limit_id, display_id,
-                     limit_options=None):
+                     limit_options=None, type_order=None):
     if limit_options is None:
         limit_options = [('10', 'Top 10'), ('25', 'Top 25'), ('50', 'Top 50'),
                          ('100', 'Top 100'), ('500', 'Top 500'), ('all', 'All')]
-    types = sorted(types_present)
+    if type_order:
+        ordered = [t for t in type_order if t in types_present]
+        ordered += sorted(t for t in types_present if t not in type_order)
+        types = ordered
+    else:
+        types = sorted(types_present)
     buttons = []
     if filter_name:
         buttons.append(f'<label><input type="radio" name="{filter_name}" value="all" checked onchange="{onchange_js}"> All</label>')
@@ -1433,7 +1442,8 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
         aioner_filter_bar = build_filter_bar(
             set(aioner_types), DEFAULT_STYLE,
             'aioner-type-filter', 'applyAIONERFilters()',
-            'aioner-limit-select', 'aioner-count-display')
+            'aioner-limit-select', 'aioner-count-display',
+            type_order=AIONER_TYPE_ORDER)
         aioner_section = (
             f'<div class="card"><h2>NER Results (AIONER)</h2>'
             f'<p style="color:#64748b;font-size:0.88em;margin:0 0 0.75rem">Raw named entity spans from AIONER — not normalized to database identifiers.</p>'
