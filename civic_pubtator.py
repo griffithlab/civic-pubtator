@@ -186,12 +186,13 @@ def log_group_header(log_path, label, pdf_dir):
 
 
 def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, elapsed,
-                   file_elapsed=None):
+                   file_elapsed=None, timeout_fallback=None):
     """Append character/word stats to the log and TSV for all output files.
 
     file_elapsed: optional dict mapping output basename → elapsed seconds.
     When provided, per-file timings appear in the log table and TSV rows.
     The step header still shows the total elapsed for context.
+    timeout_fallback: seconds to record for files absent from file_elapsed (timed-out docs).
     """
     files = collect_output_files(output_dir)
 
@@ -218,7 +219,12 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
                 total_words += words
                 if file_elapsed:
                     secs = file_elapsed.get(os.path.basename(rel))
-                    time_col = format_duration(secs) if secs is not None else "—"
+                    if secs is not None:
+                        time_col = format_duration(secs)
+                    elif timeout_fallback:
+                        time_col = format_duration(timeout_fallback) + " (timeout)"
+                    else:
+                        time_col = "—"
                     f.write(f"     {rel:<{name_w}}  {chars:>12,}  {words:>9,}  {time_col:>10}\n")
                 else:
                     f.write(f"     {rel:<{name_w}}  {chars:>12,}  {words:>9,}\n")
@@ -233,7 +239,12 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
             out_rel   = os.path.relpath(os.path.join(output_dir, rel), base_dir)
             if file_elapsed:
                 secs = file_elapsed.get(os.path.basename(rel))
-                row_dur = format_duration(secs) if secs is not None else duration_str
+                if secs is not None:
+                    row_dur = format_duration(secs)
+                elif timeout_fallback:
+                    row_dur = format_duration(timeout_fallback)
+                else:
+                    row_dur = duration_str
             else:
                 row_dur = duration_str
             f.write(f"{step_num}\t{step_name}\t{label}\t{chars}\t{words}\t{row_dur}\t{file_stem}\t{out_rel}\n")
@@ -635,10 +646,12 @@ def run_tmvar3_batched(groups, args, log_path, tsv_path, base_dir):
                 if os.path.exists(out_src):
                     shutil.copy2(out_src, os.path.join(tmvar_out, fname + suffix))
 
+        timeout_fallback = args.timeout_per_doc if args.timeout_per_doc else None
         for g in groups:
             enrich_pubtator_from_bioc(g['tmvar_out'])
             log_step_stats(log_path, tsv_path, base_dir, "tmVar3", g['label'],
-                           g['tmvar_out'], elapsed, file_elapsed=file_elapsed)
+                           g['tmvar_out'], elapsed, file_elapsed=file_elapsed,
+                           timeout_fallback=timeout_fallback)
 
     finally:
         if args.clear_intermediates:
