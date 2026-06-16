@@ -268,7 +268,7 @@ def collect_aioner_files(aioner_dir):
     return collect_gnorm2_files(aioner_dir)
 
 
-def build_aioner_rows(doc_data, show_docs=True):
+def build_aioner_rows(doc_data, show_docs=True, civic_gene_map=None):
     """Build HTML rows for the flat AIONER NER table (Mention | Type | Count | Docs)."""
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
     summary = {}
@@ -291,9 +291,11 @@ def build_aioner_rows(doc_data, show_docs=True):
             keys_display = html.escape(', '.join(sorted_doc_keys))
             labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
             docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
+        mention_cell = (civic_gene_link(mention, civic_gene_map)
+                        if etype == 'Gene' else html.escape(mention))
         rows.append(
             f'<tr data-type="{html.escape(etype)}">'
-            f'<td>{html.escape(mention)}</td>'
+            f'<td>{mention_cell}</td>'
             f'<td>{type_chip}</td>'
             f'<td>{info["count"]}</td>'
             f'{docs_td}'
@@ -591,6 +593,28 @@ def load_gene_symbols(gene_ids):
     return result
 
 
+def load_civic_gene_map():
+    """Return {gene_name: civic_id} for all genes in CIViC via civicpy. Returns {} on failure."""
+    try:
+        from civicpy import civic
+        genes = civic.get_all_genes()
+        return {g.name: g.id for g in genes}
+    except Exception as e:
+        print(f'warning: could not load CIViC gene map: {e}', file=sys.stderr)
+        return {}
+
+
+def civic_gene_link(mention, civic_gene_map):
+    """Return an <a> tag to the CIViC gene page if mention is an exact match, else escaped text."""
+    gid = civic_gene_map.get(mention) if civic_gene_map else None
+    if gid is None:
+        return html.escape(mention)
+    url = f'https://identifiers.org/civic.gid:{gid}'
+    return (f'<a href="{html.escape(url)}" target="_blank" rel="noopener" '
+            f'title="View {html.escape(mention)} in CIViC">'
+            f'{html.escape(mention)}</a>')
+
+
 def _doc_key_sort(k):
     return (0 if k.startswith('m') else 1, int(k[1:]))
 
@@ -640,7 +664,7 @@ def build_variant_summary(doc_data, gene_map=None, show_docs=True):
     return '\n'.join(rows)
 
 
-def build_gene_rows(doc_data, gene_map=None, show_docs=True):
+def build_gene_rows(doc_data, gene_map=None, show_docs=True, civic_gene_map=None):
     if gene_map is None:
         gene_map = {}
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
@@ -670,7 +694,7 @@ def build_gene_rows(doc_data, gene_map=None, show_docs=True):
             docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
         rows.append(
             f'<tr data-type="Gene">'
-            f'<td>{html.escape(mention)}</td>'
+            f'<td>{civic_gene_link(mention, civic_gene_map)}</td>'
             f'<td>{gene_cell}</td>'
             f'<td>{info["count"]}</td>'
             f'{docs_td}'
@@ -1029,7 +1053,7 @@ def build_annotation_legend(annotations):
     )
 
 
-def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
+def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None, civic_gene_map=None):
     if gene_map is None:
         gene_map = {}
     if taxon_map is None:
@@ -1053,7 +1077,7 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
 
     gene_block = _doc_table_block(
         f'gene-tbl-{doc_id}', set(), DEFAULT_STYLE, None,
-        build_gene_rows(single, gene_map, show_docs=False),
+        build_gene_rows(single, gene_map, show_docs=False, civic_gene_map=civic_gene_map),
         '<th>Mention</th><th>Gene</th><th>Count</th>')
 
     org_block = _doc_table_block(
@@ -1075,7 +1099,7 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None):
 
     highlighted = highlight_text(full_text, doc['annotations'])
 
-    aioner_rows = build_aioner_rows([doc], show_docs=False)
+    aioner_rows = build_aioner_rows([doc], show_docs=False, civic_gene_map=civic_gene_map)
     if aioner_rows:
         aioner_types = sorted({a['type'] for a in doc.get('aioner_annotations', [])})
         aioner_filter = build_filter_bar(
@@ -1386,7 +1410,7 @@ def get_paper_title(doc_data):
     return ''
 
 
-def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_map=None):
+def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_map=None, civic_gene_map=None):
     run_title = os.path.basename(os.path.abspath(run_dir))
 
     paper_title = get_paper_title(doc_data)
@@ -1442,7 +1466,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
     gene_filter_bar = build_filter_bar(
         set(), DEFAULT_STYLE,
         '', 'applyGeneFilters()', 'gene-limit-select', 'gene-count-display')
-    gene_rows = build_gene_rows(doc_data, gene_map)
+    gene_rows = build_gene_rows(doc_data, gene_map, civic_gene_map=civic_gene_map)
     gene_block = (
         f'{gene_filter_bar}'
         f'<div style="overflow-x:auto">'
@@ -1493,7 +1517,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
         f'</div>'
     )
 
-    aioner_rows = build_aioner_rows(doc_data)
+    aioner_rows = build_aioner_rows(doc_data, civic_gene_map=civic_gene_map)
     if aioner_rows:
         aioner_types = sorted({a['type'] for doc in doc_data for a in doc.get('aioner_annotations', [])})
         aioner_filter_bar = build_filter_bar(
@@ -1526,7 +1550,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
   </div>
 </div>'''
 
-    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id'], gene_map, taxon_map) for doc in doc_data)
+    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id'], gene_map, taxon_map, civic_gene_map) for doc in doc_data)
 
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -1676,7 +1700,9 @@ def main():
                  if ann['type'] in ORGANISM_TYPES and ann['identifier']}
     taxon_map = load_taxon_names(taxon_ids)
 
-    html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map, taxon_map)
+    civic_gene_map = load_civic_gene_map()
+
+    html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map, taxon_map, civic_gene_map)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
