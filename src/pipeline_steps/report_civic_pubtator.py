@@ -268,7 +268,7 @@ def collect_aioner_files(aioner_dir):
     return collect_gnorm2_files(aioner_dir)
 
 
-def build_aioner_rows(doc_data, show_docs=True, civic_gene_map=None):
+def build_aioner_rows(doc_data, show_docs=True, civic_gene_map=None, civic_therapy_map=None):
     """Build HTML rows for the flat AIONER NER table (Mention | Type | Count | Docs)."""
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
     summary = {}
@@ -291,8 +291,12 @@ def build_aioner_rows(doc_data, show_docs=True, civic_gene_map=None):
             keys_display = html.escape(', '.join(sorted_doc_keys))
             labels_tip = html.escape(', '.join(key_to_label.get(k, k) for k in sorted_doc_keys))
             docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
-        mention_cell = (civic_gene_link(mention, civic_gene_map)
-                        if etype == 'Gene' else html.escape(mention))
+        if etype == 'Gene':
+            mention_cell = civic_gene_link(mention, civic_gene_map)
+        elif etype == 'Chemical':
+            mention_cell = civic_therapy_link(mention, civic_therapy_map)
+        else:
+            mention_cell = html.escape(mention)
         rows.append(
             f'<tr data-type="{html.escape(etype)}">'
             f'<td>{mention_cell}</td>'
@@ -646,6 +650,28 @@ def civic_gene_link(mention, civic_gene_map):
             f'{html.escape(mention)}</a>')
 
 
+def load_civic_therapy_map():
+    """Return {name_lower: civic_tid} for all therapies in CIViC. Returns {} on failure."""
+    try:
+        from civicpy import civic
+        therapies = civic.get_all_therapies()
+        return {t.name.lower(): t.id for t in therapies}
+    except Exception as e:
+        print(f'warning: could not load CIViC therapy map: {e}', file=sys.stderr)
+        return {}
+
+
+def civic_therapy_link(mention, civic_therapy_map):
+    """Return an <a> tag to the CIViC therapy page on case-insensitive match, else escaped text."""
+    tid = civic_therapy_map.get(mention.lower()) if civic_therapy_map else None
+    if tid is None:
+        return html.escape(mention)
+    url = f'https://identifiers.org/civic.tid:{tid}'
+    return (f'<a href="{html.escape(url)}" target="_blank" rel="noopener" '
+            f'title="View {html.escape(mention)} in CIViC">'
+            f'{html.escape(mention)}</a>')
+
+
 def _doc_key_sort(k):
     return (0 if k.startswith('m') else 1, int(k[1:]))
 
@@ -780,7 +806,7 @@ def build_organism_rows(doc_data, taxon_map=None, show_docs=True):
     return '\n'.join(rows)
 
 
-def build_chemical_rows(doc_data, show_docs=True):
+def build_chemical_rows(doc_data, show_docs=True, civic_therapy_map=None):
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
     summary = {}
     for doc in doc_data:
@@ -807,7 +833,7 @@ def build_chemical_rows(doc_data, show_docs=True):
             docs_td = f'<td title="{labels_tip}">{keys_display}</td>'
         rows.append(
             f'<tr data-type="Chemical">'
-            f'<td>{html.escape(mention)}</td>'
+            f'<td>{civic_therapy_link(mention, civic_therapy_map)}</td>'
             f'<td>{mesh_cell}</td>'
             f'<td>{info["count"]}</td>'
             f'{docs_td}'
@@ -1085,7 +1111,7 @@ def build_annotation_legend(annotations):
     )
 
 
-def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None, civic_gene_map=None):
+def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None, civic_gene_map=None, civic_therapy_map=None):
     if gene_map is None:
         gene_map = {}
     if taxon_map is None:
@@ -1117,7 +1143,7 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None, civic_gene_map
         build_organism_rows(single, taxon_map, show_docs=False),
         '<th>Mention</th><th>Type</th><th>Name</th><th>Count</th>')
 
-    chem_rows = build_chemical_rows(single, show_docs=False)
+    chem_rows = build_chemical_rows(single, show_docs=False, civic_therapy_map=civic_therapy_map)
     chem_block = _doc_table_block(
         f'chem-tbl-{doc_id}', set(), DEFAULT_STYLE, None,
         chem_rows,
@@ -1131,7 +1157,7 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None, civic_gene_map
 
     highlighted = highlight_text(full_text, doc['annotations'])
 
-    aioner_rows = build_aioner_rows([doc], show_docs=False, civic_gene_map=civic_gene_map)
+    aioner_rows = build_aioner_rows([doc], show_docs=False, civic_gene_map=civic_gene_map, civic_therapy_map=civic_therapy_map)
     if aioner_rows:
         aioner_types = sorted({a['type'] for a in doc.get('aioner_annotations', [])})
         aioner_filter = build_filter_bar(
@@ -1443,7 +1469,8 @@ def get_paper_title(doc_data):
 
 
 def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_map=None,
-                  civic_gene_map=None, civic_pmid_map=None, civic_pmcid_map=None):
+                  civic_gene_map=None, civic_pmid_map=None, civic_pmcid_map=None,
+                  civic_therapy_map=None):
     run_title = os.path.basename(os.path.abspath(run_dir))
 
     paper_title = get_paper_title(doc_data)
@@ -1523,7 +1550,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
     chem_filter_bar = build_filter_bar(
         set(), DEFAULT_STYLE,
         '', 'applyChemicalFilters()', 'chemical-limit-select', 'chemical-count-display')
-    chemical_rows = build_chemical_rows(doc_data)
+    chemical_rows = build_chemical_rows(doc_data, civic_therapy_map=civic_therapy_map)
     chem_block = (
         f'{chem_filter_bar}'
         f'<div style="overflow-x:auto">'
@@ -1550,7 +1577,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
         f'</div>'
     )
 
-    aioner_rows = build_aioner_rows(doc_data, civic_gene_map=civic_gene_map)
+    aioner_rows = build_aioner_rows(doc_data, civic_gene_map=civic_gene_map, civic_therapy_map=civic_therapy_map)
     if aioner_rows:
         aioner_types = sorted({a['type'] for doc in doc_data for a in doc.get('aioner_annotations', [])})
         aioner_filter_bar = build_filter_bar(
@@ -1583,7 +1610,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
   </div>
 </div>'''
 
-    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id'], gene_map, taxon_map, civic_gene_map) for doc in doc_data)
+    doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id'], gene_map, taxon_map, civic_gene_map, civic_therapy_map) for doc in doc_data)
 
     civic_src_html = civic_source_html(run_title, civic_pmid_map or {}, civic_pmcid_map or {})
     civic_src_sep  = ' &mdash; ' if civic_src_html else ''
@@ -1738,9 +1765,10 @@ def main():
 
     civic_gene_map = load_civic_gene_map()
     civic_pmid_map, civic_pmcid_map = load_civic_source_map()
+    civic_therapy_map = load_civic_therapy_map()
 
     html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map, taxon_map,
-                                 civic_gene_map, civic_pmid_map, civic_pmcid_map)
+                                 civic_gene_map, civic_pmid_map, civic_pmcid_map, civic_therapy_map)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
