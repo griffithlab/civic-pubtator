@@ -426,7 +426,10 @@ def parse_pipeline_stats(path):
         parts = line.rstrip('\n').split('\t')
         if len(parts) < len(header):
             parts += [''] * (len(header) - len(parts))
-        rows.append(dict(zip(header, parts)))
+        row = dict(zip(header, parts))
+        if row.get('step_name') == 'TOTAL':
+            continue
+        rows.append(row)
     return rows
 
 

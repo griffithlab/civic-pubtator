@@ -133,6 +133,20 @@ def format_duration(seconds):
     return f"{s}s"
 
 
+def parse_duration(s):
+    """Parse a duration string like '1h 2m 34s', '5m 3s', '42s' → total seconds."""
+    total = 0
+    for num, unit in re.findall(r'(\d+)([hms])', s or ''):
+        n = int(num)
+        if unit == 'h':
+            total += n * 3600
+        elif unit == 'm':
+            total += n * 60
+        else:
+            total += n
+    return total
+
+
 def count_file_stats(filepath):
     """Return (char_count, word_count) for a text file."""
     try:
@@ -223,6 +237,34 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
             else:
                 row_dur = duration_str
             f.write(f"{step_num}\t{step_name}\t{label}\t{chars}\t{words}\t{row_dur}\t{file_stem}\t{out_rel}\n")
+
+
+def append_tsv_totals(tsv_path):
+    """Append a grand-total row to pipeline_stats.tsv summing chars, words, and runtime."""
+    if not os.path.isfile(tsv_path):
+        return
+    with open(tsv_path, encoding='utf-8') as f:
+        lines = f.readlines()
+    if len(lines) < 2:
+        return
+    if lines[-1].startswith('TOTAL\t'):
+        return
+    header = lines[0].rstrip('\n').split('\t')
+    total_chars = total_words = total_secs = 0
+    for line in lines[1:]:
+        parts = line.rstrip('\n').split('\t')
+        row = dict(zip(header, parts))
+        try:
+            total_chars += int(row.get('chars', 0) or 0)
+        except ValueError:
+            pass
+        try:
+            total_words += int(row.get('words', 0) or 0)
+        except ValueError:
+            pass
+        total_secs += parse_duration(row.get('runtime', ''))
+    with open(tsv_path, 'a', encoding='utf-8') as f:
+        f.write(f"TOTAL\tTOTAL\tall\t{total_chars}\t{total_words}\t{format_duration(total_secs)}\t\t\n")
 
 
 def enforce_max_chars(output_dir, max_chars, log_path, step_name, label):
@@ -924,6 +966,8 @@ def process_input(top_dir, args):
 
     # Phase 6: TaggerOne — disease/chemical NER and normalization (skipped if no model given)
     run_taggerone_batched(groups, args, log_path, tsv_path, top_dir)
+
+    append_tsv_totals(tsv_path)
 
     # Write run footer
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
