@@ -279,6 +279,7 @@ def build_aioner_rows(doc_data, show_docs=True, civic_gene_map=None, civic_thera
                 summary[skey] = {'count': 0, 'docs': set()}
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
+    summary = collapse_mention_summary(summary, id_index=None)
     rows = []
     for (mention, etype), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         style = ENTITY_STYLE.get(etype, DEFAULT_STYLE)
@@ -778,6 +779,7 @@ def build_organism_rows(doc_data, taxon_map=None, show_docs=True):
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
 
+    summary = collapse_mention_summary(summary, id_index=2)
     rows = []
     for (mention, etype, taxid), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         style = ENTITY_STYLE.get(etype, DEFAULT_STYLE)
@@ -806,6 +808,128 @@ def build_organism_rows(doc_data, taxon_map=None, show_docs=True):
     return '\n'.join(rows)
 
 
+def _singular_candidates(word):
+    """Return candidate singular forms of word, longest-suffix rule first."""
+    results = []
+    if word.endswith('ies') and len(word) >= 6:
+        results.append(word[:-3] + 'y')
+    if word.endswith('es') and not word.endswith('ies') and len(word) >= 6:
+        results.append(word[:-2])
+    if word.endswith('s') and not word.endswith('ss') and len(word) >= 6:
+        results.append(word[:-1])
+    return results
+
+
+def collapse_mention_summary(summary, id_index=None, min_len=6):
+    """Collapse a mention summary dict by first-letter case and singular/plural.
+
+    summary  : {(mention, *rest): {'count': int, 'docs': set}}
+    id_index : position of the identifier field in each key tuple.  When set,
+               entries with the same normalized mention may merge even if one
+               has an empty/'-' identifier; the resolved identifier wins.
+               None → no identifier field (AIONER path).
+    min_len  : minimum mention length to apply either rule.
+
+    Returns a new collapsed dict with the same value structure.
+    """
+    def _empty(v):
+        return not v or v == '-'
+
+    def _canon(mention):
+        return (mention[0].lower() + mention[1:]) if len(mention) >= min_len else mention
+
+    def _non_id_rest(key):
+        """Key fields excluding mention and the identifier."""
+        if id_index is None:
+            return key[1:]
+        return key[1:id_index] + key[id_index + 1:]
+
+    def _merge(entries):
+        return {
+            'count': sum(e['count'] for _, e in entries),
+            'docs':  set().union(*(e['docs'] for _, e in entries)),
+        }
+
+    # ── Pass 1: first-letter case (within same identifier) ────────────────────
+    groups = {}
+    for key, info in summary.items():
+        norm_id = '' if (id_index is not None and _empty(key[id_index])) else (key[id_index] if id_index is not None else None)
+        gk = (_canon(key[0]),) + _non_id_rest(key) + ((norm_id,) if id_index is not None else ())
+        groups.setdefault(gk, []).append((key, info))
+
+    p1 = {}
+    for entries in groups.values():
+        best_key = max(entries, key=lambda e: (e[1]['count'], e[0][0][0].islower()))[0]
+        if id_index is not None:
+            best_id = next((k[id_index] for k, _ in entries if not _empty(k[id_index])), best_key[id_index])
+            new_key = best_key[:id_index] + (best_id,) + best_key[id_index + 1:]
+        else:
+            new_key = best_key
+        p1[new_key] = _merge(entries)
+
+    # ── Pass 1b: merge empty-id entries into resolved-id entries ──────────────
+    # (same canonical mention + non-id rest, one side has resolved id, other has dash/empty)
+    if id_index is not None:
+        by_canon = {}
+        for key in p1:
+            gk = (_canon(key[0]),) + _non_id_rest(key)
+            by_canon.setdefault(gk, []).append(key)
+
+        to_merge_1b = {}   # empty_key → dest_resolved_key
+        for keys in by_canon.values():
+            resolved = [k for k in keys if not _empty(k[id_index])]
+            empties  = [k for k in keys if     _empty(k[id_index])]
+            if resolved and empties:
+                best_resolved = max(resolved, key=lambda k: p1[k]['count'])
+                for ek in empties:
+                    to_merge_1b[ek] = best_resolved
+
+        if to_merge_1b:
+            new_p1 = {}
+            for key, info in p1.items():
+                dest = to_merge_1b.get(key, key)
+                if dest not in new_p1:
+                    new_p1[dest] = {'count': 0, 'docs': set()}
+                new_p1[dest]['count'] += info['count']
+                new_p1[dest]['docs']  |= info['docs']
+            p1 = new_p1
+
+    # ── Pass 2: singular / plural ─────────────────────────────────────────────
+    def _id_norm_rest(key):
+        """Grouping rest with id normalized (for matching across empty/resolved)."""
+        r = list(key[1:])
+        if id_index is not None:
+            r[id_index - 1] = '' if _empty(r[id_index - 1]) else r[id_index - 1]
+        return tuple(r)
+
+    by_rest = {}
+    for key in p1:
+        by_rest.setdefault(_id_norm_rest(key), {})[_canon(key[0])] = key
+
+    plural_to_singular = {}
+    for mention_map in by_rest.values():
+        for canon, key in mention_map.items():
+            for sing in _singular_candidates(canon):
+                if sing in mention_map and mention_map[sing] is not key:
+                    plural_to_singular[key] = mention_map[sing]
+                    break
+
+    p2 = {}
+    for key, info in p1.items():
+        dest = key
+        while dest in plural_to_singular:
+            dest = plural_to_singular[dest]
+        if id_index is not None and dest is not key:
+            if not _empty(key[id_index]) and _empty(dest[id_index]):
+                dest = dest[:id_index] + (key[id_index],) + dest[id_index + 1:]
+        if dest not in p2:
+            p2[dest] = {'count': 0, 'docs': set()}
+        p2[dest]['count'] += info['count']
+        p2[dest]['docs']  |= info['docs']
+
+    return p2
+
+
 def build_chemical_rows(doc_data, show_docs=True, civic_therapy_map=None):
     key_to_label = {doc['key']: doc['label'] for doc in doc_data}
     summary = {}
@@ -819,6 +943,7 @@ def build_chemical_rows(doc_data, show_docs=True, civic_therapy_map=None):
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
 
+    summary = collapse_mention_summary(summary, id_index=1)
     rows = []
     for (mention, mesh_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         if mesh_id and mesh_id != '-':
@@ -923,6 +1048,7 @@ def build_disease_rows(doc_data, show_docs=True):
             summary[skey]['count'] += 1
             summary[skey]['docs'].add(doc['key'])
 
+    summary = collapse_mention_summary(summary, id_index=1)
     rows = []
     for (mention, mesh_id), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         id_cell = html.escape(mesh_id) if mesh_id else '<span style="color:#94a3b8">—</span>'
