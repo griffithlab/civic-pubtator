@@ -421,13 +421,19 @@ def parse_manifest(path):
 
 
 def parse_pipeline_stats(path):
+    """Return (rows, total_runtime_str).
+
+    rows            — per-step rows for the HTML stats table (TOTAL row excluded).
+    total_runtime_str — the runtime field from the TOTAL row, or '' if absent.
+    """
     rows = []
+    total_runtime = ''
     if not os.path.isfile(path):
-        return rows
+        return rows, total_runtime
     with open(path, encoding='utf-8') as f:
         lines = f.readlines()
     if not lines:
-        return rows
+        return rows, total_runtime
     header = lines[0].rstrip('\n').split('\t')
     for line in lines[1:]:
         parts = line.rstrip('\n').split('\t')
@@ -435,9 +441,10 @@ def parse_pipeline_stats(path):
             parts += [''] * (len(header) - len(parts))
         row = dict(zip(header, parts))
         if row.get('step_name') == 'TOTAL':
+            total_runtime = row.get('runtime', '')
             continue
         rows.append(row)
-    return rows
+    return rows, total_runtime
 
 
 def parse_duration(s):
@@ -1596,7 +1603,7 @@ def get_paper_title(doc_data):
 
 def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_map=None,
                   civic_gene_map=None, civic_pmid_map=None, civic_pmcid_map=None,
-                  civic_therapy_map=None):
+                  civic_therapy_map=None, total_runtime=''):
     run_title = os.path.basename(os.path.abspath(run_dir))
 
     paper_title = get_paper_title(doc_data)
@@ -1607,12 +1614,14 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
         if paper_title else ''
     )
 
+    runtime_row = (f'  <dt>Total run time</dt><dd>{html.escape(total_runtime)}</dd>\n'
+                   if total_runtime else '')
     run_info_html = f'''
 <dl class="run-info">
   <dt>Tool version</dt><dd>{html.escape(manifest.get("tool_version",""))}</dd>
   <dt>Run timestamp</dt><dd>{html.escape(manifest.get("run_timestamp",""))}</dd>
   <dt>Input directory</dt><dd>{html.escape(manifest.get("input_directory",""))}</dd>
-</dl>'''
+{runtime_row}</dl>'''
 
     source_files_html = build_source_files_html(manifest)
 
@@ -1787,7 +1796,7 @@ def main():
     output_path = args.output or os.path.join(run_dir, f'report_{run_title}.html')
 
     manifest = parse_manifest(os.path.join(run_dir, 'MANIFEST.txt'))
-    stats_rows = parse_pipeline_stats(os.path.join(run_dir, 'pipeline_stats.tsv'))
+    stats_rows, total_runtime = parse_pipeline_stats(os.path.join(run_dir, 'pipeline_stats.tsv'))
 
     tmvar3_dir = os.path.join(run_dir, '04_tmvar3')
     tmvar3_dir = tmvar3_dir if os.path.isdir(tmvar3_dir) else None
@@ -1894,7 +1903,8 @@ def main():
     civic_therapy_map = load_civic_therapy_map()
 
     html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map, taxon_map,
-                                 civic_gene_map, civic_pmid_map, civic_pmcid_map, civic_therapy_map)
+                                 civic_gene_map, civic_pmid_map, civic_pmcid_map, civic_therapy_map,
+                                 total_runtime)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
