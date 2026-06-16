@@ -433,6 +433,32 @@ def parse_pipeline_stats(path):
     return rows
 
 
+def parse_duration(s):
+    """Parse a duration string like '1h 2m 34s', '5m 3s', '42s' → total seconds."""
+    total = 0
+    for num, unit in re.findall(r'(\d+)([hms])', s or ''):
+        n = int(num)
+        if unit == 'h':
+            total += n * 3600
+        elif unit == 'm':
+            total += n * 60
+        else:
+            total += n
+    return total
+
+
+def format_duration(seconds):
+    """Return elapsed seconds as a human-readable string, e.g. '1h 2m 34s'."""
+    seconds = int(seconds)
+    h, rem = divmod(seconds, 3600)
+    m, s   = divmod(rem, 60)
+    if h:
+        return f"{h}h {m}m {s}s"
+    if m:
+        return f"{m}m {s}s"
+    return f"{s}s"
+
+
 def human_chars(s):
     try:
         n = int(s.replace(',', ''))
@@ -460,12 +486,20 @@ def build_pipeline_stats_table(stats_rows):
 
     step_order = ['GROBID', 'GNorm2', 'tmVar3', 'AIONER', 'NLMChem', 'TaggerOne']
     rows_html = []
+    step_secs = {s: 0 for s in step_order}
+    total_chars_int = 0
     for label, steps in by_label.items():
         times = [steps.get(s, {}).get('runtime', '') for s in step_order]
+        for s, t in zip(step_order, times):
+            step_secs[s] += parse_duration(t)
         chars = next(
             (steps[s].get('chars', '') for s in reversed(step_order) if s in steps),
             ''
         )
+        try:
+            total_chars_int += int(chars)
+        except (ValueError, TypeError):
+            pass
         chars_display = human_chars(chars)
         chars_cell = (f'<td title="{html.escape(chars)} chars">{html.escape(chars_display)}</td>'
                       if chars_display != chars else f'<td>{html.escape(chars)}</td>')
@@ -475,7 +509,25 @@ def build_pipeline_stats_table(stats_rows):
             f'{time_cells}'
             f'{chars_cell}</tr>'
         )
-    return '\n'.join(rows_html)
+
+    total_time_cells = ''.join(
+        f'<th>{html.escape(format_duration(step_secs[s])) if step_secs[s] else ""}</th>'
+        for s in step_order
+    )
+    total_chars_str = str(total_chars_int)
+    total_chars_display = human_chars(total_chars_str)
+    total_chars_cell = (
+        f'<th title="{html.escape(total_chars_str)} chars">{html.escape(total_chars_display)}</th>'
+        if total_chars_display != total_chars_str
+        else f'<th>{html.escape(total_chars_str)}</th>'
+    )
+    tfoot_row = (
+        f'<tr style="border-top:2px solid #cbd5e1">'
+        f'<th style="text-align:left">Total</th>'
+        f'{total_time_cells}'
+        f'{total_chars_cell}</tr>'
+    )
+    return '\n'.join(rows_html), tfoot_row
 
 
 def load_taxon_names(taxon_ids):
@@ -1356,13 +1408,15 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 
     stats_table_html = ''
     if stats_rows:
+        stats_tbody, stats_tfoot = build_pipeline_stats_table(stats_rows)
         stats_table_html = f'''
 <div class="card">
   <h2>Pipeline Statistics</h2>
   <div style="overflow-x:auto">
     <table class="data-table">
       <thead><tr><th>Document</th><th>GROBID</th><th>GNorm2</th><th>tmVar3</th><th>AIONER</th><th>NLMChem</th><th>TaggerOne</th><th>Total chars</th></tr></thead>
-      <tbody>{build_pipeline_stats_table(stats_rows)}</tbody>
+      <tbody>{stats_tbody}</tbody>
+      <tfoot>{stats_tfoot}</tfoot>
     </table>
   </div>
 </div>'''
