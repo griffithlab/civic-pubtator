@@ -811,16 +811,16 @@ def build_organism_rows(doc_data, taxon_map=None, show_docs=True):
 def _singular_candidates(word):
     """Return candidate singular forms of word, longest-suffix rule first."""
     results = []
-    if word.endswith('ies') and len(word) >= 6:
+    if word.endswith('ies') and len(word) >= 5:
         results.append(word[:-3] + 'y')
-    if word.endswith('es') and not word.endswith('ies') and len(word) >= 6:
+    if word.endswith('es') and not word.endswith('ies') and len(word) >= 5:
         results.append(word[:-2])
-    if word.endswith('s') and not word.endswith('ss') and len(word) >= 6:
+    if word.endswith('s') and not word.endswith('ss') and len(word) >= 5:
         results.append(word[:-1])
     return results
 
 
-def collapse_mention_summary(summary, id_index=None, min_len=6):
+def collapse_mention_summary(summary, id_index=None, min_len=5):
     """Collapse a mention summary dict by first-letter case and singular/plural.
 
     summary  : {(mention, *rest): {'count': int, 'docs': set}}
