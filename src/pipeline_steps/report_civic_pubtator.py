@@ -604,6 +604,37 @@ def load_civic_gene_map():
         return {}
 
 
+def load_civic_source_map():
+    """Return ({pmid: civic_sid}, {pmcid: civic_sid}) for all PUBMED sources in CIViC."""
+    try:
+        from civicpy import civic
+        sources = civic.get_all_sources()
+        pubmed = [s for s in sources if s.source_type == 'PUBMED']
+        pmid_map  = {s.citation_id: s.id for s in pubmed if s.citation_id}
+        pmcid_map = {s.pmc_id: s.id      for s in pubmed if s.pmc_id}
+        return pmid_map, pmcid_map
+    except Exception as e:
+        print(f'warning: could not load CIViC source map: {e}', file=sys.stderr)
+        return {}, {}
+
+
+def civic_source_html(run_title, pmid_map, pmcid_map):
+    """Return a CIViC source link or 'not found' notice for run_title (PMID or PMC ID)."""
+    sid = None
+    if re.match(r'^PMC\d+$', run_title):
+        sid = pmcid_map.get(run_title)
+    elif re.match(r'^\d+$', run_title):
+        sid = pmid_map.get(run_title)
+    else:
+        return ''
+    if sid is not None:
+        url = f'https://identifiers.org/civic.sid:{sid}'
+        return (f'<a href="{html.escape(url)}" target="_blank" rel="noopener" '
+                f'style="color:#93c5fd;text-decoration:none">'
+                f'civic.sid:{sid}</a>')
+    return '<span style="color:#94a3b8;font-size:0.9em">(source not found in CIViC)</span>'
+
+
 def civic_gene_link(mention, civic_gene_map):
     """Return an <a> tag to the CIViC gene page if mention is an exact match, else escaped text."""
     gid = civic_gene_map.get(mention) if civic_gene_map else None
@@ -1410,7 +1441,8 @@ def get_paper_title(doc_data):
     return ''
 
 
-def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_map=None, civic_gene_map=None):
+def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_map=None,
+                  civic_gene_map=None, civic_pmid_map=None, civic_pmcid_map=None):
     run_title = os.path.basename(os.path.abspath(run_dir))
 
     paper_title = get_paper_title(doc_data)
@@ -1552,6 +1584,9 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 
     doc_sections = '\n'.join(build_doc_section(doc, doc['doc_id'], gene_map, taxon_map, civic_gene_map) for doc in doc_data)
 
+    civic_src_html = civic_source_html(run_title, civic_pmid_map or {}, civic_pmcid_map or {})
+    civic_src_sep  = ' &mdash; ' if civic_src_html else ''
+
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1561,7 +1596,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 <style>{CSS}</style>
 </head>
 <body>
-<div id="topbar">civic-pubtator report &mdash; <a href="https://pubmed.ncbi.nlm.nih.gov/{html.escape(run_title)}/" target="_blank" style="color:#93c5fd;text-decoration:none">PMID: {html.escape(run_title)}</a></div>
+<div id="topbar">civic-pubtator report &mdash; <a href="https://pubmed.ncbi.nlm.nih.gov/{html.escape(run_title)}/" target="_blank" style="color:#93c5fd;text-decoration:none">PMID: {html.escape(run_title)}</a>{civic_src_sep}{civic_src_html}</div>
 <div id="main-content">
   <div id="main-view">
     {paper_title_html}
@@ -1701,8 +1736,10 @@ def main():
     taxon_map = load_taxon_names(taxon_ids)
 
     civic_gene_map = load_civic_gene_map()
+    civic_pmid_map, civic_pmcid_map = load_civic_source_map()
 
-    html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map, taxon_map, civic_gene_map)
+    html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map, taxon_map,
+                                 civic_gene_map, civic_pmid_map, civic_pmcid_map)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
