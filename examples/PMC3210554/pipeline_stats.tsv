@@ -15,9 +15,9 @@ step	step_name	label	chars	words	runtime	input_name	output_file
 2	GNorm2	s/NIHMS313098-supplement-4/tab_01	1585	150	1s	NIHMS313098-supplement-4	03_gnorm2/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
 2	GNorm2	s/NIHMS313098-supplement-7/tab_01	37642	2265	1s	NIHMS313098-supplement-7	03_gnorm2/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
 2	GNorm2	s/NIHMS313098-supplement-9/tab_01	7435	902	1s	NIHMS313098-supplement-9	03_gnorm2/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
-3	tmVar3	main	58704	5331	48s	nihms313098.xml.BioC	04_tmvar3/nihms313098.xml.BioC.XML
+3	tmVar3	main	58704	5331	42s	nihms313098.xml.BioC	04_tmvar3/nihms313098.xml.BioC.XML
 3	tmVar3	s/NIHMS313098-supplement-1	28199	3659	6s	NIHMS313098-supplement-1.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml.BioC.XML
-3	tmVar3	s/NIHMS313098-supplement-10/tab_01	88204	2923	24m 55s	NIHMS313098-supplement-10.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml.BioC.XML
+3	tmVar3	s/NIHMS313098-supplement-10/tab_01	88204	2923	22m 57s	NIHMS313098-supplement-10.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml.BioC.XML
 3	tmVar3	s/NIHMS313098-supplement-3/tab_01	5595	489	1s	NIHMS313098-supplement-3.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml.BioC.XML
 3	tmVar3	s/NIHMS313098-supplement-4/tab_01	2374	166	4s	NIHMS313098-supplement-4.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml.BioC.XML
 4	AIONER	main	85472	7467	16s	nihms313098	05_aioner/nihms313098.xml
@@ -33,15 +33,15 @@ step	step_name	label	chars	words	runtime	input_name	output_file
 5	NLMChem	s/NIHMS313098-supplement-10/tab_01	6710	753	0s	NIHMS313098-supplement-10	06_nlmchem/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
 5	NLMChem	s/NIHMS313098-supplement-2	20535	3135	0s	NIHMS313098-supplement-2	06_nlmchem/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
 5	NLMChem	s/NIHMS313098-supplement-3/tab_01	2646	394	0s	NIHMS313098-supplement-3	06_nlmchem/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
-5	NLMChem	s/NIHMS313098-supplement-4/tab_01	1200	148	6m 12s	NIHMS313098-supplement-4	06_nlmchem/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
+5	NLMChem	s/NIHMS313098-supplement-4/tab_01	1200	148	6m 15s	NIHMS313098-supplement-4	06_nlmchem/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
 5	NLMChem	s/NIHMS313098-supplement-7/tab_01	15794	1422	0s	NIHMS313098-supplement-7	06_nlmchem/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
 5	NLMChem	s/NIHMS313098-supplement-9/tab_01	7644	927	0s	NIHMS313098-supplement-9	06_nlmchem/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
 6	TaggerOne	main	43489	4638	10s	nihms313098	07_taggerone/nihms313098.xml
 6	TaggerOne	s/NIHMS313098-supplement-1	22728	3447	7s	NIHMS313098-supplement-1	07_taggerone/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
-6	TaggerOne	s/NIHMS313098-supplement-10/tab_01	6345	737	20s	NIHMS313098-supplement-10	07_taggerone/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
+6	TaggerOne	s/NIHMS313098-supplement-10/tab_01	6345	737	19s	NIHMS313098-supplement-10	07_taggerone/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
 6	TaggerOne	s/NIHMS313098-supplement-2	19083	3036	7s	NIHMS313098-supplement-2	07_taggerone/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
 6	TaggerOne	s/NIHMS313098-supplement-3/tab_01	2356	380	7s	NIHMS313098-supplement-3	07_taggerone/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
 6	TaggerOne	s/NIHMS313098-supplement-4/tab_01	1138	132	6s	NIHMS313098-supplement-4	07_taggerone/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
-6	TaggerOne	s/NIHMS313098-supplement-7/tab_01	15527	1395	2m 9s	NIHMS313098-supplement-7	07_taggerone/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
-6	TaggerOne	s/NIHMS313098-supplement-9/tab_01	7001	883	30s	NIHMS313098-supplement-9	07_taggerone/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
-TOTAL	TOTAL	all	1041235	101394	37m 59s		
+6	TaggerOne	s/NIHMS313098-supplement-7/tab_01	15527	1395	2m 7s	NIHMS313098-supplement-7	07_taggerone/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
+6	TaggerOne	s/NIHMS313098-supplement-9/tab_01	7001	883	29s	NIHMS313098-supplement-9	07_taggerone/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
+TOTAL	TOTAL	all	1041235	101394	35m 54s		

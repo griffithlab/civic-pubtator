@@ -528,8 +528,10 @@ public class tmVar
 							}
 							if(fTrainTest.equals("Test") || fTrainTest.equals("Test_FullText"))
 							{
+								if (MR.isCancelled()) return null;
 								MR.CRF_test(fTmpFolder+"/"+InputFile+".data",fTmpFolder+"/"+InputFile+".output",fTrainTest);
 							}
+							if (MR.isCancelled()) return null;
 
 							/*
 							 * CRF++ output --> PubTator

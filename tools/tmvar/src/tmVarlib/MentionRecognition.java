@@ -17,12 +17,18 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 public class MentionRecognition
 {
 	private volatile Process currentCRFProcess = null;
+	private volatile boolean cancelled = false;
 
 	public void destroyCurrentProcess() {
+		cancelled = true;
 		Process p = currentCRFProcess;
 		if (p != null) {
 			p.destroyForcibly();
 		}
+	}
+
+	public boolean isCancelled() {
+		return cancelled;
 	}
 
 	public void FeatureExtraction(String Filename,String FilenameData,String FilenameLoca,String TrainTest)
