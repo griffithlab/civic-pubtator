@@ -13,22 +13,27 @@ Each polling cycle:
      wrapper, and deletes any stray .DS_Store files.
   2. For each publication not yet processed (missing any of the five expected
      output files in GCS), localizes the data, runs the pipeline, and uploads
-     results back to the bucket.
+     results back to the bucket.  Publications that fail are recorded in
+     DATA_ROOT/.monitor_failures.json and skipped on subsequent cycles.
+     Remove a pubid from that file to allow a retry.
   3. Sleeps for --sleep seconds before repeating.
 
 Interrupt with Ctrl-C to stop gracefully.
 """
 
 import argparse
+import datetime
+import json
 import logging
 import os
 import subprocess
 import sys
 import time
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_DIR   = os.path.dirname(os.path.dirname(SCRIPT_DIR))
-DATA_ROOT  = "/data/pub-data"
+SCRIPT_DIR    = os.path.dirname(os.path.abspath(__file__))
+REPO_DIR      = os.path.dirname(os.path.dirname(SCRIPT_DIR))
+DATA_ROOT     = "/data/pub-data"
+FAILURES_FILE = os.path.join(DATA_ROOT, ".monitor_failures.json")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -36,6 +41,41 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 log = logging.getLogger(__name__)
+
+
+# ── Failure registry ──────────────────────────────────────────────────────────
+
+def load_failures():
+    """Return the failure registry as {pubid: {timestamp, reason}}, or {} if absent."""
+    if not os.path.isfile(FAILURES_FILE):
+        return {}
+    try:
+        with open(FAILURES_FILE) as fh:
+            return json.load(fh)
+    except (json.JSONDecodeError, OSError) as exc:
+        log.warning("Could not read failures file %s: %s", FAILURES_FILE, exc)
+        return {}
+
+
+def record_failure(pubid, reason):
+    """
+    Add pubid to the failure registry and log prominently.
+
+    The registry lives at DATA_ROOT/.monitor_failures.json.  Remove a pubid
+    entry from that file to allow the monitor to retry it.
+    """
+    failures = load_failures()
+    failures[pubid] = {
+        "timestamp": datetime.datetime.now().isoformat(timespec="seconds"),
+        "reason": reason,
+    }
+    os.makedirs(DATA_ROOT, exist_ok=True)
+    with open(FAILURES_FILE, "w") as fh:
+        json.dump(failures, fh, indent=2)
+    log.error(
+        "FAILURE — %s: %s  (recorded in %s; remove entry to retry)",
+        pubid, reason, FAILURES_FILE,
+    )
 
 
 # ── Low-level GCS helpers ─────────────────────────────────────────────────────
@@ -249,23 +289,34 @@ def run_cycle(bucket):
 
     remediate_bucket(bucket, pubids)
 
-    pending = [p for p in pubids if not is_processed(bucket, p)]
+    failures = load_failures()
+
+    pending = []
+    for pubid in pubids:
+        if pubid in failures:
+            log.warning(
+                "Skipping %s — previously failed on %s: %s",
+                pubid, failures[pubid]["timestamp"], failures[pubid]["reason"],
+            )
+        elif not is_processed(bucket, pubid):
+            pending.append(pubid)
+
     log.info("%d publication(s) pending processing.", len(pending))
 
     for pubid in pending:
         log.info("--- Processing %s ---", pubid)
 
         if not localize(bucket, pubid):
-            log.warning("Skipping %s due to localization failure.", pubid)
+            record_failure(pubid, "localization failed (sync down error)")
             continue
 
         run_pipeline(pubid)  # non-fatal; output presence decides whether to upload
 
         missing = check_local_outputs(pubid)
         if missing:
-            log.warning(
-                "Incomplete output for %s — missing: %s",
-                pubid, ", ".join(missing),
+            record_failure(
+                pubid,
+                "incomplete pipeline output — missing: " + ", ".join(missing),
             )
             continue
 
