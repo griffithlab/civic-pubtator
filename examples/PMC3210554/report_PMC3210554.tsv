@@ -1,958 +1,784 @@
-entity_category	entity_type	mention	identifier	identifier_name	hgvs	count	doc_keys
-Variant	DNAAcidChange	G>A				22	s2
-Variant	GenomicRegion	chr19:19121045				22	s3
-Variant	ProteinMutation	D83V	100271849	MEF2B	p.D83V	20	s3
-Variant	DNAAcidChange	C>T				18	s2
-Variant	DNAAcidChange	T > A	100271849	MEF2B		14	s3
-Variant	DNAAcidChange	T > C	100271849	MEF2B		12	s3
-Variant	DNAAcidChange	A>G				10	s2
-Variant	DNAAcidChange	T>G				9	s2
-Variant	DNAAcidChange	T>C				8	s2
-Variant	DNAAcidChange	T>A				8	s2
-Variant	ProteinAcidChange	CAG > TAG	8085	KMT2D		8	s7
-Variant	ProteinAcidChange	CGA > TGA	8085	KMT2D		7	s7
-Variant	ProteinMutation	Y602F	2146	EZH2	p.Y602F	6	s2,s6
-Variant	ProteinMutation	Y646F	2146	EZH2	p.Y646F	6	s2,s6
-Variant	DNAAcidChange	A>T				6	s2
-Variant	DNAAcidChange	C>G				6	s2
-Variant	DNAAcidChange	T > G	100271849	MEF2B		6	s3
-Variant	ProteinMutation	D83A	100271849	MEF2B	p.D83A	6	s3
-Variant	ProteinMutation	Y602N	2146	EZH2	p.Y602N	5	s2,s6
-Variant	ProteinMutation	Y646N	2146	EZH2	p.Y646N	5	s2,s6
-Variant	DNAAcidChange	C>A				5	s2
-Variant	DNAMutation	19121045 T > A	100271849	MEF2B	g.19121045T>A	5	s3
-Variant	GenomicRegion	chr19:19121045  				5	s3
-Variant	ProteinMutation	L252P	4615	MYD88	p.L252P	5	s6
-Variant	DNAAcidChange	G>C				4	s2
-Variant	GenomicRegion	chr7 148139661				4	s2
-Variant	ProteinMutation	Y69C	100271849	MEF2B	p.Y69C	4	s3
-Variant	DNAAcidChange	A > C	100271849	MEF2B		4	s3
-Variant	DNAAcidChange	A > G	100271849	MEF2B		4	s3
-Variant	GenomicRegion	chr19:19122535				4	s3
-Variant	DNAAcidChange	G > A	8085	KMT2D		4	s7
-Variant	ProteinMutation	R248W	7157	TP53	p.R248W	3	s2,s6
-Variant	DNAAcidChange	A>C				3	s2
-Variant	ProteinMutation	R1446C	1387	CREBBP	p.R1446C	3	s3,s6
-Variant	DNAMutation	19121045 T > C	100271849	MEF2B	g.19121045T>C	3	s3
-Variant	DNAAcidChange	C > T	100271849	MEF2B		3	s3
-Variant	GenomicRegion	chr15:38641486				3	s3
-Variant	GenomicRegion	chr7:26219496				3	s3
-Variant	GenomicRegion	chr19:19121087				3	s3
-Variant	ProteinMutation	H20Q	596	BCL2	p.H20Q	3	s6
-Variant	ProteinMutation	A60V	596	BCL2	p.A60V	3	s6
-Variant	ProteinMutation	P59S	2146	EZH2	p.P59S	3	s6
-Variant	DNAAcidChange	T > G	8085	KMT2D		3	s7
-Variant	ProteinAcidChange	GAG > TAG	8085	KMT2D		3	s7
-Variant	ProteinMutation	F123I	7157	TP53	p.F123I	2	m1,s6
-Variant	ProteinMutation	A682G	2146	EZH2	p.A682G	2	m1,s6
-Variant	ProteinMutation	G47D	596	BCL2	p.G47D	2	s2,s6
-Variant	ProteinMutation	G245D	7157	TP53	p.G245D	2	s2,s6
-Variant	DNAAcidChange	G>T				2	s2
-Variant	ProteinMutation	R35C	1387	CREBBP	p.R35C	2	s3
-Variant	ProteinMutation	P925T	2033	EP300	p.P925T	2	s3
-Variant	DNAAcidChange	G > T	100271849	MEF2B		2	s3
-Variant	ProteinMutation	R114Q	100271849	MEF2B	p.R114Q	2	s3
-Variant	ProteinMutation	H76R	22806	IKZF3	p.H76R	2	s3
-Variant	ProteinMutation	E77K	100271849	MEF2B	p.E77K	2	s3
-Variant	DNAMutation	19121045  § T > A	100271849	MEF2B	g.19121045T>A	2	s3
-Variant	ProteinMutation	R24Q	100271849	MEF2B	p.R24Q	2	s3
-Variant	ProteinMutation	F26V	100271849	MEF2B	p.F26V	2	s3
-Variant	ProteinMutation	R53H	100271849	MEF2B	p.R53H	2	s3
-Variant	ProteinMutation	R307S	100271849	MEF2B	p.R307S	2	s3
-Variant	ProteinAllele	H76	22806	IKZF3		2	s3
-Variant	ProteinMutation	L67R	100271849	MEF2B	p.L67R	2	s3
-Variant	ProteinAllele	Y1446	1387	CREBBP		2	s3
-Variant	ProteinMutation	R15G	100271849	MEF2B	p.R15G	2	s3
-Variant	ProteinMutation	Y33S	100271849	MEF2B	p.Y33S	2	s3
-Variant	ProteinMutation	Y69H	100271849	MEF2B	p.Y69H	2	s3
-Variant	ProteinMutation	I47T	100271849	MEF2B	p.I47T	2	s3
-Variant	ProteinMutation	K23R	100271849	MEF2B	p.K23R	2	s3
-Variant	GenomicRegion	chr19:19122535  				2	s3
-Variant	GenomicRegion	chr19:19121066				2	s3
-Variant	GenomicRegion	chr19:19117608				2	s3
-Variant	ProteinMutation	A131V	54828	BCAS3	p.A131V	2	s6
-Variant	ProteinMutation	F49L	4615	MYD88	p.F49L	2	s6
-Variant	ProteinMutation	P59L	51564	HDAC7	p.P59L	2	s6
-Variant	ProteinMutation	F104L	23180	RFTN1	p.F104L	2	s6
-Variant	ProteinMutation	Q36H	694	BTG1	p.Q36H	2	s6
-Variant	ProteinMutation	L23F	2113	ETS1	p.L23F	2	s6
-Variant	ProteinMutation	Y602H	2146	EZH2	p.Y602H	2	s6
-Variant	ProteinMutation	Y646H	2146	EZH2	p.Y646H	2	s6
-Variant	ProteinMutation	S48R	23081	KDM4C	p.S48R	2	s6
-Variant	ProteinMutation	S206C			p.S206C	2	s6
-Variant	ProteinMutation	S146R	79705	LRRK1	p.S146R	2	s6
-Variant	ProteinMutation	S237R	4615	MYD88	p.S237R	2	s6
-Variant	ProteinMutation	R155W	7157	TP53	p.R155W	2	s6
-Variant	ProteinAcidChange	CGA> TGA	8085	KMT2D		2	s7
-Variant	ProteinAcidChange	CAG> TAG	8085	KMT2D		2	s7
-Variant	ProteinAcidChange	CAA > TAA	8085	KMT2D		2	s7
-Variant	GenomicRegion	chr12:47728117				2	s7
-Variant	GenomicRegion	chr12:47718680				2	s7
-Variant	GenomicRegion	chr12:47722866				2	s7
-Variant	ProteinMutation	A692V	10058	ABCB6	p.A692V	1	m1
-Variant	DNAMutation	T203A	4882	NPR2	c.203T>A	1	m1
-Variant	ProteinAcidChange	ATG was mutated to TTG	2308	FOXO1		1	m1
-Variant	Chromosome	chromosome 6				1	m1
-Variant	Chromosome	chromosome 12				1	m1
-Variant	Chromosome	3q27				1	m1
-Variant	GenomicRegion	chr12:47,699,025-47,735,374				1	s1
-Variant	ProteinMutation	W188S	3105	HLA-A	p.W188S	1	s2
-Variant	ProteinMutation	W191S	3105	HLA-A	p.W191S	1	s2
-Variant	ProteinMutation	P866P	4299	AFF1	p.P866P	1	s2
-Variant	ProteinMutation	A1013G			p.A1013G	1	s2
-Variant	ProteinMutation	M387V	23020	SNRNP200	p.M387V	1	s2
-Variant	ProteinMutation	N313D			p.N313D	1	s2
-Variant	ProteinMutation	N172N			p.N172N	1	s2
-Variant	ProteinMutation	L119L	596	BCL2	p.L119L	1	s2
-Variant	ProteinMutation	R183R	596	BCL2	p.R183R	1	s2
-Variant	ProteinMutation	P59L	9757	KMT2B	p.P59L	1	s2
-Variant	ProteinMutation	R63R	79633	FAT4	p.R63R	1	s2
-Variant	ProteinMutation	L72L	596	BCL2	p.L72L	1	s2
-Variant	ProteinMutation	P71P	596	BCL2	p.P71P	1	s2
-Variant	ProteinMutation	I48F			p.I48F	1	s2
-Variant	ProteinMutation	T69P			p.T69P	1	s2
-Variant	ProteinMutation	E13D			p.E13D	1	s2
-Variant	ProteinMutation	T187I			p.T187I	1	s2
-Variant	ProteinMutation	S161S	596	BCL2	p.S161S	1	s2
-Variant	ProteinMutation	A131V			p.A131V	1	s2
-Variant	ProteinMutation	S87S	596	BCL2	p.S87S	1	s2
-Variant	ProteinMutation	A85A	6778	STAT6	p.A85A	1	s2
-Variant	ProteinMutation	F49L			p.F49L	1	s2
-Variant	ProteinMutation	H20H	7157	TP53	p.H20H	1	s2
-Variant	ProteinMutation	D10D	4299	AFF1	p.D10D	1	s2
-Variant	ProteinMutation	A587D			p.A587D	1	s2
-Variant	ProteinMutation	N588H			p.N588H	1	s2
-Variant	ProteinMutation	R29C			p.R29C	1	s2
-Variant	ProteinMutation	D223N	2146	EZH2	p.D223N	1	s2
-Variant	ProteinMutation	D230N	2146	EZH2	p.D230N	1	s2
-Variant	ProteinMutation	D247N	7157	TP53	p.D247N	1	s2
-Variant	ProteinMutation	H147H			p.H147H	1	s2
-Variant	ProteinMutation	H157H	2146	EZH2	p.H157H	1	s2
-Variant	ProteinMutation	H240H	2146	EZH2	p.H240H	1	s2
-Variant	ProteinMutation	P234S	2308	FOXO1	p.P234S	1	s2
-Variant	ProteinMutation	P280S			p.P280S	1	s2
-Variant	ProteinMutation	P284S	79633	FAT4	p.P284S	1	s2
-Variant	ProteinMutation	T233A			p.T233A	1	s2
-Variant	ProteinMutation	T279A	2146	EZH2	p.T279A	1	s2
-Variant	ProteinMutation	T283A	4208	MEF2C	p.T283A	1	s2
-Variant	ProteinMutation	A239P	7157	TP53	p.A239P	1	s2
-Variant	ProteinMutation	A285P	4299	AFF1	p.A285P	1	s2
-Variant	ProteinMutation	A289P			p.A289P	1	s2
-Variant	ProteinMutation	R141H	7128	TNFAIP3	p.R141H	1	s2
-Variant	ProteinMutation	R182H	2146	EZH2	p.R182H	1	s2
-Variant	ProteinMutation	A436V	79633	FAT4	p.A436V	1	s2
-Variant	ProteinMutation	L428F	4299	AFF1	p.L428F	1	s2
-Variant	ProteinMutation	R226Q	9757	KMT2B	p.R226Q	1	s2
-Variant	ProteinMutation	R228Q	604	BCL6	p.R228Q	1	s2
-Variant	ProteinMutation	L14L	79633	FAT4	p.L14L	1	s2
-Variant	ProteinMutation	S166R			p.S166R	1	s2
-Variant	ProteinMutation	I1760I			p.I1760I	1	s2
-Variant	ProteinMutation	I3462I	79633	FAT4	p.I3462I	1	s2
-Variant	ProteinMutation	I10V	7157	TP53	p.I10V	1	s2
-Variant	ProteinMutation	L2229L			p.L2229L	1	s2
-Variant	ProteinMutation	Y308S			p.Y308S	1	s2
-Variant	ProteinMutation	F245S	7157	TP53	p.F245S	1	s2
-Variant	ProteinMutation	L197Q			p.L197Q	1	s2
-Variant	ProteinMutation	I34T	3105	HLA-A	p.I34T	1	s2
-Variant	ProteinMutation	R403Q			p.R403Q	1	s2
-Variant	ProteinMutation	R405Q	2146	EZH2	p.R405Q	1	s2
-Variant	ProteinMutation	G234G	2308	FOXO1	p.G234G	1	s2
-Variant	ProteinMutation	I77L			p.I77L	1	s2
-Variant	ProteinMutation	I156L			p.I156L	1	s2
-Variant	ProteinMutation	I175L			p.I175L	1	s2
-Variant	ProteinMutation	N73S	2146	EZH2	p.N73S	1	s2
-Variant	ProteinMutation	N160S	2146	EZH2	p.N160S	1	s2
-Variant	ProteinMutation	L75R	9757	KMT2B	p.L75R	1	s2
-Variant	ProteinMutation	L162R	7128	TNFAIP3	p.L162R	1	s2
-Variant	ProteinMutation	R187H			p.R187H	1	s2
-Variant	ProteinMutation	R249H			p.R249H	1	s2
-Variant	ProteinMutation	R253H	7157	TP53	p.R253H	1	s2
-Variant	ProteinMutation	R256H			p.R256H	1	s2
-Variant	ProteinMutation	R377H			p.R377H	1	s2
-Variant	ProteinMutation	A74T			p.A74T	1	s2
-Variant	ProteinMutation	D83V	7157	TP53	p.D83V	1	s2
-Variant	ProteinMutation	Y69H			p.Y69H	1	s2
-Variant	ProteinMutation	E14A	79633	FAT4	p.E14A	1	s2
-Variant	ProteinMutation	K617N			p.K617N	1	s2
-Variant	ProteinMutation	K977N			p.K977N	1	s2
-Variant	ProteinMutation	L3496L			p.L3496L	1	s2
-Variant	ProteinMutation	S4824F	79633	FAT4	p.S4824F	1	s2
-Variant	ProteinMutation	D635Y	79633	FAT4	p.D635Y	1	s2
-Variant	ProteinMutation	V105V	604	BCL6	p.V105V	1	s2
-Variant	ProteinMutation	L726L	6778	STAT6	p.L726L	1	s2
-Variant	ProteinMutation	G426G	7128	TNFAIP3	p.G426G	1	s2
-Variant	ProteinMutation	L361V			p.L361V	1	s2
-Variant	ProteinMutation	L398V	6778	STAT6	p.L398V	1	s2
-Variant	ProteinMutation	L727V			p.L727V	1	s2
-Variant	ProteinMutation	L260H			p.L260H	1	s2
-Variant	ProteinMutation	I240T	2146	EZH2	p.I240T	1	s2
-Variant	ProteinMutation	I247T	2146	EZH2	p.I247T	1	s2
-Variant	ProteinMutation	I397T	2308	FOXO1	p.I397T	1	s2
-Variant	ProteinMutation	H83L	7157	TP53	p.H83L	1	s2
-Variant	ProteinMutation	Q133H			p.Q133H	1	s2
-Variant	ProteinMutation	Q259H			p.Q259H	1	s2
-Variant	ProteinMutation	R767C			p.R767C	1	s2
-Variant	ProteinMutation	S271G	9757	KMT2B	p.S271G	1	s2
-Variant	ProteinMutation	D1318E	6711	SPTBN1	p.D1318E	1	s2
-Variant	ProteinMutation	D1331E	6711	SPTBN1	p.D1331E	1	s2
-Variant	ProteinMutation	D1344E			p.D1344E	1	s2
-Variant	ProteinMutation	Q286R			p.Q286R	1	s2
-Variant	ProteinMutation	G375R			p.G375R	1	s2
-Variant	ProteinMutation	G367G	7128	TNFAIP3	p.G367G	1	s2
-Variant	ProteinMutation	R155W			p.R155W	1	s2
-Variant	ProteinMutation	Y141C	7157	TP53	p.Y141C	1	s2
-Variant	ProteinMutation	Y234C	7157	TP53	p.Y234C	1	s2
-Variant	ProteinMutation	C83G	7157	TP53	p.C83G	1	s2
-Variant	ProteinMutation	C176G	7157	TP53	p.C176G	1	s2
-Variant	ProteinMutation	R65H	7128	TNFAIP3	p.R65H	1	s2
-Variant	ProteinMutation	R158H	7157	TP53	p.R158H	1	s2
-Variant	ProteinMutation	G152D	2146	EZH2	p.G152D	1	s2
-Variant	ProteinMutation	V50M	9757	KMT2B	p.V50M	1	s2
-Variant	ProteinMutation	V143M	7157	TP53	p.V143M	1	s2
-Variant	ProteinMutation	R490W	2308	FOXO1	p.R490W	1	s2
-Variant	ProteinMutation	G525A			p.G525A	1	s2
-Variant	ProteinMutation	S1685S	9757	KMT2B	p.S1685S	1	s2
-Variant	ProteinMutation	S1837S			p.S1837S	1	s2
-Variant	ProteinMutation	V518L			p.V518L	1	s2
-Variant	ProteinMutation	V537L			p.V537L	1	s2
-Variant	ProteinMutation	V538L	6711	SPTBN1	p.V538L	1	s2
-Variant	ProteinMutation	V543L	2308	FOXO1	p.V543L	1	s2
-Variant	ProteinMutation	V563L	79633	FAT4	p.V563L	1	s2
-Variant	ProteinMutation	G5G			p.G5G	1	s2
-Variant	ProteinMutation	A2T	604	BCL6	p.A2T	1	s2
-Variant	GenomicRegion	chr6 31346876				1	s2
-Variant	GenomicRegion	chr4 88266320				1	s2
-Variant	GenomicRegion	chr15 32962122				1	s2
-Variant	GenomicRegion	chr2 96327146				1	s2
-Variant	GenomicRegion	chr2 96328113				1	s2
-Variant	GenomicRegion	chr18 59136364				1	s2
-Variant	GenomicRegion	chr18 59136525				1	s2
-Variant	GenomicRegion	chr18 59136331				1	s2
-Variant	GenomicRegion	chr18 59136704				1	s2
-Variant	GenomicRegion	chr18 59136740				1	s2
-Variant	GenomicRegion	chr18 59136691				1	s2
-Variant	GenomicRegion	chr18 59136876				1	s2
-Variant	GenomicRegion	chr18 59136664				1	s2
-Variant	GenomicRegion	chr18 59136667				1	s2
-Variant	GenomicRegion	chr18 59136738				1	s2
-Variant	GenomicRegion	chr18 59136675				1	s2
-Variant	GenomicRegion	chr18 59136841				1	s2
-Variant	GenomicRegion	chr18 59136320				1	s2
-Variant	GenomicRegion	chr18 59136397				1	s2
-Variant	GenomicRegion	chr18 59136488				1	s2
-Variant	GenomicRegion	chr18 59136619				1	s2
-Variant	GenomicRegion	chr18 59136625				1	s2
-Variant	GenomicRegion	chr18 59136735				1	s2
-Variant	GenomicRegion	chr18 59136820				1	s2
-Variant	GenomicRegion	chr18 59136850				1	s2
-Variant	GenomicRegion	chr18 59136865				1	s2
-Variant	GenomicRegion	chr3 188926060				1	s2
-Variant	GenomicRegion	chr3 188926058				1	s2
-Variant	GenomicRegion	chr12 120944382				1	s2
-Variant	GenomicRegion	chr12 120944465				1	s2
-Variant	GenomicRegion	chr7 2946085				1	s2
-Variant	GenomicRegion	chr11 3015937				1	s2
-Variant	GenomicRegion	chr6 42011685				1	s2
-Variant	GenomicRegion	chr6 42011688				1	s2
-Variant	GenomicRegion	chr6 42011670				1	s2
-Variant	GenomicRegion	chr9 94181943				1	s2
-Variant	GenomicRegion	chr16 3741795				1	s2
-Variant	GenomicRegion	chr16 3782006				1	s2
-Variant	GenomicRegion	chr16 3840589				1	s2
-Variant	GenomicRegion	chr10 53128032				1	s2
-Variant	GenomicRegion	chr5 176826548				1	s2
-Variant	GenomicRegion	chr7 44579978				1	s2
-Variant	GenomicRegion	chr1 229623762				1	s2
-Variant	GenomicRegion	chr7 148139660				1	s2
-Variant	GenomicRegion	chr4 126592007				1	s2
-Variant	GenomicRegion	chr13 40138322				1	s2
-Variant	GenomicRegion	chr13 40138349				1	s2
-Variant	GenomicRegion	chr12 119059485				1	s2
-Variant	GenomicRegion	chr17 60482907				1	s2
-Variant	GenomicRegion	chr17 60441048				1	s2
-Variant	GenomicRegion	chr17 60441237				1	s2
-Variant	GenomicRegion	chr17 60441381				1	s2
-Variant	GenomicRegion	chr17 60483073				1	s2
-Variant	GenomicRegion	chr16 27427390				1	s2
-Variant	GenomicRegion	chr12 52962876				1	s2
-Variant	GenomicRegion	chr21 33721114				1	s2
-Variant	GenomicRegion	chr17 35201308				1	s2
-Variant	GenomicRegion	chr17 35201302				1	s2
-Variant	GenomicRegion	chr11 1864566				1	s2
-Variant	GenomicRegion	chr19 12812852				1	s2
-Variant	GenomicRegion	chr19 19121045				1	s2
-Variant	GenomicRegion	chr5 88136224				1	s2
-Variant	GenomicRegion	chr5 88155321				1	s2
-Variant	GenomicRegion	chr5 88155348				1	s2
-Variant	GenomicRegion	chr10 129797163				1	s2
-Variant	GenomicRegion	chr12 47712527				1	s2
-Variant	GenomicRegion	chr12 47719508				1	s2
-Variant	GenomicRegion	chr12 47702767				1	s2
-Variant	GenomicRegion	chr12 47722866				1	s2
-Variant	GenomicRegion	chr12 47712865				1	s2
-Variant	GenomicRegion	chr12 47729995				1	s2
-Variant	GenomicRegion	chr12 53187912				1	s2
-Variant	GenomicRegion	chr5 140838045				1	s2
-Variant	GenomicRegion	chr16 80491802				1	s2
-Variant	GenomicRegion	chr21 42129748				1	s2
-Variant	GenomicRegion	chr10 73251775				1	s2
-Variant	GenomicRegion	chr20 33760595				1	s2
-Variant	GenomicRegion	chr3 16450446				1	s2
-Variant	GenomicRegion	chr15 54174873				1	s2
-Variant	GenomicRegion	chr5 141338522				1	s2
-Variant	GenomicRegion	chr17 2142634				1	s2
-Variant	GenomicRegion	chr14 49718978				1	s2
-Variant	GenomicRegion	chr2 54723758				1	s2
-Variant	GenomicRegion	chr12 55785345				1	s2
-Variant	GenomicRegion	chr12 55784603				1	s2
-Variant	GenomicRegion	chr6 138241376				1	s2
-Variant	GenomicRegion	chr17 7518264				1	s2
-Variant	GenomicRegion	chr17 7517616				1	s2
-Variant	GenomicRegion	chr17 7518305				1	s2
-Variant	GenomicRegion	chr17 7519129				1	s2
-Variant	GenomicRegion	chr17 7519182				1	s2
-Variant	GenomicRegion	chr17 7518272				1	s2
-Variant	GenomicRegion	chr17 7519228				1	s2
-Variant	GenomicRegion	chr17 71031975				1	s2
-Variant	GenomicRegion	chr17 71032081				1	s2
-Variant	GenomicRegion	chr2 61346729				1	s2
-Variant	GenomicRegion	chr20 45311525				1	s2
-Variant	DNAAcidChange	GT>GA	9757	KMT2B		1	s3
-Variant	ProteinMutation	A436V	1387	CREBBP	p.A436V	1	s3
-Variant	ProteinMutation	Y71H	51313	GASK1B	p.Y71H	1	s3
-Variant	ProteinMutation	Y1482H	1387	CREBBP	p.Y1482H	1	s3
-Variant	ProteinMutation	Y1512H	1387	CREBBP	p.Y1512H	1	s3
-Variant	ProteinMutation	G1411E	1387	CREBBP	p.G1411E	1	s3
-Variant	ProteinMutation	G1441E	1387	CREBBP	p.G1441E	1	s3
-Variant	ProteinMutation	Y92F	1387	CREBBP	p.Y92F	1	s3
-Variant	ProteinMutation	Y1503F	1387	CREBBP	p.Y1503F	1	s3
-Variant	ProteinMutation	Y1533F	1387	CREBBP	p.Y1533F	1	s3
-Variant	ProteinMutation	R1476C S25N	1387	CREBBP	p.R,S1476,25N	1	s3
-Variant	ProteinMutation	S1436N	1387	CREBBP	p.S1436N	1	s3
-Variant	ProteinMutation	S1466N	1387	CREBBP	p.S1466N	1	s3
-Variant	ProteinMutation	L88Q	1387	CREBBP	p.L88Q	1	s3
-Variant	ProteinMutation	L1499Q	1387	CREBBP	p.L1499Q	1	s3
-Variant	ProteinMutation	L1529Q	1387	CREBBP	p.L1529Q	1	s3
-Variant	ProteinMutation	P77R	100271849	MEF2B	p.P77R	1	s3
-Variant	ProteinMutation	P1488R	1387	CREBBP	p.P1488R	1	s3
-Variant	ProteinMutation	P1518R	1387	CREBBP	p.P1518R	1	s3
-Variant	ProteinMutation	A687V	1387	CREBBP	p.A687V	1	s3
-Variant	ProteinMutation	A717V	1387	CREBBP	p.A717V	1	s3
-Variant	ProteinMutation	N1589K	1387	CREBBP	p.N1589K	1	s3
-Variant	ProteinMutation	N1619K	1387	CREBBP	p.N1619K	1	s3
-Variant	ProteinMutation	M1625V	1387	CREBBP	p.M1625V	1	s3
-Variant	ProteinMutation	M1655V	1387	CREBBP	p.M1655V	1	s3
-Variant	ProteinMutation	V1342E	1387	CREBBP	p.V1342E	1	s3
-Variant	ProteinMutation	V1372E L88P	1387	CREBBP	p.V,L1372,88P	1	s3
-Variant	ProteinMutation	L1499P	1387	CREBBP	p.L1499P	1	s3
-Variant	ProteinMutation	L1529P	1387	CREBBP	p.L1529P	1	s3
-Variant	ProteinMutation	C1283R	1387	CREBBP	p.C1283R	1	s3
-Variant	ProteinMutation	C1313R	1387	CREBBP	p.C1313R	1	s3
-Variant	ProteinMutation	N513S	1387	CREBBP	p.N513S	1	s3
-Variant	ProteinMutation	N1978S	1387	CREBBP	p.N1978S	1	s3
-Variant	ProteinMutation	N2008S Y71N	1387	CREBBP	p.N,Y2008,71N	1	s3
-Variant	ProteinMutation	Y1482N	1387	CREBBP	p.Y1482N	1	s3
-Variant	ProteinMutation	Y1512N	1387	CREBBP	p.Y1512N	1	s3
-Variant	ProteinMutation	A442T	1387	CREBBP	p.A442T	1	s3
-Variant	ProteinMutation	A1907T	1387	CREBBP	p.A1907T	1	s3
-Variant	ProteinMutation	A1937T Y92H	1387	CREBBP	p.A,Y1937,92H	1	s3
-Variant	ProteinMutation	Y1503H	1387	CREBBP	p.Y1503H	1	s3
-Variant	ProteinMutation	Y1533H	1387	CREBBP	p.Y1533H	1	s3
-Variant	ProteinMutation	R1476C	1387	CREBBP	p.R1476C	1	s3
-Variant	ProteinMutation	A1498T	2033	EP300	p.A1498T	1	s3
-Variant	ProteinMutation	D1485V	2033	EP300	p.D1485V	1	s3
-Variant	ProteinMutation	Q1455L Y1467N	2033	EP300	p.Q,Y1455,1467N	1	s3
-Variant	ProteinMutation	R1627W	2033	EP300	p.R1627W	1	s3
-Variant	DNAMutation	19117606 T > C	100271849	MEF2B	g.19117606T>C	1	s3
-Variant	ProteinMutation	E77G	100271849	MEF2B	p.E77G	1	s3
-Variant	ProteinMutation	N81Y	100271849	MEF2B	p.N81Y	1	s3
-Variant	ProteinMutation	N81K	100271849	MEF2B	p.N81K	1	s3
-Variant	ProteinMutation	Y69C/H	100271849	MEF2B	p.Y69C,H	1	s3
-Variant	ProteinMutation	N81K/Y	100271849	MEF2B	p.N81K,Y	1	s3
-Variant	ProteinMutation	D83A/G	100271849	MEF2B	p.D83A,G	1	s3
-Variant	ProteinMutation	S294Y	100271849	MEF2B	p.S294Y	1	s3
-Variant	ProteinMutation	L415P	2033	EP300	p.L415P	1	s3
-Variant	DNAAcidChange	C > A	100271849	MEF2B		1	s3
-Variant	DNAAcidChange	AG>CG	9757	KMT2B		1	s3
-Variant	DNAMutation	19121063 T > C	100271849	MEF2B	g.19121063T>C	1	s3
-Variant	ProteinMutation	D83G	100271849	MEF2B	p.D83G	1	s3
-Variant	DNAAcidChange	G > A	100271849	MEF2B		1	s3
-Variant	DNAMutation	19121064 C > T	100271849	MEF2B	g.19121064C>T	1	s3
-Variant	DNAAcidChange	C > G	100271849	MEF2B		1	s3
-Variant	ProteinMutation	Y1467H	2033	EP300	p.Y1467H	1	s3
-Variant	ProteinMutation	S294R	100271849	MEF2B	p.S294R	1	s3
-Variant	DNAAcidChange	A > T	100271849	MEF2B		1	s3
-Variant	DNAMutation	19121045 T > G	100271849	MEF2B	g.19121045T>G	1	s3
-Variant	ProteinAcidChange	E/G	100271849	MEF2B		1	s3
-Variant	GenomicRegion	chr12:47,714,115 				1	s3
-Variant	GenomicRegion	chr12:47,733,692 				1	s3
-Variant	GenomicRegion	chr19:2254040				1	s3
-Variant	GenomicRegion	chr18:58944471				1	s3
-Variant	GenomicRegion	chr18:58945022				1	s3
-Variant	GenomicRegion	chr15:39837967				1	s3
-Variant	GenomicRegion	chr14:90867139				1	s3
-Variant	GenomicRegion	chr14:105396245				1	s3
-Variant	GenomicRegion	chr17:18177820				1	s3
-Variant	GenomicRegion	chr18:714633				1	s3
-Variant	GenomicRegion	chr18:58915791				1	s3
-Variant	GenomicRegion	chr3:188945185				1	s3
-Variant	GenomicRegion	chr4:159303043				1	s3
-Variant	GenomicRegion	chr19:1040471				1	s3
-Variant	GenomicRegion	chr14:105401497				1	s3
-Variant	GenomicRegion	chr14:105453733				1	s3
-Variant	GenomicRegion	chr15:39903511				1	s3
-Variant	GenomicRegion	chr14:91005988				1	s3
-Variant	GenomicRegion	chr6:295806				1	s3
-Variant	GenomicRegion	chr17:24935050				1	s3
-Variant	GenomicRegion	chr18:696468				1	s3
-Variant	GenomicRegion	chr14:105400505				1	s3
-Variant	GenomicRegion	chr10:6018457				1	s3
-Variant	GenomicRegion	chr4:159380815 				1	s3
-Variant	GenomicRegion	chr19:19122543				1	s3
-Variant	GenomicRegion	chr19:19122532				1	s3
-Variant	GenomicRegion	chr19:19122523				1	s3
-Variant	GenomicRegion	chr19:19122502				1	s3
-Variant	GenomicRegion	chr19:19122493				1	s3
-Variant	GenomicRegion	chr19:19119600				1	s3
-Variant	GenomicRegion	chr19:19121225				1	s3
-Variant	GenomicRegion	chr19:19121222				1	s3
-Variant	GenomicRegion	chr19:19121217				1	s3
-Variant	GenomicRegion	chr19:19121195				1	s3
-Variant	GenomicRegion	chr19:19121153				1	s3
-Variant	GenomicRegion	chr19:19121135				1	s3
-Variant	GenomicRegion	chr19:19121093  				1	s3
-Variant	GenomicRegion	chr19:19121088  				1	s3
-Variant	GenomicRegion	chr19:19121088				1	s3
-Variant	GenomicRegion	chr19:19121087  				1	s3
-Variant	GenomicRegion	chr19:19119578				1	s3
-Variant	GenomicRegion	chr19:19119559  				1	s3
-Variant	GenomicRegion	chr19:19119539				1	s3
-Variant	GenomicRegion	chr19:19118877				1	s3
-Variant	GenomicRegion	chr19:19118875				1	s3
-Variant	GenomicRegion	chr19:19118406				1	s3
-Variant	GenomicRegion	chr19:19118365				1	s3
-Variant	GenomicRegion	chr19:19117831				1	s3
-Variant	GenomicRegion	chr19:19117794				1	s3
-Variant	GenomicRegion	chr19:19117606				1	s3
-Variant	GenomicRegion	chr19:19121064				1	s3
-Variant	GenomicRegion	chr19:19121063				1	s3
-Variant	GenomicRegion	chr19:19121052  				1	s3
-Variant	GenomicRegion	chr19:19121050  				1	s3
-Variant	Chromosome	chr7				1	s3
-Variant	Chromosome	chr15				1	s3
-Variant	RefSeq	NM_001145785				1	s3
-Variant	DNAMutation	T910A	9757	KMT2B	c.910T>A	1	s5
-Variant	ProteinMutation	T940A L252P	9757	KMT2B	p.T,L940,252P	1	s5
-Variant	ProteinMutation	I165V	9757	KMT2B	p.I165V	1	s5
-Variant	ProteinMutation	S268L	10347	ABCA7	p.S268L	1	s6
-Variant	ProteinMutation	V446I	79705	LRRK1	p.V446I	1	s6
-Variant	ProteinMutation	L299F	7157	TP53	p.L299F	1	s6
-Variant	ProteinMutation	L12Q	3394	IRF8	p.L12Q	1	s6
-Variant	ProteinMutation	Y86N	2908	NR3C1	p.Y86N	1	s6
-Variant	ProteinMutation	A485V	11184	MAP4K1	p.A485V	1	s6
-Variant	ProteinMutation	I601F			p.I601F	1	s6
-Variant	ProteinMutation	I616F	23047	PDS5B	p.I616F	1	s6
-Variant	ProteinMutation	I631F			p.I631F	1	s6
-Variant	ProteinMutation	I633F	2146	EZH2	p.I633F	1	s6
-Variant	ProteinMutation	L225F	896	CCND3	p.L225F	1	s6
-Variant	ProteinMutation	S227L			p.S227L	1	s6
-Variant	ProteinMutation	T229S	8915	BCL10	p.T229S	1	s6
-Variant	ProteinMutation	T187I	4615	MYD88	p.T187I	1	s6
-Variant	ProteinMutation	I48V	23081	KDM4C	p.I48V	1	s6
-Variant	ProteinMutation	P71S	596	BCL2	p.P71S	1	s6
-Variant	ProteinMutation	E135D	2113	ETS1	p.E135D	1	s6
-Variant	ProteinMutation	V156A	10347	ABCA7	p.V156A	1	s6
-Variant	ProteinMutation	Y28F			p.Y28F	1	s6
-Variant	ProteinMutation	L86F	2908	NR3C1	p.L86F	1	s6
-Variant	ProteinMutation	M16K	1387	CREBBP	p.M16K	1	s6
-Variant	ProteinMutation	N172S	596	BCL2	p.N172S	1	s6
-Variant	ProteinMutation	P59A	2146	EZH2	p.P59A	1	s6
-Variant	ProteinMutation	Q52R	10347	ABCA7	p.Q52R	1	s6
-Variant	ProteinMutation	D34G	51564	HDAC7	p.D34G	1	s6
-Variant	ProteinMutation	S51Y	596	BCL2	p.S51Y	1	s6
-Variant	ProteinMutation	T132S	51564	HDAC7	p.T132S	1	s6
-Variant	ProteinMutation	S167A	1387	CREBBP	p.S167A	1	s6
-Variant	ProteinMutation	S50P	23081	KDM4C	p.S50P	1	s6
-Variant	ProteinMutation	M16R	1387	CREBBP	p.M16R	1	s6
-Variant	ProteinMutation	M16V	1387	CREBBP	p.M16V	1	s6
-Variant	ProteinMutation	S117R	10347	ABCA7	p.S117R	1	s6
-Variant	ProteinMutation	Y21H	84282	RNF135	p.Y21H	1	s6
-Variant	ProteinMutation	A60D	9757	KMT2B	p.A60D	1	s6
-Variant	ProteinMutation	P57A	1387	CREBBP	p.P57A	1	s6
-Variant	ProteinMutation	A76T	596	BCL2	p.A76T	1	s6
-Variant	ProteinMutation	S87N	54828	BCAS3	p.S87N	1	s6
-Variant	ProteinMutation	V35M	596	BCL2	p.V35M	1	s6
-Variant	ProteinMutation	Y108S	84282	RNF135	p.Y108S	1	s6
-Variant	ProteinMutation	N143S	596	BCL2	p.N143S	1	s6
-Variant	ProteinMutation	F49S	4615	MYD88	p.F49S	1	s6
-Variant	ProteinMutation	P46A	596	BCL2	p.P46A	1	s6
-Variant	ProteinMutation	A45S	596	BCL2	p.A45S	1	s6
-Variant	ProteinMutation	P57S	7157	TP53	p.P57S	1	s6
-Variant	ProteinMutation	T69A	9757	KMT2B	p.T69A	1	s6
-Variant	ProteinMutation	A131G	54828	BCAS3	p.A131G	1	s6
-Variant	ProteinMutation	A2T	79705	LRRK1	p.A2T	1	s6
-Variant	ProteinMutation	P53S	896	CCND3	p.P53S	1	s6
-Variant	ProteinMutation	R129H	10347	ABCA7	p.R129H	1	s6
-Variant	ProteinMutation	A80V	596	BCL2	p.A80V	1	s6
-Variant	ProteinMutation	T74I	596	BCL2	p.T74I	1	s6
-Variant	ProteinMutation	D31N	596	BCL2	p.D31N	1	s6
-Variant	ProteinMutation	V66I	596	BCL2	p.V66I	1	s6
-Variant	ProteinMutation	R146K	79705	LRRK1	p.R146K	1	s6
-Variant	ProteinMutation	S51P	596	BCL2	p.S51P	1	s6
-Variant	ProteinMutation	V159A	23180	RFTN1	p.V159A	1	s6
-Variant	ProteinMutation	Y21C	84282	RNF135	p.Y21C	1	s6
-Variant	ProteinMutation	G27D	23081	KDM4C	p.G27D	1	s6
-Variant	ProteinMutation	N11K			p.N11K	1	s6
-Variant	ProteinMutation	E165K	2113	ETS1	p.E165K	1	s6
-Variant	ProteinMutation	T125S	89857	KLHL6	p.T125S	1	s6
-Variant	ProteinMutation	A587T	2146	EZH2	p.A587T	1	s6
-Variant	ProteinMutation	Y222S	9757	KMT2B	p.Y222S	1	s6
-Variant	ProteinMutation	E46D	694	BTG1	p.E46D	1	s6
-Variant	ProteinMutation	Q38E	2113	ETS1	p.Q38E	1	s6
-Variant	ProteinMutation	L94V	896	CCND3	p.L94V	1	s6
-Variant	ProteinMutation	F130I	6778	STAT6	p.F130I	1	s6
-Variant	ProteinMutation	F147I	5292	PIM1	p.F147I	1	s6
-Variant	ProteinMutation	F123C	23047	PDS5B	p.F123C	1	s6
-Variant	ProteinMutation	F130C	6778	STAT6	p.F130C	1	s6
-Variant	ProteinMutation	F147C	5292	PIM1	p.F147C	1	s6
-Variant	ProteinMutation	Q364R	204801	NLRP11	p.Q364R	1	s6
-Variant	ProteinMutation	Q371R	23081	KDM4C	p.Q371R	1	s6
-Variant	ProteinMutation	Q388R	2146	EZH2	p.Q388R	1	s6
-Variant	ProteinMutation	D394N			p.D394N	1	s6
-Variant	ProteinMutation	D401N			p.D401N	1	s6
-Variant	ProteinMutation	D418N	23081	KDM4C	p.D418N	1	s6
-Variant	ProteinMutation	G116D	2889	RAPGEF1	p.G116D	1	s6
-Variant	ProteinMutation	G123D	84433	CARD11	p.G123D	1	s6
-Variant	ProteinMutation	G140D	23019	CNOT1	p.G140D	1	s6
-Variant	ProteinMutation	N230K	23081	KDM4C	p.N230K	1	s6
-Variant	ProteinMutation	N237K	2113	ETS1	p.N237K	1	s6
-Variant	ProteinMutation	N254K			p.N254K	1	s6
-Variant	ProteinMutation	I240R			p.I240R	1	s6
-Variant	ProteinMutation	I286R			p.I286R	1	s6
-Variant	ProteinMutation	I290R			p.I290R	1	s6
-Variant	ProteinMutation	V237D	2113	ETS1	p.V237D	1	s6
-Variant	ProteinMutation	V283D	23081	KDM4C	p.V283D	1	s6
-Variant	ProteinMutation	V287D			p.V287D	1	s6
-Variant	ProteinMutation	L60R	51564	HDAC7	p.L60R	1	s6
-Variant	ProteinMutation	Y92S	23081	KDM4C	p.Y92S	1	s6
-Variant	ProteinMutation	Y196S			p.Y196S	1	s6
-Variant	ProteinMutation	Y197S	2146	EZH2	p.Y197S	1	s6
-Variant	ProteinMutation	Y92F	23081	KDM4C	p.Y92F	1	s6
-Variant	ProteinMutation	Y196F			p.Y196F	1	s6
-Variant	ProteinMutation	Y197F	51564	HDAC7	p.Y197F	1	s6
-Variant	ProteinMutation	Y92H	23081	KDM4C	p.Y92H	1	s6
-Variant	ProteinMutation	Y196H			p.Y196H	1	s6
-Variant	ProteinMutation	Y197H	9757	KMT2B	p.Y197H	1	s6
-Variant	ProteinMutation	D748V			p.D748V	1	s6
-Variant	ProteinMutation	D777V			p.D777V	1	s6
-Variant	ProteinMutation	D110Y	5292	PIM1	p.D110Y	1	s6
-Variant	ProteinMutation	D2100Y			p.D2100Y	1	s6
-Variant	ProteinMutation	D2105Y			p.D2105Y	1	s6
-Variant	ProteinMutation	D1972G	3709	ITPR2	p.D1972G	1	s6
-Variant	ProteinMutation	D1977G			p.D1977G	1	s6
-Variant	ProteinMutation	L88Q			p.L88Q	1	s6
-Variant	ProteinMutation	L1499Q			p.L1499Q	1	s6
-Variant	ProteinMutation	L1529Q			p.L1529Q	1	s6
-Variant	ProteinMutation	R35C	596	BCL2	p.R35C	1	s6
-Variant	ProteinMutation	R1476C			p.R1476C	1	s6
-Variant	ProteinMutation	E453K	23081	KDM4C	p.E453K	1	s6
-Variant	ProteinMutation	E607K	84433	CARD11	p.E607K	1	s6
-Variant	ProteinMutation	E611K	2146	EZH2	p.E611K	1	s6
-Variant	ProteinMutation	E22D	2113	ETS1	p.E22D	1	s6
-Variant	ProteinMutation	A638G	2146	EZH2	p.A638G	1	s6
-Variant	ProteinMutation	A648V	2146	EZH2	p.A648V	1	s6
-Variant	ProteinMutation	A692V	51564	HDAC7	p.A692V	1	s6
-Variant	ProteinMutation	T203A	2908	NR3C1	p.T203A	1	s6
-Variant	ProteinMutation	H345P	23081	KDM4C	p.H345P	1	s6
-Variant	ProteinMutation	K292R	23019	CNOT1	p.K292R	1	s6
-Variant	ProteinMutation	L296F	2113	ETS1	p.L296F	1	s6
-Variant	ProteinMutation	A786T	2889	RAPGEF1	p.A786T	1	s6
-Variant	ProteinMutation	A788T	51564	HDAC7	p.A788T	1	s6
-Variant	ProteinMutation	A825T			p.A825T	1	s6
-Variant	ProteinMutation	P118S	3006	H1-2	p.P118S	1	s6
-Variant	ProteinMutation	A180P	6778	STAT6	p.A180P	1	s6
-Variant	ProteinMutation	A185G	10672	GNA13	p.A185G	1	s6
-Variant	ProteinMutation	K120R	23019	CNOT1	p.K120R	1	s6
-Variant	ProteinMutation	L937R	79705	LRRK1	p.L937R	1	s6
-Variant	ProteinMutation	Q60K	9757	KMT2B	p.Q60K	1	s6
-Variant	ProteinMutation	I32V	23081	KDM4C	p.I32V	1	s6
-Variant	ProteinMutation	L40V	2146	EZH2	p.L40V	1	s6
-Variant	ProteinMutation	S18T	23081	KDM4C	p.S18T	1	s6
-Variant	ProteinMutation	Q60H	9757	KMT2B	p.Q60H	1	s6
-Variant	ProteinMutation	S18R	10347	ABCA7	p.S18R	1	s6
-Variant	ProteinMutation	E2470Q			p.E2470Q	1	s6
-Variant	ProteinMutation	R1200Q	3709	ITPR2	p.R1200Q	1	s6
-Variant	ProteinMutation	T794A	8826	IQGAP1	p.T794A	1	s6
-Variant	ProteinMutation	S83T	23081	KDM4C	p.S83T	1	s6
-Variant	ProteinMutation	S94T	2889	RAPGEF1	p.S94T	1	s6
-Variant	ProteinMutation	T53S	2908	NR3C1	p.T53S	1	s6
-Variant	ProteinMutation	T64S	89857	KLHL6	p.T64S	1	s6
-Variant	ProteinMutation	T53I	7157	TP53	p.T53I	1	s6
-Variant	ProteinMutation	T64I	89857	KLHL6	p.T64I	1	s6
-Variant	ProteinMutation	L995H			p.L995H	1	s6
-Variant	ProteinMutation	L1019H			p.L1019H	1	s6
-Variant	ProteinMutation	V370F			p.V370F	1	s6
-Variant	ProteinMutation	V381F			p.V381F	1	s6
-Variant	ProteinMutation	T228I	2889	RAPGEF1	p.T228I	1	s6
-Variant	ProteinMutation	T298M	10162	LPCAT3	p.T298M	1	s6
-Variant	ProteinMutation	I339F			p.I339F	1	s6
-Variant	ProteinMutation	D83V	23081	KDM4C	p.D83V	1	s6
-Variant	ProteinMutation	Y69H	9757	KMT2B	p.Y69H	1	s6
-Variant	ProteinMutation	R867K	23047	PDS5B	p.R867K	1	s6
-Variant	ProteinMutation	R921K	204801	NLRP11	p.R921K	1	s6
-Variant	ProteinMutation	S297N	55690	PACS1	p.S297N	1	s6
-Variant	ProteinMutation	Y433H	2908	NR3C1	p.Y433H	1	s6
-Variant	ProteinMutation	T471M	55690	PACS1	p.T471M	1	s6
-Variant	ProteinMutation	A689S			p.A689S	1	s6
-Variant	ProteinMutation	K303E	10892	MALT1	p.K303E	1	s6
-Variant	ProteinMutation	L93V	5292	PIM1	p.L93V	1	s6
-Variant	ProteinMutation	E79D	6778	STAT6	p.E79D	1	s6
-Variant	ProteinMutation	E170D	9757	KMT2B	p.E170D	1	s6
-Variant	ProteinMutation	Q37H	5292	PIM1	p.Q37H	1	s6
-Variant	ProteinMutation	Q128H	5292	PIM1	p.Q128H	1	s6
-Variant	ProteinMutation	L164F	9757	KMT2B	p.L164F	1	s6
-Variant	ProteinMutation	L255F	6778	STAT6	p.L255F	1	s6
-Variant	ProteinMutation	L164V	7157	TP53	p.L164V	1	s6
-Variant	ProteinMutation	L255V	23047	PDS5B	p.L255V	1	s6
-Variant	ProteinMutation	L25V	5292	PIM1	p.L25V	1	s6
-Variant	ProteinMutation	L116V	2889	RAPGEF1	p.L116V	1	s6
-Variant	ProteinMutation	V16L	79705	LRRK1	p.V16L	1	s6
-Variant	ProteinMutation	V297L	79705	LRRK1	p.V297L	1	s6
-Variant	ProteinMutation	V528L	2889	RAPGEF1	p.V528L	1	s6
-Variant	ProteinMutation	V602L	2889	RAPGEF1	p.V602L	1	s6
-Variant	ProteinMutation	V619L	2889	RAPGEF1	p.V619L	1	s6
-Variant	ProteinMutation	V620L	2889	RAPGEF1	p.V620L	1	s6
-Variant	ProteinMutation	Y265N			p.Y265N	1	s6
-Variant	ProteinMutation	Y496N			p.Y496N	1	s6
-Variant	ProteinMutation	Y570N			p.Y570N	1	s6
-Variant	ProteinMutation	Y587N	2146	EZH2	p.Y587N	1	s6
-Variant	ProteinMutation	Y588N			p.Y588N	1	s6
-Variant	ProteinMutation	S53N	7157	TP53	p.S53N	1	s6
-Variant	ProteinMutation	S284N	23047	PDS5B	p.S284N	1	s6
-Variant	ProteinMutation	S358N	2889	RAPGEF1	p.S358N	1	s6
-Variant	ProteinMutation	S375N	2889	RAPGEF1	p.S375N	1	s6
-Variant	ProteinMutation	S376N	2889	RAPGEF1	p.S376N	1	s6
-Variant	ProteinMutation	P205S	23047	PDS5B	p.P205S	1	s6
-Variant	ProteinMutation	T189S	2908	NR3C1	p.T189S	1	s6
-Variant	ProteinMutation	E890D	55690	PACS1	p.E890D	1	s6
-Variant	ProteinMutation	E892D	55690	PACS1	p.E892D	1	s6
-Variant	ProteinMutation	E897D			p.E897D	1	s6
-Variant	ProteinMutation	K19M			p.K19M	1	s6
-Variant	ProteinMutation	K29M			p.K29M	1	s6
-Variant	ProteinMutation	K43M			p.K43M	1	s6
-Variant	ProteinMutation	K124M			p.K124M	1	s6
-Variant	ProteinMutation	R22M	23180	RFTN1	p.R22M	1	s6
-Variant	ProteinMutation	R32M	23081	KDM4C	p.R32M	1	s6
-Variant	ProteinMutation	R46M	596	BCL2	p.R46M	1	s6
-Variant	ProteinMutation	R127M			p.R127M	1	s6
-Variant	ProteinMutation	F113L			p.F113L	1	s6
-Variant	ProteinMutation	F123L	9757	KMT2B	p.F123L	1	s6
-Variant	ProteinMutation	F137L	2889	RAPGEF1	p.F137L	1	s6
-Variant	ProteinMutation	F218L	7157	TP53	p.F218L	1	s6
-Variant	ProteinMutation	A105P	10347	ABCA7	p.A105P	1	s6
-Variant	ProteinMutation	A115P	9757	KMT2B	p.A115P	1	s6
-Variant	ProteinMutation	A129P	10672	GNA13	p.A129P	1	s6
-Variant	ProteinMutation	A210P	2889	RAPGEF1	p.A210P	1	s6
-Variant	ProteinMutation	A115E	2113	ETS1	p.A115E	1	s6
-Variant	ProteinMutation	A125E	2908	NR3C1	p.A125E	1	s6
-Variant	ProteinMutation	A139E	2889	RAPGEF1	p.A139E	1	s6
-Variant	ProteinMutation	A220E			p.A220E	1	s6
-Variant	ProteinMutation	E136*			p.E136*	1	s6
-Variant	ProteinMutation	E241*			p.E241*	1	s6
-Variant	ProteinMutation	T229N	8915	BCL10	p.T229N	1	s6
-Variant	ProteinMutation	A193G	9757	KMT2B	p.A193G	1	s6
-Variant	ProteinMutation	A203G	2908	NR3C1	p.A203G	1	s6
-Variant	ProteinMutation	A217G	2889	RAPGEF1	p.A217G	1	s6
-Variant	ProteinMutation	A298G	2889	RAPGEF1	p.A298G	1	s6
-Variant	ProteinMutation	S242T	2113	ETS1	p.S242T	1	s6
-Variant	ProteinMutation	P65S	9757	KMT2B	p.P65S	1	s6
-Variant	ProteinMutation	P75S	2889	RAPGEF1	p.P75S	1	s6
-Variant	ProteinMutation	P89S	2889	RAPGEF1	p.P89S	1	s6
-Variant	ProteinMutation	P170S	2908	NR3C1	p.P170S	1	s6
-Variant	ProteinMutation	R211T			p.R211T	1	s6
-Variant	ProteinMutation	R221T			p.R221T	1	s6
-Variant	ProteinMutation	R235T			p.R235T	1	s6
-Variant	ProteinMutation	R316T			p.R316T	1	s6
-Variant	ProteinMutation	H153Q	9757	KMT2B	p.H153Q	1	s6
-Variant	ProteinMutation	H163Q	896	CCND3	p.H163Q	1	s6
-Variant	ProteinMutation	H177Q	204801	NLRP11	p.H177Q	1	s6
-Variant	ProteinMutation	H258Q	51564	HDAC7	p.H258Q	1	s6
-Variant	ProteinMutation	N34K	51564	HDAC7	p.N34K	1	s6
-Variant	ProteinMutation	N44K	23081	KDM4C	p.N44K	1	s6
-Variant	ProteinMutation	N58K	79705	LRRK1	p.N58K	1	s6
-Variant	ProteinMutation	N139K	3006	H1-2	p.N139K	1	s6
-Variant	ProteinMutation	P67S	2889	RAPGEF1	p.P67S	1	s6
-Variant	ProteinMutation	N567K			p.N567K	1	s6
-Variant	ProteinMutation	E616K	23047	PDS5B	p.E616K	1	s6
-Variant	ProteinMutation	D566N	6774	STAT3	p.D566N	1	s6
-Variant	ProteinMutation	D419G	51564	HDAC7	p.D419G	1	s6
-Variant	ProteinMutation	D155E	7157	TP53	p.D155E	1	s6
-Variant	ProteinMutation	D191E	2113	ETS1	p.D191E	1	s6
-Variant	ProteinMutation	Y157*			p.Y157*	1	s6
-Variant	ProteinMutation	G60D	9757	KMT2B	p.G60D	1	s6
-Variant	ProteinMutation	S112C	8764	TNFRSF14	p.S112C	1	s6
-Variant	ProteinMutation	G152D	23047	PDS5B	p.G152D	1	s6
-Variant	ProteinMutation	S122R	2889	RAPGEF1	p.S122R	1	s6
-Variant	ProteinMutation	S215R	7157	TP53	p.S215R	1	s6
-Variant	ProteinMutation	Y33D	23180	RFTN1	p.Y33D	1	s6
-Variant	ProteinMutation	Y126D	7157	TP53	p.Y126D	1	s6
-Variant	ProteinMutation	C83F	7157	TP53	p.C83F	1	s6
-Variant	ProteinMutation	C176F	7157	TP53	p.C176F	1	s6
-Variant	ProteinMutation	I255F	7157	TP53	p.I255F	1	s6
-Variant	ProteinMutation	Y107D			p.Y107D	1	s6
-Variant	ProteinMutation	Y141N			p.Y141N	1	s6
-Variant	ProteinMutation	Y234N	7157	TP53	p.Y234N	1	s6
-Variant	ProteinMutation	P278L	7157	TP53	p.P278L	1	s6
-Variant	ProteinMutation	M144L			p.M144L	1	s6
-Variant	ProteinMutation	M237L	11184	MAP4K1	p.M237L	1	s6
-Variant	ProteinMutation	R528H	6778	STAT6	p.R528H	1	s6
-Variant	ProteinMutation	T1042A	3709	ITPR2	p.T1042A	1	s6
-Variant	ProteinMutation	A60T	3006	H1-2	p.A60T	1	s6
-Variant	ProteinMutation	R4634C			p.R4634C	1	s6
-Variant	ProteinAllele	TTC27	51564	HDAC7		1	s6
-Variant	ProteinMutation	R27H	51564	HDAC7	p.R27H	1	s6
-Variant	ProteinMutation	A1498T	3709	ITPR2	p.A1498T	1	s6
-Variant	ProteinMutation	K17N	596	BCL2	p.K17N	1	s6
-Variant	ProteinAllele	S25	5292	PIM1		1	s6
-Variant	ProteinMutation	C53R	100271849	MEF2B	p.C53R	1	s6
-Variant	ProteinMutation	N11Y			p.N11Y	1	s6
-Variant	ProteinMutation	D83A	23081	KDM4C	p.D83A	1	s6
-Variant	ProteinAcidChange	TAT> TAA	8085	KMT2D		1	s7
-Variant	ProteinMutation	C5092Y	8085	KMT2D	p.C5092Y	1	s7
-Variant	ProteinMutation	D5257V	8085	KMT2D	p.D5257V	1	s7
-Variant	ProteinMutation	R5432W	8085	KMT2D	p.R5432W	1	s7
-Variant	ProteinMutation	R5303H	8085	KMT2D	p.R5303H	1	s7
-Variant	ProteinMutation	R5027L	8085	KMT2D	p.R5027L	1	s7
-Variant	ProteinMutation	R228G	8085	KMT2D	p.R228G	1	s7
-Variant	ProteinMutation	S5404F	8085	KMT2D	p.S5404F	1	s7
-Variant	ProteinAcidChange	GAG> TAG	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	CGA > CAA	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	CGC> CAC	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	TGG > TGA	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	TCA > TAA	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	TGC> TAC	8085	KMT2D		1	s7
-Variant	DNAAcidChange	T > C	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	CGG> TGG	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	TCA > TGA	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	TCC> TTC	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	CGC> GGC	8085	KMT2D		1	s7
-Variant	ProteinAcidChange	GAC> GTC	8085	KMT2D		1	s7
-Variant	GenomicRegion	chr12:47717493 05-25439				1	s7
-Variant	GenomicRegion	chr12:47733693 05-25439				1	s7
-Variant	GenomicRegion	chr12:47731299				1	s7
-Variant	GenomicRegion	chr12:47720827				1	s7
-Variant	GenomicRegion	chr12:47731577				1	s7
-Variant	GenomicRegion	chr12:47719922				1	s7
-Variant	GenomicRegion	chr12:47734070				1	s7
-Variant	GenomicRegion	chr12:47709228				1	s7
-Variant	GenomicRegion	chr12:47731793				1	s7
-Variant	GenomicRegion	chr12:47706741				1	s7
-Variant	GenomicRegion	chr12:47718602				1	s7
-Variant	GenomicRegion	chr12:47706246				1	s7
-Variant	GenomicRegion	chr12:47706727				1	s7
-Variant	GenomicRegion	chr12:47719661				1	s7
-Variant	GenomicRegion	chr12:47731461				1	s7
-Variant	GenomicRegion	chr12:47733524				1	s7
-Variant	GenomicRegion	chr12:47729734				1	s7
-Variant	GenomicRegion	chr12:47719040				1	s7
-Variant	GenomicRegion	chr12:47721300				1	s7
-Variant	GenomicRegion	chr12:47707855				1	s7
-Variant	GenomicRegion	chr12:47717409				1	s7
-Variant	GenomicRegion	chr12:47724315				1	s7
-Variant	GenomicRegion	chr12:47711008				1	s7
-Variant	GenomicRegion	chr12:47734195				1	s7
-Variant	GenomicRegion	chr12:47711624				1	s7
-Variant	GenomicRegion	chr12:47719271				1	s7
-Variant	GenomicRegion	chr12:47718918				1	s7
-Variant	GenomicRegion	chr12:47713018				1	s7
-Variant	GenomicRegion	chr12:47720103				1	s7
-Variant	GenomicRegion	chr12:47702684				1	s7
-Variant	GenomicRegion	chr12:47713509				1	s7
-Variant	GenomicRegion	chr12:47731159				1	s7
-Variant	GenomicRegion	chr12:47717445				1	s7
-Variant	GenomicRegion	chr12:47709482				1	s7
-Variant	GenomicRegion	chr12:47714889				1	s7
-Variant	GenomicRegion	chr12:47717767				1	s7
-Variant	GenomicRegion	chr12:47720228				1	s7
-Variant	GenomicRegion	chr12:47704937				1	s7
-Variant	GenomicRegion	chr12:47726475				1	s7
-Variant	GenomicRegion	chr12:47702165				1	s7
-Variant	GenomicRegion	chr12:47713960				1	s7
-Variant	GenomicRegion	chr12:47713064				1	s7
-Variant	GenomicRegion	chr12:47723788				1	s7
-Variant	GenomicRegion	chr12:47704873				1	s7
-Variant	GenomicRegion	chr12:47719320				1	s7
-Variant	GenomicRegion	chr12:47702170				1	s7
-Variant	GenomicRegion	chr12:47718081				1	s7
-Variant	GenomicRegion	chr12:47704646				1	s7
-Variant	GenomicRegion	chr12:47714203				1	s7
-Variant	GenomicRegion	chr12:47726113				1	s7
-Variant	GenomicRegion	chr12:47730448				1	s7
-Variant	GenomicRegion	chr12:47724460				1	s7
-Variant	GenomicRegion	chr12:47712844				1	s7
-Variant	GenomicRegion	chr12:47724319				1	s7
-Variant	GenomicRegion	chr12:47706936				1	s7
-Variant	GenomicRegion	chr12:47723144				1	s7
-Variant	GenomicRegion	chr12:47710329				1	s7
-Variant	GenomicRegion	chr12:47719628				1	s7
-Variant	GenomicRegion	chr12:47732160				1	s7
-Variant	GenomicRegion	chr12:47718251				1	s7
-Variant	GenomicRegion	chr12:47719327				1	s7
-Variant	GenomicRegion	chr12:47710444				1	s7
-Variant	GenomicRegion	chr12:47709214				1	s7
-Variant	GenomicRegion	chr12:47733683				1	s7
-Variant	GenomicRegion	chr12:47719508				1	s7
-Variant	GenomicRegion	chr12:47732295				1	s7
-Variant	GenomicRegion	chr12:47717574				1	s7
-Variant	GenomicRegion	chr12:47717760				1	s7
-Variant	GenomicRegion	chr12:47720598				1	s7
-Variant	GenomicRegion	chr12:47702767				1	s7
-Variant	GenomicRegion	chr12:47712865				1	s7
-Variant	GenomicRegion	chr12:47729996				1	s7
-Variant	GenomicRegion	chr12:47707230 				1	s7
-Variant	GenomicRegion	chr12:47714115				1	s7
-Gene	Gene	BCL2	596	BCL2		69	m1,s1,s2,s3,s4,s6
-Gene	Gene	MLL2	9757	KMT2B		54	m1,s1,s2,s3,s5,s6
-Gene	Gene	CREBBP	1387	CREBBP		51	m1,s3,s6
-Gene	Gene	EP300	2033	EP300		38	m1,s3
-Gene	Gene	MEF2B	100271849	MEF2B		36	m1,s1,s3,s6
-Gene	Gene	EZH2	2146	EZH2		31	m1,s2,s3,s5,s6
-Gene	Gene	TP53	7157	TP53		24	m1,s2,s3,s6
-Gene	Gene	FOXO1	2308	FOXO1		21	m1,s2,s3
-Gene	Gene	GNA13	10672	GNA13		19	m1,s1,s2,s3,s6
-Gene	Gene	MEF2	4205	MEF2A		19	m1,s3
-Gene	Gene	CHOP	1649	DDIT3		13	s4
-Gene	Gene	TNFRSF14	8764	TNFRSF14		11	m1,s3,s6
-Gene	Gene	GCB	4882	NPR2		11	m1
-Gene	Gene	MYD88	4615	MYD88		11	m1,s3,s6
-Gene	Gene	CD79B	974	CD79B		9	m1,s3,s6
-Gene	Gene	CARD11	84433	CARD11		9	m1,s2,s6
-Gene	Gene	BCL6	604	BCL6		9	m1,s1,s2,s3,s4
-Gene	Gene	BTG1	694	BTG1		8	m1,s6
-Gene	Gene	PIM1	5292	PIM1		8	m1,s3,s6
-Gene	Gene	IRF4	3662	IRF4		8	m1,s3,s6
-Gene	Gene	SGK1	6446	SGK1		8	m1,s3
-Gene	Gene	ABC	10058	ABCB6		8	m1
-Gene	Gene	CCND3	896	CCND3		7	m1,s3,s6
-Gene	Gene	STAT3	6774	STAT3		7	s3,s6
-Gene	Gene	BCL7A	605	BCL7A		6	m1,s2,s3
-Gene	Gene	STAT6	6778	STAT6		4	m1,s2,s6
-Gene	Gene	BCL10	8915	BCL10		4	m1,s6
-Gene	Gene	BTG2	7832	BTG2		4	m1,s3
-Gene	Gene	B2M	567	B2M		4	m1
-Gene	Gene	MEF2C	4208	MEF2C		4	m1,s2
-Gene	Gene	MYC	4609	MYC		4	s1,s4
-Gene	Gene	IGH	3492	IGH		4	s3
-Gene	Gene	C15orf57	90416	CCDC32		4	s3
-Gene	Gene	CBX3	11335	CBX3		4	s3
-Gene	Gene	MLL2	8085	KMT2D		4	s7
-Gene	Gene	PRDM1	639	PRDM1		3	m1,s3
-Gene	Gene	IKZF3	22806	IKZF3		3	m1,s3
-Gene	Gene	ETS1	2113	ETS1		3	s6
-Gene	Gene	HIST1H1C	3006	H1-2		3	s6
-Gene	Gene	KLHL6	89857	KLHL6		3	s6
-Gene	Gene	RAPGEF1	2889	RAPGEF1		3	s6
-Gene	Gene	TNFAIP3	7128	TNFAIP3		2	m1,s2
-Gene	Gene	AKT	207	AKT1		2	m1,s3
-Gene	Gene	ASCC3L1	23020	SNRNP200		2	s2
-Gene	Gene	NUR77	3164	NR4A1		2	s3
-Gene	Gene	CNOT1	23019	CNOT1		2	s6
-Gene	Gene	ITPR2	3709	ITPR2		2	s6
-Gene	Gene	JMJD2C	23081	KDM4C		2	s6
-Gene	Gene	MBOAT5	10162	LPCAT3		2	s6
-Gene	Gene	TMEM30A	55754	CDC50A		2	s6
-Gene	Gene	c-REL	5966	REL		1	m1
-Gene	Gene	A20	7128	TNFAIP3		1	m1
-Gene	Gene	RhoA	387	RHOA		1	m1
-Gene	Gene	MLL3	58508	KMT2C		1	m1
-Gene	Gene	beta-2-microglobulin	3135	HLA-G		1	m1
-Gene	Gene	NS	11005	SPINK5		1	m1
-Gene	Gene	BCL2s	596	BCL2		1	m1
-Gene	Gene	CD77	53947	A4GALT		1	s1
-Gene	Gene	CD19	930	CD19		1	s1
-Gene	Gene	AICDA	57379	AICDA		1	s1
-Gene	Gene	AID	57379	AICDA		1	s1
-Gene	Gene	HLA	3105	HLA-A		1	s2
-Gene	Gene	AFF1	4299	AFF1		1	s2
-Gene	Gene	EGLN1	54583	EGLN1		1	s2
-Gene	Gene	FAT4	79633	FAT4		1	s2
-Gene	Gene	GCN1L1	10985	GCN1		1	s2
-Gene	Gene	SPTBN1	6711	SPTBN1		1	s2
-Gene	Gene	IL-21R	50615	IL21R		1	s3
-Gene	Gene	MEF2B/C 5	100271849	MEF2B		1	s3
-Gene	Gene	MEF2B/C	100271849	MEF2B		1	s3
-Gene	Gene	HDAC9	9734	HDAC9		1	s3
-Gene	Gene	HDAC7	51564	HDAC7		1	s3
-Gene	Gene	Cabin1	23523	CABIN1		1	s3
-Gene	Gene	POLR2E	5434	POLR2E		1	s3
-Gene	Gene	MAPKBP1	23005	MAPKBP1		1	s3
-Gene	Gene	MGA	23269	MGA		1	s3
-Gene	Gene	SMEK1	55671	PPP4R3A		1	s3
-Gene	Gene	CCDC88C	440193	CCDC88C		1	s3
-Gene	Gene	DUSP22	56940	DUSP22		1	s3
-Gene	Gene	GIT1	28964	GIT1		1	s3
-Gene	Gene	SHMT1	6470	SHMT1		1	s3
-Gene	Gene	ENOSF1	55556	ENOSF1		1	s3
-Gene	Gene	C4orf18	51313	GASK1B		1	s3
-Gene	Gene	TMEM144	55314	TMEM144		1	s3
-Gene	Gene	ABCA7	10347	ABCA7		1	s6
-Gene	Gene	BCAS3	54828	BCAS3		1	s6
-Gene	Gene	CD70	970	CD70		1	s6
-Gene	Gene	HDAC7A	51564	HDAC7		1	s6
-Gene	Gene	IQGAP1	8826	IQGAP1		1	s6
-Gene	Gene	IRF8	3394	IRF8		1	s6
-Gene	Gene	LRRK1	79705	LRRK1		1	s6
-Gene	Gene	MALT1	10892	MALT1		1	s6
-Gene	Gene	MAP4K1	11184	MAP4K1		1	s6
-Gene	Gene	NLRP11	204801	NLRP11		1	s6
-Gene	Gene	NR3C1	2908	NR3C1		1	s6
-Gene	Gene	PACS1	55690	PACS1		1	s6
-Gene	Gene	PDS5B	23047	PDS5B		1	s6
-Gene	Gene	RFTN1	23180	RFTN1		1	s6
-Gene	Gene	RNF135	84282	RNF135		1	s6
-Chemical	Chemical	Ca 2+				7	m1,s3
-Chemical	Chemical	IFR				3	s4
-Chemical	Chemical	SP	MESH:C000604007			2	m1
-Chemical	Chemical	SU-DHL-6				2	s7
-Chemical	Chemical	calciumregulated				1	m1
-Chemical	Chemical	R-CHOP				1	s3
-Chemical	Chemical	Lys-CoA) 1				1	s3
-Chemical	Chemical	Lys-CoA				1	s3
-Chemical	Chemical	Acid	MESH:D000143			1	s3
-Chemical	Chemical	T471				1	s6
-Chemical	Chemical	SU-DHL-9				1	s7
-Disease	Disease	DLBCL				24	m1
-Disease	Disease	FL	MESH:D008224			21	m1
-Disease	Disease	NHL				16	m1
-Disease	Disease	tumour	MESH:D009369			14	m1,s1,s3
-Disease	Disease	lymphoma	MESH:D008223			12	m1,s3
-Disease	Disease	cancer	MESH:D009369			5	m1
-Disease	Disease	cancers	MESH:D009369			2	m1
-Disease	Disease	genetic abnormalities	MESH:D030342			2	m1
-Disease	Disease	NHL	MESH:D008228			2	m1
-Disease	Disease	tumours	MESH:D009369			2	m1
-Disease	Disease	DLBCL	MESH:D016403			2	m1
-Disease	Disease	Non-Hodgkin lymphomas	MESH:D008228			1	m1
-Disease	Disease	NHLs	MESH:D008228			1	m1
-Disease	Disease	follicular lymphoma	MESH:D008224			1	m1
-Disease	Disease	B-cell lymphoma	MESH:D016393			1	m1
-Disease	Disease	cancer				1	m1
-Disease	Disease	lymphomas	MESH:D008223			1	m1
-Disease	Disease	lung cancer	MESH:D008175			1	m1
-Disease	Disease	renal carcinoma	MESH:D002292			1	m1
-Disease	Disease	medulloblastoma	MESH:D008527			1	m1
-Disease	Disease	genetic abnormality	MESH:D030342			1	m1
-Disease	Disease	DLBCL tumour	MESH:D016403			1	m1
-Disease	Disease	PHD	MESH:D011547			1	m1
-Disease	Disease	acquisition Lymphoma	MESH:D008223			1	s1
-Disease	Disease	hyper IgE syndrome	MESH:D007589			1	s3
-Disease	Disease	N Y N N N N ND ND N N Y N ND MYC	MESH:C536108			1	s4
-Disease	Disease	N N N N N Y ND ND N N N N ND	MESH:C536108			1	s4
-Disease	Disease	Lymphoma	MESH:D008223			1	s7
-Organism	Species	patient	9606	human		25	m1,s1,s3,s4
-Organism	Species	patients	9606	human		10	m1,s1,s3
-Organism	Species	human	9606	human		5	m1,s1
-Organism	CellLine	FL  3	9606	human		1	m1
-Organism	CellLine	L27	9606	human		1	s3
-Organism	CellLine	OCI-Ly1	9606	human		1	s3
-Organism	CellLine	DOHH2	9606	human		1	s3
+entity_category	entity_type	mention	identifier	identifier_name	hgvs	count	doc_keys	source
+Variant	DNAAcidChange	G>A				22	s2	tmVar3
+Variant	DNAAcidChange	C>T				18	s2	tmVar3
+Variant	DNAAcidChange	A>G				10	s2	tmVar3
+Variant	DNAAcidChange	T>G				9	s2	tmVar3
+Variant	DNAAcidChange	T>C				8	s2	tmVar3
+Variant	DNAAcidChange	T>A				8	s2	tmVar3
+Variant	DNAAcidChange	A>T				6	s2	tmVar3
+Variant	DNAAcidChange	C>G				6	s2	tmVar3
+Variant	DNAAcidChange	C>A				5	s2	tmVar3
+Variant	ProteinMutation	Y602N	2146	EZH2	p.Y602N	4	s2	tmVar3
+Variant	ProteinMutation	Y646N	2146	EZH2	p.Y646N	4	s2	tmVar3
+Variant	DNAAcidChange	G>C				4	s2	tmVar3
+Variant	GenomicRegion	chr7 148139661				4	s2	tmVar3
+Variant	DNAAcidChange	A>C				3	s2	tmVar3
+Variant	DNAAcidChange	G>T				2	s2	tmVar3
+Variant	ProteinMutation	F123I	7157	TP53	p.F123I	1	m1	tmVar3
+Variant	ProteinMutation	A682G	2146	EZH2	p.A682G	1	m1	tmVar3
+Variant	ProteinMutation	A692V	10058	ABCB6	p.A692V	1	m1	tmVar3
+Variant	DNAMutation	T203A	4882	NPR2	c.203T>A	1	m1	tmVar3
+Variant	ProteinAcidChange	ATG was mutated to TTG	2308	FOXO1		1	m1	tmVar3
+Variant	Chromosome	chromosome 6				1	m1	tmVar3
+Variant	Chromosome	chromosome 12				1	m1	tmVar3
+Variant	Chromosome	3q27				1	m1	tmVar3
+Variant	GenomicRegion	chr12:47,699,025-47,735,374				1	s1	tmVar3
+Variant	ProteinMutation	W188S	3105	HLA-A	p.W188S	1	s2	tmVar3
+Variant	ProteinMutation	W191S	3105	HLA-A	p.W191S	1	s2	tmVar3
+Variant	ProteinMutation	P866P	4299	AFF1	p.P866P	1	s2	tmVar3
+Variant	ProteinMutation	A1013G			p.A1013G	1	s2	tmVar3
+Variant	ProteinMutation	M387V	23020	SNRNP200	p.M387V	1	s2	tmVar3
+Variant	ProteinMutation	N313D			p.N313D	1	s2	tmVar3
+Variant	ProteinMutation	N172N			p.N172N	1	s2	tmVar3
+Variant	ProteinMutation	L119L	596	BCL2	p.L119L	1	s2	tmVar3
+Variant	ProteinMutation	R183R	596	BCL2	p.R183R	1	s2	tmVar3
+Variant	ProteinMutation	P59L	9757	KMT2B	p.P59L	1	s2	tmVar3
+Variant	ProteinMutation	G47D	596	BCL2	p.G47D	1	s2	tmVar3
+Variant	ProteinMutation	R63R	79633	FAT4	p.R63R	1	s2	tmVar3
+Variant	ProteinMutation	L72L	596	BCL2	p.L72L	1	s2	tmVar3
+Variant	ProteinMutation	P71P	596	BCL2	p.P71P	1	s2	tmVar3
+Variant	ProteinMutation	I48F			p.I48F	1	s2	tmVar3
+Variant	ProteinMutation	T69P			p.T69P	1	s2	tmVar3
+Variant	ProteinMutation	E13D			p.E13D	1	s2	tmVar3
+Variant	ProteinMutation	T187I			p.T187I	1	s2	tmVar3
+Variant	ProteinMutation	S161S	596	BCL2	p.S161S	1	s2	tmVar3
+Variant	ProteinMutation	A131V			p.A131V	1	s2	tmVar3
+Variant	ProteinMutation	S87S	596	BCL2	p.S87S	1	s2	tmVar3
+Variant	ProteinMutation	A85A	6778	STAT6	p.A85A	1	s2	tmVar3
+Variant	ProteinMutation	F49L			p.F49L	1	s2	tmVar3
+Variant	ProteinMutation	H20H	7157	TP53	p.H20H	1	s2	tmVar3
+Variant	ProteinMutation	D10D	4299	AFF1	p.D10D	1	s2	tmVar3
+Variant	ProteinMutation	A587D			p.A587D	1	s2	tmVar3
+Variant	ProteinMutation	N588H			p.N588H	1	s2	tmVar3
+Variant	ProteinMutation	R29C			p.R29C	1	s2	tmVar3
+Variant	ProteinMutation	D223N	2146	EZH2	p.D223N	1	s2	tmVar3
+Variant	ProteinMutation	D230N	2146	EZH2	p.D230N	1	s2	tmVar3
+Variant	ProteinMutation	D247N	7157	TP53	p.D247N	1	s2	tmVar3
+Variant	ProteinMutation	H147H			p.H147H	1	s2	tmVar3
+Variant	ProteinMutation	H157H	2146	EZH2	p.H157H	1	s2	tmVar3
+Variant	ProteinMutation	H240H	2146	EZH2	p.H240H	1	s2	tmVar3
+Variant	ProteinMutation	P234S	2308	FOXO1	p.P234S	1	s2	tmVar3
+Variant	ProteinMutation	P280S			p.P280S	1	s2	tmVar3
+Variant	ProteinMutation	P284S	79633	FAT4	p.P284S	1	s2	tmVar3
+Variant	ProteinMutation	T233A			p.T233A	1	s2	tmVar3
+Variant	ProteinMutation	T279A	2146	EZH2	p.T279A	1	s2	tmVar3
+Variant	ProteinMutation	T283A	4208	MEF2C	p.T283A	1	s2	tmVar3
+Variant	ProteinMutation	A239P	7157	TP53	p.A239P	1	s2	tmVar3
+Variant	ProteinMutation	A285P	4299	AFF1	p.A285P	1	s2	tmVar3
+Variant	ProteinMutation	A289P			p.A289P	1	s2	tmVar3
+Variant	ProteinMutation	R141H	7128	TNFAIP3	p.R141H	1	s2	tmVar3
+Variant	ProteinMutation	R182H	2146	EZH2	p.R182H	1	s2	tmVar3
+Variant	ProteinMutation	A436V	79633	FAT4	p.A436V	1	s2	tmVar3
+Variant	ProteinMutation	L428F	4299	AFF1	p.L428F	1	s2	tmVar3
+Variant	ProteinMutation	R226Q	9757	KMT2B	p.R226Q	1	s2	tmVar3
+Variant	ProteinMutation	R228Q	604	BCL6	p.R228Q	1	s2	tmVar3
+Variant	ProteinMutation	L14L	79633	FAT4	p.L14L	1	s2	tmVar3
+Variant	ProteinMutation	S166R			p.S166R	1	s2	tmVar3
+Variant	ProteinMutation	Y602F	2146	EZH2	p.Y602F	1	s2	tmVar3
+Variant	ProteinMutation	Y646F	2146	EZH2	p.Y646F	1	s2	tmVar3
+Variant	ProteinMutation	I1760I			p.I1760I	1	s2	tmVar3
+Variant	ProteinMutation	I3462I	79633	FAT4	p.I3462I	1	s2	tmVar3
+Variant	ProteinMutation	I10V	7157	TP53	p.I10V	1	s2	tmVar3
+Variant	ProteinMutation	L2229L			p.L2229L	1	s2	tmVar3
+Variant	ProteinMutation	Y308S			p.Y308S	1	s2	tmVar3
+Variant	ProteinMutation	F245S	7157	TP53	p.F245S	1	s2	tmVar3
+Variant	ProteinMutation	L197Q			p.L197Q	1	s2	tmVar3
+Variant	ProteinMutation	I34T	3105	HLA-A	p.I34T	1	s2	tmVar3
+Variant	ProteinMutation	R403Q			p.R403Q	1	s2	tmVar3
+Variant	ProteinMutation	R405Q	2146	EZH2	p.R405Q	1	s2	tmVar3
+Variant	ProteinMutation	G234G	2308	FOXO1	p.G234G	1	s2	tmVar3
+Variant	ProteinMutation	I77L			p.I77L	1	s2	tmVar3
+Variant	ProteinMutation	I156L			p.I156L	1	s2	tmVar3
+Variant	ProteinMutation	I175L			p.I175L	1	s2	tmVar3
+Variant	ProteinMutation	N73S	2146	EZH2	p.N73S	1	s2	tmVar3
+Variant	ProteinMutation	N160S	2146	EZH2	p.N160S	1	s2	tmVar3
+Variant	ProteinMutation	L75R	9757	KMT2B	p.L75R	1	s2	tmVar3
+Variant	ProteinMutation	L162R	7128	TNFAIP3	p.L162R	1	s2	tmVar3
+Variant	ProteinMutation	R187H			p.R187H	1	s2	tmVar3
+Variant	ProteinMutation	R249H			p.R249H	1	s2	tmVar3
+Variant	ProteinMutation	R253H	7157	TP53	p.R253H	1	s2	tmVar3
+Variant	ProteinMutation	R256H			p.R256H	1	s2	tmVar3
+Variant	ProteinMutation	R377H			p.R377H	1	s2	tmVar3
+Variant	ProteinMutation	A74T			p.A74T	1	s2	tmVar3
+Variant	ProteinMutation	D83V	7157	TP53	p.D83V	1	s2	tmVar3
+Variant	ProteinMutation	Y69H			p.Y69H	1	s2	tmVar3
+Variant	ProteinMutation	E14A	79633	FAT4	p.E14A	1	s2	tmVar3
+Variant	ProteinMutation	K617N			p.K617N	1	s2	tmVar3
+Variant	ProteinMutation	K977N			p.K977N	1	s2	tmVar3
+Variant	ProteinMutation	L3496L			p.L3496L	1	s2	tmVar3
+Variant	ProteinMutation	S4824F	79633	FAT4	p.S4824F	1	s2	tmVar3
+Variant	ProteinMutation	D635Y	79633	FAT4	p.D635Y	1	s2	tmVar3
+Variant	ProteinMutation	V105V	604	BCL6	p.V105V	1	s2	tmVar3
+Variant	ProteinMutation	L726L	6778	STAT6	p.L726L	1	s2	tmVar3
+Variant	ProteinMutation	G426G	7128	TNFAIP3	p.G426G	1	s2	tmVar3
+Variant	ProteinMutation	L361V			p.L361V	1	s2	tmVar3
+Variant	ProteinMutation	L398V	6778	STAT6	p.L398V	1	s2	tmVar3
+Variant	ProteinMutation	L727V			p.L727V	1	s2	tmVar3
+Variant	ProteinMutation	L260H			p.L260H	1	s2	tmVar3
+Variant	ProteinMutation	I240T	2146	EZH2	p.I240T	1	s2	tmVar3
+Variant	ProteinMutation	I247T	2146	EZH2	p.I247T	1	s2	tmVar3
+Variant	ProteinMutation	I397T	2308	FOXO1	p.I397T	1	s2	tmVar3
+Variant	ProteinMutation	H83L	7157	TP53	p.H83L	1	s2	tmVar3
+Variant	ProteinMutation	Q133H			p.Q133H	1	s2	tmVar3
+Variant	ProteinMutation	Q259H			p.Q259H	1	s2	tmVar3
+Variant	ProteinMutation	R767C			p.R767C	1	s2	tmVar3
+Variant	ProteinMutation	S271G	9757	KMT2B	p.S271G	1	s2	tmVar3
+Variant	ProteinMutation	D1318E	6711	SPTBN1	p.D1318E	1	s2	tmVar3
+Variant	ProteinMutation	D1331E	6711	SPTBN1	p.D1331E	1	s2	tmVar3
+Variant	ProteinMutation	D1344E			p.D1344E	1	s2	tmVar3
+Variant	ProteinMutation	Q286R			p.Q286R	1	s2	tmVar3
+Variant	ProteinMutation	G375R			p.G375R	1	s2	tmVar3
+Variant	ProteinMutation	G367G	7128	TNFAIP3	p.G367G	1	s2	tmVar3
+Variant	ProteinMutation	R155W			p.R155W	1	s2	tmVar3
+Variant	ProteinMutation	R248W	7157	TP53	p.R248W	1	s2	tmVar3
+Variant	ProteinMutation	Y141C	7157	TP53	p.Y141C	1	s2	tmVar3
+Variant	ProteinMutation	Y234C	7157	TP53	p.Y234C	1	s2	tmVar3
+Variant	ProteinMutation	C83G	7157	TP53	p.C83G	1	s2	tmVar3
+Variant	ProteinMutation	C176G	7157	TP53	p.C176G	1	s2	tmVar3
+Variant	ProteinMutation	R65H	7128	TNFAIP3	p.R65H	1	s2	tmVar3
+Variant	ProteinMutation	R158H	7157	TP53	p.R158H	1	s2	tmVar3
+Variant	ProteinMutation	G152D	2146	EZH2	p.G152D	1	s2	tmVar3
+Variant	ProteinMutation	G245D	7157	TP53	p.G245D	1	s2	tmVar3
+Variant	ProteinMutation	V50M	9757	KMT2B	p.V50M	1	s2	tmVar3
+Variant	ProteinMutation	V143M	7157	TP53	p.V143M	1	s2	tmVar3
+Variant	ProteinMutation	R490W	2308	FOXO1	p.R490W	1	s2	tmVar3
+Variant	ProteinMutation	G525A			p.G525A	1	s2	tmVar3
+Variant	ProteinMutation	S1685S	9757	KMT2B	p.S1685S	1	s2	tmVar3
+Variant	ProteinMutation	S1837S			p.S1837S	1	s2	tmVar3
+Variant	ProteinMutation	V518L			p.V518L	1	s2	tmVar3
+Variant	ProteinMutation	V537L			p.V537L	1	s2	tmVar3
+Variant	ProteinMutation	V538L	6711	SPTBN1	p.V538L	1	s2	tmVar3
+Variant	ProteinMutation	V543L	2308	FOXO1	p.V543L	1	s2	tmVar3
+Variant	ProteinMutation	V563L	79633	FAT4	p.V563L	1	s2	tmVar3
+Variant	ProteinMutation	G5G			p.G5G	1	s2	tmVar3
+Variant	ProteinMutation	A2T	604	BCL6	p.A2T	1	s2	tmVar3
+Variant	GenomicRegion	chr6 31346876				1	s2	tmVar3
+Variant	GenomicRegion	chr4 88266320				1	s2	tmVar3
+Variant	GenomicRegion	chr15 32962122				1	s2	tmVar3
+Variant	GenomicRegion	chr2 96327146				1	s2	tmVar3
+Variant	GenomicRegion	chr2 96328113				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136364				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136525				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136331				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136704				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136740				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136691				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136876				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136664				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136667				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136738				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136675				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136841				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136320				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136397				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136488				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136619				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136625				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136735				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136820				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136850				1	s2	tmVar3
+Variant	GenomicRegion	chr18 59136865				1	s2	tmVar3
+Variant	GenomicRegion	chr3 188926060				1	s2	tmVar3
+Variant	GenomicRegion	chr3 188926058				1	s2	tmVar3
+Variant	GenomicRegion	chr12 120944382				1	s2	tmVar3
+Variant	GenomicRegion	chr12 120944465				1	s2	tmVar3
+Variant	GenomicRegion	chr7 2946085				1	s2	tmVar3
+Variant	GenomicRegion	chr11 3015937				1	s2	tmVar3
+Variant	GenomicRegion	chr6 42011685				1	s2	tmVar3
+Variant	GenomicRegion	chr6 42011688				1	s2	tmVar3
+Variant	GenomicRegion	chr6 42011670				1	s2	tmVar3
+Variant	GenomicRegion	chr9 94181943				1	s2	tmVar3
+Variant	GenomicRegion	chr16 3741795				1	s2	tmVar3
+Variant	GenomicRegion	chr16 3782006				1	s2	tmVar3
+Variant	GenomicRegion	chr16 3840589				1	s2	tmVar3
+Variant	GenomicRegion	chr10 53128032				1	s2	tmVar3
+Variant	GenomicRegion	chr5 176826548				1	s2	tmVar3
+Variant	GenomicRegion	chr7 44579978				1	s2	tmVar3
+Variant	GenomicRegion	chr1 229623762				1	s2	tmVar3
+Variant	GenomicRegion	chr7 148139660				1	s2	tmVar3
+Variant	GenomicRegion	chr4 126592007				1	s2	tmVar3
+Variant	GenomicRegion	chr13 40138322				1	s2	tmVar3
+Variant	GenomicRegion	chr13 40138349				1	s2	tmVar3
+Variant	GenomicRegion	chr12 119059485				1	s2	tmVar3
+Variant	GenomicRegion	chr17 60482907				1	s2	tmVar3
+Variant	GenomicRegion	chr17 60441048				1	s2	tmVar3
+Variant	GenomicRegion	chr17 60441237				1	s2	tmVar3
+Variant	GenomicRegion	chr17 60441381				1	s2	tmVar3
+Variant	GenomicRegion	chr17 60483073				1	s2	tmVar3
+Variant	GenomicRegion	chr16 27427390				1	s2	tmVar3
+Variant	GenomicRegion	chr12 52962876				1	s2	tmVar3
+Variant	GenomicRegion	chr21 33721114				1	s2	tmVar3
+Variant	GenomicRegion	chr17 35201308				1	s2	tmVar3
+Variant	GenomicRegion	chr17 35201302				1	s2	tmVar3
+Variant	GenomicRegion	chr11 1864566				1	s2	tmVar3
+Variant	GenomicRegion	chr19 12812852				1	s2	tmVar3
+Variant	GenomicRegion	chr19 19121045				1	s2	tmVar3
+Variant	GenomicRegion	chr5 88136224				1	s2	tmVar3
+Variant	GenomicRegion	chr5 88155321				1	s2	tmVar3
+Variant	GenomicRegion	chr5 88155348				1	s2	tmVar3
+Variant	GenomicRegion	chr10 129797163				1	s2	tmVar3
+Variant	GenomicRegion	chr12 47712527				1	s2	tmVar3
+Variant	GenomicRegion	chr12 47719508				1	s2	tmVar3
+Variant	GenomicRegion	chr12 47702767				1	s2	tmVar3
+Variant	GenomicRegion	chr12 47722866				1	s2	tmVar3
+Variant	GenomicRegion	chr12 47712865				1	s2	tmVar3
+Variant	GenomicRegion	chr12 47729995				1	s2	tmVar3
+Variant	GenomicRegion	chr12 53187912				1	s2	tmVar3
+Variant	GenomicRegion	chr5 140838045				1	s2	tmVar3
+Variant	GenomicRegion	chr16 80491802				1	s2	tmVar3
+Variant	GenomicRegion	chr21 42129748				1	s2	tmVar3
+Variant	GenomicRegion	chr10 73251775				1	s2	tmVar3
+Variant	GenomicRegion	chr20 33760595				1	s2	tmVar3
+Variant	GenomicRegion	chr3 16450446				1	s2	tmVar3
+Variant	GenomicRegion	chr15 54174873				1	s2	tmVar3
+Variant	GenomicRegion	chr5 141338522				1	s2	tmVar3
+Variant	GenomicRegion	chr17 2142634				1	s2	tmVar3
+Variant	GenomicRegion	chr14 49718978				1	s2	tmVar3
+Variant	GenomicRegion	chr2 54723758				1	s2	tmVar3
+Variant	GenomicRegion	chr12 55785345				1	s2	tmVar3
+Variant	GenomicRegion	chr12 55784603				1	s2	tmVar3
+Variant	GenomicRegion	chr6 138241376				1	s2	tmVar3
+Variant	GenomicRegion	chr17 7518264				1	s2	tmVar3
+Variant	GenomicRegion	chr17 7517616				1	s2	tmVar3
+Variant	GenomicRegion	chr17 7518305				1	s2	tmVar3
+Variant	GenomicRegion	chr17 7519129				1	s2	tmVar3
+Variant	GenomicRegion	chr17 7519182				1	s2	tmVar3
+Variant	GenomicRegion	chr17 7518272				1	s2	tmVar3
+Variant	GenomicRegion	chr17 7519228				1	s2	tmVar3
+Variant	GenomicRegion	chr17 71031975				1	s2	tmVar3
+Variant	GenomicRegion	chr17 71032081				1	s2	tmVar3
+Variant	GenomicRegion	chr2 61346729				1	s2	tmVar3
+Variant	GenomicRegion	chr20 45311525				1	s2	tmVar3
+Variant	DNAMutation	T910A	9757	KMT2B	c.910T>A	1	s5	tmVar3
+Variant	ProteinMutation	T940A L252P	9757	KMT2B	p.T,L940,252P	1	s5	tmVar3
+Variant	ProteinMutation	I165V	9757	KMT2B	p.I165V	1	s5	tmVar3
+Gene	Gene	BCL2	596	BCL2		69	m1,s1,s2,s3,s4,s6	GNorm2
+Gene	Gene	MLL2	9757	KMT2B		54	m1,s1,s2,s3,s5,s6	GNorm2
+Gene	Gene	CREBBP	1387	CREBBP		51	m1,s3,s6	GNorm2
+Gene	Gene	EP300	2033	EP300		38	m1,s3	GNorm2
+Gene	Gene	MEF2B	100271849	MEF2B		36	m1,s1,s3,s6	GNorm2
+Gene	Gene	EZH2	2146	EZH2		31	m1,s2,s3,s5,s6	GNorm2
+Gene	Gene	TP53	7157	TP53		24	m1,s2,s3,s6	GNorm2
+Gene	Gene	FOXO1	2308	FOXO1		21	m1,s2,s3	GNorm2
+Gene	Gene	GNA13	10672	GNA13		19	m1,s1,s2,s3,s6	GNorm2
+Gene	Gene	MEF2	4205	MEF2A		19	m1,s3	GNorm2
+Gene	Gene	CHOP	1649	DDIT3		13	s4	GNorm2
+Gene	Gene	TNFRSF14	8764	TNFRSF14		11	m1,s3,s6	GNorm2
+Gene	Gene	GCB	4882	NPR2		11	m1	GNorm2
+Gene	Gene	MYD88	4615	MYD88		11	m1,s3,s6	GNorm2
+Gene	Gene	CD79B	974	CD79B		9	m1,s3,s6	GNorm2
+Gene	Gene	CARD11	84433	CARD11		9	m1,s2,s6	GNorm2
+Gene	Gene	BCL6	604	BCL6		9	m1,s1,s2,s3,s4	GNorm2
+Gene	Gene	BTG1	694	BTG1		8	m1,s6	GNorm2
+Gene	Gene	PIM1	5292	PIM1		8	m1,s3,s6	GNorm2
+Gene	Gene	IRF4	3662	IRF4		8	m1,s3,s6	GNorm2
+Gene	Gene	SGK1	6446	SGK1		8	m1,s3	GNorm2
+Gene	Gene	ABC	10058	ABCB6		8	m1	GNorm2
+Gene	Gene	CCND3	896	CCND3		7	m1,s3,s6	GNorm2
+Gene	Gene	STAT3	6774	STAT3		7	s3,s6	GNorm2
+Gene	Gene	BCL7A	605	BCL7A		6	m1,s2,s3	GNorm2
+Gene	Gene	STAT6	6778	STAT6		4	m1,s2,s6	GNorm2
+Gene	Gene	BCL10	8915	BCL10		4	m1,s6	GNorm2
+Gene	Gene	BTG2	7832	BTG2		4	m1,s3	GNorm2
+Gene	Gene	B2M	567	B2M		4	m1	GNorm2
+Gene	Gene	MEF2C	4208	MEF2C		4	m1,s2	GNorm2
+Gene	Gene	MYC	4609	MYC		4	s1,s4	GNorm2
+Gene	Gene	IGH	3492	IGH		4	s3	GNorm2
+Gene	Gene	C15orf57	90416	CCDC32		4	s3	GNorm2
+Gene	Gene	CBX3	11335	CBX3		4	s3	GNorm2
+Gene	Gene	MLL2	8085	KMT2D		4	s7	GNorm2
+Gene	Gene	PRDM1	639	PRDM1		3	m1,s3	GNorm2
+Gene	Gene	IKZF3	22806	IKZF3		3	m1,s3	GNorm2
+Gene	Gene	ETS1	2113	ETS1		3	s6	GNorm2
+Gene	Gene	HIST1H1C	3006	H1-2		3	s6	GNorm2
+Gene	Gene	KLHL6	89857	KLHL6		3	s6	GNorm2
+Gene	Gene	RAPGEF1	2889	RAPGEF1		3	s6	GNorm2
+Gene	Gene	TNFAIP3	7128	TNFAIP3		2	m1,s2	GNorm2
+Gene	Gene	AKT	207	AKT1		2	m1,s3	GNorm2
+Gene	Gene	ASCC3L1	23020	SNRNP200		2	s2	GNorm2
+Gene	Gene	NUR77	3164	NR4A1		2	s3	GNorm2
+Gene	Gene	CNOT1	23019	CNOT1		2	s6	GNorm2
+Gene	Gene	ITPR2	3709	ITPR2		2	s6	GNorm2
+Gene	Gene	JMJD2C	23081	KDM4C		2	s6	GNorm2
+Gene	Gene	MBOAT5	10162	LPCAT3		2	s6	GNorm2
+Gene	Gene	TMEM30A	55754	CDC50A		2	s6	GNorm2
+Gene	Gene	c-REL	5966	REL		1	m1	GNorm2
+Gene	Gene	A20	7128	TNFAIP3		1	m1	GNorm2
+Gene	Gene	RhoA	387	RHOA		1	m1	GNorm2
+Gene	Gene	MLL3	58508	KMT2C		1	m1	GNorm2
+Gene	Gene	beta-2-microglobulin	3135	HLA-G		1	m1	GNorm2
+Gene	Gene	NS	11005	SPINK5		1	m1	GNorm2
+Gene	Gene	BCL2s	596	BCL2		1	m1	GNorm2
+Gene	Gene	CD77	53947	A4GALT		1	s1	GNorm2
+Gene	Gene	CD19	930	CD19		1	s1	GNorm2
+Gene	Gene	AICDA	57379	AICDA		1	s1	GNorm2
+Gene	Gene	AID	57379	AICDA		1	s1	GNorm2
+Gene	Gene	HLA	3105	HLA-A		1	s2	GNorm2
+Gene	Gene	AFF1	4299	AFF1		1	s2	GNorm2
+Gene	Gene	EGLN1	54583	EGLN1		1	s2	GNorm2
+Gene	Gene	FAT4	79633	FAT4		1	s2	GNorm2
+Gene	Gene	GCN1L1	10985	GCN1		1	s2	GNorm2
+Gene	Gene	SPTBN1	6711	SPTBN1		1	s2	GNorm2
+Gene	Gene	IL-21R	50615	IL21R		1	s3	GNorm2
+Gene	Gene	MEF2B/C 5	100271849	MEF2B		1	s3	GNorm2
+Gene	Gene	MEF2B/C	100271849	MEF2B		1	s3	GNorm2
+Gene	Gene	HDAC9	9734	HDAC9		1	s3	GNorm2
+Gene	Gene	HDAC7	51564	HDAC7		1	s3	GNorm2
+Gene	Gene	Cabin1	23523	CABIN1		1	s3	GNorm2
+Gene	Gene	POLR2E	5434	POLR2E		1	s3	GNorm2
+Gene	Gene	MAPKBP1	23005	MAPKBP1		1	s3	GNorm2
+Gene	Gene	MGA	23269	MGA		1	s3	GNorm2
+Gene	Gene	SMEK1	55671	PPP4R3A		1	s3	GNorm2
+Gene	Gene	CCDC88C	440193	CCDC88C		1	s3	GNorm2
+Gene	Gene	DUSP22	56940	DUSP22		1	s3	GNorm2
+Gene	Gene	GIT1	28964	GIT1		1	s3	GNorm2
+Gene	Gene	SHMT1	6470	SHMT1		1	s3	GNorm2
+Gene	Gene	ENOSF1	55556	ENOSF1		1	s3	GNorm2
+Gene	Gene	C4orf18	51313	GASK1B		1	s3	GNorm2
+Gene	Gene	TMEM144	55314	TMEM144		1	s3	GNorm2
+Gene	Gene	ABCA7	10347	ABCA7		1	s6	GNorm2
+Gene	Gene	BCAS3	54828	BCAS3		1	s6	GNorm2
+Gene	Gene	CD70	970	CD70		1	s6	GNorm2
+Gene	Gene	HDAC7A	51564	HDAC7		1	s6	GNorm2
+Gene	Gene	IQGAP1	8826	IQGAP1		1	s6	GNorm2
+Gene	Gene	IRF8	3394	IRF8		1	s6	GNorm2
+Gene	Gene	LRRK1	79705	LRRK1		1	s6	GNorm2
+Gene	Gene	MALT1	10892	MALT1		1	s6	GNorm2
+Gene	Gene	MAP4K1	11184	MAP4K1		1	s6	GNorm2
+Gene	Gene	NLRP11	204801	NLRP11		1	s6	GNorm2
+Gene	Gene	NR3C1	2908	NR3C1		1	s6	GNorm2
+Gene	Gene	PACS1	55690	PACS1		1	s6	GNorm2
+Gene	Gene	PDS5B	23047	PDS5B		1	s6	GNorm2
+Gene	Gene	RFTN1	23180	RFTN1		1	s6	GNorm2
+Gene	Gene	RNF135	84282	RNF135		1	s6	GNorm2
+Chemical	Chemical	Ca 2+				7	m1,s3	NLMChem
+Chemical	Chemical	IFR				3	s4	NLMChem
+Chemical	Chemical	SP	MESH:C000604007			2	m1	NLMChem
+Chemical	Chemical	SU-DHL-6				2	s7	NLMChem
+Chemical	Chemical	calciumregulated				1	m1	NLMChem
+Chemical	Chemical	R-CHOP				1	s3	NLMChem
+Chemical	Chemical	Lys-CoA) 1				1	s3	NLMChem
+Chemical	Chemical	Lys-CoA				1	s3	NLMChem
+Chemical	Chemical	Acid	MESH:D000143			1	s3	NLMChem
+Chemical	Chemical	T471				1	s6	NLMChem
+Chemical	Chemical	SU-DHL-9				1	s7	NLMChem
+Disease	Disease	DLBCL				24	m1	TaggerOne
+Disease	Disease	FL	MESH:D008224			21	m1	TaggerOne
+Disease	Disease	NHL				16	m1	TaggerOne
+Disease	Disease	tumour	MESH:D009369			14	m1,s1,s3	TaggerOne
+Disease	Disease	lymphoma	MESH:D008223			12	m1,s3	TaggerOne
+Disease	Disease	cancer	MESH:D009369			5	m1	TaggerOne
+Disease	Disease	cancers	MESH:D009369			2	m1	TaggerOne
+Disease	Disease	genetic abnormalities	MESH:D030342			2	m1	TaggerOne
+Disease	Disease	NHL	MESH:D008228			2	m1	TaggerOne
+Disease	Disease	tumours	MESH:D009369			2	m1	TaggerOne
+Disease	Disease	DLBCL	MESH:D016403			2	m1	TaggerOne
+Disease	Disease	Non-Hodgkin lymphomas	MESH:D008228			1	m1	TaggerOne
+Disease	Disease	NHLs	MESH:D008228			1	m1	TaggerOne
+Disease	Disease	follicular lymphoma	MESH:D008224			1	m1	TaggerOne
+Disease	Disease	B-cell lymphoma	MESH:D016393			1	m1	TaggerOne
+Disease	Disease	cancer				1	m1	TaggerOne
+Disease	Disease	lymphomas	MESH:D008223			1	m1	TaggerOne
+Disease	Disease	lung cancer	MESH:D008175			1	m1	TaggerOne
+Disease	Disease	renal carcinoma	MESH:D002292			1	m1	TaggerOne
+Disease	Disease	medulloblastoma	MESH:D008527			1	m1	TaggerOne
+Disease	Disease	genetic abnormality	MESH:D030342			1	m1	TaggerOne
+Disease	Disease	DLBCL tumour	MESH:D016403			1	m1	TaggerOne
+Disease	Disease	PHD	MESH:D011547			1	m1	TaggerOne
+Disease	Disease	acquisition Lymphoma	MESH:D008223			1	s1	TaggerOne
+Disease	Disease	hyper IgE syndrome	MESH:D007589			1	s3	TaggerOne
+Disease	Disease	N Y N N N N ND ND N N Y N ND MYC	MESH:C536108			1	s4	TaggerOne
+Disease	Disease	N N N N N Y ND ND N N N N ND	MESH:C536108			1	s4	TaggerOne
+Disease	Disease	Lymphoma	MESH:D008223			1	s7	TaggerOne
+Organism	Species	patient	9606	human		25	m1,s1,s3,s4	GNorm2
+Organism	Species	patients	9606	human		10	m1,s1,s3	GNorm2
+Organism	Species	human	9606	human		5	m1,s1	GNorm2
+Organism	CellLine	FL  3	9606	human		1	m1	GNorm2
+Organism	Genus	Drosophila	7227	fruit fly		1	m1	GNorm2
+Organism	CellLine	L27	9606	human		1	s3	GNorm2
+Organism	CellLine	OCI-Ly1	9606	human		1	s3	GNorm2
+Organism	CellLine	DOHH2	9606	human		1	s3	GNorm2
+NER_AIONER	Gene	BCL2				66	m1,s2,s3,s4,s6	AIONER
+NER_AIONER	Disease	FL				63	m1,s3	AIONER
+NER_AIONER	Disease	DLBCL				51	m1,s3	AIONER
+NER_AIONER	Gene	CREBBP				46	m1,s3	AIONER
+NER_AIONER	Gene	MLL2				44	m1,s2,s3,s5	AIONER
+NER_AIONER	Gene	EP300				38	m1,s3	AIONER
+NER_AIONER	Chemical					34	s1	AIONER
+NER_AIONER	Gene	MEF2B				32	m1,s3	AIONER
+NER_AIONER	Gene					30	s1	AIONER
+NER_AIONER	Disease					29	s1	AIONER
+NER_AIONER	Gene	EZH2				28	m1,s2,s3,s5,s6	AIONER
+NER_AIONER	Gene	OCI-Ly1				28	s2	AIONER
+NER_AIONER	Gene	TP53				24	m1,s2,s3,s6	AIONER
+NER_AIONER	Disease	GCB DLBCL				23	m1,s3	AIONER
+NER_AIONER	Gene	FOXO1				21	m1,s2,s3	AIONER
+NER_AIONER	Mutation	G>A				21	s2	AIONER
+NER_AIONER	Mutation	D83V				20	s3	AIONER
+NER_AIONER	Gene	MEF2				19	m1,s3	AIONER
+NER_AIONER	Disease	GCB				19	m1,s3,s7	AIONER
+NER_AIONER	Species					17	s1	AIONER
+NER_AIONER	Mutation	C>T				15	s2	AIONER
+NER_AIONER	Disease	NHL				13	m1,s3	AIONER
+NER_AIONER	Gene	GNA13				13	m1,s3,s6	AIONER
+NER_AIONER	Gene	NU				13	s2	AIONER
+NER_AIONER	Species	Patient				12	s3,s4	AIONER
+NER_AIONER	Mutation	T > C				12	s3	AIONER
+NER_AIONER	Gene	OCI-Ly7				11	s2	AIONER
+NER_AIONER	Disease	DLBCL DLBCL				11	s3	AIONER
+NER_AIONER	Mutation	T > A				11	s3	AIONER
+NER_AIONER	Disease	tumour				10	m1,s3	AIONER
+NER_AIONER	CellLine	S2				10	m1,s3	AIONER
+NER_AIONER	Disease	lymphoma				9	m1,s3	AIONER
+NER_AIONER	Gene	CD79B				9	m1,s3,s6	AIONER
+NER_AIONER	Mutation	A>G				9	s2	AIONER
+NER_AIONER	Gene	HAT				8	m1,s3	AIONER
+NER_AIONER	Gene	PIM1				8	m1,s3,s6	AIONER
+NER_AIONER	Gene	BCL6				8	m1,s2,s3,s4	AIONER
+NER_AIONER	Mutation	T>C				8	s2	AIONER
+NER_AIONER	Gene	SU-DHL-6				8	s2	AIONER
+NER_AIONER	Mutation	T>G				8	s2	AIONER
+NER_AIONER	Disease	B-cell NHL				7	m1	AIONER
+NER_AIONER	Gene	CCND3				7	m1,s3,s6	AIONER
+NER_AIONER	Gene	SGK1				7	m1,s3	AIONER
+NER_AIONER	Species	patients				7	m1,s3	AIONER
+NER_AIONER	Chemical	Ca 2+				7	m1,s3	AIONER
+NER_AIONER	Mutation	T>A				7	s2	AIONER
+NER_AIONER	Gene	WSU				7	s2	AIONER
+NER_AIONER	Gene	DLCL2				7	s2	AIONER
+NER_AIONER	Gene	STAT3				7	s3,s6	AIONER
+NER_AIONER	Mutation	D83A				7	s3	AIONER
+NER_AIONER	Mutation	K4E				7	s3	AIONER
+NER_AIONER	Gene	SGK				7	s6	AIONER
+NER_AIONER	Disease	cancer				6	m1	AIONER
+NER_AIONER	Gene	BCR				6	m1,s3	AIONER
+NER_AIONER	Mutation					6	s1	AIONER
+NER_AIONER	Mutation	C>G				6	s2	AIONER
+NER_AIONER	Gene	OCI-Ly19				6	s2	AIONER
+NER_AIONER	Gene	DUL-1				6	s2	AIONER
+NER_AIONER	Gene	histone				5	m1,s3	AIONER
+NER_AIONER	Gene	BCL7A				5	m1,s2,s3	AIONER
+NER_AIONER	Mutation	C>A				5	s2	AIONER
+NER_AIONER	Mutation	A>T				5	s2	AIONER
+NER_AIONER	Mutation	Y69C				5	s3	AIONER
+NER_AIONER	Gene	BTG2				4	m1,s3	AIONER
+NER_AIONER	Gene	EZH2  13				4	m1	AIONER
+NER_AIONER	Gene	IRF4				4	m1,s3	AIONER
+NER_AIONER	Gene	B2M				4	m1	AIONER
+NER_AIONER	Disease	DLBCLs				4	m1	AIONER
+NER_AIONER	Gene	MEF2C				4	m1,s2	AIONER
+NER_AIONER	Gene	HDACs				4	m1	AIONER
+NER_AIONER	Gene	MYD88				4	m1,s3	AIONER
+NER_AIONER	Mutation	Y602N;Y646N				4	s2	AIONER
+NER_AIONER	Gene	IGH				4	s3	AIONER
+NER_AIONER	Gene	C15orf57				4	s3	AIONER
+NER_AIONER	Gene	CBX3				4	s3	AIONER
+NER_AIONER	Mutation	C > T				4	s3	AIONER
+NER_AIONER	Mutation	HS1133				4	s6	AIONER
+NER_AIONER	Mutation	-C				4	s7	AIONER
+NER_AIONER	Gene	PRDM1				3	m1,s3	AIONER
+NER_AIONER	Gene	CARD11				3	m1,s2	AIONER
+NER_AIONER	Gene	IKZF3				3	m1,s3	AIONER
+NER_AIONER	Gene	TNFRSF14				3	m1,s3	AIONER
+NER_AIONER	Species	patient				3	m1,s3,s4	AIONER
+NER_AIONER	Gene	HATs				3	m1,s3	AIONER
+NER_AIONER	Gene	DOHH-2				3	s2	AIONER
+NER_AIONER	Mutation	A>C				3	s2	AIONER
+NER_AIONER	CellLine	Karpas422				3	s3	AIONER
+NER_AIONER	Mutation	T > A T > A				3	s3	AIONER
+NER_AIONER	Gene	MYC				3	s4	AIONER
+NER_AIONER	Chemical	IFR				3	s4	AIONER
+NER_AIONER	Mutation	H20Q				3	s6	AIONER
+NER_AIONER	Mutation	A60V				3	s6	AIONER
+NER_AIONER	Mutation	P59S				3	s6	AIONER
+NER_AIONER	Gene	KLHL6				3	s6	AIONER
+NER_AIONER	Disease	non-Hodgkin lymphoma				2	m1,s3	AIONER
+NER_AIONER	Disease	genetic abnormalities				2	m1	AIONER
+NER_AIONER	Disease	ABC DLBCLs				2	m1,s3	AIONER
+NER_AIONER	Gene	TNFAIP3				2	m1,s2	AIONER
+NER_AIONER	Gene	BCL10				2	m1	AIONER
+NER_AIONER	Gene	BTG1				2	m1	AIONER
+NER_AIONER	Gene	AKT				2	m1,s3	AIONER
+NER_AIONER	Gene	NF-κB				2	m1	AIONER
+NER_AIONER	Gene	MLL				2	m1	AIONER
+NER_AIONER	Disease	DLBCL tumour				2	m1	AIONER
+NER_AIONER	Gene	H3K27				2	m1	AIONER
+NER_AIONER	Chemical	SP				2	m1	AIONER
+NER_AIONER	Gene	ABC				2	m1	AIONER
+NER_AIONER	Gene	ASCC3L1				2	s2	AIONER
+NER_AIONER	Mutation	G>T				2	s2	AIONER
+NER_AIONER	Gene	S5D				2	s3	AIONER
+NER_AIONER	Gene	Cabin1				2	s3	AIONER
+NER_AIONER	Gene	histone acetyltransferase				2	s3	AIONER
+NER_AIONER	Gene	NUR77				2	s3	AIONER
+NER_AIONER	CellLine	OCI-Ly1				2	s3	AIONER
+NER_AIONER	CellLine	WSU-DLCL2				2	s3	AIONER
+NER_AIONER	Species	PatientI				2	s3,s4	AIONER
+NER_AIONER	Gene	CREBBP 2				2	s3	AIONER
+NER_AIONER	Mutation	R35C;R1446C;R1476C				2	s3	AIONER
+NER_AIONER	Disease	FL DLBCL				2	s3	AIONER
+NER_AIONER	Mutation	K5E				2	s3	AIONER
+NER_AIONER	Mutation	T > G				2	s3	AIONER
+NER_AIONER	Mutation	G > T				2	s3	AIONER
+NER_AIONER	Mutation	I8V				2	s3	AIONER
+NER_AIONER	Mutation	R15G				2	s3	AIONER
+NER_AIONER	Mutation	K23R				2	s3	AIONER
+NER_AIONER	Mutation	R24Q				2	s3	AIONER
+NER_AIONER	Mutation	F26V				2	s3	AIONER
+NER_AIONER	Mutation	Y33S				2	s3	AIONER
+NER_AIONER	Mutation	I47T				2	s3	AIONER
+NER_AIONER	Mutation	R53H				2	s3	AIONER
+NER_AIONER	Mutation	L67R				2	s3	AIONER
+NER_AIONER	Mutation	R114Q				2	s3	AIONER
+NER_AIONER	Mutation	R307S				2	s3	AIONER
+NER_AIONER	Mutation	P75				2	s3	AIONER
+NER_AIONER	Mutation	H76				2	s3	AIONER
+NER_AIONER	Mutation	H76R				2	s3	AIONER
+NER_AIONER	Disease	ABC DLBCL				2	s3	AIONER
+NER_AIONER	Mutation	E77K				2	s3	AIONER
+NER_AIONER	Mutation	N81K				2	s3	AIONER
+NER_AIONER	Gene	ALG10				2	s6	AIONER
+NER_AIONER	Mutation	HS2605				2	s6	AIONER
+NER_AIONER	Gene	F104L				2	s6	AIONER
+NER_AIONER	Chemical	SU-DHL-6				2	s7	AIONER
+NER_AIONER	Mutation	A				2	s7	AIONER
+NER_AIONER	Disease	Non-Hodgkin lymphomas				1	m1	AIONER
+NER_AIONER	Disease	NHLs				1	m1	AIONER
+NER_AIONER	Disease	cancers of B				1	m1	AIONER
+NER_AIONER	Disease	follicular lymphoma				1	m1	AIONER
+NER_AIONER	Disease	diffuse large B-cell lymphoma				1	m1	AIONER
+NER_AIONER	Gene	c-REL				1	m1	AIONER
+NER_AIONER	Gene	miR-17-92				1	m1	AIONER
+NER_AIONER	Gene	cluster  5				1	m1	AIONER
+NER_AIONER	Gene	NF-κB signalling  7, 8, 9				1	m1	AIONER
+NER_AIONER	Gene	A20				1	m1	AIONER
+NER_AIONER	Gene	MYD88  10				1	m1	AIONER
+NER_AIONER	Gene	STAT6				1	m1	AIONER
+NER_AIONER	Gene	histone methyltransferase				1	m1	AIONER
+NER_AIONER	Gene	HMT				1	m1	AIONER
+NER_AIONER	Gene	acetyltransferase				1	m1	AIONER
+NER_AIONER	Gene	CREBBP 15				1	m1	AIONER
+NER_AIONER	Mutation	to TTG				1	m1	AIONER
+NER_AIONER	Gene	B-cell receptor				1	m1	AIONER
+NER_AIONER	Mutation	F123I				1	m1	AIONER
+NER_AIONER	Gene	CARD11  18				1	m1	AIONER
+NER_AIONER	Mutation	A682G				1	m1	AIONER
+NER_AIONER	Mutation	A692V				1	m1	AIONER
+NER_AIONER	FamilyName	lymphoma oncogenes				1	m1	AIONER
+NER_AIONER	Gene	CD79B 9				1	m1	AIONER
+NER_AIONER	Gene	CARD11 18				1	m1	AIONER
+NER_AIONER	Gene	MYD88 10				1	m1	AIONER
+NER_AIONER	Disease	lymphomas  21				1	m1	AIONER
+NER_AIONER	Gene	alpha subunit of				1	m1	AIONER
+NER_AIONER	Gene	G-protein coupled receptor				1	m1	AIONER
+NER_AIONER	Gene	RhoA				1	m1	AIONER
+NER_AIONER	Mutation	T203A				1	m1	AIONER
+NER_AIONER	Gene	PI3K				1	m1	AIONER
+NER_AIONER	Gene	kinase				1	m1	AIONER
+NER_AIONER	Gene	FOXO transcription factors  25				1	m1	AIONER
+NER_AIONER	Gene	IkB kinase  26				1	m1	AIONER
+NER_AIONER	Gene	NOTCH				1	m1	AIONER
+NER_AIONER	Disease	FLs				1	m1	AIONER
+NER_AIONER	CellLine	SU-DHL-9				1	m1	AIONER
+NER_AIONER	Disease	tumours				1	m1	AIONER
+NER_AIONER	Disease	DLBCL primary tumours				1	m1	AIONER
+NER_AIONER	Disease	IBL				1	m1	AIONER
+NER_AIONER	Disease	PBMCL				1	m1	AIONER
+NER_AIONER	Species	human				1	m1	AIONER
+NER_AIONER	Gene	H3K4-specific methyltransferases				1	m1	AIONER
+NER_AIONER	Species	Drosophila				1	m1	AIONER
+NER_AIONER	Gene	trithorax gene  29				1	m1	AIONER
+NER_AIONER	Gene	H3K4me3				1	m1	AIONER
+NER_AIONER	Gene	MLLs				1	m1	AIONER
+NER_AIONER	Gene	homeobox (Hox) gene family  30				1	m1	AIONER
+NER_AIONER	Disease	lung cancer				1	m1	AIONER
+NER_AIONER	Disease	renal carcinoma				1	m1	AIONER
+NER_AIONER	Disease	cancers				1	m1	AIONER
+NER_AIONER	Gene	MLL3				1	m1	AIONER
+NER_AIONER	Disease	medulloblastoma				1	m1	AIONER
+NER_AIONER	Disease	genetic abnormality				1	m1	AIONER
+NER_AIONER	Disease	cytogenetic				1	m1	AIONER
+NER_AIONER	Gene	histone deacetylases				1	m1	AIONER
+NER_AIONER	Chemical	calciumregulated				1	m1	AIONER
+NER_AIONER	Gene	EP300  39				1	m1	AIONER
+NER_AIONER	Gene	type IIa HDACs				1	m1	AIONER
+NER_AIONER	Gene	PCR2				1	m1	AIONER
+NER_AIONER	Gene	histones				1	m1	AIONER
+NER_AIONER	Species	Human				1	m1	AIONER
+NER_AIONER	Gene	beta-2-microglobulin				1	m1	AIONER
+NER_AIONER	Gene	GCB				1	m1	AIONER
+NER_AIONER	Disease	ABC				1	m1	AIONER
+NER_AIONER	Gene	oncogenes				1	m1	AIONER
+NER_AIONER	Gene	BCL6s				1	m1	AIONER
+NER_AIONER	Gene	BCL2s				1	m1	AIONER
+NER_AIONER	CellLine					1	s1	AIONER
+NER_AIONER	Gene	HLA-C				1	s2	AIONER
+NER_AIONER	Mutation	W188S;W191S				1	s2	AIONER
+NER_AIONER	Gene	AFF1				1	s2	AIONER
+NER_AIONER	Mutation	P866P				1	s2	AIONER
+NER_AIONER	Gene	AQR				1	s2	AIONER
+NER_AIONER	Mutation	>C				1	s2	AIONER
+NER_AIONER	Mutation	A1013G				1	s2	AIONER
+NER_AIONER	Mutation	M387V				1	s2	AIONER
+NER_AIONER	Mutation	N313D				1	s2	AIONER
+NER_AIONER	Mutation	N172N				1	s2	AIONER
+NER_AIONER	Mutation	>A L119L				1	s2	AIONER
+NER_AIONER	Mutation	R183R				1	s2	AIONER
+NER_AIONER	Mutation	chr18 59136740 ENSG00000171791 BCL2 C>T				1	s2	AIONER
+NER_AIONER	Mutation	A85A				1	s2	AIONER
+NER_AIONER	Mutation	F49L				1	s2	AIONER
+NER_AIONER	Mutation	H20H				1	s2	AIONER
+NER_AIONER	Mutation	D10D				1	s2	AIONER
+NER_AIONER	Mutation	G5G				1	s2	AIONER
+NER_AIONER	Mutation	A587D				1	s2	AIONER
+NER_AIONER	Mutation	N588H				1	s2	AIONER
+NER_AIONER	Mutation	Y602F;Y646F				1	s2	AIONER
+NER_AIONER	Gene	FAT4				1	s2	AIONER
+NER_AIONER	Mutation	I1760I;I3462I				1	s2	AIONER
+NER_AIONER	Mutation	I10V				1	s2	AIONER
+NER_AIONER	Gene	GCN1L1				1	s2	AIONER
+NER_AIONER	Disease	-2 chr17 60441048 ENSG00000120063 GNA13 T>G Y308S SU-DHL-6 chr17 60441237 ENSG00000120063 GNA13 A>G F245S WSU-DLCL2 chr17 60441381 ENSG00000120063 GNA13 A>T L197Q OCI-Ly1				1	s2	AIONER
+NER_AIONER	Mutation	K5T				1	s2	AIONER
+NER_AIONER	Gene	MKI67				1	s2	AIONER
+NER_AIONER	Mutation	K617N;K977N				1	s2	AIONER
+NER_AIONER	Mutation	L3496L				1	s2	AIONER
+NER_AIONER	Mutation	Q2156				1	s2	AIONER
+NER_AIONER	Mutation	R1323				1	s2	AIONER
+NER_AIONER	Gene	NCKAP1L				1	s2	AIONER
+NER_AIONER	Mutation	V105V				1	s2	AIONER
+NER_AIONER	Mutation	G367G				1	s2	AIONER
+NER_AIONER	Mutation	R155W;R248W				1	s2	AIONER
+NER_AIONER	Mutation	T>A K319				1	s2	AIONER
+NER_AIONER	Mutation	Y141C;Y234C				1	s2	AIONER
+NER_AIONER	Mutation	C83G;C176G				1	s2	AIONER
+NER_AIONER	Mutation	R65H;R158H				1	s2	AIONER
+NER_AIONER	Mutation	C>T G152D;G245D				1	s2	AIONER
+NER_AIONER	Mutation	C>T V50M;V143M				1	s2	AIONER
+NER_AIONER	Gene	IL-21R				1	s3	AIONER
+NER_AIONER	Chemical	R-CHOP				1	s3	AIONER
+NER_AIONER	Gene	BCL7A.				1	s3	AIONER
+NER_AIONER	Gene	MEF2B/C 5				1	s3	AIONER
+NER_AIONER	Gene	SGK1 7				1	s3	AIONER
+NER_AIONER	Gene	MEF2B/C				1	s3	AIONER
+NER_AIONER	Gene	CARD11 8				1	s3	AIONER
+NER_AIONER	Gene	CD79B 9 2 9,				1	s3	AIONER
+NER_AIONER	Gene	NF-B.				1	s3	AIONER
+NER_AIONER	Disease	immune disorder				1	s3	AIONER
+NER_AIONER	Disease	hyper IgE syndrome				1	s3	AIONER
+NER_AIONER	Disease	lymphomagenesis				1	s3	AIONER
+NER_AIONER	FamilyName	HATs				1	s3	AIONER
+NER_AIONER	FamilyName	HDACs				1	s3	AIONER
+NER_AIONER	Gene	HDAC9				1	s3	AIONER
+NER_AIONER	Gene	HDAC7				1	s3	AIONER
+NER_AIONER	Gene	TCR				1	s3	AIONER
+NER_AIONER	Gene	NFAT transcription factors				1	s3	AIONER
+NER_AIONER	Gene	NF-B				1	s3	AIONER
+NER_AIONER	Gene	Orai				1	s3	AIONER
+NER_AIONER	CellLine	2H8.2				1	s3	AIONER
+NER_AIONER	Chemical	Lys-CoA) 1				1	s3	AIONER
+NER_AIONER	Chemical	Lys-CoA				1	s3	AIONER
+NER_AIONER	CellLine	DOHH2				1	s3	AIONER
+NER_AIONER	CellLine	SU-DHL-6				1	s3	AIONER
+NER_AIONER	Mutation	GT>GA				1	s3	AIONER
+NER_AIONER	Gene	chr12:47,714,115				1	s3	AIONER
+NER_AIONER	Mutation	AG>CG				1	s3	AIONER
+NER_AIONER	Gene	chr12:47,733,692				1	s3	AIONER
+NER_AIONER	Gene	KIAA1532				1	s3	AIONER
+NER_AIONER	Gene	POLR2E				1	s3	AIONER
+NER_AIONER	Gene	MAPKBP1				1	s3	AIONER
+NER_AIONER	Gene	MGA				1	s3	AIONER
+NER_AIONER	Gene	SMEK1				1	s3	AIONER
+NER_AIONER	Gene	CCDC88C				1	s3	AIONER
+NER_AIONER	Gene	DUSP22				1	s3	AIONER
+NER_AIONER	Gene	GIT1				1	s3	AIONER
+NER_AIONER	Gene	SHMT1				1	s3	AIONER
+NER_AIONER	Gene	YES1				1	s3	AIONER
+NER_AIONER	Gene	ENOSF1				1	s3	AIONER
+NER_AIONER	Gene	FBX018				1	s3	AIONER
+NER_AIONER	Gene	C4orf18				1	s3	AIONER
+NER_AIONER	Gene	TMEM144				1	s3	AIONER
+NER_AIONER	Gene	HLA-C 1				1	s3	AIONER
+NER_AIONER	Mutation	A436V				1	s3	AIONER
+NER_AIONER	Mutation	Y71H;Y1482H;Y1512H				1	s3	AIONER
+NER_AIONER	Mutation	G1411E;G1441E				1	s3	AIONER
+NER_AIONER	Mutation	G1375				1	s3	AIONER
+NER_AIONER	Mutation	Y92F;Y1503F;Y1533F				1	s3	AIONER
+NER_AIONER	Mutation	S25N;S1436N;S1466N				1	s3	AIONER
+NER_AIONER	Mutation	L88Q;L1499Q;L1529Q				1	s3	AIONER
+NER_AIONER	Mutation	A687V;A717V				1	s3	AIONER
+NER_AIONER	Mutation	T > A T > G A > T T > G T > C T > G T > C T > C T > C T > A T > A T > C T > A				1	s3	AIONER
+NER_AIONER	Disease	DLBCL ABC DLBCL				1	s3	AIONER
+NER_AIONER	Gene	chr19:19121063				1	s3	AIONER
+NER_AIONER	Mutation	E77G				1	s3	AIONER
+NER_AIONER	Gene	chr19:19121052				1	s3	AIONER
+NER_AIONER	Mutation	T > G T > G				1	s3	AIONER
+NER_AIONER	Chemical	Acid				1	s3	AIONER
+NER_AIONER	Mutation	K				1	s3	AIONER
+NER_AIONER	Mutation	S294Y				1	s3	AIONER
+NER_AIONER	Disease	IFR				1	s4	AIONER
+NER_AIONER	Species	PatientA				1	s4	AIONER
+NER_AIONER	Species	PatientB				1	s4	AIONER
+NER_AIONER	Species	PatientC				1	s4	AIONER
+NER_AIONER	Species	PatientD				1	s4	AIONER
+NER_AIONER	Species	PatientE				1	s4	AIONER
+NER_AIONER	Species	PatientF				1	s4	AIONER
+NER_AIONER	Species	PatientG				1	s4	AIONER
+NER_AIONER	Species	PatientH				1	s4	AIONER
+NER_AIONER	Species	PatientJ				1	s4	AIONER
+NER_AIONER	Species	PatientK				1	s4	AIONER
+NER_AIONER	Species	PatientL				1	s4	AIONER
+NER_AIONER	Species	PatientM				1	s4	AIONER
+NER_AIONER	Chemical	Tonsil				1	s4	AIONER
+NER_AIONER	Mutation	G3139				1	s4	AIONER
+NER_AIONER	Mutation	T910A;T940A				1	s5	AIONER
+NER_AIONER	Mutation	L252P				1	s5	AIONER
+NER_AIONER	Mutation	I165V				1	s5	AIONER
+NER_AIONER	Disease	COO				1	s5	AIONER
+NER_AIONER	Gene	ABCA7				1	s6	AIONER
+NER_AIONER	Mutation	HS2058				1	s6	AIONER
+NER_AIONER	Mutation	V446I 2.20275983155025E				1	s6	AIONER
+NER_AIONER	Mutation	L299F				1	s6	AIONER
+NER_AIONER	Mutation	L12Q				1	s6	AIONER
+NER_AIONER	Mutation	G5V				1	s6	AIONER
+NER_AIONER	Mutation	D34G				1	s6	AIONER
+NER_AIONER	Mutation	S51Y				1	s6	AIONER
+NER_AIONER	Mutation	T132S				1	s6	AIONER
+NER_AIONER	Gene	S167A				1	s6	AIONER
+NER_AIONER	Mutation	A80V				1	s6	AIONER
+NER_AIONER	Mutation	D31N				1	s6	AIONER
+NER_AIONER	Mutation	V66I				1	s6	AIONER
+NER_AIONER	Mutation	R146K				1	s6	AIONER
+NER_AIONER	Mutation	S51P				1	s6	AIONER
+NER_AIONER	Mutation	V159A				1	s6	AIONER
+NER_AIONER	Mutation	Y21C				1	s6	AIONER
+NER_AIONER	Mutation	G27D				1	s6	AIONER
+NER_AIONER	Gene	E165				1	s6	AIONER
+NER_AIONER	Mutation	I240R;I286R;I290R				1	s6	AIONER
+NER_AIONER	Mutation	V237D;V283D;V287D				1	s6	AIONER
+NER_AIONER	Gene	CD70				1	s6	AIONER
+NER_AIONER	Mutation	L60R				1	s6	AIONER
+NER_AIONER	Gene	FAS				1	s6	AIONER
+NER_AIONER	Mutation	T794A				1	s6	AIONER
+NER_AIONER	Mutation	T1042A				1	s6	AIONER
+NER_AIONER	Mutation	T				1	s6	AIONER
+NER_AIONER	Gene	LRRK1				1	s6	AIONER
+NER_AIONER	Gene	NR3C1				1	s6	AIONER
+NER_AIONER	Gene	PACS1				1	s6	AIONER
+NER_AIONER	Chemical	T471				1	s6	AIONER
+NER_AIONER	Gene	PDS5B				1	s6	AIONER
+NER_AIONER	Mutation	R211T;R221T;R235T;R316T				1	s6	AIONER
+NER_AIONER	Mutation	H153Q;H163Q;H177Q;H258Q				1	s6	AIONER
+NER_AIONER	Mutation	N34K;N44K;N58K;N139K				1	s6	AIONER
+NER_AIONER	Mutation	P67S;P7				1	s6	AIONER
+NER_AIONER	Mutation	N567				1	s6	AIONER
+NER_AIONER	Mutation	D566N				1	s6	AIONER
+NER_AIONER	Chemical	SU-DHL-9				1	s7	AIONER
+NER_AIONER	Mutation	+C -G				1	s7	AIONER
+NER_AIONER	Mutation	G				1	s7	AIONER
+NER_AIONER	Mutation	> G T > G				1	s7	AIONER
+NER_AIONER	Mutation	Q3278				1	s7	AIONER
+NER_AIONER	Mutation	E3216				1	s7	AIONER
+NER_AIONER	Mutation	S5404F				1	s7	AIONER
+NER_AIONER	Mutation	Q3964				1	s7	AIONER
+NER_AIONER	Mutation	A1903				1	s7	AIONER
+NER_AIONER	Disease	Lymphoma				1	s7	AIONER

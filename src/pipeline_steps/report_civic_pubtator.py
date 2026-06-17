@@ -866,7 +866,7 @@ def collapse_mention_summary(summary, id_index=None, min_len=5):
 
     p1 = {}
     for entries in groups.values():
-        best_key = max(entries, key=lambda e: (e[1]['count'], e[0][0][0].islower()))[0]
+        best_key = max(entries, key=lambda e: (e[1]['count'], e[0][0][0].islower() if e[0][0] else False))[0]
         if id_index is not None:
             best_id = next((k[id_index] for k, _ in entries if not _empty(k[id_index])), best_key[id_index])
             new_key = best_key[:id_index] + (best_id,) + best_key[id_index + 1:]
