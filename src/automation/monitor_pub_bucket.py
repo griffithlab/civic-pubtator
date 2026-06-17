@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 monitor_pub_bucket.py — Automated civic-pubtator pipeline monitor for GCS.
 
