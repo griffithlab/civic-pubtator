@@ -12,8 +12,8 @@ Variant	ProteinMutation	p.A77P	6016	RIT1	p.A77P	1	m1	tmVar3
 Variant	ProteinMutation	p.R122L	6016	RIT1	p.R122L	1	m1	tmVar3
 Variant	ProteinMutation	F82L	6016	RIT1	p.F82L	1	m1	tmVar3
 Variant	ProteinAllele	Q40	6016	RIT1		1	m1	tmVar3
-Variant	ProteinMutation	glutamine 79 to leucine	6016	RIT1	p.Q79L	1	m1	tmVar3
 Variant	ProteinMutation	alanine 77				1	m1	tmVar3
+Variant	ProteinMutation	glutamine 79 to leucine	6016	RIT1	p.Q79L	1	m1	tmVar3
 Variant	DNAMutation	c.227_228insTTTGGATAC	113451	AZIN2	c.227_228insTTTGGATAC	1	s1	tmVar3
 Variant	ProteinMutation	p.TA83del	113451	AZIN2	p.TA83del	1	s1	tmVar3
 Variant	DNAMutation	c.248_253delCAGCCA	113451	AZIN2	c.248_253delCAGCCA	1	s1	tmVar3
@@ -129,7 +129,7 @@ Disease	Disease	Adeno KRAS N ND HCC515 Adeno KRAS N ND SKLU1 Adeno KRAS N ND H64
 Disease	Disease	KRAS N ND H2444 NSCLC KRAS N ND H2887 NSCLC KRAS N ND HCC1171 NSCLC KRAS N ND HCC44 NSCLC KRAS N	MESH:C537849			1	s3	TaggerOne
 Disease	Disease	lung cancer	MESH:D008175			1	s4	TaggerOne
 Organism	CellLine	NIH3T3	10090	house mouse		10	m1,s1	GNorm2
-Organism	CellLine	NCI-H2110	9606	human		10	m1	GNorm2
+Organism	CellLine	NCI-H2110	9606	human		9	m1	GNorm2
 Organism	Species	human	9606	human		7	m1	GNorm2
 Organism	Species	nude mice	10090	house mouse		5	m1,s1	GNorm2
 Organism	Species	mice	10090	house mouse		5	m1	GNorm2
@@ -249,7 +249,7 @@ NER_AIONER	Mutation	Q79L,  24				1	m1	AIONER
 NER_AIONER	Disease	Noonan syndrome  25				1	m1	AIONER
 NER_AIONER	Disease	salivary gland carcinoma				1	m1	AIONER
 NER_AIONER	Disease	endometrial carcinoma				1	m1	AIONER
-NER_AIONER	Gene	GTPase  24, 29				1	m1	AIONER
+NER_AIONER	Gene	small GTPase  24, 29				1	m1	AIONER
 NER_AIONER	Gene	RIT2				1	m1	AIONER
 NER_AIONER	Gene	RIN				1	m1	AIONER
 NER_AIONER	FamilyName	RAS				1	m1	AIONER
