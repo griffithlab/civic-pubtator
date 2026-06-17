@@ -251,6 +251,35 @@ def run_pipeline(pubid):
     return True
 
 
+def validate_pub_dir(pubid):
+    """
+    Check the local publication directory structure before running the pipeline.
+
+    Returns a list of error strings describing any problems found.  An empty
+    list means the directory looks ready to process.  Add further checks here
+    as new edge cases are discovered.
+    """
+    pub_dir = os.path.join(DATA_ROOT, pubid)
+    errors = []
+
+    if not os.path.isdir(pub_dir):
+        return [f"{pub_dir} does not exist"]
+
+    if not os.listdir(pub_dir):
+        return [f"{pub_dir} is empty"]
+
+    source_dir = os.path.join(pub_dir, "01_source")
+    if not os.path.isdir(source_dir):
+        errors.append("01_source/ directory is missing")
+        return errors  # further checks require 01_source
+
+    pdfs = [f for f in os.listdir(source_dir) if f.lower().endswith(".pdf")]
+    if not pdfs:
+        errors.append("no PDF found in 01_source/")
+
+    return errors
+
+
 def check_local_outputs(pubid):
     """Return a list of expected output filenames missing under /data/pub-data/<pubid>/."""
     pub_dir = os.path.join(DATA_ROOT, pubid)
@@ -308,6 +337,11 @@ def run_cycle(bucket):
 
         if not localize(bucket, pubid):
             record_failure(pubid, "localization failed (sync down error)")
+            continue
+
+        errors = validate_pub_dir(pubid)
+        if errors:
+            record_failure(pubid, "invalid input structure — " + "; ".join(errors))
             continue
 
         run_pipeline(pubid)  # non-fatal; output presence decides whether to upload
