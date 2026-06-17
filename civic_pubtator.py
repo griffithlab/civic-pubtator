@@ -728,8 +728,10 @@ def run_taggerone_batched(groups, args, log_path, tsv_path, base_dir):
             sys.executable, os.path.join(STEPS_DIR, "run_taggerone.py"),
             staging_in, staging_out,
             "--model", os.path.abspath(args.taggerone_model),
-            "--xmx", xmx, "--xms", xms,
+            "--xmx", xmx, "--xms", xms, "--xss", "64m",
         ]
+        if args.timeout_per_doc:
+            taggerone_cmd += ["--timeout-per-doc", str(args.timeout_per_doc)]
 
         _log_batch_header(log_path, "TaggerOne", len(groups))
         t0 = time.time()
@@ -745,9 +747,11 @@ def run_taggerone_batched(groups, args, log_path, tsv_path, base_dir):
             if os.path.exists(out_src):
                 shutil.copy2(out_src, os.path.join(taggerone_out, fname))
 
+        timeout_fallback = args.timeout_per_doc if args.timeout_per_doc else None
         for g in groups:
             log_step_stats(log_path, tsv_path, base_dir, "TaggerOne", g['label'],
-                           g['taggerone_out'], elapsed, file_elapsed=file_elapsed)
+                           g['taggerone_out'], elapsed, file_elapsed=file_elapsed,
+                           timeout_fallback=timeout_fallback)
 
     finally:
         if args.clear_intermediates:
@@ -1043,9 +1047,9 @@ def main():
                              "conversion stage; --max-chars then drops any document that is "
                              "still too large for the annotation pipeline.")
     parser.add_argument("--timeout-per-doc", type=int, default=0, metavar="SECONDS",
-                        help="Per-document timeout for tmVar3 in seconds (0 = no limit). "
-                             "When a document exceeds this limit its CRF++ subprocess is "
-                             "killed and processing continues with the next document.")
+                        help="Per-document timeout in seconds for tmVar3 and TaggerOne "
+                             "(0 = no limit). When a document exceeds this limit it is "
+                             "skipped and processing continues with the next document.")
     parser.add_argument("--memory", default="32G", metavar="SIZE",
                         help="Java max heap for GNorm2 and tmVar3 (default: 32G); "
                              "initial heap is set to half this value")

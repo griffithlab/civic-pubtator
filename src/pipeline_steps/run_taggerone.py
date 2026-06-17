@@ -37,6 +37,10 @@ def main():
                         help="Java max heap size (default: 24G)")
     parser.add_argument("--xms",      default="24G", metavar="SIZE",
                         help="Java initial heap size (default: 24G)")
+    parser.add_argument("--xss",      default="64m", metavar="SIZE",
+                        help="Java thread stack size (default: 64m); increase if StackOverflowError on long documents")
+    parser.add_argument("--timeout-per-doc", type=int, default=0, metavar="SECONDS",
+                        help="Per-document timeout in seconds (0 = no limit); timed-out documents are skipped")
     parser.add_argument("--verbose",  action="store_true",
                         help="Set Java log level to debug (default: warn)")
     args = parser.parse_args()
@@ -96,7 +100,7 @@ def main():
         output_file = os.path.join(output_dir, fname)
 
         cmd = [
-            "java", f"-Xmx{args.xmx}", f"-Xms{args.xms}",
+            "java", f"-Xmx{args.xmx}", f"-Xms{args.xms}", f"-Xss{args.xss}",
             *java_props,
             "-cp", classpath,
             "ncbi.taggerOne.ProcessText",
@@ -112,7 +116,12 @@ def main():
 
         print(f"Processing: {fname}")
         print("Running:", " ".join(cmd))
-        result = subprocess.run(cmd, cwd=TAGGERONE_DIR)
+        timeout = args.timeout_per_doc if args.timeout_per_doc else None
+        try:
+            result = subprocess.run(cmd, cwd=TAGGERONE_DIR, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            print(f"{input_file} - TIMED OUT after {timeout}s")
+            continue
         if result.returncode != 0:
             sys.exit(result.returncode)
 
