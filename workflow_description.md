@@ -45,31 +45,74 @@ publication:
 
 Before the main annotation tools run, two helper scripts prepare the input documents.
 
-### `src/src/src/pipeline_steps/prepare_supplementary.py`
+### `src/pipeline_steps/prepare_supplementary.py`
 
 Converts supplementary files placed in `01_source/s/` into PDFs so that GROBID can process
-them. It handles four file types:
-
-- **PDF** — copied as-is into `01_source/s/<stem>/<stem>.pdf`
-- **Word** (`.docx`, `.doc`) — converted to PDF, one PDF per document
-- **Excel** (`.xlsx`, `.xls`) — converted to one PDF per worksheet, placed in
-  `01_source/s/<stem>/tab_NN/<stem>.pdf`
-- **PowerPoint** (`.pptx`, `.ppt`) — converted to PDF, one PDF per presentation
-
-This script runs automatically at the start of each pipeline run when `01_source/s/` is
-present. The converted PDFs are the inputs that GROBID and all subsequent annotation steps
+them. The converted PDFs are the inputs that GROBID and all subsequent annotation steps
 actually see.
 
-### LibreOffice (`soffice`)
+#### Supported file types and output layout
 
-LibreOffice is used by `src/src/src/pipeline_steps/prepare_supplementary.py` as the preferred converter for Word,
-Excel, and PowerPoint files. It produces high-fidelity PDFs that preserve formatting and
-layout. When LibreOffice is not installed the script falls back to `python-docx` +
-`reportlab` for `.docx` files and `python-pptx` + `reportlab` for `.pptx` files (both
-with reduced fidelity), and skips `.doc` and `.ppt` files entirely. Excel conversion
-without LibreOffice also uses a `reportlab` fallback. Install with:
+| Format | Output |
+|---|---|
+| `.pdf` | Copied as-is to `01_source/s/<stem>/<stem>.pdf` |
+| `.docx`, `.doc` | One PDF per document: `01_source/s/<stem>/<stem>.pdf` |
+| `.xlsx`, `.xls` | One PDF per worksheet: `01_source/s/<stem>/tab_NN/<stem>.pdf` |
+| `.pptx`, `.ppt` | One PDF per presentation: `01_source/s/<stem>/<stem>.pdf` |
 
-```
+#### Three-stage conversion strategy
+
+Each non-PDF file type goes through up to three stages, moving to the next only if the
+previous stage fails. LibreOffice's format-to-format conversion (Stage 1) is much more
+robust than its PDF renderer (Stage 2), so the intermediate step ensures a Python-based
+fallback is always reachable for the modern XML formats.
+
+| Format | Stage 1 — format normalize | Stage 2 — PDF via LibreOffice | Stage 3 — Python fallback |
+|---|---|---|---|
+| `.xlsx` | *(already XML; skip)* | openpyxl temp sheet → soffice | openpyxl + reportlab |
+| `.xls` | soffice → `.xlsx` (fall back to xlrd if crash) | openpyxl temp sheet → soffice | openpyxl + reportlab |
+| `.docx` | *(already XML; skip)* | soffice → PDF | python-docx + reportlab |
+| `.doc` | soffice → `.docx` | soffice → PDF | python-docx + reportlab |
+| `.pptx` | *(already XML; skip)* | soffice → PDF | python-pptx + reportlab |
+| `.ppt` | soffice → `.pptx` | soffice → PDF | python-pptx + reportlab |
+
+The Python fallback (Stage 3) extracts text and renders a simple PDF with reportlab. It
+has lower visual fidelity than LibreOffice but preserves all text content, which is what
+the downstream NLP tools need.
+
+If all stages fail for a file (e.g. LibreOffice crashes on a corrupted file and python-pptx
+cannot parse it either), the error is appended to `01_source/s/CONVERSION_FAILURES.log`
+and the pipeline continues with the remaining files.
+
+#### LibreOffice isolation
+
+LibreOffice is a single-instance application: a second invocation started while the first
+is still running will hand off to it and exit immediately. To prevent this, each
+`soffice` call uses `--norestore` and a per-invocation temporary user-installation
+directory (`-env:UserInstallation=file:///tmp/soffice-user-XXXX`), ensuring fully
+independent processes.
+
+#### Excel-specific processing
+
+Two additional filters apply to Excel sheets before PDF rendering:
+
+1. **Row limit** — only the first N rows of each sheet are read (default 1000; controlled
+   by `--max-rows` passed from the main pipeline). This caps conversion time and PDF size
+   for large data tables.
+
+2. **Numeric column filter** — columns where ≥ 95% of data cells (excluding the header
+   row) parse as numbers are dropped before rendering. Purely numerical columns (p-values,
+   coordinates, raw counts) add processing overhead without contributing text content
+   useful to the NLP tools. Each dropped column is logged with its name and numeric
+   fraction, e.g.:
+   ```
+   Dropping column 'P-value' (col 5): 98% numeric
+   → 7/8 columns kept after numeric filter
+   ```
+
+#### Installing LibreOffice
+
+```bash
 # macOS
 brew install --cask libreoffice
 
@@ -251,7 +294,7 @@ Supplementary PDFs follow the same step-numbered structure one level deeper unde
 │   ├── <paper>.pdf
 │   └── s/
 │       └── <supp_stem>/
-│           └── <supp>.pdf          ← created by src/src/pipeline_steps/prepare_supplementary.py
+│           └── <supp>.pdf          ← created by src/pipeline_steps/prepare_supplementary.py
 │
 ├── 02_grobid/
 │   ├── <paper>.xml

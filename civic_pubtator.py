@@ -2,7 +2,7 @@
 import argparse, datetime, os, re, shutil, subprocess, sys, time
 import xml.etree.ElementTree as ET
 
-REPO_DIR  = os.path.dirname(os.path.abspath(__file__))
+REPO_DIR  = os.path.dirname(os.path.realpath(__file__))
 STEPS_DIR = os.path.join(REPO_DIR, "src", "pipeline_steps")
 AB3P_DIR  = os.path.join(REPO_DIR, 'tools', 'Ab3P')
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, os, shutil, subprocess, sys, tempfile
+import argparse, datetime, os, shutil, subprocess, sys, tempfile
 
 # ── LibreOffice detection ─────────────────────────────────────────────────────
 
@@ -12,20 +12,40 @@ def find_soffice():
         return mac_path
     return None
 
-def soffice_convert(soffice, src, out_dir):
-    """Convert src to PDF in out_dir via soffice. Returns path of created PDF."""
+def soffice_convert(soffice, src, out_dir, convert_to="pdf"):
+    """Convert src to convert_to format in out_dir via soffice.
+
+    Uses --norestore and a per-invocation --user-installation temp directory
+    so each call runs as a fully independent process.  Without this, LibreOffice's
+    single-instance check causes a second call to hand off to the still-running
+    instance from a previous conversion and exit immediately with code 1.
+
+    Returns the path of the created output file.
+    """
     # Set LD_LIBRARY_PATH so soffice.bin can find its internal libraries on Linux
     # without requiring a system-wide ldconfig entry (which causes conflicts).
     env = os.environ.copy()
     env['LD_LIBRARY_PATH'] = '/usr/lib/libreoffice/program:' + env.get('LD_LIBRARY_PATH', '')
-    result = subprocess.run(
-        [soffice, "--headless", "--convert-to", "pdf", "--outdir", out_dir, src],
-        capture_output=True, text=True, env=env,
-    )
-    if result.returncode != 0:
-        raise RuntimeError(f"soffice failed (exit {result.returncode}):\nSTDERR: {result.stderr.strip()}\nSTDOUT: {result.stdout.strip()}")
+    user_install = tempfile.mkdtemp(prefix="soffice-user-")
+    try:
+        result = subprocess.run(
+            [
+                soffice, "--headless", "--norestore",
+                f"-env:UserInstallation=file://{user_install}",
+                "--convert-to", convert_to, "--outdir", out_dir, src,
+            ],
+            capture_output=True, text=True, env=env,
+        )
+        if result.returncode != 0:
+            raise RuntimeError(
+                f"soffice failed (exit {result.returncode}):\n"
+                f"STDERR: {result.stderr.strip()}\nSTDOUT: {result.stdout.strip()}"
+            )
+    finally:
+        shutil.rmtree(user_install, ignore_errors=True)
     stem = os.path.splitext(os.path.basename(src))[0]
-    return os.path.join(out_dir, stem + ".pdf")
+    ext = convert_to.split(":")[0]  # e.g. "pdf" or "xlsx" (strip filter hints if any)
+    return os.path.join(out_dir, f"{stem}.{ext}")
 
 # ── Per-type processors ───────────────────────────────────────────────────────
 
@@ -40,91 +60,116 @@ def process_word(src, stem, s_dir, soffice):
     out_dir = os.path.join(s_dir, stem)
     os.makedirs(out_dir, exist_ok=True)
 
-    if soffice:
-        created = soffice_convert(soffice, src, out_dir)
-        # soffice names output after the source stem; rename to match our convention
-        dst = os.path.join(out_dir, stem + ".pdf")
-        if created != dst:
-            os.replace(created, dst)
-        print(f"  Word → PDF (soffice): {dst}")
-        return
-
-    # ── Fallback: python-docx + reportlab (.docx only) ───────────────────────
     ext = os.path.splitext(src)[1].lower()
-    if ext == ".doc":
-        print("  WARNING: .doc requires LibreOffice for conversion — skipping.")
-        print("           macOS: brew install --cask libreoffice")
-        print("           Ubuntu: sudo apt-get install -y libreoffice")
-        return
-    try:
-        from docx import Document
-    except ImportError:
-        sys.exit("ERROR: python-docx not installed. Run: pip3 install python-docx")
-    try:
-        from reportlab.lib.pagesizes import letter
-        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-        from reportlab.lib.styles import getSampleStyleSheet
-    except ImportError:
-        sys.exit("ERROR: reportlab not installed. Run: pip3 install reportlab")
+    tmp_dir = None
 
-    dst = os.path.join(out_dir, stem + ".pdf")
-    doc = Document(src)
-    styles = getSampleStyleSheet()
-    story = []
-    for para in doc.paragraphs:
-        text = para.text.strip()
-        if text:
-            story.append(Paragraph(text, styles["Normal"]))
-            story.append(Spacer(1, 4))
-    SimpleDocTemplate(dst, pagesize=letter).build(story)
-    print(f"  Word → PDF (reportlab fallback): {dst}")
+    try:
+        # .doc → .docx first so the python-docx fallback is always reachable
+        if ext == ".doc":
+            if not soffice:
+                raise RuntimeError(".doc requires LibreOffice; install it and retry")
+            tmp_dir = tempfile.mkdtemp()
+            src = soffice_convert(soffice, src, tmp_dir, convert_to="docx")
+            print(f"  .doc → .docx (soffice): {src}")
+
+        if soffice:
+            try:
+                created = soffice_convert(soffice, src, out_dir)
+                dst = os.path.join(out_dir, stem + ".pdf")
+                if created != dst:
+                    os.replace(created, dst)
+                print(f"  Word → PDF (soffice): {dst}")
+                return
+            except RuntimeError as exc:
+                print(f"  WARNING: soffice failed — {exc}")
+                print(f"  Falling back to python-docx + reportlab")
+
+        # Fallback: python-docx + reportlab (.doc was already converted to .docx above)
+        try:
+            from docx import Document
+        except ImportError:
+            sys.exit("ERROR: python-docx not installed. Run: pip3 install python-docx")
+        try:
+            from reportlab.lib.pagesizes import letter
+            from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+            from reportlab.lib.styles import getSampleStyleSheet
+        except ImportError:
+            sys.exit("ERROR: reportlab not installed. Run: pip3 install reportlab")
+
+        dst = os.path.join(out_dir, stem + ".pdf")
+        doc = Document(src)
+        styles = getSampleStyleSheet()
+        story = []
+        for para in doc.paragraphs:
+            text = para.text.strip()
+            if text:
+                story.append(Paragraph(text, styles["Normal"]))
+                story.append(Spacer(1, 4))
+        SimpleDocTemplate(dst, pagesize=letter).build(story)
+        print(f"  Word → PDF (python-docx fallback): {dst}")
+    finally:
+        if tmp_dir:
+            shutil.rmtree(tmp_dir, ignore_errors=True)
 
 def process_powerpoint(src, stem, s_dir, soffice):
     out_dir = os.path.join(s_dir, stem)
     os.makedirs(out_dir, exist_ok=True)
 
-    if soffice:
-        created = soffice_convert(soffice, src, out_dir)
-        dst = os.path.join(out_dir, stem + ".pdf")
-        if created != dst:
-            os.replace(created, dst)
-        print(f"  PowerPoint → PDF (soffice): {dst}")
-        return
-
-    # Fallback: python-pptx + reportlab (.pptx only)
     ext = os.path.splitext(src)[1].lower()
-    if ext == ".ppt":
-        print("  WARNING: .ppt requires LibreOffice for conversion — skipping.")
-        print("           macOS: brew install --cask libreoffice")
-        print("           Ubuntu: sudo apt-get install -y libreoffice")
-        return
-    try:
-        from pptx import Presentation
-    except ImportError:
-        sys.exit("ERROR: python-pptx not installed. Run: pip3 install python-pptx")
-    try:
-        from reportlab.lib.pagesizes import letter
-        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-        from reportlab.lib.styles import getSampleStyleSheet
-    except ImportError:
-        sys.exit("ERROR: reportlab not installed. Run: pip3 install reportlab")
+    tmp_dir = None
 
-    dst = os.path.join(out_dir, stem + ".pdf")
-    prs = Presentation(src)
-    styles = getSampleStyleSheet()
-    story = []
-    for slide_num, slide in enumerate(prs.slides, start=1):
-        story.append(Paragraph(f"<b>Slide {slide_num}</b>", styles["Heading2"]))
-        for shape in slide.shapes:
-            if shape.has_text_frame:
-                for para in shape.text_frame.paragraphs:
-                    text = para.text.strip()
-                    if text:
-                        story.append(Paragraph(text, styles["Normal"]))
-                        story.append(Spacer(1, 4))
-        story.append(Spacer(1, 12))
-    SimpleDocTemplate(dst, pagesize=letter).build(story)
-    print(f"  PowerPoint → PDF (reportlab fallback): {dst}")
+    try:
+        # .ppt → .pptx first so the python-pptx fallback is always reachable
+        if ext == ".ppt":
+            if not soffice:
+                raise RuntimeError(".ppt requires LibreOffice; install it and retry")
+            tmp_dir = tempfile.mkdtemp()
+            src = soffice_convert(soffice, src, tmp_dir, convert_to="pptx")
+            print(f"  .ppt → .pptx (soffice): {src}")
+
+        if soffice:
+            try:
+                created = soffice_convert(soffice, src, out_dir)
+                dst = os.path.join(out_dir, stem + ".pdf")
+                if created != dst:
+                    os.replace(created, dst)
+                print(f"  PowerPoint → PDF (soffice): {dst}")
+                return
+            except RuntimeError as exc:
+                print(f"  WARNING: soffice failed — {exc}")
+                print(f"  Falling back to python-pptx + reportlab")
+
+        # Fallback: python-pptx + reportlab (.ppt was already converted to .pptx above)
+        try:
+            from pptx import Presentation
+        except ImportError:
+            sys.exit("ERROR: python-pptx not installed. Run: pip3 install python-pptx")
+        try:
+            from reportlab.lib.pagesizes import letter
+            from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+            from reportlab.lib.styles import getSampleStyleSheet
+        except ImportError:
+            sys.exit("ERROR: reportlab not installed. Run: pip3 install reportlab")
+
+        dst = os.path.join(out_dir, stem + ".pdf")
+        prs = Presentation(src)
+        styles = getSampleStyleSheet()
+        story = []
+        for slide_num, slide in enumerate(prs.slides, start=1):
+            story.append(Paragraph(f"<b>Slide {slide_num}</b>", styles["Heading2"]))
+            for shape in slide.shapes:
+                if shape.has_text_frame:
+                    for para in shape.text_frame.paragraphs:
+                        text = para.text.strip()
+                        if text:
+                            story.append(Paragraph(text, styles["Normal"]))
+                            story.append(Spacer(1, 4))
+            story.append(Spacer(1, 12))
+        SimpleDocTemplate(dst, pagesize=letter).build(story)
+        print(f"  PowerPoint → PDF (python-pptx fallback): {dst}")
+    finally:
+        if tmp_dir:
+            shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
 def _numeric_fraction(cells):
@@ -189,23 +234,23 @@ def process_excel(src, stem, s_dir, soffice, max_rows):
     if not max_rows:
         max_rows = float('inf')
 
+    # use_soffice tracks whether soffice is available AND has not crashed yet for this file.
+    use_soffice = bool(soffice)
+
     if ext == ".xls":
-        if soffice:
+        if use_soffice:
             tmp_xls_dir = tempfile.mkdtemp()
-            env = os.environ.copy()
-            env['LD_LIBRARY_PATH'] = '/usr/lib/libreoffice/program:' + env.get('LD_LIBRARY_PATH', '')
-            result = subprocess.run(
-                [soffice, "--headless", "--convert-to", "xlsx", "--outdir", tmp_xls_dir, src],
-                capture_output=True, text=True, env=env,
-            )
-            if result.returncode != 0:
+            try:
+                src = soffice_convert(soffice, src, tmp_xls_dir, convert_to="xlsx")
+                print(f"  .xls → .xlsx (soffice): {src}")
+            except RuntimeError as exc:
                 shutil.rmtree(tmp_xls_dir, ignore_errors=True)
-                raise RuntimeError(
-                    f"soffice .xls→.xlsx failed:\nSTDERR: {result.stderr.strip()}\nSTDOUT: {result.stdout.strip()}"
-                )
-            src = os.path.join(tmp_xls_dir, stem + ".xlsx")
-            print(f"  .xls → .xlsx (soffice): {src}")
-        else:
+                tmp_xls_dir = None
+                print(f"  WARNING: soffice failed for .xls→.xlsx — {exc}")
+                print(f"  Falling back to xlrd")
+                use_soffice = False
+
+        if not use_soffice:
             # fallback: xlrd reads .xls; write to temp .xlsx so openpyxl can load it below
             try:
                 import xlrd
@@ -263,7 +308,8 @@ def process_excel(src, stem, s_dir, soffice, max_rows):
         os.makedirs(out_dir, exist_ok=True)
         dst = os.path.join(out_dir, f"{stem}.pdf")
 
-        if soffice:
+        soffice_tab_ok = False
+        if use_soffice:
             from openpyxl.utils import get_column_letter
             tmp_dir = tempfile.mkdtemp()
             try:
@@ -297,11 +343,15 @@ def process_excel(src, stem, s_dir, soffice, max_rows):
                 tmp_wb.save(tmp_xlsx)
                 created = soffice_convert(soffice, tmp_xlsx, tmp_dir)
                 shutil.move(created, dst)
+                soffice_tab_ok = True
+                print(f"  Sheet '{sheet_name}' (tab {tab_num}, {len(rows)} rows) → {dst} (soffice)")
+            except RuntimeError as exc:
+                print(f"  WARNING: soffice failed for tab {tab_num} — {exc}")
+                print(f"  Falling back to reportlab")
             finally:
                 shutil.rmtree(tmp_dir, ignore_errors=True)
-            print(f"  Sheet '{sheet_name}' (tab {tab_num}, {len(rows)} rows) → {dst} (soffice)")
 
-        else:
+        if not use_soffice or not soffice_tab_ok:
             # ── Fallback: reportlab ───────────────────────────────────────────
             try:
                 from reportlab.lib import colors
@@ -390,6 +440,8 @@ def main():
         print(f"No s/ subdirectory found in {input_dir}, nothing to do.")
         sys.exit(0)
 
+    failure_log = os.path.join(s_dir, "CONVERSION_FAILURES.log")
+
     for fname in sorted(os.listdir(s_dir)):
         fpath = os.path.join(s_dir, fname)
         if not os.path.isfile(fpath) or fname in IGNORED_FILES or fname.startswith("~$"):
@@ -400,16 +452,24 @@ def main():
 
         print(f"\nProcessing: {fname}")
 
-        if ext == ".pdf":
-            process_pdf(fpath, stem, s_dir)
-        elif ext in (".docx", ".doc"):
-            process_word(fpath, stem, s_dir, soffice)
-        elif ext in (".xlsx", ".xls"):
-            process_excel(fpath, stem, s_dir, soffice, args.max_rows)
-        elif ext in (".pptx", ".ppt"):
-            process_powerpoint(fpath, stem, s_dir, soffice)
-        else:
-            print(f"  Unsupported type ({ext}), skipping.")
+        try:
+            if ext == ".pdf":
+                process_pdf(fpath, stem, s_dir)
+            elif ext in (".docx", ".doc"):
+                process_word(fpath, stem, s_dir, soffice)
+            elif ext in (".xlsx", ".xls"):
+                process_excel(fpath, stem, s_dir, soffice, args.max_rows)
+            elif ext in (".pptx", ".ppt"):
+                process_powerpoint(fpath, stem, s_dir, soffice)
+            else:
+                print(f"  Unsupported type ({ext}), skipping.")
+        except Exception as exc:
+            msg = f"{exc}"
+            print(f"  ERROR: could not convert {fname} (all methods failed) — {msg}")
+            ts = datetime.datetime.now().isoformat(timespec="seconds")
+            with open(failure_log, "a") as fh:
+                fh.write(f"{ts}  {fname}: {msg}\n")
+            print(f"  Recorded in {failure_log}")
 
 if __name__ == "__main__":
     main()
