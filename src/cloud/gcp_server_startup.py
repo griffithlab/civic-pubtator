@@ -213,6 +213,21 @@ def clone_repo():
     run(f'chmod -R 755 {REPO_DIR}/src')
 
 
+@step('install_civic_pubtator_bin')
+def install_civic_pubtator_bin():
+    """Make civic_pubtator.py executable and symlink it into /usr/local/bin/.
+
+    This lets any user run `civic-pubtator` from any directory without
+    specifying the full path.  The symlink is stable: __file__ inside the
+    script always resolves to the repo path, so all relative tool paths work
+    correctly regardless of where the command is invoked.
+    """
+    script = os.path.join(REPO_DIR, 'civic_pubtator.py')
+    run(f'chmod +x {script}')
+    run(f'ln -sf {script} /usr/local/bin/civic-pubtator')
+    log(f'  civic-pubtator → {script}')
+
+
 @step('compile_tmvar_crf')
 def compile_tmvar_crf():
     """Compile tmVar's bundled CRF++ from source (runs after sync_tool_data).
@@ -525,6 +540,7 @@ def main():
     accept_conda_tos()
     configure_git()
     clone_repo()
+    install_civic_pubtator_bin()
     install_grobid()
     install_grobid_service()
     sync_tool_data()

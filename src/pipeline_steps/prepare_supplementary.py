@@ -127,6 +127,62 @@ def process_powerpoint(src, stem, s_dir, soffice):
     print(f"  PowerPoint → PDF (reportlab fallback): {dst}")
 
 
+def _numeric_fraction(cells):
+    """Return fraction of non-empty cells that parse as a number."""
+    non_empty = [v for v in cells if v is not None and str(v).strip() != ""]
+    if not non_empty:
+        return 0.0
+    count = 0
+    for v in non_empty:
+        if isinstance(v, (int, float)) and not isinstance(v, bool):
+            count += 1
+        else:
+            try:
+                float(str(v).strip().rstrip("%"))
+                count += 1
+            except (ValueError, TypeError):
+                pass
+    return count / len(non_empty)
+
+
+def _filter_numeric_columns(rows, threshold=0.95):
+    """
+    Drop columns whose data rows (excluding the header) are >= threshold numeric.
+
+    Returns (filtered_rows, dropped) where dropped is a list of
+    (original_col_index, col_name, numeric_fraction) for each removed column.
+    """
+    if len(rows) < 2:
+        return rows, []
+
+    header = rows[0]
+    data_rows = rows[1:]
+    ncols = max(len(r) for r in rows)
+
+    keep, dropped = [], []
+    for col_idx in range(ncols):
+        cells = [r[col_idx] if col_idx < len(r) else None for r in data_rows]
+        frac = _numeric_fraction(cells)
+        if frac >= threshold:
+            col_name = (
+                header[col_idx]
+                if col_idx < len(header) and header[col_idx] is not None
+                else f"col_{col_idx + 1}"
+            )
+            dropped.append((col_idx, str(col_name), frac))
+        else:
+            keep.append(col_idx)
+
+    if not dropped:
+        return rows, []
+
+    filtered = [
+        tuple(r[i] if i < len(r) else None for i in keep)
+        for r in rows
+    ]
+    return filtered, dropped
+
+
 def process_excel(src, stem, s_dir, soffice, max_rows):
     ext = os.path.splitext(src)[1].lower()
     tmp_xls_dir = None
@@ -193,6 +249,14 @@ def process_excel(src, stem, s_dir, soffice, max_rows):
         if not rows:
             print(f"  Sheet '{sheet_name}' (tab {tab_num}): empty, skipping")
             continue
+
+        original_ncols = max(len(r) for r in rows)
+        rows, dropped_cols = _filter_numeric_columns(rows)
+        for col_idx, col_name, frac in dropped_cols:
+            print(f"  Dropping column '{col_name}' (col {col_idx + 1}): {frac:.0%} numeric")
+        if dropped_cols:
+            kept = original_ncols - len(dropped_cols)
+            print(f"  → {kept}/{original_ncols} columns kept after numeric filter")
 
         tab_label = f"tab_{tab_num:02d}"
         out_dir = os.path.join(s_dir, stem, tab_label)
