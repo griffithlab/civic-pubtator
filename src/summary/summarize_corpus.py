@@ -268,10 +268,10 @@ def lookup_civic_metadata(pubid, pmid_map, pmcid_map):
 
 def copy_html_report(input_dir, pubid, output_dir, tmp_dir):
     """
-    Copy report_<pubid>.html to output_dir.  Returns True on success.
+    Copy report_<pubid>.html to output_dir/pub-reports/.  Returns True on success.
     """
     filename = f"report_{pubid}.html"
-    dst = os.path.join(output_dir, filename)
+    dst = os.path.join(output_dir, "pub-reports", filename)
     if is_gcs(input_dir):
         src = get_local_file(input_dir, pubid, filename, tmp_dir)
         if src is None:
@@ -435,7 +435,7 @@ def render_html(rows, all_categories, input_dir, output_dir, generated_at):
         for i, (key, label, _) in enumerate(columns):
             if key == "pubid":
                 pid = _esc(row["pubid"])
-                cells.append(f'<td><a href="report_{pid}.html">{pid}</a></td>')
+                cells.append(f'<td><a href="pub-reports/report_{pid}.html">{pid}</a></td>')
 
             elif key == "date":
                 cells.append(f'<td>{_esc(row.get("date") or "N/A")}</td>')
@@ -518,6 +518,7 @@ def main():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     os.makedirs(args.output_dir, exist_ok=True)
+    os.makedirs(os.path.join(args.output_dir, "pub-reports"), exist_ok=True)
     tmp_dir = tempfile.mkdtemp(prefix="summarize_corpus_")
 
     try:
