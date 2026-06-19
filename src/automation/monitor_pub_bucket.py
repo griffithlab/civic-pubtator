@@ -177,18 +177,41 @@ def _fix_missing_01_source(bucket, pubids):
                 if name:
                     names.add(name)
 
+        stray_pdfs = [n for n in names if n.lower().endswith(".pdf")]
+        has_stray_s = "s" in names
+
         if "01_source" in names:
-            continue  # already has the expected structure
+            if stray_pdfs or has_stray_s:
+                stray = stray_pdfs + (["s/"] if has_stray_s else [])
+                reason = (
+                    f"half-baked bucket structure: 01_source/ exists alongside "
+                    f"top-level {', '.join(stray)} — manual fix required"
+                )
+                log.error("Remediation SKIPPED for %s: %s", pubid, reason)
+                record_failure(pubid, reason)
+            continue  # already structured (cleanly or not)
 
         moved_any = False
 
-        pdf_name = f"{pubid}.pdf"
-        if pdf_name in names:
-            _gcs_mv(f"{prefix}{pdf_name}", f"{prefix}01_source/{pdf_name}")
+        for name in stray_pdfs:
+            _gcs_mv(f"{prefix}{name}", f"{prefix}01_source/{name}")
             moved_any = True
 
-        if "s" in names:
-            _gcs_mv(f"{prefix}s/", f"{prefix}01_source/s/")
+        if has_stray_s:
+            # Enumerate and move each object individually.  A single
+            # `gcloud storage mv s/ 01_source/s/` nests s/ *inside* the
+            # destination (POSIX mv semantics) → 01_source/s/s/; moving
+            # object-by-object avoids that.
+            s_lines, s_err = _gcs_ls(f"gs://{bucket}/{pubid}/s/", recursive=True)
+            if s_err:
+                log.warning("Could not list s/ under %s: %s", pubid, s_err)
+            else:
+                s_prefix = f"gs://{bucket}/{pubid}/s/"
+                for obj in (l.strip() for l in (s_lines or [])):
+                    if not obj or obj.endswith("/") or obj.endswith("/:"):
+                        continue  # skip directory markers (/ and /: forms)
+                    rel = obj[len(s_prefix):]
+                    _gcs_mv(obj, f"{prefix}01_source/s/{rel}")
             moved_any = True
 
         if moved_any:
