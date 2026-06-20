@@ -218,7 +218,7 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
                 total_chars += chars
                 total_words += words
                 if file_elapsed:
-                    secs = file_elapsed.get(os.path.basename(rel))
+                    secs = file_elapsed.get((label, os.path.basename(rel)))
                     if secs is not None:
                         time_col = format_duration(secs)
                     elif timeout_fallback:
@@ -238,7 +238,7 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
             file_stem = os.path.splitext(os.path.basename(rel))[0]
             out_rel   = os.path.relpath(os.path.join(output_dir, rel), base_dir)
             if file_elapsed:
-                secs = file_elapsed.get(os.path.basename(rel))
+                secs = file_elapsed.get((label, os.path.basename(rel)))
                 if secs is not None:
                     row_dur = format_duration(secs)
                 elif timeout_fallback:
@@ -493,18 +493,22 @@ def _per_file_elapsed(entries, staging_out, t_start, output_suffix=""):
 
     output_suffix: suffix appended to staging_name to locate the output file
                    (e.g. ".BioC.XML" for tmVar3, "" for GNorm2).
-    Returns dict: original_fname + output_suffix → elapsed_seconds
+    Returns dict: (group_label, original_fname + output_suffix) → elapsed_seconds
+
+    Keys include the group label to avoid collisions when multiple groups contain
+    files with the same basename (e.g. multiple Excel tabs from the same source).
     """
     timed = []
-    for staging_name, fname, _group in entries:
+    for staging_name, fname, group in entries:
         out_path = os.path.join(staging_out, staging_name + output_suffix)
         if os.path.exists(out_path):
-            timed.append((fname + output_suffix, os.path.getmtime(out_path)))
+            key = (group['label'], fname + output_suffix)
+            timed.append((key, os.path.getmtime(out_path)))
     timed.sort(key=lambda x: x[1])
     result = {}
     prev = t_start
-    for result_fname, mtime in timed:
-        result[result_fname] = mtime - prev
+    for key, mtime in timed:
+        result[key] = mtime - prev
         prev = mtime
     return result
 
@@ -740,11 +744,21 @@ def run_taggerone_batched(groups, args, log_path, tsv_path, base_dir):
 
         file_elapsed = _per_file_elapsed(entries, staging_out, t0)
 
+        # Clear stale XML files from all group output dirs before distributing.
+        # This removes leftovers from prior failed runs for docs that were
+        # excluded from staging or whose TaggerOne invocation crashed.
+        for g in groups:
+            taggerone_out = g['taggerone_out']
+            if os.path.isdir(taggerone_out):
+                for f in os.listdir(taggerone_out):
+                    if f.endswith('.xml'):
+                        os.remove(os.path.join(taggerone_out, f))
+
         for staging_name, fname, group in entries:
             taggerone_out = group['taggerone_out']
             os.makedirs(taggerone_out, exist_ok=True)
             out_src = os.path.join(staging_out, staging_name)
-            if os.path.exists(out_src):
+            if os.path.exists(out_src) and os.path.getsize(out_src) > 0:
                 shutil.copy2(out_src, os.path.join(taggerone_out, fname))
 
         timeout_fallback = args.timeout_per_doc if args.timeout_per_doc else None
