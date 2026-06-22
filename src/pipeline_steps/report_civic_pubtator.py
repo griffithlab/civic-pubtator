@@ -9,10 +9,12 @@ import sys
 import xml.etree.ElementTree as ET
 
 ENTITY_STYLE = {
-    'ProteinMutation': {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'Protein Mutation'},
-    'ProteinAllele':   {'bg': '#fef9c3', 'border': '#ca8a04', 'label': 'AA Position'},
-    'DNAMutation':     {'bg': '#fecaca', 'border': '#dc2626', 'label': 'DNA Mutation'},
-    'SNP':             {'bg': '#e9d5ff', 'border': '#9333ea', 'label': 'SNP'},
+    'ProteinMutation':  {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'Protein Mutation'},
+    'ProteinAllele':    {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'AA Position'},
+    'ProteinAcidChange':{'bg': '#fed7aa', 'border': '#ea580c', 'label': 'ProteinAcidChange'},
+    'DNAMutation':      {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'DNA Mutation'},
+    'DNAAcidChange':    {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'DNAAcidChange'},
+    'SNP':              {'bg': '#fed7aa', 'border': '#ea580c', 'label': 'SNP'},
     'Gene':            {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene'},
     'FamilyName':      {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene Family'},
     'GENERIF':         {'bg': '#bfdbfe', 'border': '#2563eb', 'label': 'Gene (RIF)'},
@@ -702,9 +704,10 @@ def build_variant_summary(doc_data, gene_map=None, show_docs=True):
     rows = []
     for (mention, etype, hgvs, gene), info in sorted(summary.items(), key=lambda x: -x[1]['count']):
         style = ENTITY_STYLE.get(etype, VARIANT_DEFAULT_STYLE)
+        chip_label = style["label"] if etype in ENTITY_STYLE else etype
         chip = (f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
                 f'border-radius:4px;padding:1px 6px;font-size:0.85em">'
-                f'{html.escape(style["label"])}</span>')
+                f'{html.escape(chip_label)}</span>')
         if gene and gene in gene_map:
             gene_cell = (f'<span title="Gene ID: {html.escape(gene)}">'
                          f'{html.escape(gene_map[gene])}</span>')
@@ -1023,12 +1026,14 @@ def highlight_text(full_text, annotations):
     return ''.join(parts)
 
 
-def _doc_table_block(tbl_id, types_present, default_style, onchange_js, rows_html, headers_html):
+def _doc_table_block(tbl_id, types_present, default_style, onchange_js, rows_html, headers_html,
+                     type_order=None):
     filter_name = f'{tbl_id}-flt'
     sel_id = f'{tbl_id}-lim'
     disp_id = f'{tbl_id}-cnt'
     onchange_js = f"applyTableFilters('{tbl_id}','{filter_name}','{sel_id}','{disp_id}')"
-    filter_bar = build_filter_bar(types_present, default_style, filter_name, onchange_js, sel_id, disp_id)
+    filter_bar = build_filter_bar(types_present, default_style, filter_name, onchange_js, sel_id, disp_id,
+                                  type_order=type_order)
     return (
         f'{filter_bar}'
         f'<div style="overflow-x:auto;margin-bottom:1.5rem">'
@@ -1211,8 +1216,8 @@ def build_annotation_legend(annotations):
     types_present = {ann['type'] for ann in annotations}
     if not types_present:
         return ''
-    ordered = [
-        'ProteinMutation', 'ProteinAllele', 'DNAMutation', 'SNP', 'Mutation',
+    ordered = VARIANT_TYPE_ORDER + [
+        'SNP', 'Mutation',
         'Gene', 'FamilyName', 'GENERIF', 'Domain',
         'Species', 'Genus', 'Strain', 'CellLine',
         'Chemical', 'Disease',
@@ -1221,11 +1226,12 @@ def build_annotation_legend(annotations):
     for etype in ordered:
         if etype not in types_present:
             continue
-        style = ENTITY_STYLE[etype]
+        style = ENTITY_STYLE.get(etype, VARIANT_DEFAULT_STYLE)
+        chip_label = style["label"] if etype in ENTITY_STYLE else etype
         chips.append(
             f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
             f'border-radius:4px;padding:3px 10px;font-size:0.82em;white-space:nowrap">'
-            f'{html.escape(style["label"])}</span>'
+            f'{html.escape(chip_label)}</span>'
         )
     for etype in sorted(types_present - set(ordered)):
         style = VARIANT_DEFAULT_STYLE
@@ -1264,7 +1270,8 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None, civic_gene_map
     var_block = _doc_table_block(
         f'var-tbl-{doc_id}', variant_types, VARIANT_DEFAULT_STYLE, None,
         build_variant_summary(single, gene_map, show_docs=False),
-        '<th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th>')
+        '<th>Mention</th><th>Type</th><th>Gene</th><th>HGVS</th><th>Count</th>',
+        type_order=VARIANT_TYPE_ORDER)
 
     gene_block = _doc_table_block(
         f'gene-tbl-{doc_id}', set(), DEFAULT_STYLE, None,
@@ -1293,10 +1300,14 @@ def build_doc_section(doc, doc_id, gene_map=None, taxon_map=None, civic_gene_map
     aioner_rows = build_aioner_rows([doc], show_docs=False, civic_gene_map=civic_gene_map, civic_therapy_map=civic_therapy_map)
     if aioner_rows:
         aioner_types = sorted({a['type'] for a in doc.get('aioner_annotations', [])})
+        _af_tbl  = f'aioner-tbl-{doc_id}'
+        _af_name = f'aioner-type-{doc_id}'
+        _af_lim  = f'aioner-limit-{doc_id}'
+        _af_cnt  = f'aioner-count-{doc_id}'
         aioner_filter = build_filter_bar(
             set(aioner_types), DEFAULT_STYLE,
-            f'aioner-type-{doc_id}', f'applyAIONERFilters_{doc_id}()',
-            f'aioner-limit-{doc_id}', f'aioner-count-{doc_id}',
+            _af_name, f"applyTableFilters('{_af_tbl}','{_af_name}','{_af_lim}','{_af_cnt}')",
+            _af_lim, _af_cnt,
             type_order=AIONER_TYPE_ORDER)
         aioner_card = f'''
   <div class="card">
@@ -1524,6 +1535,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 AIONER_TYPE_ORDER = ['Mutation', 'Gene', 'FamilyName', 'Chemical', 'Disease', 'Species', 'CellLine']
+VARIANT_TYPE_ORDER = [
+    'ProteinMutation', 'ProteinAllele', 'DNAAcidChange', 'DNAMutation',
+    'ProteinAcidChange', 'RefSeq', 'Chromosome', 'GenomicRegion',
+]
 
 
 def build_filter_bar(types_present, default_style, filter_name, onchange_js, limit_id, display_id,
@@ -1544,10 +1559,11 @@ def build_filter_bar(types_present, default_style, filter_name, onchange_js, lim
             style = ENTITY_STYLE.get(etype, default_style)
             chip_style = (f'background:{style["bg"]};border:1px solid {style["border"]};'
                           f'border-radius:4px;padding:1px 6px;font-size:0.85em')
+            chip_label = style["label"] if etype in ENTITY_STYLE else etype
             buttons.append(
                 f'<label><input type="radio" name="{filter_name}" value="{html.escape(etype)}" '
                 f'onchange="{onchange_js}"> '
-                f'<span style="{chip_style}">{html.escape(style["label"])}</span></label>'
+                f'<span style="{chip_style}">{html.escape(chip_label)}</span></label>'
             )
     options_html = ''.join(f'<option value="{v}">{l}</option>' for v, l in limit_options)
     limit_select = (
@@ -1648,7 +1664,8 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 
     variant_filter_bar = build_filter_bar(
         variant_types, VARIANT_DEFAULT_STYLE,
-        'vfilter', 'applyVariantFilters()', 'variant-limit-select', 'variant-count-display')
+        'vfilter', 'applyVariantFilters()', 'variant-limit-select', 'variant-count-display',
+        type_order=VARIANT_TYPE_ORDER)
     variant_rows = build_variant_summary(doc_data, gene_map)
     var_block = (
         f'{variant_filter_bar}'
