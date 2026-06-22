@@ -1780,15 +1780,15 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 <div id="main-content">
   <div id="main-view">
     {paper_title_html}
+    {doc_index}
+    {annotation_section}
+    {aioner_section}
+    {"" if not source_files_html else f'<div class="card"><h2>Source Files</h2>{source_files_html}</div>'}
+    {stats_table_html}
     <div class="card">
       <h2>Run Information</h2>
       {run_info_html}
     </div>
-    {"" if not source_files_html else f'<div class="card"><h2>Source Files</h2>{source_files_html}</div>'}
-    {stats_table_html}
-    {doc_index}
-    {annotation_section}
-    {aioner_section}
   </div>
   {doc_sections}
 </div>
