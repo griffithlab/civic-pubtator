@@ -619,29 +619,48 @@ def load_civic_gene_map():
 
 
 def load_civic_source_map():
-    """Return ({pmid: civic_sid}, {pmcid: civic_sid}) for all PUBMED sources in CIViC."""
+    """Return ({pmid: entry}, {pmcid: entry}) for all PUBMED sources in CIViC.
+
+    Each entry is a dict with keys: sid, title, journal, date.
+    """
     try:
         from civicpy import civic
         sources = civic.get_all_sources()
         pubmed = [s for s in sources if s.source_type == 'PUBMED']
-        pmid_map  = {s.citation_id: s.id for s in pubmed if s.citation_id}
-        pmcid_map = {s.pmc_id: s.id      for s in pubmed if s.pmc_id}
+        pmid_map, pmcid_map = {}, {}
+        for s in pubmed:
+            entry = {
+                'sid':     s.id,
+                'title':   s.title or None,
+                'journal': getattr(s, 'journal', None) or None,
+                'date':    s.publication_date or None,
+            }
+            if s.citation_id:
+                pmid_map[s.citation_id] = entry
+            if s.pmc_id:
+                pmcid_map[s.pmc_id] = entry
         return pmid_map, pmcid_map
     except Exception as e:
         print(f'warning: could not load CIViC source map: {e}', file=sys.stderr)
         return {}, {}
 
 
+def _civic_source_entry(run_title, pmid_map, pmcid_map):
+    """Return the CIViC source entry dict for run_title (PMID or PMC ID), or None."""
+    if re.match(r'^PMC\d+$', run_title):
+        return (pmcid_map or {}).get(run_title)
+    if re.match(r'^\d+$', run_title):
+        return (pmid_map or {}).get(run_title)
+    return None
+
+
 def civic_source_html(run_title, pmid_map, pmcid_map):
     """Return a CIViC source link or 'not found' notice for run_title (PMID or PMC ID)."""
-    sid = None
-    if re.match(r'^PMC\d+$', run_title):
-        sid = pmcid_map.get(run_title)
-    elif re.match(r'^\d+$', run_title):
-        sid = pmid_map.get(run_title)
-    else:
+    entry = _civic_source_entry(run_title, pmid_map, pmcid_map)
+    if entry is None and not re.match(r'^(?:PMC\d+|\d+)$', run_title):
         return ''
-    if sid is not None:
+    if entry is not None:
+        sid = entry['sid']
         url = f'https://identifiers.org/civic.sid:{sid}'
         return (f'<a href="{html.escape(url)}" target="_blank" rel="noopener" '
                 f'style="color:#93c5fd;text-decoration:none">'
@@ -1622,11 +1641,22 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
                   civic_therapy_map=None, total_runtime=''):
     run_title = os.path.basename(os.path.abspath(run_dir))
 
-    paper_title = get_paper_title(doc_data)
+    civic_entry = _civic_source_entry(run_title, civic_pmid_map, civic_pmcid_map)
+    paper_title = (
+        (civic_entry and civic_entry.get('title'))
+        or get_paper_title(doc_data)
+    )
+    if civic_entry:
+        subtitle_parts = [p for p in [civic_entry.get('journal'), civic_entry.get('date')] if p]
+        subtitle = f' ({", ".join(subtitle_parts)})' if subtitle_parts else ''
+    else:
+        subtitle = ''
     paper_title_html = (
         f'<div style="font-size:1.35rem;font-weight:700;color:#1e293b;line-height:1.4;'
         f'margin-bottom:1.5rem;padding:1rem 1.25rem;background:#fff;border:1px solid #e2e8f0;'
-        f'border-radius:10px">{html.escape(paper_title)}</div>'
+        f'border-radius:10px">{html.escape(paper_title)}'
+        f'<span style="font-weight:normal;color:#64748b;font-size:1.1rem">{html.escape(subtitle)}</span>'
+        f'</div>'
         if paper_title else ''
     )
 
