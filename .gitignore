@@ -261,10 +261,17 @@ examples/PMC4150988/01_source/s/41388_2014_BFonc2013581_MOESM15_ESM/
 examples/PMC4150988/01_source/s/41388_2014_BFonc2013581_MOESM16_ESM/
 examples/PMC4150988/01_source/s/41388_2014_BFonc2013581_MOESM17_ESM/
 examples/PMC4150988/01_source/s/41388_2014_BFonc2013581_MOESM18_ESM/
-examples/PMC4150988/.tmvar3_staging_in/
-examples/PMC4150988/.tmvar3_staging_out/
+examples/PMC4150988/.aioner_staging_in/
+examples/PMC4150988/.aioner_staging_out/
+examples/PMC4150988/.gnorm2_staging_in/
+examples/PMC4150988/.gnorm2_staging_out/
 examples/PMC4150988/.nlmchem_abbr_staging/
 examples/PMC4150988/.nlmchem_staging_in/
+examples/PMC4150988/.nlmchem_staging_out/
+examples/PMC4150988/.taggerone_staging_in/
+examples/PMC4150988/.taggerone_staging_out/
+examples/PMC4150988/.tmvar3_staging_in/
+examples/PMC4150988/.tmvar3_staging_out/
 
 examples/PMC3210554/01_source/s/NIHMS313098-supplement-1/
 examples/PMC3210554/01_source/s/NIHMS313098-supplement-10/
