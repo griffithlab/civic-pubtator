@@ -266,6 +266,26 @@ examples/PMC4150988/.tmvar3_staging_out/
 examples/PMC4150988/.nlmchem_abbr_staging/
 examples/PMC4150988/.nlmchem_staging_in/
 
+examples/PMC3210554/01_source/s/NIHMS313098-supplement-1/
+examples/PMC3210554/01_source/s/NIHMS313098-supplement-10/
+examples/PMC3210554/01_source/s/NIHMS313098-supplement-2/
+examples/PMC3210554/01_source/s/NIHMS313098-supplement-3/
+examples/PMC3210554/01_source/s/NIHMS313098-supplement-4/
+examples/PMC3210554/01_source/s/NIHMS313098-supplement-7/
+examples/PMC3210554/01_source/s/NIHMS313098-supplement-9/
+examples/PMC3210554/04_tmvar3/s/NIHMS313098-supplement-2/
+examples/PMC3210554/.aioner_staging_in/
+examples/PMC3210554/.aioner_staging_out/
+examples/PMC3210554/.gnorm2_staging_in/
+examples/PMC3210554/.gnorm2_staging_out/
+examples/PMC3210554/.nlmchem_abbr_staging/
+examples/PMC3210554/.nlmchem_staging_in/
+examples/PMC3210554/.nlmchem_staging_out/
+examples/PMC3210554/.taggerone_staging_in/
+examples/PMC3210554/.taggerone_staging_out/
+examples/PMC3210554/.tmvar3_staging_in/
+examples/PMC3210554/.tmvar3_staging_out/
+
 #Other data
 gene_info.gz
 
