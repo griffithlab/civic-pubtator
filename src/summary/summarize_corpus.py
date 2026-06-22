@@ -28,6 +28,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from collections import defaultdict
 
@@ -103,6 +104,44 @@ def gcs_cp(src, dst):
         return True
     except subprocess.CalledProcessError as exc:
         log.warning("gcloud storage cp failed (%s → %s): %s", src, dst, exc.stderr.strip())
+        return False
+
+
+# ── Report regeneration ───────────────────────────────────────────────────────
+
+def check_report_inputs(pub_dir):
+    """
+    Return True if report_civic_pubtator.py has the minimum required inputs.
+    Requires at least one of 03_gnorm2/ or 04_tmvar3/ as a non-empty directory.
+    """
+    for step_dir in ('03_gnorm2', '04_tmvar3'):
+        d = os.path.join(pub_dir, step_dir)
+        if os.path.isdir(d):
+            try:
+                next(iter(os.scandir(d)))
+                return True
+            except StopIteration:
+                pass
+    return False
+
+
+def regenerate_report(pub_dir, report_script):
+    """Run report_civic_pubtator.py for pub_dir. Returns True on success."""
+    try:
+        result = subprocess.run(
+            [sys.executable, report_script, pub_dir],
+            capture_output=True, text=True,
+        )
+        if result.returncode != 0:
+            log.warning(
+                "Report regeneration failed for %s:\n%s",
+                os.path.basename(pub_dir), result.stderr.strip(),
+            )
+            return False
+        log.info("Regenerated report for %s", os.path.basename(pub_dir))
+        return True
+    except Exception as exc:
+        log.warning("Could not regenerate report for %s: %s", os.path.basename(pub_dir), exc)
         return False
 
 
@@ -513,6 +552,15 @@ def main():
         "--no-civic", action="store_true",
         help="Skip CIViC metadata lookups; title and date will appear as N/A",
     )
+    parser.add_argument(
+        "--regen-reports", action="store_true",
+        help=(
+            "Regenerate per-publication HTML/TSV reports using report_civic_pubtator.py "
+            "before building the corpus summary. Each publication is checked for the "
+            "required input directories (03_gnorm2/ or 04_tmvar3/) and skipped if absent. "
+            "Not supported for GCS --input-dir."
+        ),
+    )
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -525,6 +573,26 @@ def main():
         pubids = discover_publications(args.input_dir)
         log.info("Found %d publication directories.", len(pubids))
 
+        # Resolve reporter script path once (src/pipeline_steps/ relative to this file)
+        report_script = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', 'pipeline_steps', 'report_civic_pubtator.py',
+        )
+
+        if args.regen_reports:
+            if is_gcs(args.input_dir):
+                log.warning(
+                    "--regen-reports is not supported for GCS inputs; "
+                    "report regeneration will be skipped."
+                )
+                args.regen_reports = False
+            elif not os.path.isfile(report_script):
+                log.warning(
+                    "report_civic_pubtator.py not found at %s; "
+                    "--regen-reports will be skipped.", report_script,
+                )
+                args.regen_reports = False
+
         # Load CIViC metadata once for all publications
         pmid_map, pmcid_map = ({}, {})
         if not args.no_civic:
@@ -536,6 +604,16 @@ def main():
 
         for pubid in pubids:
             log.info("Processing %s", pubid)
+
+            if args.regen_reports:
+                pub_dir = os.path.join(args.input_dir, pubid)
+                if check_report_inputs(pub_dir):
+                    regenerate_report(pub_dir, report_script)
+                else:
+                    log.warning(
+                        "Skipping report regeneration for %s — "
+                        "neither 03_gnorm2/ nor 04_tmvar3/ found or non-empty.", pubid,
+                    )
 
             report_path = get_local_file(
                 args.input_dir, pubid, f"report_{pubid}.tsv", tmp_dir
