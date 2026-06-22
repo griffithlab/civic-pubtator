@@ -1776,7 +1776,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 <style>{CSS}</style>
 </head>
 <body>
-<div id="topbar">civic-pubtator report &mdash; <a href="https://pubmed.ncbi.nlm.nih.gov/{html.escape(run_title)}/" target="_blank" style="color:#93c5fd;text-decoration:none">PMID: {html.escape(run_title)}</a>{civic_src_sep}{civic_src_html}</div>
+<div id="topbar"><a href="../corpus_summary.html" style="color:#93c5fd;text-decoration:none;margin-right:1.25rem">&#8592; Corpus Summary</a>civic-pubtator report &mdash; <a href="https://pubmed.ncbi.nlm.nih.gov/{html.escape(run_title)}/" target="_blank" style="color:#93c5fd;text-decoration:none">PMID: {html.escape(run_title)}</a>{civic_src_sep}{civic_src_html}</div>
 <div id="main-content">
   <div id="main-view">
     {paper_title_html}
