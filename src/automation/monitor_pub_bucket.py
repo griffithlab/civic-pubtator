@@ -333,9 +333,16 @@ def upload(bucket, pubid):
 
 # ── Main polling loop ─────────────────────────────────────────────────────────
 
-def run_cycle(bucket):
-    """Run one polling cycle: remediate bucket, then process all pending publications."""
-    log.info("=== Cycle start — bucket: gs://%s/ ===", bucket)
+def run_cycle(bucket, rerun=False, rerun_pubids=None):
+    """Run one polling cycle: remediate bucket, then process all pending publications.
+
+    If rerun=True, target already-processed publications instead of unprocessed
+    ones.  rerun_pubids restricts the rerun to a specific list; when omitted all
+    processed publications in the bucket are rerun.  Failures are skipped in
+    both modes.
+    """
+    label = " (rerun)" if rerun else ""
+    log.info("=== Cycle start%s — bucket: gs://%s/ ===", label, bucket)
 
     pubids = list_pubids(bucket)
     log.info("Found %d publication(s) in bucket.", len(pubids))
@@ -344,19 +351,31 @@ def run_cycle(bucket):
 
     failures = load_failures()
 
-    pending = []
-    for pubid in pubids:
-        if pubid in failures:
-            log.warning(
-                "Skipping %s — previously failed on %s: %s",
-                pubid, failures[pubid]["timestamp"], failures[pubid]["reason"],
-            )
-        elif not is_processed(bucket, pubid):
-            pending.append(pubid)
+    if rerun:
+        bucket_set = set(pubids)
+        candidates = rerun_pubids if rerun_pubids else pubids
+        if rerun_pubids:
+            for p in rerun_pubids:
+                if p not in bucket_set:
+                    log.warning("--pubids: %s not found in bucket — skipping", p)
+        targets = [
+            p for p in candidates
+            if p in bucket_set and p not in failures and is_processed(bucket, p)
+        ]
+        log.info("%d publication(s) queued for rerun.", len(targets))
+    else:
+        targets = []
+        for pubid in pubids:
+            if pubid in failures:
+                log.warning(
+                    "Skipping %s — previously failed on %s: %s",
+                    pubid, failures[pubid]["timestamp"], failures[pubid]["reason"],
+                )
+            elif not is_processed(bucket, pubid):
+                targets.append(pubid)
+        log.info("%d publication(s) pending processing.", len(targets))
 
-    log.info("%d publication(s) pending processing.", len(pending))
-
-    for pubid in pending:
+    for pubid in targets:
         log.info("--- Processing %s ---", pubid)
 
         if not localize(bucket, pubid):
@@ -393,22 +412,38 @@ def main():
         help="GCS bucket name to monitor (default: civic-pubtator-pub-data)",
     )
     parser.add_argument(
-        "--sleep", type=int, default=300,
-        help="Seconds to sleep between polling cycles (default: 300)",
+        "--sleep", type=int, default=600,
+        help="Seconds to sleep between polling cycles (default: 600)",
+    )
+    parser.add_argument(
+        "--rerun", action="store_true",
+        help="Rerun the pipeline on already-processed publications, then exit.",
+    )
+    parser.add_argument(
+        "--pubids", nargs="+", metavar="PUBID",
+        help="With --rerun: specific publication IDs to rerun (default: all processed).",
     )
     args = parser.parse_args()
 
-    log.info(
-        "Starting monitor — bucket: gs://%s/, poll interval: %ds",
-        args.bucket, args.sleep,
-    )
-    try:
-        while True:
-            run_cycle(args.bucket)
-            log.info("Sleeping %ds until next cycle.", args.sleep)
-            time.sleep(args.sleep)
-    except KeyboardInterrupt:
-        log.info("Interrupted by user. Exiting.")
+    if args.pubids and not args.rerun:
+        parser.error("--pubids requires --rerun")
+
+    if args.rerun:
+        log.info("Rerun mode — bucket: gs://%s/", args.bucket)
+        run_cycle(args.bucket, rerun=True, rerun_pubids=args.pubids)
+        log.info("Rerun complete. Exiting.")
+    else:
+        log.info(
+            "Starting monitor — bucket: gs://%s/, poll interval: %ds",
+            args.bucket, args.sleep,
+        )
+        try:
+            while True:
+                run_cycle(args.bucket)
+                log.info("Sleeping %ds until next cycle.", args.sleep)
+                time.sleep(args.sleep)
+        except KeyboardInterrupt:
+            log.info("Interrupted by user. Exiting.")
 
 
 if __name__ == "__main__":
