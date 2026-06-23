@@ -13,676 +13,981 @@
     <passage>
       <infon key="type">body</infon>
       <offset>34</offset>
-      <text>Sheet1 Tab 1 Gene Case Reference allele (total reads) Mutant allele (total reads) Reference/Mutant ratio Mutations P (raw) P (Bonferroni) ABCA7 HS2058 78 34 2.29411764705882 S268L 3.91054165018935E-05 0.00664792080532189 ALG10 HS2605 70 24 2.91666666666667 V446I 2.20275983155025E-06 0.000374469171363542 ALG10 HS2252 42 12 3.5 L299F 5.20944720079354E-05 0.00885606024134902 B2M HS1133 2403 575 4.17913043478261 L12Q 6.41715026611942E-264 1.0909155452403E-261 B2M HS2250 2748 510 5.38823529411765 M1R 0 0 B2M HS0639 1699 300 5.66333333333333 M1L 1.29925744982617E-236 2.20873766470449E-234 B2M HS0653 1609 273 5.89377289377289 Y86N 4.70939935536771E-230 8.00597890412511E-228 BBX HS2051 126 34 3.70588235294118 A485V 1.25209932984875E-13 2.12856886074288E-11 BCAS3 HS1204 47 12 3.91666666666667 I601F;I616F;I631F;I633F 5.12562924968871E-06 0.000871356972447081 BCL10 HS1984 322 202 1.59405940594059 L225F,S136* 1.78472966842803E-07 3.03404043632765E-05 BCL10 HS0936 274 86 3.18604651162791 L225*,S227L,T229S 5.52880445409921E-24 9.39896757196866E-22 BCL2 HS1163 0 197 0 A131V,F49L,T187I 9.95682444457784E-60 1.69266015557823E-57 BCL2 HS2249 18 1187 0.0151642796967144 I48V,P71S,R6I 0 0 BCL2 HS1181 3 133 0.0225563909774436 A131V,E135D 9.62796454058177E-36 1.6367539718989E-33 BCL2 HS0749 2 75 0.0266666666666667 V156A,Y28F 3.97576089617489E-20 6.75879352349731E-18 BCL2 HS2250 119 3506 0.0339418140330861 L86F,M16K,N172S,P59A,Q52R,T7K 0 0 BCL2 HS1185 11 266 0.0413533834586466 A60T 1.29627417135386E-64 2.20366609130156E-62 BCL2 HS0841 1 21 0.0476190476190476 G47D,P59L 1.09672546386719E-05 0.00186443328857422 BCL2 HS1138 2 38 0.0526315789473684 G5V 1.49339030031115E-09 2.53876351052895E-07 BCL2 HS0656 7 85 0.0823529411764706 D34G,S51Y,T132S 3.8474091166398E-18 6.54059549828766E-16 BCL2 HS1462 6 71 0.0845070422535211 P59L 3.41832089029029E-15 5.81114551349349E-13 BCL2 HS2054 38 403 0.0942928039702233 F104L,S167A 4.43507845579606E-78 7.5396333748533E-76 BCL2 HS1555 10 96 0.104166666666667 H20Q,S50P 8.74283079957101E-19 1.48628123592707E-16 BCL2 HS0930 13 112 0.116071428571429 A60V,P59S 8.12434651977216E-21 1.38113890836127E-18 BCL2 HS0637 19 150 0.126666666666667 K17N 1.87581608909793E-26 3.18888735146648E-24 BCL2 HS1456 18 140 0.128571428571429 N11Y 1.34749543668524E-24 2.29074224236491E-22 BCL2 HS1131 9 58 0.155172413793103 H20Q,M16R 6.81149789024705E-10 1.157954641342E-07 BCL2 HS1199 91 585 0.155555555555556 A60V,F104L,M16V,P59S,S117R,Y21H 3.27534716722972E-89 5.56809018429053E-87 BCL2 HS0933 12 74 0.162162162162162 A60D,P57A 4.68976049191475E-12 7.97259283625507E-10 BCL2 HS1558 12 71 0.169014084507042 A76T,S87N,V35M,Y108S 2.39464490569878E-11 4.07089633968793E-09 BCL2 HS2251 23 110 0.209090909090909 N143S 8.36323006466747E-15 1.42174911099347E-12 BCL2 HS2055 61 289 0.211072664359862 F49S,P46A,T7R 1.29100594864583E-36 2.19471011269791E-34 BCL2 HS1203 28 129 0.217054263565891 A45S,H20Q,P57S,T69A 1.07570474330287E-16 1.82869806361488E-14 BCL2 HS0640 66 202 0.326732673267327 A131G,A2T,H3D 3.2734511206848E-17 5.56486690516416E-15 BCL2 HS1186 70 214 0.327102803738318 F49L,P53S,R129H 3.92633394622386E-18 6.67476770858056E-16 BCL2 HS1454 20 61 0.327868852459016 A80V,T74I 5.65621489496594E-06 0.00096155653214421 BCL2 HS1204 132 368 0.358695652173913 D31N,P59S,V66I,Y9F 8.33850062416508E-27 1.41754510610806E-24 BCL2 HS0644 434 944 0.459745762711864 R146K,S51P,V159A,Y21C 8.97828764127193E-44 1.52630889901623E-41 BCL2 HS0939 2071 1176 1.76105442176871 A60V,G27D,N11K 3.6144790283208E-56 6.14461434814536E-54 BCL2 HS1164 114 49 2.3265306122449 E165K 3.80530854155619E-07 6.46902452064552E-05 BCL2 HS1979 84 22 3.81818181818182 T125S 1.01682893475418E-09 1.72860918908211E-07 BCL6 HS2252 25 2041 0.0122488975992161 A587T 0 0 BLR1 HS0804 303 185 1.63783783783784 Q350*,Y222S 1.03011122334715E-07 1.75118907969015E-05 BTG1 HS1557 26 85 0.305882352941176 R27H 1.69863046199875E-08 2.88767178539788E-06 BTG1 HS1974 1007 697 1.44476327116212 Q36H 6.09899701542044E-14 1.03682949262148E-11 BTG1 HS2054 1356 764 1.77486910994764 E46D 3.43888577798751E-38 5.84610582257877E-36 BTG1 HS1137 229 121 1.89256198347107 Q38E 8.2092471364679E-09 1.39557201319954E-06 BTG1 HS3105 1010 476 2.1218487394958 L94V 2.02361548705986E-44 3.44014632800176E-42 BTG1 HS1458 248 74 3.35135135135135 Q36H 4.2277638526788E-23 7.18719854955396E-21 CARD11 HS1458 39 797 0.0489335006273526 F123I;F130I;F147I 8.4557435944706E-185 1.43747641106E-182 CARD11 HS2252 314 939 0.334398296059638 F123C;F130C;F147C 1.16223312564878E-72 1.97579631360293E-70 CARD11 HS0934 298 519 0.574181117533719 Q364R;Q371R;Q388R 9.64967483414836E-15 1.64044472180522E-12 CARD11 HS2251 270 106 2.54716981132075 D394N;D401N;D418N 1.27865109226448E-17 2.17370685684962E-15 CARD11 HS2050 37 9 4.11111111111111 G116D;G123D;G140D 4.05603613273799E-05 0.00689526142565458 CARD11 HS1360 83 14 5.92857142857143 N230K;N237K;N254K 4.2224144708722E-13 7.17810460048274E-11 CCND3 HS1556 177 104 1.70192307692308 I240R;I286R;I290R 1.57499084926466E-05 0.00267748444374992 CCND3 HS2251 287 53 5.41509433962264 V237D;V283D;V287D 5.21970183202386E-40 8.87349311444056E-38 CD70 HS0640 8 214 0.0373831775700935 L60R 3.96877251714952E-53 6.74691327915418E-51 CD79B HS0940 4 2406 0.00166251039068994 Y92S;Y196S;Y197S 0 0 CD79B HS0927 3 1436 0.0020891364902507 Y92F;Y196F;Y197F 0 0 CD79B HS1352 984 2118 0.464589235127479 Y92H;Y196H;Y197H 4.15294697799999E-94 7.06000986259998E-92 Sheet1 Tab 1 CIITA HS0640 208 128 1.625 D748V;D777V 1.49805274850853E-05 0.0025466896724645 CNOT1 HS3105 600 310 1.93548387096774 D110Y;D2100Y;D2105Y 4.33213331151344E-22 7.36462662957285E-20 CNOT1 HS0939 445 220 2.02272727272727 D1972G;D1977G 1.77234378276151E-18 3.01298443069457E-16 CREBBP HS0641 58 169 0.343195266272189 L88Q;L1499Q;L1529Q 9.00878639313345E-14 1.53149368683269E-11 CREBBP HS2606 476 186 2.55913978494624 R35C;R1446C;R1476C 3.21910771717809E-30 5.47248311920275E-28 DNM2 HS1133 576 308 1.87012987012987 E453K;E607K;E611K 1.43064859949724E-19 2.43210261914531E-17 EP300 HS0939 150 72 2.08333333333333 A1498T 1.78844100995668E-07 3.04034971692636E-05 ETS1 HS2248 417 203 2.05418719211823 E22D 5.57103324334224E-18 9.47075651368181E-16 ETS1 HS3120 618 156 3.96153846153846 L23F 8.12269585794814E-66 1.38085829585118E-63 ETS1 HS2060 154 30 5.13333333333333 L23F 2.74393505489954E-21 4.66468959332922E-19 EZH2 HS1462 20 582 0.0343642611683849 A638G;A682G 1.45658450526789E-144 2.47619365895541E-142 EZH2 HS2604 30 147 0.204081632653061 A648V;A692V 9.98679498131155E-20 1.69775514682296E-17 EZH2 HS2249 26 70 0.371428571428571 Y602F;Y646F 8.04955037718927E-06 0.00136842356412218 EZH2 HS1133 362 264 1.37121212121212 Y602H;Y646H 0.000102665619362427 0.0174531552916126 EZH2 HS0637 220 138 1.59420289855072 Y602F;Y646F 1.71898185498482E-05 0.00292226915347419 EZH2 HS1454 99 47 2.1063829787234 Y602F;Y646F 2.0151658417759E-05 0.00342578193101903 EZH2 HS1138 77 35 2.2 Y602N;Y646N 8.98022037045207E-05 0.0152663746297685 EZH2 HS2054 238 71 3.35211267605634 Y602F;Y646F 3.15074822905346E-22 5.35627198939088E-20 EZH2 HS1131 96 22 4.36363636363636 Y602F;Y646F 3.25657945422709E-12 5.53618507218605E-10 EZH2 HS2050 214 43 4.97674418604651 Y602H;Y646H 1.8225491036473E-28 3.09833347620041E-26 FAS HS0804 38 10 3.8 Q255*;Q276*;Q303* 6.16964077764238E-05 0.010488389321992 GNA13 HS2252 80 1330 0.0601503759398496 T203A 9.25327902879353E-293 1.5730574348949E-290 GNA13 HS1982 836 250 3.344 H345P,K292R 2.86070907830384E-74 4.86320543311653E-72 GNA13 HS2251 437 125 3.496 *378R,L296F 1.66665476610028E-41 2.83331310237048E-39 HDAC7A HS1974 193 115 1.67826086956522 A786T;A788T;A825T 1.03536988849595E-05 0.00176012881044311 HIST1H1C HS2607 40 257 0.155642023346304 P118S 5.91140769251171E-40 1.00493930772699E-37 HIST1H1C HS0936 596 368 1.6195652173913 A180P 2.05742454737747E-13 3.4976217305417E-11 HIST1H1C HS3105 146 82 1.78048780487805 A185G 2.69263764247605E-05 0.00457748399220928 HIST1H2AC HS2051 394 980 0.402040816326531 K120R 7.10073761196491E-58 1.20712539403403E-55 IQGAP1 HS3105 182 64 2.84375 L937R 2.73015225396426E-14 4.64125883173924E-12 IRF4 HS1976 1 294 0.00340136054421769 Q60K 9.29978666066008E-87 1.58096373231221E-84 IRF4 HS0934 4 748 0.0053475935828877 I32V,L40V,S18T 1.12198043649142E-216 1.90736674203541E-214 IRF4 HS1134 99 1056 0.09375 Q60H,S18R,S48R 1.00331275842097E-202 1.70563168931565E-200 IRF4 HS2050 226 76 2.97368421052632 S48R 1.90479832634796E-18 3.23815715479153E-16 IRF8 HS1202 888 678 1.30973451327434 *427L 1.22970957816934E-07 2.09050628288788E-05 ITPR2 HS2605 628 280 2.24285714285714 E2470Q 1.97923688560506E-31 3.3647027055286E-29 ITPR2 HS1462 84 26 3.23076923076923 R1200Q 2.61403934580292E-08 4.44386688786496E-06 JMJD2C HS3105 56 14 4 T794A 4.30284013153593E-07 7.31482822361108E-05 JMJD2C HS1978 136 21 6.47619047619048 T1042A 8.09837155693241E-22 1.37672316467851E-19 KLHL6 HS0647 234 96 2.4375 S83T;S94T 1.92900140405699E-14 3.27930238689688E-12 KLHL6 HS1975 73 23 3.17391304347826 T53S;T64S 3.1102323718136E-07 5.28739503208312E-05 KLHL6 HS0943 407 120 3.39166666666667 L45*;L56*,T53I;T64I 1.63424444412797E-37 2.77821555501755E-35 LRRK1 HS0936 190 92 2.06521739130435 L995H;L1019H 5.41061198032742E-09 9.19804036655662E-07 MALT1 HS3105 78 30 2.6 V370F;V381F 4.31475152179488E-06 0.00073350775870513 MAP4K1 HS1136 48 14 3.42857142857143 T228I 1.7428522601632E-05 0.00296284884227744 MBOAT5 HS1458 113 46 2.45652173913043 T298M 1.08725040728791E-07 1.84832569238945E-05 MBOAT5 HS1133 312 100 3.12 I339F 1.84041489639545E-26 3.12870532387226E-24 MEF2B HS0938 4 187 0.0213903743315508 D83A 3.49771721497314E-50 5.94611926545434E-48 MEF2B HS0639 4 69 0.0579710144927536 D83V 2.44226703747726E-16 4.15185396371134E-14 MEF2B HS2249 1671 2774 0.602379235760634 Y69H 5.40585523703282E-62 9.18995390295579E-60 MLL2 HS0943 41 9 4.55555555555556 R4634C 5.61410009325416E-06 0.000954397015853207 MYD88 HS2606 800 589 1.35823429541596 L252P 1.65039550519285E-08 2.80567235882784E-06 MYD88 HS1559 186 116 1.60344827586207 L252P 6.69159003818281E-05 0.0113757030649108 MYD88 HS2056 653 329 1.98480243161094 L252P 2.39767933837923E-25 4.07605487524469E-23 MYD88 HS0935 93 46 2.02173913043478 L252P 8.27371081788546E-05 0.0140653083904053 MYD88 HS0748 549 189 2.9047619047619 S206C 1.58024839439091E-41 2.68642227046455E-39 MYD88 HS0936 252 71 3.54929577464789 S206C 6.59183835725491E-25 1.12061252073333E-22 MYD88 HS0649 87 21 4.14285714285714 L252P 9.90317344645023E-11 1.68353948589654E-08 NLRP11 HS1462 128 250 0.512 R867K;R921K 3.4436979677491E-10 5.85428654517347E-08 NMD3 HS0936 342 62 5.51612903225807 S297N 5.29972265030597E-48 9.00952850552015E-46 NR3C1 HS0640 55 20 2.75 Y433H 6.49490019655185E-05 0.0110413303341381 PACS1 HS2604 226 45 5.02222222222222 T471M 3.48077356420662E-30 5.91731505915125E-28 Sheet1 Tab 1 PASK HS3105 146 274 0.532846715328467 A689S 4.25032987598765E-10 7.225560789179E-08 PDS5B HS1134 13 45 0.288888888888889 K303E 3.01159096291194E-05 0.0051197046369503 PIM1 HS0929 215 137 1.56934306569343 L2V;L93V,S146R;S237R 3.79233741839951E-05 0.00644697361127917 PIM1 HS2053 164 100 1.64 S146R;S237R 9.82304479557023E-05 0.0166991761524694 PIM1 HS2252 532 285 1.86666666666667 E79D;E170D,Q37H;Q128H 4.2165276503371E-18 7.16809700557307E-16 PIM1 HS1204 80 25 3.2 L164F;L255F 6.88076130771158E-08 1.16972942231097E-05 PIM1 HS1199 131 24 5.45833333333333 L164V;L255V,L25V;L116V 4.86520528784081E-19 8.27084898932938E-17 RAPGEF1 HS3120 277 160 1.73125 V16L;V297L;V528L;V602L;V619L;V620L 2.38604839252759E-08 4.0562822672969E-06 RAPGEF1 HS2051 383 177 2.1638418079096 Y265N;Y496N;Y570N;Y587N;Y588N 1.89732696922815E-18 3.22545584768785E-16 RAPGEF1 HS2054 479 170 2.81764705882353 S53N;S284N;S358N;S375N;S376N 5.78907832719629E-35 9.84143315623369E-33 RFTN1 HS0747 863 526 1.64068441064639 P205S 1.30654781596828E-19 2.22113128714608E-17 RNF135 HS1462 86 22 3.90909090909091 T189S 3.98824386580156E-10 6.78001457186265E-08 SENP6 HS1978 131 64 2.046875 E890D;E892D;E897D 1.82992057486311E-06 0.000311086497726729 SGK HS2050 192 321 0.598130841121495 K19M;K29M;K43M;K124M,R22M;R32M;R46M;R127M 1.34381013046658E-08 2.28447722179319E-06 SGK HS0944 496 277 1.79061371841155 F113L;F123L;F137L;F218L 2.93674578630101E-15 4.99246783671172E-13 SGK HS1136 108 48 2.25 A105P;A115P;A129P;A210P 1.74802608860773E-06 0.000297164435063314 SGK HS2053 8033 2985 2.69112227805695 A115E;A125E;A139E;A220E,E136*;E146*;E160*;E241*,T229N;T 0 0 SGK HS0650 212 78 2.71794871794872 A193G;A203G;A217G;A298G,Q30*;Q40*;Q54*;Q135*,S242T;S25 1.77486702140745E-15 3.01727393639266E-13 SGK HS1557 545 141 3.86524822695035 P65S;P75S;P89S;P170S,R211T;R221T;R235T;R316T 6.95144564760436E-57 1.18174576009274E-54 SGK HS2604 2089 408 5.12009803921569 H153Q;H163Q;H177Q;H258Q,N34K;N44K;N58K;N139K,P67S;P7 8.14624641488782E-271 1.38486189053093E-268 STAT3 HS0653 12 43 0.27906976744186 N567K 3.30537647320607E-05 0.00561914000445032 STAT3 HS0933 326 144 2.26388888888889 E616K 2.75535708724922E-17 4.68410704832367E-15 STAT3 HS0944 467 98 4.76530612244898 D566N 1.45636236717753E-58 2.4758160242018E-56 STAT6 HS2059 665 189 3.51851851851852 D419G 8.31862420711498E-63 1.41416611520955E-60 TMEM30A HS0934 43 11 3.90909090909091 R254*;R290* 1.40130574561859E-05 0.0023822197675516 TMEM30A HS0928 102 22 4.63636363636364 D155E;D191E,Y157*;Y193* 1.66019523667463E-13 2.82233190234687E-11 TNFRSF14 HS1202 12 130 0.0923076923076923 C57* 3.43314391179653E-26 5.8363446500541E-24 TNFRSF14 HS2249 75 26 2.88461538461538 W201* 1.11549542643532E-06 0.000189634222494004 TNFRSF14 HS0637 230 77 2.98701298701299 G60D 7.46880967203423E-19 1.26969764424582E-16 TNFRSF14 HS1185 118 35 3.37142857142857 Y47* 1.0223165796017E-11 1.73793818532289E-09 TNFRSF14 HS1460 125 26 4.80769230769231 Q95* 1.00009348337024E-16 1.70015892172941E-14 TNFRSF14 HS1137 102 20 5.1 C53R 1.96419878589773E-14 3.33913793602614E-12 TNFRSF14 HS1350 170 32 5.3125 S112C 6.40627375230754E-24 1.08906653789228E-21 TNFRSF14 HS1981 113 19 5.94736842105263 W12* 1.81190234281037E-17 3.08023398277763E-15 TNFRSF14 HS2059 221 34 6.5 W12* 9.16290099620189E-35 1.55769316935432E-32 TP53 HS1182 0 41 0 G152D;G245D 9.0949470177293E-13 1.54614099301398E-10 TP53 HS1181 12 339 0.0353982300884956 S122R;S215R 2.72795010788137E-84 4.63751518339833E-82 TP53 HS0648 6 42 0.142857142857143 Y33D;Y126D 1.00874821384878E-07 1.71487196354293E-05 TP53 HS2049 58 344 0.168604651162791 C83F;C176F 1.45510015282814E-50 2.47367025980784E-48 TP53 HS2053 94 554 0.169675090252708 R155W;R248W 3.04875402137989E-80 5.18288183634581E-78 TP53 HS1980 124 708 0.175141242937853 I255F 4.47813551340186E-100 7.61283037278316E-98 TP53 HS2250 94 411 0.228710462287105 Y107D 2.82274670044293E-48 4.79866939075298E-46 TP53 HS0641 124 498 0.248995983935743 Y141N;Y234N 5.23915009289352E-54 8.90655515791899E-52 TP53 HS0944 197 116 1.69827586206897 P278L 5.47135701814304E-06 0.000930130693084317 TP53 HS1462 736 173 4.25433526011561 R155W;R248W 2.74597894348379E-83 4.66816420392244E-81 TP53 HS1460 135 26 5.19230769230769 M144L;M237L 5.90351348104036E-19 1.00359729177686E-16 TTC27 HS0936 66 27 2.44444444444444 R528H 6.46704526221808E-05 0.0109939769457707</text>
+      <text>Sheet1 Tab 1 Gene Case Mutations ABCA7 HS2058 S268L ALG10 HS2605 V446I ALG10 HS2252 L299F B2M HS1133 L12Q B2M HS2250 M1R B2M HS0639 M1L B2M HS0653 Y86N BBX HS2051 A485V BCAS3 HS1204 I601F;I616F;I631F;I633F BCL10 HS1984 L225F,S136* BCL10 HS0936 L225*,S227L,T229S BCL2 HS1163 A131V,F49L,T187I BCL2 HS2249 I48V,P71S,R6I BCL2 HS1181 A131V,E135D BCL2 HS0749 V156A,Y28F BCL2 HS2250 L86F,M16K,N172S,P59A,Q52R,T7K BCL2 HS1185 A60T BCL2 HS0841 G47D,P59L BCL2 HS1138 G5V BCL2 HS0656 D34G,S51Y,T132S BCL2 HS1462 P59L BCL2 HS2054 F104L,S167A BCL2 HS1555 H20Q,S50P BCL2 HS0930 A60V,P59S BCL2 HS0637 K17N BCL2 HS1456 N11Y BCL2 HS1131 H20Q,M16R BCL2 HS1199 A60V,F104L,M16V,P59S,S117R,Y21H BCL2 HS0933 A60D,P57A BCL2 HS1558 A76T,S87N,V35M,Y108S BCL2 HS2251 N143S BCL2 HS2055 F49S,P46A,T7R BCL2 HS1203 A45S,H20Q,P57S,T69A BCL2 HS0640 A131G,A2T,H3D BCL2 HS1186 F49L,P53S,R129H BCL2 HS1454 A80V,T74I BCL2 HS1204 D31N,P59S,V66I,Y9F BCL2 HS0644 R146K,S51P,V159A,Y21C BCL2 HS0939 A60V,G27D,N11K BCL2 HS1164 E165K BCL2 HS1979 T125S BCL6 HS2252 A587T BLR1 HS0804 Q350*,Y222S BTG1 HS1557 R27H BTG1 HS1974 Q36H Sheet1 Tab 1 BTG1 HS2054 E46D BTG1 HS1137 Q38E BTG1 HS3105 L94V BTG1 HS1458 Q36H CARD11 HS1458 F123I;F130I;F147I CARD11 HS2252 F123C;F130C;F147C CARD11 HS0934 Q364R;Q371R;Q388R CARD11 HS2251 D394N;D401N;D418N CARD11 HS2050 G116D;G123D;G140D CARD11 HS1360 N230K;N237K;N254K CCND3 HS1556 I240R;I286R;I290R CCND3 HS2251 V237D;V283D;V287D CD70 HS0640 L60R CD79B HS0940 Y92S;Y196S;Y197S CD79B HS0927 Y92F;Y196F;Y197F CD79B HS1352 Y92H;Y196H;Y197H CIITA HS0640 D748V;D777V CNOT1 HS3105 D110Y;D2100Y;D2105Y CNOT1 HS0939 D1972G;D1977G CREBBP HS0641 L88Q;L1499Q;L1529Q CREBBP HS2606 R35C;R1446C;R1476C DNM2 HS1133 E453K;E607K;E611K EP300 HS0939 A1498T ETS1 HS2248 E22D ETS1 HS3120 L23F ETS1 HS2060 L23F EZH2 HS1462 A638G;A682G EZH2 HS2604 A648V;A692V EZH2 HS2249 Y602F;Y646F EZH2 HS1133 Y602H;Y646H EZH2 HS0637 Y602F;Y646F EZH2 HS1454 Y602F;Y646F EZH2 HS1138 Y602N;Y646N EZH2 HS2054 Y602F;Y646F EZH2 HS1131 Y602F;Y646F EZH2 HS2050 Y602H;Y646H FAS HS0804 Q255*;Q276*;Q303* GNA13 HS2252 T203A GNA13 HS1982 H345P,K292R GNA13 HS2251 *378R,L296F HDAC7A HS1974 A786T;A788T;A825T HIST1H1C HS2607 P118S HIST1H1C HS0936 A180P HIST1H1C HS3105 A185G HIST1H2AC HS2051 K120R IQGAP1 HS3105 L937R Sheet1 Tab 1 IRF4 HS1976 Q60K IRF4 HS0934 I32V,L40V,S18T IRF4 HS1134 Q60H,S18R,S48R IRF4 HS2050 S48R IRF8 HS1202 *427L ITPR2 HS2605 E2470Q ITPR2 HS1462 R1200Q JMJD2C HS3105 T794A JMJD2C HS1978 T1042A KLHL6 HS0647 S83T;S94T KLHL6 HS1975 T53S;T64S KLHL6 HS0943 L45*;L56*,T53I;T64I LRRK1 HS0936 L995H;L1019H MALT1 HS3105 V370F;V381F MAP4K1 HS1136 T228I MBOAT5 HS1458 T298M MBOAT5 HS1133 I339F MEF2B HS0938 D83A MEF2B HS0639 D83V MEF2B HS2249 Y69H MLL2 HS0943 R4634C MYD88 HS2606 L252P MYD88 HS1559 L252P MYD88 HS2056 L252P MYD88 HS0935 L252P MYD88 HS0748 S206C MYD88 HS0936 S206C MYD88 HS0649 L252P NLRP11 HS1462 R867K;R921K NMD3 HS0936 S297N NR3C1 HS0640 Y433H PACS1 HS2604 T471M PASK HS3105 A689S PDS5B HS1134 K303E PIM1 HS0929 L2V;L93V,S146R;S237R PIM1 HS2053 S146R;S237R PIM1 HS2252 E79D;E170D,Q37H;Q128H PIM1 HS1204 L164F;L255F PIM1 HS1199 L164V;L255V,L25V;L116V RAPGEF1 HS3120 V16L;V297L;V528L;V602L;V619L;V620L RAPGEF1 HS2051 Y265N;Y496N;Y570N;Y587N;Y588N RAPGEF1 HS2054 S53N;S284N;S358N;S375N;S376N RFTN1 HS0747 P205S RNF135 HS1462 T189S SENP6 HS1978 E890D;E892D;E897D SGK HS2050 K19M;K29M;K43M;K124M,R22M;R32M;R46M;R127M Sheet1 Tab 1 SGK HS0944 F113L;F123L;F137L;F218L SGK HS1136 A105P;A115P;A129P;A210P SGK HS2053 A115E;A125E;A139E;A220E,E136*;E146*;E160*;E241*,T229N;T239N;T253N;T334N SGK HS0650 A193G;A203G;A217G;A298G,Q30*;Q40*;Q54*;Q135*,S242T;S252T;S266T;S347T SGK HS1557 P65S;P75S;P89S;P170S,R211T;R221T;R235T;R316T SGK HS2604 H153Q;H163Q;H177Q;H258Q,N34K;N44K;N58K;N139K,P67S;P77S;P91S;P172S,T5I STAT3 HS0653 N567K STAT3 HS0933 E616K STAT3 HS0944 D566N STAT6 HS2059 D419G TMEM30A HS0934 R254*;R290* TMEM30A HS0928 D155E;D191E,Y157*;Y193* TNFRSF14 HS1202 C57* TNFRSF14 HS2249 W201* TNFRSF14 HS0637 G60D TNFRSF14 HS1185 Y47* TNFRSF14 HS1460 Q95* TNFRSF14 HS1137 C53R TNFRSF14 HS1350 S112C TNFRSF14 HS1981 W12* TNFRSF14 HS2059 W12* TP53 HS1182 G152D;G245D TP53 HS1181 S122R;S215R TP53 HS0648 Y33D;Y126D TP53 HS2049 C83F;C176F TP53 HS2053 R155W;R248W TP53 HS1980 I255F TP53 HS2250 Y107D TP53 HS0641 Y141N;Y234N TP53 HS0944 P278L TP53 HS1462 R155W;R248W TP53 HS1460 M144L;M237L TTC27 HS0936 R528H</text>
       <annotation id="0">
         <infon key="type">Gene</infon>
-        <location offset="172" length="5"/>
+        <location offset="67" length="5"/>
         <text>ABCA7</text>
       </annotation>
       <annotation id="1">
-        <infon key="type">Mutation</infon>
-        <location offset="178" length="6"/>
-        <text>HS2058</text>
+        <infon key="type">Gene</infon>
+        <location offset="86" length="5"/>
+        <text>ALG10</text>
       </annotation>
       <annotation id="2">
         <infon key="type">Gene</infon>
-        <location offset="255" length="5"/>
+        <location offset="105" length="5"/>
         <text>ALG10</text>
       </annotation>
       <annotation id="3">
         <infon key="type">Mutation</infon>
-        <location offset="261" length="6"/>
-        <text>HS2605</text>
+        <location offset="111" length="6"/>
+        <text>HS2252</text>
       </annotation>
       <annotation id="4">
         <infon key="type">Mutation</infon>
-        <location offset="291" length="23"/>
-        <text>V446I 2.20275983155025E</text>
-      </annotation>
-      <annotation id="5">
-        <infon key="type">Gene</infon>
-        <location offset="339" length="5"/>
-        <text>ALG10</text>
-      </annotation>
-      <annotation id="6">
-        <infon key="type">Mutation</infon>
-        <location offset="362" length="5"/>
+        <location offset="118" length="5"/>
         <text>L299F</text>
       </annotation>
-      <annotation id="7">
+      <annotation id="5">
         <infon key="type">Mutation</infon>
-        <location offset="413" length="6"/>
-        <text>HS1133</text>
-      </annotation>
-      <annotation id="8">
-        <infon key="type">Mutation</infon>
-        <location offset="446" length="4"/>
+        <location offset="135" length="4"/>
         <text>L12Q</text>
       </annotation>
-      <annotation id="9">
+      <annotation id="6">
         <infon key="type">Gene</infon>
-        <location offset="1084" length="4"/>
-        <text>BCL2</text>
+        <location offset="144" length="6"/>
+        <text>HS2250</text>
+      </annotation>
+      <annotation id="7">
+        <infon key="type">Gene</infon>
+        <location offset="159" length="6"/>
+        <text>HS0639</text>
+      </annotation>
+      <annotation id="8">
+        <infon key="type">Gene</infon>
+        <location offset="174" length="6"/>
+        <text>HS0653</text>
+      </annotation>
+      <annotation id="9">
+        <infon key="type">Mutation</infon>
+        <location offset="181" length="4"/>
+        <text>Y86N</text>
       </annotation>
       <annotation id="10">
         <infon key="type">Gene</infon>
-        <location offset="1163" length="4"/>
-        <text>BCL2</text>
+        <location offset="190" length="6"/>
+        <text>HS2051</text>
       </annotation>
       <annotation id="11">
-        <infon key="type">Gene</infon>
-        <location offset="1220" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="197" length="5"/>
+        <text>A485V</text>
       </annotation>
       <annotation id="12">
         <infon key="type">Gene</infon>
-        <location offset="1310" length="4"/>
-        <text>BCL2</text>
+        <location offset="203" length="5"/>
+        <text>BCAS3</text>
       </annotation>
       <annotation id="13">
         <infon key="type">Gene</infon>
-        <location offset="1399" length="4"/>
-        <text>BCL2</text>
+        <location offset="209" length="6"/>
+        <text>HS1204</text>
       </annotation>
       <annotation id="14">
-        <infon key="type">Gene</infon>
-        <location offset="1473" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="216" length="23"/>
+        <text>I601F;I616F;I631F;I633F</text>
       </annotation>
       <annotation id="15">
         <infon key="type">Gene</infon>
-        <location offset="1558" length="4"/>
-        <text>BCL2</text>
+        <location offset="240" length="5"/>
+        <text>BCL10</text>
       </annotation>
       <annotation id="16">
-        <infon key="type">Gene</infon>
-        <location offset="1645" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="253" length="5"/>
+        <text>L225F</text>
       </annotation>
       <annotation id="17">
-        <infon key="type">Mutation</infon>
-        <location offset="1681" length="3"/>
-        <text>G5V</text>
+        <infon key="type">Gene</infon>
+        <location offset="265" length="5"/>
+        <text>BCL10</text>
       </annotation>
       <annotation id="18">
-        <infon key="type">Gene</infon>
-        <location offset="1727" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="278" length="11"/>
+        <text>L225*,S227L</text>
       </annotation>
       <annotation id="19">
         <infon key="type">Mutation</infon>
-        <location offset="1763" length="4"/>
-        <text>D34G</text>
+        <location offset="290" length="5"/>
+        <text>T229S</text>
       </annotation>
       <annotation id="20">
-        <infon key="type">Mutation</infon>
-        <location offset="1768" length="4"/>
-        <text>S51Y</text>
+        <infon key="type">Gene</infon>
+        <location offset="296" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="21">
         <infon key="type">Mutation</infon>
-        <location offset="1773" length="5"/>
-        <text>T132S</text>
+        <location offset="308" length="5"/>
+        <text>A131V</text>
       </annotation>
       <annotation id="22">
-        <infon key="type">Gene</infon>
-        <location offset="1820" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="314" length="4"/>
+        <text>F49L</text>
       </annotation>
       <annotation id="23">
-        <infon key="type">Gene</infon>
-        <location offset="1903" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="319" length="5"/>
+        <text>T187I</text>
       </annotation>
       <annotation id="24">
         <infon key="type">Gene</infon>
-        <location offset="1941" length="5"/>
-        <text>F104L</text>
+        <location offset="325" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="25">
         <infon key="type">Gene</infon>
-        <location offset="1947" length="5"/>
-        <text>S167A</text>
+        <location offset="330" length="6"/>
+        <text>HS2249</text>
       </annotation>
       <annotation id="26">
-        <infon key="type">Gene</infon>
-        <location offset="1994" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="337" length="4"/>
+        <text>I48V</text>
       </annotation>
       <annotation id="27">
         <infon key="type">Mutation</infon>
-        <location offset="2030" length="4"/>
-        <text>H20Q</text>
+        <location offset="342" length="4"/>
+        <text>P71S</text>
       </annotation>
       <annotation id="28">
         <infon key="type">Gene</infon>
-        <location offset="2082" length="4"/>
+        <location offset="351" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="29">
-        <infon key="type">Mutation</infon>
-        <location offset="2119" length="4"/>
-        <text>A60V</text>
+        <infon key="type">Gene</infon>
+        <location offset="356" length="6"/>
+        <text>HS1181</text>
       </annotation>
       <annotation id="30">
         <infon key="type">Mutation</infon>
-        <location offset="2124" length="4"/>
-        <text>P59S</text>
+        <location offset="363" length="5"/>
+        <text>A131V</text>
       </annotation>
       <annotation id="31">
-        <infon key="type">Gene</infon>
-        <location offset="2171" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="369" length="5"/>
+        <text>E135D</text>
       </annotation>
       <annotation id="32">
         <infon key="type">Gene</infon>
-        <location offset="2255" length="4"/>
+        <location offset="375" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="33">
-        <infon key="type">Gene</infon>
-        <location offset="2339" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="380" length="6"/>
+        <text>HS0749</text>
       </annotation>
       <annotation id="34">
         <infon key="type">Mutation</infon>
-        <location offset="2374" length="4"/>
-        <text>H20Q</text>
+        <location offset="387" length="5"/>
+        <text>V156A</text>
       </annotation>
       <annotation id="35">
-        <infon key="type">Gene</infon>
-        <location offset="2424" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="393" length="4"/>
+        <text>Y28F</text>
       </annotation>
       <annotation id="36">
-        <infon key="type">Mutation</infon>
-        <location offset="2461" length="4"/>
-        <text>A60V</text>
+        <infon key="type">Gene</infon>
+        <location offset="398" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="37">
         <infon key="type">Gene</infon>
-        <location offset="2466" length="5"/>
-        <text>F104L</text>
+        <location offset="403" length="6"/>
+        <text>HS2250</text>
       </annotation>
       <annotation id="38">
         <infon key="type">Mutation</infon>
-        <location offset="2477" length="4"/>
-        <text>P59S</text>
+        <location offset="410" length="4"/>
+        <text>L86F</text>
       </annotation>
       <annotation id="39">
-        <infon key="type">Gene</infon>
-        <location offset="2535" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="415" length="4"/>
+        <text>M16K</text>
       </annotation>
       <annotation id="40">
-        <infon key="type">Gene</infon>
-        <location offset="2623" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="420" length="5"/>
+        <text>N172S</text>
       </annotation>
       <annotation id="41">
-        <infon key="type">Gene</infon>
-        <location offset="2722" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="426" length="4"/>
+        <text>P59A</text>
       </annotation>
       <annotation id="42">
-        <infon key="type">Gene</infon>
-        <location offset="2807" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="431" length="4"/>
+        <text>Q52R</text>
       </annotation>
       <annotation id="43">
-        <infon key="type">Gene</infon>
-        <location offset="2900" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="438" length="1"/>
+        <text>K</text>
       </annotation>
       <annotation id="44">
-        <infon key="type">Mutation</infon>
-        <location offset="2942" length="4"/>
-        <text>H20Q</text>
+        <infon key="type">Gene</infon>
+        <location offset="440" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="45">
         <infon key="type">Gene</infon>
-        <location offset="2999" length="4"/>
+        <location offset="457" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="46">
-        <infon key="type">Gene</infon>
-        <location offset="3091" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="469" length="4"/>
+        <text>G47D</text>
       </annotation>
       <annotation id="47">
         <infon key="type">Gene</infon>
-        <location offset="3186" length="4"/>
+        <location offset="479" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="48">
-        <infon key="type">Mutation</infon>
-        <location offset="3222" length="4"/>
-        <text>A80V</text>
+        <infon key="type">Gene</infon>
+        <location offset="495" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="49">
-        <infon key="type">Gene</infon>
-        <location offset="3273" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="507" length="4"/>
+        <text>D34G</text>
       </annotation>
       <annotation id="50">
         <infon key="type">Mutation</infon>
-        <location offset="3311" length="4"/>
-        <text>D31N</text>
+        <location offset="512" length="4"/>
+        <text>S51Y</text>
       </annotation>
       <annotation id="51">
         <infon key="type">Mutation</infon>
-        <location offset="3316" length="4"/>
-        <text>P59S</text>
+        <location offset="517" length="5"/>
+        <text>T132S</text>
       </annotation>
       <annotation id="52">
-        <infon key="type">Mutation</infon>
-        <location offset="3321" length="4"/>
-        <text>V66I</text>
+        <infon key="type">Gene</infon>
+        <location offset="523" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="53">
         <infon key="type">Gene</infon>
-        <location offset="3372" length="4"/>
+        <location offset="540" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="54">
-        <infon key="type">Mutation</infon>
-        <location offset="3410" length="5"/>
-        <text>R146K</text>
+        <infon key="type">Gene</infon>
+        <location offset="545" length="6"/>
+        <text>HS2054</text>
       </annotation>
       <annotation id="55">
-        <infon key="type">Mutation</infon>
-        <location offset="3416" length="4"/>
-        <text>S51P</text>
+        <infon key="type">Gene</infon>
+        <location offset="564" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="56">
-        <infon key="type">Mutation</infon>
-        <location offset="3421" length="5"/>
-        <text>V159A</text>
+        <infon key="type">Gene</infon>
+        <location offset="586" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="57">
-        <infon key="type">Mutation</infon>
-        <location offset="3427" length="4"/>
-        <text>Y21C</text>
+        <infon key="type">Gene</infon>
+        <location offset="608" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="58">
         <infon key="type">Gene</infon>
-        <location offset="3474" length="4"/>
+        <location offset="625" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="59">
-        <infon key="type">Mutation</infon>
-        <location offset="3513" length="4"/>
-        <text>A60V</text>
+        <infon key="type">Gene</infon>
+        <location offset="642" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="60">
-        <infon key="type">Mutation</infon>
-        <location offset="3518" length="4"/>
-        <text>G27D</text>
+        <infon key="type">Gene</infon>
+        <location offset="664" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="61">
         <infon key="type">Gene</infon>
-        <location offset="3569" length="4"/>
-        <text>BCL2</text>
+        <location offset="669" length="6"/>
+        <text>HS1199</text>
       </annotation>
       <annotation id="62">
         <infon key="type">Gene</infon>
-        <location offset="3604" length="4"/>
-        <text>E165</text>
+        <location offset="708" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="63">
         <infon key="type">Gene</infon>
-        <location offset="3652" length="4"/>
+        <location offset="730" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="64">
         <infon key="type">Gene</infon>
-        <location offset="4965" length="5"/>
-        <text>CCND3</text>
+        <location offset="763" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="65">
-        <infon key="type">Mutation</infon>
-        <location offset="5003" length="17"/>
-        <text>I240R;I286R;I290R</text>
+        <infon key="type">Gene</infon>
+        <location offset="768" length="6"/>
+        <text>HS2251</text>
       </annotation>
       <annotation id="66">
         <infon key="type">Gene</infon>
-        <location offset="5062" length="5"/>
-        <text>CCND3</text>
+        <location offset="781" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="67">
-        <infon key="type">Mutation</infon>
-        <location offset="5099" length="17"/>
-        <text>V237D;V283D;V287D</text>
+        <infon key="type">Gene</infon>
+        <location offset="807" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="68">
         <infon key="type">Gene</infon>
-        <location offset="5159" length="4"/>
-        <text>CD70</text>
+        <location offset="839" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="69">
-        <infon key="type">Mutation</infon>
-        <location offset="5196" length="4"/>
-        <text>L60R</text>
+        <infon key="type">Gene</infon>
+        <location offset="844" length="6"/>
+        <text>HS0640</text>
       </annotation>
       <annotation id="70">
         <infon key="type">Gene</infon>
-        <location offset="5243" length="5"/>
-        <text>CD79B</text>
+        <location offset="865" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="71">
-        <infon key="type">Gene</infon>
-        <location offset="5304" length="5"/>
-        <text>CD79B</text>
+        <infon key="type">Mutation</infon>
+        <location offset="877" length="4"/>
+        <text>F49L</text>
       </annotation>
       <annotation id="72">
         <infon key="type">Gene</infon>
-        <location offset="5364" length="5"/>
-        <text>CD79B</text>
+        <location offset="893" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="73">
-        <infon key="type">Mutation</infon>
-        <location offset="5954" length="6"/>
-        <text>HS1133</text>
+        <infon key="type">Gene</infon>
+        <location offset="915" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="74">
         <infon key="type">Gene</infon>
-        <location offset="6383" length="4"/>
-        <text>EZH2</text>
+        <location offset="920" length="6"/>
+        <text>HS1204</text>
       </annotation>
       <annotation id="75">
         <infon key="type">Gene</infon>
-        <location offset="6477" length="4"/>
-        <text>EZH2</text>
+        <location offset="946" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="76">
         <infon key="type">Gene</infon>
-        <location offset="6568" length="4"/>
-        <text>EZH2</text>
+        <location offset="980" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="77">
         <infon key="type">Gene</infon>
-        <location offset="6657" length="4"/>
-        <text>EZH2</text>
+        <location offset="985" length="6"/>
+        <text>HS0939</text>
       </annotation>
       <annotation id="78">
-        <infon key="type">Mutation</infon>
-        <location offset="6662" length="6"/>
-        <text>HS1133</text>
+        <infon key="type">Gene</infon>
+        <location offset="1007" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="79">
         <infon key="type">Gene</infon>
-        <location offset="6746" length="4"/>
-        <text>EZH2</text>
+        <location offset="1025" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="80">
-        <infon key="type">Gene</infon>
-        <location offset="6836" length="4"/>
-        <text>EZH2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1048" length="6"/>
+        <text>HS2252</text>
       </annotation>
       <annotation id="81">
-        <infon key="type">Gene</infon>
-        <location offset="6922" length="4"/>
-        <text>EZH2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1114" length="4"/>
+        <text>Q36H</text>
       </annotation>
       <annotation id="82">
         <infon key="type">Gene</infon>
-        <location offset="6996" length="4"/>
-        <text>EZH2</text>
+        <location offset="1137" length="6"/>
+        <text>HS2054</text>
       </annotation>
       <annotation id="83">
         <infon key="type">Gene</infon>
-        <location offset="7086" length="4"/>
-        <text>EZH2</text>
+        <location offset="1188" length="6"/>
+        <text>HS1458</text>
       </annotation>
       <annotation id="84">
-        <infon key="type">Gene</infon>
-        <location offset="7175" length="4"/>
-        <text>EZH2</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1195" length="4"/>
+        <text>Q36H</text>
       </annotation>
       <annotation id="85">
         <infon key="type">Gene</infon>
-        <location offset="7264" length="3"/>
-        <text>FAS</text>
+        <location offset="1200" length="6"/>
+        <text>CARD11</text>
       </annotation>
       <annotation id="86">
         <infon key="type">Gene</infon>
-        <location offset="7342" length="5"/>
-        <text>GNA13</text>
+        <location offset="1207" length="6"/>
+        <text>HS1458</text>
       </annotation>
       <annotation id="87">
-        <infon key="type">Gene</infon>
-        <location offset="7431" length="5"/>
-        <text>GNA13</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1214" length="17"/>
+        <text>F123I;F130I;F147I</text>
       </annotation>
       <annotation id="88">
         <infon key="type">Gene</infon>
-        <location offset="7512" length="5"/>
-        <text>GNA13</text>
+        <location offset="1232" length="6"/>
+        <text>CARD11</text>
       </annotation>
       <annotation id="89">
         <infon key="type">Mutation</infon>
-        <location offset="8564" length="6"/>
-        <text>HS2605</text>
+        <location offset="1239" length="6"/>
+        <text>HS2252</text>
       </annotation>
       <annotation id="90">
         <infon key="type">Mutation</infon>
-        <location offset="8751" length="5"/>
-        <text>T794A</text>
+        <location offset="1246" length="17"/>
+        <text>F123C;F130C;F147C</text>
       </annotation>
       <annotation id="91">
-        <infon key="type">Mutation</infon>
-        <location offset="8837" length="6"/>
-        <text>T1042A</text>
+        <infon key="type">Gene</infon>
+        <location offset="1264" length="6"/>
+        <text>CARD11</text>
       </annotation>
       <annotation id="92">
         <infon key="type">Gene</infon>
-        <location offset="8886" length="5"/>
-        <text>KLHL6</text>
+        <location offset="1271" length="6"/>
+        <text>HS0934</text>
       </annotation>
       <annotation id="93">
         <infon key="type">Mutation</infon>
-        <location offset="8921" length="1"/>
-        <text>T</text>
+        <location offset="1278" length="17"/>
+        <text>Q364R;Q371R;Q388R</text>
       </annotation>
       <annotation id="94">
         <infon key="type">Gene</infon>
-        <location offset="8965" length="5"/>
-        <text>KLHL6</text>
+        <location offset="1296" length="6"/>
+        <text>CARD11</text>
       </annotation>
       <annotation id="95">
         <infon key="type">Gene</infon>
-        <location offset="9052" length="5"/>
-        <text>KLHL6</text>
+        <location offset="1303" length="6"/>
+        <text>HS2251</text>
       </annotation>
       <annotation id="96">
-        <infon key="type">Gene</infon>
-        <location offset="9152" length="5"/>
-        <text>LRRK1</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1310" length="17"/>
+        <text>D394N;D401N;D418N</text>
       </annotation>
       <annotation id="97">
-        <infon key="type">Mutation</infon>
-        <location offset="9496" length="6"/>
-        <text>HS1133</text>
+        <infon key="type">Gene</infon>
+        <location offset="1328" length="6"/>
+        <text>CARD11</text>
       </annotation>
       <annotation id="98">
         <infon key="type">Gene</infon>
-        <location offset="10661" length="5"/>
-        <text>NR3C1</text>
+        <location offset="1335" length="6"/>
+        <text>HS2050</text>
       </annotation>
       <annotation id="99">
-        <infon key="type">Gene</infon>
-        <location offset="10731" length="5"/>
-        <text>PACS1</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1342" length="17"/>
+        <text>G116D;G123D;G140D</text>
       </annotation>
       <annotation id="100">
-        <infon key="type">Chemical</infon>
-        <location offset="10768" length="4"/>
-        <text>T471</text>
+        <infon key="type">Gene</infon>
+        <location offset="1360" length="6"/>
+        <text>CARD11</text>
       </annotation>
       <annotation id="101">
         <infon key="type">Gene</infon>
-        <location offset="10913" length="5"/>
-        <text>PDS5B</text>
+        <location offset="1367" length="6"/>
+        <text>HS1360</text>
       </annotation>
       <annotation id="102">
-        <infon key="type">Gene</infon>
-        <location offset="10996" length="4"/>
-        <text>PIM1</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1374" length="17"/>
+        <text>N230K;N237K;N254K</text>
       </annotation>
       <annotation id="103">
         <infon key="type">Gene</infon>
-        <location offset="11095" length="4"/>
-        <text>PIM1</text>
+        <location offset="1392" length="5"/>
+        <text>CCND3</text>
       </annotation>
       <annotation id="104">
         <infon key="type">Gene</infon>
-        <location offset="11172" length="4"/>
-        <text>PIM1</text>
+        <location offset="1398" length="6"/>
+        <text>HS1556</text>
       </annotation>
       <annotation id="105">
-        <infon key="type">Gene</infon>
-        <location offset="11272" length="4"/>
-        <text>PIM1</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1405" length="17"/>
+        <text>I240R;I286R;I290R</text>
       </annotation>
       <annotation id="106">
         <infon key="type">Gene</infon>
-        <location offset="11348" length="4"/>
-        <text>PIM1</text>
+        <location offset="1423" length="5"/>
+        <text>CCND3</text>
       </annotation>
       <annotation id="107">
         <infon key="type">Gene</infon>
-        <location offset="12038" length="3"/>
-        <text>SGK</text>
+        <location offset="1429" length="6"/>
+        <text>HS2251</text>
       </annotation>
       <annotation id="108">
-        <infon key="type">Gene</infon>
-        <location offset="12159" length="3"/>
-        <text>SGK</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1436" length="17"/>
+        <text>V237D;V283D;V287D</text>
       </annotation>
       <annotation id="109">
         <infon key="type">Gene</infon>
-        <location offset="12261" length="3"/>
-        <text>SGK</text>
+        <location offset="1454" length="4"/>
+        <text>CD70</text>
       </annotation>
       <annotation id="110">
         <infon key="type">Gene</infon>
-        <location offset="12350" length="3"/>
-        <text>SGK</text>
+        <location offset="1459" length="6"/>
+        <text>HS0640</text>
       </annotation>
       <annotation id="111">
-        <infon key="type">Gene</infon>
-        <location offset="12448" length="3"/>
-        <text>SGK</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1466" length="4"/>
+        <text>L60R</text>
       </annotation>
       <annotation id="112">
         <infon key="type">Gene</infon>
-        <location offset="12580" length="3"/>
-        <text>SGK</text>
+        <location offset="1471" length="5"/>
+        <text>CD79B</text>
       </annotation>
       <annotation id="113">
-        <infon key="type">Mutation</infon>
-        <location offset="12637" length="23"/>
-        <text>R211T;R221T;R235T;R316T</text>
+        <infon key="type">Gene</infon>
+        <location offset="1477" length="6"/>
+        <text>HS0940</text>
       </annotation>
       <annotation id="114">
-        <infon key="type">Gene</infon>
-        <location offset="12703" length="3"/>
-        <text>SGK</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1484" length="16"/>
+        <text>Y92S;Y196S;Y197S</text>
       </annotation>
       <annotation id="115">
-        <infon key="type">Mutation</infon>
-        <location offset="12740" length="23"/>
-        <text>H153Q;H163Q;H177Q;H258Q</text>
+        <infon key="type">Gene</infon>
+        <location offset="1501" length="5"/>
+        <text>CD79B</text>
       </annotation>
       <annotation id="116">
-        <infon key="type">Mutation</infon>
-        <location offset="12764" length="20"/>
-        <text>N34K;N44K;N58K;N139K</text>
+        <infon key="type">Gene</infon>
+        <location offset="1507" length="6"/>
+        <text>HS0927</text>
       </annotation>
       <annotation id="117">
         <infon key="type">Mutation</infon>
-        <location offset="12785" length="7"/>
-        <text>P67S;P7</text>
+        <location offset="1514" length="16"/>
+        <text>Y92F;Y196F;Y197F</text>
       </annotation>
       <annotation id="118">
         <infon key="type">Gene</infon>
-        <location offset="12837" length="5"/>
-        <text>STAT3</text>
+        <location offset="1531" length="5"/>
+        <text>CD79B</text>
       </annotation>
       <annotation id="119">
-        <infon key="type">Mutation</infon>
-        <location offset="12873" length="4"/>
-        <text>N567</text>
+        <infon key="type">Gene</infon>
+        <location offset="1537" length="6"/>
+        <text>HS1352</text>
       </annotation>
       <annotation id="120">
-        <infon key="type">Gene</infon>
-        <location offset="12920" length="5"/>
-        <text>STAT3</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1544" length="16"/>
+        <text>Y92H;Y196H;Y197H</text>
       </annotation>
       <annotation id="121">
         <infon key="type">Gene</infon>
-        <location offset="13006" length="5"/>
-        <text>STAT3</text>
+        <location offset="1561" length="5"/>
+        <text>CIITA</text>
       </annotation>
       <annotation id="122">
-        <infon key="type">Mutation</infon>
-        <location offset="13043" length="5"/>
-        <text>D566N</text>
+        <infon key="type">Gene</infon>
+        <location offset="1567" length="6"/>
+        <text>HS0640</text>
       </annotation>
       <annotation id="123">
-        <infon key="type">Gene</infon>
-        <location offset="14119" length="4"/>
-        <text>TP53</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1574" length="11"/>
+        <text>D748V;D777V</text>
       </annotation>
       <annotation id="124">
-        <infon key="type">Gene</infon>
-        <location offset="14191" length="4"/>
-        <text>TP53</text>
+        <infon key="type">Mutation</infon>
+        <location offset="1599" length="19"/>
+        <text>D110Y;D2100Y;D2105Y</text>
       </annotation>
       <annotation id="125">
         <infon key="type">Gene</infon>
-        <location offset="14283" length="4"/>
-        <text>TP53</text>
+        <location offset="1625" length="6"/>
+        <text>HS0939</text>
       </annotation>
       <annotation id="126">
         <infon key="type">Gene</infon>
-        <location offset="14371" length="4"/>
-        <text>TP53</text>
+        <location offset="1748" length="6"/>
+        <text>HS0939</text>
       </annotation>
       <annotation id="127">
         <infon key="type">Gene</infon>
-        <location offset="14461" length="4"/>
-        <text>TP53</text>
+        <location offset="1784" length="6"/>
+        <text>HS3120</text>
       </annotation>
       <annotation id="128">
         <infon key="type">Gene</infon>
-        <location offset="14552" length="4"/>
-        <text>TP53</text>
+        <location offset="1866" length="6"/>
+        <text>HS2249</text>
       </annotation>
       <annotation id="129">
         <infon key="type">Gene</infon>
-        <location offset="14639" length="4"/>
-        <text>TP53</text>
+        <location offset="1986" length="6"/>
+        <text>HS2054</text>
       </annotation>
       <annotation id="130">
         <infon key="type">Gene</infon>
-        <location offset="14724" length="4"/>
-        <text>TP53</text>
+        <location offset="2034" length="6"/>
+        <text>HS2050</text>
       </annotation>
       <annotation id="131">
-        <infon key="type">Gene</infon>
-        <location offset="14816" length="4"/>
-        <text>TP53</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2088" length="6"/>
+        <text>HS2252</text>
       </annotation>
       <annotation id="132">
         <infon key="type">Gene</infon>
-        <location offset="14901" length="4"/>
-        <text>TP53</text>
+        <location offset="2132" length="6"/>
+        <text>HS2251</text>
       </annotation>
       <annotation id="133">
         <infon key="type">Gene</infon>
-        <location offset="14992" length="4"/>
-        <text>TP53</text>
+        <location offset="2259" length="6"/>
+        <text>HS2051</text>
+      </annotation>
+      <annotation id="134">
+        <infon key="type">Gene</infon>
+        <location offset="2327" length="6"/>
+        <text>HS0934</text>
+      </annotation>
+      <annotation id="135">
+        <infon key="type">Gene</infon>
+        <location offset="2381" length="6"/>
+        <text>HS2050</text>
+      </annotation>
+      <annotation id="136">
+        <infon key="type">Gene</infon>
+        <location offset="2478" length="6"/>
+        <text>HS1978</text>
+      </annotation>
+      <annotation id="137">
+        <infon key="type">Gene</infon>
+        <location offset="2649" length="6"/>
+        <text>HS1458</text>
+      </annotation>
+      <annotation id="138">
+        <infon key="type">Gene</infon>
+        <location offset="2706" length="6"/>
+        <text>HS0639</text>
+      </annotation>
+      <annotation id="139">
+        <infon key="type">Gene</infon>
+        <location offset="2724" length="6"/>
+        <text>HS2249</text>
+      </annotation>
+      <annotation id="140">
+        <infon key="type">Gene</infon>
+        <location offset="2938" length="6"/>
+        <text>HS0640</text>
+      </annotation>
+      <annotation id="141">
+        <infon key="type">Gene</infon>
+        <location offset="2970" length="4"/>
+        <text>PASK</text>
+      </annotation>
+      <annotation id="142">
+        <infon key="type">Mutation</infon>
+        <location offset="2982" length="5"/>
+        <text>A689S</text>
+      </annotation>
+      <annotation id="143">
+        <infon key="type">Gene</infon>
+        <location offset="2988" length="5"/>
+        <text>PDS5B</text>
+      </annotation>
+      <annotation id="144">
+        <infon key="type">Mutation</infon>
+        <location offset="3001" length="5"/>
+        <text>K303E</text>
+      </annotation>
+      <annotation id="145">
+        <infon key="type">Gene</infon>
+        <location offset="3007" length="4"/>
+        <text>PIM1</text>
+      </annotation>
+      <annotation id="146">
+        <infon key="type">Mutation</infon>
+        <location offset="3019" length="8"/>
+        <text>L2V;L93V</text>
+      </annotation>
+      <annotation id="147">
+        <infon key="type">Mutation</infon>
+        <location offset="3028" length="11"/>
+        <text>S146R;S237R</text>
+      </annotation>
+      <annotation id="148">
+        <infon key="type">Gene</infon>
+        <location offset="3040" length="4"/>
+        <text>PIM1</text>
+      </annotation>
+      <annotation id="149">
+        <infon key="type">Gene</infon>
+        <location offset="3045" length="6"/>
+        <text>HS2053</text>
+      </annotation>
+      <annotation id="150">
+        <infon key="type">Mutation</infon>
+        <location offset="3052" length="11"/>
+        <text>S146R;S237R</text>
+      </annotation>
+      <annotation id="151">
+        <infon key="type">Gene</infon>
+        <location offset="3064" length="4"/>
+        <text>PIM1</text>
+      </annotation>
+      <annotation id="152">
+        <infon key="type">Gene</infon>
+        <location offset="3069" length="6"/>
+        <text>HS2252</text>
+      </annotation>
+      <annotation id="153">
+        <infon key="type">Mutation</infon>
+        <location offset="3076" length="10"/>
+        <text>E79D;E170D</text>
+      </annotation>
+      <annotation id="154">
+        <infon key="type">Mutation</infon>
+        <location offset="3087" length="10"/>
+        <text>Q37H;Q128H</text>
+      </annotation>
+      <annotation id="155">
+        <infon key="type">Gene</infon>
+        <location offset="3098" length="4"/>
+        <text>PIM1</text>
+      </annotation>
+      <annotation id="156">
+        <infon key="type">Gene</infon>
+        <location offset="3103" length="6"/>
+        <text>HS1204</text>
+      </annotation>
+      <annotation id="157">
+        <infon key="type">Mutation</infon>
+        <location offset="3110" length="11"/>
+        <text>L164F;L255F</text>
+      </annotation>
+      <annotation id="158">
+        <infon key="type">Gene</infon>
+        <location offset="3122" length="4"/>
+        <text>PIM1</text>
+      </annotation>
+      <annotation id="159">
+        <infon key="type">Gene</infon>
+        <location offset="3127" length="6"/>
+        <text>HS1199</text>
+      </annotation>
+      <annotation id="160">
+        <infon key="type">Mutation</infon>
+        <location offset="3134" length="11"/>
+        <text>L164V;L255V</text>
+      </annotation>
+      <annotation id="161">
+        <infon key="type">Mutation</infon>
+        <location offset="3146" length="10"/>
+        <text>L25V;L116V</text>
+      </annotation>
+      <annotation id="162">
+        <infon key="type">Gene</infon>
+        <location offset="3157" length="7"/>
+        <text>RAPGEF1</text>
+      </annotation>
+      <annotation id="163">
+        <infon key="type">Gene</infon>
+        <location offset="3165" length="6"/>
+        <text>HS3120</text>
+      </annotation>
+      <annotation id="164">
+        <infon key="type">Mutation</infon>
+        <location offset="3172" length="34"/>
+        <text>V16L;V297L;V528L;V602L;V619L;V620L</text>
+      </annotation>
+      <annotation id="165">
+        <infon key="type">Gene</infon>
+        <location offset="3207" length="7"/>
+        <text>RAPGEF1</text>
+      </annotation>
+      <annotation id="166">
+        <infon key="type">Gene</infon>
+        <location offset="3215" length="6"/>
+        <text>HS2051</text>
+      </annotation>
+      <annotation id="167">
+        <infon key="type">Mutation</infon>
+        <location offset="3222" length="29"/>
+        <text>Y265N;Y496N;Y570N;Y587N;Y588N</text>
+      </annotation>
+      <annotation id="168">
+        <infon key="type">Gene</infon>
+        <location offset="3252" length="7"/>
+        <text>RAPGEF1</text>
+      </annotation>
+      <annotation id="169">
+        <infon key="type">Gene</infon>
+        <location offset="3260" length="6"/>
+        <text>HS2054</text>
+      </annotation>
+      <annotation id="170">
+        <infon key="type">Mutation</infon>
+        <location offset="3267" length="28"/>
+        <text>S53N;S284N;S358N;S375N;S376N</text>
+      </annotation>
+      <annotation id="171">
+        <infon key="type">Gene</infon>
+        <location offset="3296" length="5"/>
+        <text>RFTN1</text>
+      </annotation>
+      <annotation id="172">
+        <infon key="type">Gene</infon>
+        <location offset="3302" length="6"/>
+        <text>HS0747</text>
+      </annotation>
+      <annotation id="173">
+        <infon key="type">Mutation</infon>
+        <location offset="3309" length="5"/>
+        <text>P205S</text>
+      </annotation>
+      <annotation id="174">
+        <infon key="type">Gene</infon>
+        <location offset="3315" length="6"/>
+        <text>RNF135</text>
+      </annotation>
+      <annotation id="175">
+        <infon key="type">Mutation</infon>
+        <location offset="3329" length="5"/>
+        <text>T189S</text>
+      </annotation>
+      <annotation id="176">
+        <infon key="type">Gene</infon>
+        <location offset="3335" length="5"/>
+        <text>SENP6</text>
+      </annotation>
+      <annotation id="177">
+        <infon key="type">Gene</infon>
+        <location offset="3341" length="6"/>
+        <text>HS1978</text>
+      </annotation>
+      <annotation id="178">
+        <infon key="type">Mutation</infon>
+        <location offset="3348" length="17"/>
+        <text>E890D;E892D;E897D</text>
+      </annotation>
+      <annotation id="179">
+        <infon key="type">Gene</infon>
+        <location offset="3366" length="3"/>
+        <text>SGK</text>
+      </annotation>
+      <annotation id="180">
+        <infon key="type">Gene</infon>
+        <location offset="3370" length="6"/>
+        <text>HS2050</text>
+      </annotation>
+      <annotation id="181">
+        <infon key="type">Mutation</infon>
+        <location offset="3377" length="20"/>
+        <text>K19M;K29M;K43M;K124M</text>
+      </annotation>
+      <annotation id="182">
+        <infon key="type">Gene</infon>
+        <location offset="3432" length="3"/>
+        <text>SGK</text>
+      </annotation>
+      <annotation id="183">
+        <infon key="type">Gene</infon>
+        <location offset="3467" length="3"/>
+        <text>SGK</text>
+      </annotation>
+      <annotation id="184">
+        <infon key="type">Gene</infon>
+        <location offset="3502" length="3"/>
+        <text>SGK</text>
+      </annotation>
+      <annotation id="185">
+        <infon key="type">Gene</infon>
+        <location offset="3506" length="6"/>
+        <text>HS2053</text>
+      </annotation>
+      <annotation id="186">
+        <infon key="type">Gene</infon>
+        <location offset="3585" length="3"/>
+        <text>SGK</text>
+      </annotation>
+      <annotation id="187">
+        <infon key="type">Gene</infon>
+        <location offset="3665" length="3"/>
+        <text>SGK</text>
+      </annotation>
+      <annotation id="188">
+        <infon key="type">Gene</infon>
+        <location offset="3721" length="3"/>
+        <text>SGK</text>
+      </annotation>
+      <annotation id="189">
+        <infon key="type">Gene</infon>
+        <location offset="3808" length="6"/>
+        <text>HS0653</text>
+      </annotation>
+      <annotation id="190">
+        <infon key="type">Gene</infon>
+        <location offset="3886" length="6"/>
+        <text>HS0934</text>
+      </annotation>
+      <annotation id="191">
+        <infon key="type">Gene</infon>
+        <location offset="3974" length="6"/>
+        <text>HS2249</text>
+      </annotation>
+      <annotation id="192">
+        <infon key="type">Gene</infon>
+        <location offset="4164" length="6"/>
+        <text>HS1181</text>
+      </annotation>
+      <annotation id="193">
+        <infon key="type">Gene</infon>
+        <location offset="4234" length="6"/>
+        <text>HS2053</text>
+      </annotation>
+      <annotation id="194">
+        <infon key="type">Gene</infon>
+        <location offset="4276" length="6"/>
+        <text>HS2250</text>
       </annotation>
     </passage>
   </document>

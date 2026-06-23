@@ -23,7 +23,7 @@
     <passage>
       <infon key="type">body</infon>
       <offset>111</offset>
-      <text>Supplementary Figures Figure S1: S2 S3 S4 S5 S6 S7 S8 Table S1: S2 S3 S4 S5 S6 S7 S8 S9 S10 S11 S12 S13 S14 Supplementary Tables Figure S1 S5 S5 Figure S5: Potential impact of recurrently mutated genes on BCR signalling and downstream messengers. (A) Autocrine and paracrine stimulation of IL-21R induces the dimerization and activation of STAT3, a positive regulator of PRDM1 expression 3 4 5 6 7 S2 8, 9, 10, 11 12 Figure S6: No detectable prognostic impact of EZH2 or MEF2B mutations in DLBCL. The presence of MEF2B mutations (in exon 1 or 2) and EZH2 hot spot (Y641) mutations was determined in a cohort of 199 DLBCL patients, the subset of the 259 DLBCL cases that were uniformly treated with R-CHOP. (A) The overall survival times (OS) were compared between the uniformly treated patients in this cohort for the cases with known COO subtype, as defined by gene expression profiling (GEP) 13 14 15 Table S3 Supplementary Tables TP53 ‡ 24 § 2 2 FOXO1 ‡ 1 § 3 3 FOXO1 ‡ 12 § 2 1 TNFRSF14 226 § 2 2 CCND3 ‡ 233 § 2 2 CCND3 ‡ 1 § 3 3 B2M ‡ § This mutation was proven to be somatic in at least one case; that is, present in tumour DNA but absent in matched constitutional DNA. ‡Not mutated in any of the fourteen genomes or exomes sequenced. *Additional hot spots in BCL2 were excluded to simplify the table. Genes indicated in bold are previously described targets of somatic mutation in lymphoma. Although known to be mutated, hot spots have not, to our knowledge, been described in BCL7A. Note that Tyr641 as previously described 16 Supplementary Discussion It is thought that GCB and ABC DLBCLs arise due to distinct genetic events 17 18 Here we report other important modulators or components of BCR signalling and regulators of B cell differentiation or survival as targets of repeated and recurrent mutation, including MEF2B/C 5 , SGK1 7 , IRF4 19 22 23 24 There were notable differences in mutation patterns among these genes. For example, MEF2B/C and STAT3, each of which function as dimers, showed strong evidence for selectively acquiring nonsynonymous (rather than truncating) mutations, whereas SGK1 and CCND3 appeared to be preferentially truncated in NHL. The previously characterized CARD11 8 , CD79B 9 2 9, 10 S6 The remaining genes listed above encode proteins that are either activated or inhibited as a result of BCR stimulation, but not directly involved in regulating NF-B. PRDM1 has been termed the plasma cell master differentiation gene as it orchestrates terminal differentiation of germinal centre B cells into plasma cells 25 3 Of interest, inherited mutations in STAT3 are the primary cause of an immune disorder known as hyper IgE syndrome and it has been shown that in these cases mutant STAT3 acts in a dominant negative manner 26 S5A Mutations affecting CREBBP and EP300 were recently reported in DLBCL 27 28 S9 29 S6 S9 S3 S9 Representative cSNVs corresponding to three of these hot spots in CREBBP and one in EP300 were confirmed as somatic. Three of the EP300 somatic nonsynonymous mutations we observed affected residues previously shown to reduce acetyltransferase activity in an in vitro acetyltransferase assay (Figure S3 1 1 Taken together, these data suggest that reduction or loss of either CREBBP or EP300 may promote lymphomagenesis. Of note, in contrast to a recent report 27 MEF2 proteins can act as transcriptional co-activators or co-repressors by recruiting two classes of enzymes that alter the acetylation state of histone tails, namely HATs and HDACs. MEF2 dimers are known to associate with the two HATs CREBBP and EP300 30 31 32 30, 31 S5D 33 6 6 34 The MEF2B dimer has previously been co-crystallized with three of its interacting partners, namely Cabin1 14 , HDAC9 31 15 35 36 37 37 15 When one considers the high frequency of mutations we detected that affect genes encoding MEF2 proteins, it is striking but perhaps not surprising that inactivating mutations affecting both CREBBP and EP300 are common in NHL, as these are both known effectors of the induction of MEF2-regulated genes. Notably, with one exception, all of the truncation-inducing mutations identified in CREBBP and EP300 are predicted to remove the histone acetyltransferase (HAT) domain of the protein 14 S3 1 38 S5C Our data are consistent with a model wherein the induction of MEF2 target genes in response to BCR stimulation is inhibited by mutations that reduce the function of MEF2 complexes, potentially in a dominant negative fashion, or mutations that inactivate either of their transcriptional co-activators CREBBP or EP300 (Figure S5D 39 In the cited study, mutation of this residue resulted in impaired export of HDAC7 following TCR stimulation thereby inhibiting MEF2-mediated induction of NUR77 expression and hence, inhibiting NUR77-mediated apoptosis. Thus, this mutant could potentially produce a nuclear-restricted protein that leads to constitutive suppression of MEF2 target genes regardless of intracellular Ca 2+ levels. This would be a similar effect that would be expected for loss-of-function mutations of MEF2B, CREBBP or EP300. Though an increase in cytoplasmic Ca 2+ is one downstream signal following BCR stimulation, the NFAT transcription factors, key downstream mediators of this signal that promote survival, were not mutated and thus are expected to function normally. Also, pathways such as NF-B and events modulated by AKT do not rely on the Ca 2+ messenger and should therefore be unaffected by these mutations. Interestingly, a recent report suggests that SGK1 (found here to be commonly inactivated in DLBCL) may also play a role in modulating Ca 2+ levels by regulating the turnover of the Ca 2+ channel protein Orai 40 Figure S2 : S2 Figure S2: N-terminal truncation of FOXO1 protein with mutation affecting initial codon. (A)The RNA-seq data of cell lines and patient samples revealed mutations in 3 samples affecting the initial codon of FOXO1. To determine the effect of such mutations on FOXO1 protein, we assayed FOXO1 by Western blot in DLBCL cell lines using an antibody raised against full-length FOXO1 (2H8.2). In the cell line containing a mutation at the initiator methionine (OCI-Ly1), we observed a FOXO1 band of reduced molecular weight, compared to FOXO1 wild-type cell lines (size indicated in Kilodaltons on the left). The reduced size is consistent with the use of a second methionine codon in the FOXO1 gene, producing a protein shortened at the amino terminus by 70 amino acids. The same blot was also probed with an antibody that recognizes an N-terminal epitope (L27) and lack of a band in OCI-Ly1 cells is consistent with the notion that the lower band in this cell line corresponds to FOXO1 protein lacking its N- Figure S3 : S3 Figure S3: Recurrent mutations affecting the HAT domain of CREBBP and EP300. Mutations affecting both CREBBP and EP300 were detected. (A) Alignment shows the histone acetyltransferase (HAT) domain of both CREBBP and EP300 proteins. Residues with cSNVs in either CREBBP or EP300 are coloured pink if affected in a single sample or green if affected in multiple samples (i.e. hot spots). Yellow indicates that mutation of the highlighted residue has been shown to reduce HAT activity in vitro and orange indicates that the residue interacts with the substrate analogue utilized in solving the crystal structure (Lys-CoA) 1 (B) The three dimensional structure of the HAT domain of CREBBP and EP300 based on the solved structure of EP300 1 . Mutated residues in the HAT domain of both CREBBP and EP300 are highlighted with the same colouring as (A) with positions numbered relative to EP300. Many of the mutated residues are in close proximity to the substrate (shown here is the substrate analogue and inhibitor Lys-CoA, blue-caged molecule). Figure S4 : S4 Figure S4: The effect of GNA13 mutations at the protein level.(A) A western blot revealed the expected lack of GNA13 protein in DOHH2, the cell line with a truncating point mutation detected in the RNA-seq data. The lack of protein in Karpas422, SU-DHL-6 and WSU-DLCL2 was surprising, as we had not detected protein-truncating mutations in these cells. (B) Further analysis of the aligned sequence from these three cell lines and additional analysis utilizing a de-novo transcript assembly approach (Trans-ABySS; Methods), revealed multiple aberrations that may explain the lack of protein. Firstly, in Karpas422 reads were observed to map the first intron, suggesting that the intron is retained in a significant proportion of GNA13 transcripts (compare Karpas422 on the left to WSU-DLCL2 on the right). Inspection of sequence contigs from this case Figure S7 : S7 Figure S7: Confirmation of alternative splicing events resulting from MLL2 splice site mutations. Shown are two examples of the effect of somatic splice site mutations in the MLL2 gene (reverse strand) determined from RNA-seq data and verified by Sanger sequencing (Supplementary TableS10; 05-25439).(A) Point mutation affecting a splice donor site (GT&gt;GA) at chr12:47,714,115 (yellow star). RT-PCR primers for exons 38 and 39 (blue rectangles) are indicated by black arrows. Sequence from the upper gel band represents the reference allele or, from the lower band, the alternative transcript which uses an alternative donor site within exon 38. (B) Point mutation that disrupts a splice acceptor site (AG&gt;CG) at chr12:47,733,692 (yellow star). Intron retention is inferred due to enrichment of intronic sequence reads (top, grey bars). Black arrows depict PCR primers. Primers for exons 5 and 6 (lane 2 of gel on right) produced an amplicon of 267bp and an amplicon of 602bp. The difference in these sizes is the size of the intron (335bp). Primers for exon 5 and the intron (lane 1) produced a single amplicon of 318bp. Amplicon sequencing confirmed the present of the reference splicing pattern and the intron retention event. Figure S8 : S8 Figure S8: Visualization of MEF2B mutations in the solved crystal structure.The crystal structure of MEF2B bound to one of its co-repressors (Cabin1) is shown with the mutated residues indicated 14 15 : Gene fusions identified using RNA-seq and genome sequencing Patient DLBCL-Patient C DLBCL-Patient D DLBCL-Patient E DLBCL-Patient F DLBCL-Patient G DLBCL-Patient H DLBCL-PatientI DLBCL-Patient J DLBCL-Patient K DLBCL-Patient L DLBCL-Patient M Gene fusion(s) KIAA1532/ POLR2E BCL2/ IGH C15orf57/ CBX3 None None BCL2/ IGH MAPKBP1 /MGA SMEK1/ CCDC88C None IGH/ DUSP22 C15orf57/ CBX3 GIT1/ SHMT1 YES1/ ENOSF1 BCL2/ IGH BCL6/ FBX018 C15orf57/ CBX3 C4orf18/ TMEM144 Observed in* Transcriptome only Both Both NA NA Both Both Both NA Both Both Both Transcriptome only Both Both Both Both Origin Unknown Somatic Germ line** NA NA Somatic Germ line Germ line NA Somatic Germ line** Somatic Unknown Somatic Somatic Germ line** Germ line Breakpoint 1 chr19:2254040 chr18:58944471 chr15:38641486 NA NA chr18:58945022 chr15:39837967 chr14:90867139 NA chr14:105396245 chr15:38641486 chr17:18177820 chr18:714633 chr18:58915791 chr3:188945185 chr15:38641486 chr4:159303043 Breakpoint 2 chr19:1040471 chr14:105401497 chr7:26219496 NA NA chr14:105453733 chr15:39903511 chr14:91005988 NA chr6:295806 chr7:26219496 chr17:24935050 chr18:696468 chr14:105400505 chr10:6018457 chr7:26219496 chr4:159380815 *Events observed only in the transcriptome are potential false positive events or the result of trans-splicing;**Genome sequencing reveals that this germ line derived event is not the result of a genomic translocation but rather the approximately 7 Kb insertion of chr7 sequence (harbouring CBX3) into the chr15 region containing C15orf57. Table S6 : Mutation hotspots in genes identified using RNA-seq. S6 Codon Number of Samples Distinct mutations Gene Name 602;646 83  § 69  § 81  § 1482  § 1499  § 1467  § 287  § 30 9 4 2 3 2 2 2 4 EZH2 2 MEF2B 2 MEF2B 2 MEF2B 2 CREBBP 2 CREBBP 2 EP300 1 HLA-C 1 206  § 230  § 252  § 8 4 2 6 5 BCL7A  ‡ 1 MYD88  ‡ 1 MYD88  ‡ 1 MYD88  ‡ 59 7 3 BCL2* 92;196;197 73;160  § 164;255  § 5 4 3 4 CD79B  ‡ 2 IKZF3  ‡ 2 PIM1  ‡ 97;188 18  § 587  § 45  § 3 3 3 3 2 PIM1  ‡ 2 IRF4  ‡ 2 BCL6 2 BTG2  ‡ 141;234 3 2 Table S9 : Mutations affecting CREBBP or EP300 detected using RNA-seq data. S9 Library Disease Gene Annotation EP300 position HS0841 DLBCL line CREBBP E1238*;E1268* E1202 HS0842 DLBCL line CREBBP A436V A420 HS0842 HS0806 DLBCL line FL CREBBP CREBBP Q170*;Q238* Y71H;Y1482H;Y1512H  § not conserved Y1446 HS1185 FL CREBBP G1411E;G1441E G1375 HS1200 FL CREBBP Y92F;Y1503F;Y1533F Y1467 HS1360 HS1361 FL FL CREBBP CREBBP R35C;R1446C;R1476C S25N;S1436N;S1466N  § R1410 S1400 HS0637 HS0641 HS0649 DLBCL DLBCL DLBCL CREBBP CREBBP CREBBP Q1104*;Q1134* L88Q;L1499Q;L1529Q  § P77R;P1488R;P1518R  § Q1068 L1463 P1452 HS0649 DLBCL CREBBP A687V;A717V not conserved HS0749 DLBCL CREBBP N1589K;N1619K N1552 HS0933 HS0939 DLBCL DLBCL CREBBP CREBBP R370*;R438* M1625V;M1655V  § R354 M1588 HS1135 HS1460 DLBCL DLBCL CREBBP CREBBP V1342E;V1372E L88P;L1499P;L1529P  § V1306 L1463 HS1977 DLBCL CREBBP C1283R;C1313R C1247 HS1979 HS2059 DLBCL DLBCL CREBBP CREBBP N513S;N1978S;N2008S Y71N;Y1482N;Y1512N  § not conserved Y1446 HS2249 HS2249 HS2606 DLBCL DLBCL DLBCL CREBBP CREBBP CREBBP A442T;A1907T;A1937T Y92H;Y1503H;Y1533H  § R35C;R1446C;R1476C  § not conserved Y1467 R1410 HS0653 HS0939 DLBCL DLBCL EP300 EP300 Q1904* A1498T  § -- HS1133 HS1462 HS2049 HS2607 DLBCL DLBCL DLBCL DLBCL EP300 EP300 EP300 EP300 L415P Y1467H  § P925T  ‡ P925T  ‡ ---- HS1199 FL EP300 D1485V - HS1201 HS1202 FL FL EP300 EP300 Q1455L Y1467N  § -- HS0841 DLBCL line EP300 Q160* - HS0900 DLBCL line EP300 R1627W - Table S11 : S11 All MEF2B mutations detected. 97-10270 chr19:19121045 T &gt; A D83V DLBCL Case (res_id) DB (cell line) 06-11109 03-31934 07-20462 02-17440 91-34915 98-17403 03-16286 06-20044 05-12024 06-23741 06-22766 06-33903 Position (chromosome) chr19:19121045 chr19:19121045 chr19:19122543 chr19:19121045 chr19:19122535 chr19:19121045 chr19:19122535 chr19:19121045 chr19:19122535  § chr19:19121045 chr19:19121045 chr19:19122535  § chr19:19121045 Change (DNA) T &gt; A T &gt; G A &gt; T T &gt; G T &gt; C T &gt; G T &gt; C T &gt; C T &gt; C T &gt; A T &gt; A T &gt; C T &gt; A Change (protein) D83V D83A M1K D83A K4E D83A K4E D83G K4E D83V D83V K4E D83V Diagnosis and GCB DLBCL (GEP) subtype (subtyping FL method) FL FL FL GCB DLBCL (GEP) FL DLBCL FL FL FL FL FL 07-14540 89-30159 chr19:19122535 chr19:19121045 T &gt; C T &gt; A K4E D83V FL FL 98-14740 91-53679 chr19:19122535 chr19:19121045 T &gt; C T &gt; A K4E D83V FL FL 05-15463 97-23234 chr19:19122532 chr19:19121045 T &gt; C T &gt; A K5E D83V FL FL 03-28045 92-59893 02-28712 99-21548 01-24821 05-22052 07-10201 SPEC1187 06-20952 03-18669 03-33888 01-16433 00-15694 05-11328 06-12968 06-18193 85-31959 06-16716 02-18484 91-53679 08-15460 06-10398 06-30389 08-10448 07-18609 99-30068 05-20543 05-11369 05-14545 06-23851 06-23851 06-12557 chr19:19122523 chr19:19122502 chr19:19122493 chr19:19121045 chr19:19119600 chr19:19121225 chr19:19121222 chr19:19121217 chr19:19121195 chr19:19121153 chr19:19121135 chr19:19121093  § chr19:19121088  § chr19:19121088 chr19:19121087  § chr19:19121087 chr19:19119578 chr19:19119559  ‡ chr19:19119539 chr19:19118877 chr19:19118875 chr19:19118406 chr19:19118365 chr19:19121087 chr19:19117831 chr19:19121087 chr19:19117794 chr19:19121066 chr19:19117608 chr19:19117608 chr19:19121066 chr19:19117606 T &gt; C T &gt; C G &gt; A T &gt; A +A T &gt; C C &gt; T A &gt; C T &gt; G A &gt; G C &gt; T A &gt; C A &gt; G A &gt; G T &gt; C T &gt; C C &gt; A C &gt; T 10bp del -GGAA -AAGG +GG -C T &gt; C A &gt; C T &gt; C G &gt; T -GGGGCT A &gt; G A &gt; C T &gt; C C &gt; G I8V R15G Q18* D83V L100 Frameshift K23R R24Q F26V Y33S I47T R53H L67R Y69H Y69H Y69C Y69C E108* R114Q G121 Frameshift F170 Frameshift P169 Frameshift G242 Frameshift P256 Frameshift Y69C S294R † Y69C R307S † *369G † E74-P75-H76 &gt; D *369E † H76R *369Y † DLBCL DLBCL FL FL DLBCL DLBCL FL GCB DLBCL (GEP) FL DLBCL DLBCL FL GCB DLBCL (GEP) GCB DLBCL (GEP) FL FL ABC DLBCL (GEP) FL FL DLBCL ABC DLBCL (GEP) FL FL FL FL ABC DLBCL (GEP) FL FL FL FL FL FL 07-21828 07-30109 06-30145 05-23110  † annotation is unique to NM_001145785, representing the longest MEF2B chr19:19121064 C &gt; T E77K DLBCL chr19:19121063 T &gt; C E77G Composite FL chr19:19121052  § T &gt; A N81Y GCB DLBCL (GEP) chr19:19121050  § G &gt; T N81K GCB DLBCL (GEP) isoform ;  § was proven to be somatic (absent in matched constitutional DNA);  ‡ was also found in the matched constitutional DNA (inherited variant) 00-13940 06-15922 chr19:19121045 chr19:19121045  § T &gt; G T &gt; G D83A D83A GCB DLBCL (IHC) GCB DLBCL (GEP) 07-23804 chr19:19121045 T &gt; G D83A GCB DLBCL (GEP) 00-22287 chr19:19121045 T &gt; A D83V GCB DLBCL (IHC) 01-18672 02-30647 chr19:19121045 chr19:19121045  § T &gt; A T &gt; A D83V D83V GCB DLBCL (IHC) GCB DLBCL (GEP) 03-11110 chr19:19121045 T &gt; A D83V DLBCL 03-26817 chr19:19121045 T &gt; A D83V GCB DLBCL (GEP) 03-30438 chr19:19121045 T &gt; A D83V GCB DLBCL (GEP) 05-24666 06-30025 06-33777 chr19:19121045 chr19:19121045  § chr19:19121045  § T &gt; A T &gt; A T &gt; A D83V D83V D83V GCB DLBCL (GEP) GCB DLBCL (GEP) GCB DLBCL (GEP) 78-60284 95-32814 chr19:19121045 chr19:19121045  § T &gt; A T &gt; A D83V D83V GCB DLBCL (IHC) GCB DLBCL (GEP) Table S12 : Catalogue of MEF2B cSNVs in FL and DLBCL. S12 Amino Acid Change FL DLBCL Total % variants M1K K4E  § 1 4 0 2 1 6 1.4 8.7 K5E 1 0 1 1.4 I8V 0 1 1 1.4 R15G 0 1 1 1.4 K23R 0 1 1 1.4 R24Q 1 0 1 1.4 F26V 0 1 1 1.4 Y33S 1 0 1 1.4 I47T 0 1 1 1.4 R53H 0 1 1 1.4 L67R Y69C/H  § 1 4 0 2 1 6 1.4 8.7 E74-P75-H76 &gt; D 1 0 1 1.4 H76R 1 0 1 1.4 E77K N81K/Y  § D83A/G/V  § 0 0 11 1 2 16 1 2 27 1.4 2.9 39.1 R114Q 0 1 1 1.4 S294Y 1 0 1 1.4 R307S 0 1 1 1.4 *369Y/E/G 3 0 3 4.3 Truncation 5 3 8 11.6 Any mutation 35 34 69 100.0 Total cases sequenced 261 292 Prevalence 13.41% 11.64% § at least one representative mutation at this position has been confirmed as a somatic mutation. § mutation was proven to be somatic (absent in matched constitutional DNA); ‡ was also found in the matched constitutional DNA (inherited variant); bold indicates mutation hot spots.</text>
+      <text>Supplementary Figures Figure S1: S2 S3 S4 S5 S6 S7 S8 Table S1: S2 S3 S4 S5 S6 S7 S8 S9 S10 S11 S12 S13 S14 Supplementary Tables Figure S1 S5 S5 Figure S5: Potential impact of recurrently mutated genes on BCR signalling and downstream messengers. (A) Autocrine and paracrine stimulation of IL-21R induces the dimerization and activation of STAT3, a positive regulator of PRDM1 expression 3 4 5 6 7 S2 8, 9, 10, 11 12 Figure S6: No detectable prognostic impact of EZH2 or MEF2B mutations in DLBCL. The presence of MEF2B mutations (in exon 1 or 2) and EZH2 hot spot (Y641) mutations was determined in a cohort of 199 DLBCL patients, the subset of the 259 DLBCL cases that were uniformly treated with R-CHOP. (A) The overall survival times (OS) were compared between the uniformly treated patients in this cohort for the cases with known COO subtype, as defined by gene expression profiling (GEP) 13 14 15 Table S3 Supplementary Tables TP53 ‡ 24 § 2 2 FOXO1 ‡ 1 § 3 3 FOXO1 ‡ 12 § 2 1 TNFRSF14 226 § 2 2 CCND3 ‡ 233 § 2 2 CCND3 ‡ 1 § 3 3 B2M ‡ § This mutation was proven to be somatic in at least one case; that is, present in tumour DNA but absent in matched constitutional DNA. ‡Not mutated in any of the fourteen genomes or exomes sequenced. *Additional hot spots in BCL2 were excluded to simplify the table. Genes indicated in bold are previously described targets of somatic mutation in lymphoma. Although known to be mutated, hot spots have not, to our knowledge, been described in BCL7A. Note that Tyr641 as previously described 16 Supplementary Discussion It is thought that GCB and ABC DLBCLs arise due to distinct genetic events 17 18 Here we report other important modulators or components of BCR signalling and regulators of B cell differentiation or survival as targets of repeated and recurrent mutation, including MEF2B/C 5 , SGK1 7 , IRF4 19 22 23 24 There were notable differences in mutation patterns among these genes. For example, MEF2B/C and STAT3, each of which function as dimers, showed strong evidence for selectively acquiring nonsynonymous (rather than truncating) mutations, whereas SGK1 and CCND3 appeared to be preferentially truncated in NHL. The previously characterized CARD11 8 , CD79B 9 2 9, 10 S6 The remaining genes listed above encode proteins that are either activated or inhibited as a result of BCR stimulation, but not directly involved in regulating NF-B. PRDM1 has been termed the plasma cell master differentiation gene as it orchestrates terminal differentiation of germinal centre B cells into plasma cells 25 3 Of interest, inherited mutations in STAT3 are the primary cause of an immune disorder known as hyper IgE syndrome and it has been shown that in these cases mutant STAT3 acts in a dominant negative manner 26 S5A Mutations affecting CREBBP and EP300 were recently reported in DLBCL 27 28 S9 29 S6 S9 S3 S9 Representative cSNVs corresponding to three of these hot spots in CREBBP and one in EP300 were confirmed as somatic. Three of the EP300 somatic nonsynonymous mutations we observed affected residues previously shown to reduce acetyltransferase activity in an in vitro acetyltransferase assay (Figure S3 1 1 Taken together, these data suggest that reduction or loss of either CREBBP or EP300 may promote lymphomagenesis. Of note, in contrast to a recent report 27 MEF2 proteins can act as transcriptional co-activators or co-repressors by recruiting two classes of enzymes that alter the acetylation state of histone tails, namely HATs and HDACs. MEF2 dimers are known to associate with the two HATs CREBBP and EP300 30 31 32 30, 31 S5D 33 6 6 34 The MEF2B dimer has previously been co-crystallized with three of its interacting partners, namely Cabin1 14 , HDAC9 31 15 35 36 37 37 15 When one considers the high frequency of mutations we detected that affect genes encoding MEF2 proteins, it is striking but perhaps not surprising that inactivating mutations affecting both CREBBP and EP300 are common in NHL, as these are both known effectors of the induction of MEF2-regulated genes. Notably, with one exception, all of the truncation-inducing mutations identified in CREBBP and EP300 are predicted to remove the histone acetyltransferase (HAT) domain of the protein 14 S3 1 38 S5C Our data are consistent with a model wherein the induction of MEF2 target genes in response to BCR stimulation is inhibited by mutations that reduce the function of MEF2 complexes, potentially in a dominant negative fashion, or mutations that inactivate either of their transcriptional co-activators CREBBP or EP300 (Figure S5D 39 In the cited study, mutation of this residue resulted in impaired export of HDAC7 following TCR stimulation thereby inhibiting MEF2-mediated induction of NUR77 expression and hence, inhibiting NUR77-mediated apoptosis. Thus, this mutant could potentially produce a nuclear-restricted protein that leads to constitutive suppression of MEF2 target genes regardless of intracellular Ca 2+ levels. This would be a similar effect that would be expected for loss-of-function mutations of MEF2B, CREBBP or EP300. Though an increase in cytoplasmic Ca 2+ is one downstream signal following BCR stimulation, the NFAT transcription factors, key downstream mediators of this signal that promote survival, were not mutated and thus are expected to function normally. Also, pathways such as NF-B and events modulated by AKT do not rely on the Ca 2+ messenger and should therefore be unaffected by these mutations. Interestingly, a recent report suggests that SGK1 (found here to be commonly inactivated in DLBCL) may also play a role in modulating Ca 2+ levels by regulating the turnover of the Ca 2+ channel protein Orai 40 Figure S2 : S2 Figure S2: N-terminal truncation of FOXO1 protein with mutation affecting initial codon. (A)The RNA-seq data of cell lines and patient samples revealed mutations in 3 samples affecting the initial codon of FOXO1. To determine the effect of such mutations on FOXO1 protein, we assayed FOXO1 by Western blot in DLBCL cell lines using an antibody raised against full-length FOXO1 (2H8.2). In the cell line containing a mutation at the initiator methionine (OCI-Ly1), we observed a FOXO1 band of reduced molecular weight, compared to FOXO1 wild-type cell lines (size indicated in Kilodaltons on the left). The reduced size is consistent with the use of a second methionine codon in the FOXO1 gene, producing a protein shortened at the amino terminus by 70 amino acids. The same blot was also probed with an antibody that recognizes an N-terminal epitope (L27) and lack of a band in OCI-Ly1 cells is consistent with the notion that the lower band in this cell line corresponds to FOXO1 protein lacking its N- Figure S3 : S3 Figure S3: Recurrent mutations affecting the HAT domain of CREBBP and EP300. Mutations affecting both CREBBP and EP300 were detected. (A) Alignment shows the histone acetyltransferase (HAT) domain of both CREBBP and EP300 proteins. Residues with cSNVs in either CREBBP or EP300 are coloured pink if affected in a single sample or green if affected in multiple samples (i.e. hot spots). Yellow indicates that mutation of the highlighted residue has been shown to reduce HAT activity in vitro and orange indicates that the residue interacts with the substrate analogue utilized in solving the crystal structure (Lys-CoA) 1 (B) The three dimensional structure of the HAT domain of CREBBP and EP300 based on the solved structure of EP300 1 . Mutated residues in the HAT domain of both CREBBP and EP300 are highlighted with the same colouring as (A) with positions numbered relative to EP300. Many of the mutated residues are in close proximity to the substrate (shown here is the substrate analogue and inhibitor Lys-CoA, blue-caged molecule). Figure S4 : S4 Figure S4: The effect of GNA13 mutations at the protein level.(A) A western blot revealed the expected lack of GNA13 protein in DOHH2, the cell line with a truncating point mutation detected in the RNA-seq data. The lack of protein in Karpas422, SU-DHL-6 and WSU-DLCL2 was surprising, as we had not detected protein-truncating mutations in these cells. (B) Further analysis of the aligned sequence from these three cell lines and additional analysis utilizing a de-novo transcript assembly approach (Trans-ABySS; Methods), revealed multiple aberrations that may explain the lack of protein. Firstly, in Karpas422 reads were observed to map the first intron, suggesting that the intron is retained in a significant proportion of GNA13 transcripts (compare Karpas422 on the left to WSU-DLCL2 on the right). Inspection of sequence contigs from this case Figure S7 : S7 Figure S7: Confirmation of alternative splicing events resulting from MLL2 splice site mutations. Shown are two examples of the effect of somatic splice site mutations in the MLL2 gene (reverse strand) determined from RNA-seq data and verified by Sanger sequencing (Supplementary TableS10; 05-25439).(A) Point mutation affecting a splice donor site (GT&gt;GA) at chr12:47,714,115 (yellow star). RT-PCR primers for exons 38 and 39 (blue rectangles) are indicated by black arrows. Sequence from the upper gel band represents the reference allele or, from the lower band, the alternative transcript which uses an alternative donor site within exon 38. (B) Point mutation that disrupts a splice acceptor site (AG&gt;CG) at chr12:47,733,692 (yellow star). Intron retention is inferred due to enrichment of intronic sequence reads (top, grey bars). Black arrows depict PCR primers. Primers for exons 5 and 6 (lane 2 of gel on right) produced an amplicon of 267bp and an amplicon of 602bp. The difference in these sizes is the size of the intron (335bp). Primers for exon 5 and the intron (lane 1) produced a single amplicon of 318bp. Amplicon sequencing confirmed the present of the reference splicing pattern and the intron retention event. Figure S8 : S8 Figure S8: Visualization of MEF2B mutations in the solved crystal structure.The crystal structure of MEF2B bound to one of its co-repressors (Cabin1) is shown with the mutated residues indicated 14 15 : Gene fusions identified using RNA-seq and genome sequencing Kb insertion of chr7 sequence (harbouring CBX3) into the chr15 region containing C15orf57. Patient DLBCL-Patient C DLBCL-Patient D DLBCL-Patient E DLBCL-Patient F DLBCL-Patient G DLBCL-Patient H DLBCL-PatientI DLBCL-Patient J DLBCL-Patient K DLBCL-Patient L DLBCL-Patient M Gene fusion(s) KIAA1532 / POLR2E BCL2/ IGH C15orf57/ CBX3 None None BCL2/ IGH MAPKBP 1/MGA SMEK1/ CCDC88 C None IGH/ DUSP22 C15orf57/ CBX3 GIT1/ SHMT1 YES1/ ENOSF1 BCL2/ IGH BCL6/ FBX018 C15orf57/ CBX3 C4orf18/ TMEM144 Observed in* Transcriptome only Both Both NA NA Both Both Both NA Both Both Both Transcriptome only Both Both Both Both Origin Unknown Somatic Germ line** NA NA Somatic Germ line Germ line NA Somatic Germ line** Somatic Unknown Somatic Somatic Germ line** Germ line Breakpoint 1 chr19:2254040 chr18:58944471 chr15:38641486 NA NA chr18:58945022 chr15:39837967 chr14:90867139 NA chr14:105396245 chr15:38641486 chr17:18177820 chr18:714633 chr18:58915791 chr3:188945185 chr15:38641486 chr4:159303043 Breakpoint 2 chr19:1040471 chr14:105401497 chr7:26219496 NA NA chr14:105453733 chr15:39903511 chr14:91005988 NA chr6:295806 chr7:26219496 chr17:24935050 chr18:696468 chr14:105400505 chr10:6018457 chr7:26219496 chr4:159380815 *Events observed only in the transcriptome are potential false positive events or the result of trans-splicing;**Genome sequencing reveals that this germ line derived event is not the result of a genomic translocation but rather the approximately 7 Table S6 : Mutation hotspots in genes identified using RNA-seq. S6 Codon Number of Samples Distinct mutations Gene Name 602;646 83  § 69  § 81  § 1482  § 1499  § 1467  § 287  § 30 9 4 2 3 2 2 2 4 EZH2 2 MEF2B 2 MEF2B 2 MEF2B 2 CREBBP 2 CREBBP 2 EP300 1 HLA-C 1 206  § 230  § 252  § 8 4 2 6 5 BCL7A  ‡ 1 MYD88  ‡ 1 MYD88  ‡ 1 MYD88  ‡ 59 7 3 BCL2* 92;196;197 73;160  § 164;255  § 5 4 3 4 CD79B  ‡ 2 IKZF3  ‡ 2 PIM1  ‡ 97;188 18  § 587  § 45  § 3 3 3 3 2 PIM1  ‡ 2 IRF4  ‡ 2 BCL6 2 BTG2  ‡ 141;234 3 2 Table S9 : Mutations affecting CREBBP or EP300 detected using RNA-seq data. S9 Library Disease Gene Annotation EP300 position HS0841 DLBCL line CREBBP E1238*;E1268* E1202 HS0842 DLBCL line CREBBP A436V A420 HS0842 HS0806 DLBCL line FL CREBBP CREBBP Q170*;Q238* Y71H;Y1482H;Y1512H  § not conserved Y1446 HS1185 FL CREBBP G1411E;G1441E G1375 HS1200 FL CREBBP Y92F;Y1503F;Y1533F Y1467 HS1360 HS1361 FL FL CREBBP CREBBP R35C;R1446C;R1476C S25N;S1436N;S1466N  § R1410 S1400 HS0637 HS0641 HS0649 DLBCL DLBCL DLBCL CREBBP CREBBP CREBBP Q1104*;Q1134* L88Q;L1499Q;L1529Q  § P77R;P1488R;P1518R  § Q1068 L1463 P1452 HS0649 DLBCL CREBBP A687V;A717V not conserved HS0749 DLBCL CREBBP N1589K;N1619K N1552 HS0933 HS0939 DLBCL DLBCL CREBBP CREBBP R370*;R438* M1625V;M1655V  § R354 M1588 HS1135 HS1460 DLBCL DLBCL CREBBP CREBBP V1342E;V1372E L88P;L1499P;L1529P  § V1306 L1463 HS1977 DLBCL CREBBP C1283R;C1313R C1247 HS1979 HS2059 DLBCL DLBCL CREBBP CREBBP N513S;N1978S;N2008S Y71N;Y1482N;Y1512N  § not conserved Y1446 HS2249 HS2249 HS2606 DLBCL DLBCL DLBCL CREBBP CREBBP CREBBP A442T;A1907T;A1937T Y92H;Y1503H;Y1533H  § R35C;R1446C;R1476C  § not conserved Y1467 R1410 HS0653 HS0939 DLBCL DLBCL EP300 EP300 Q1904* A1498T  § -- HS1133 HS1462 HS2049 HS2607 DLBCL DLBCL DLBCL DLBCL EP300 EP300 EP300 EP300 L415P Y1467H  § P925T  ‡ P925T  ‡ ---- HS1199 FL EP300 D1485V - HS1201 HS1202 FL FL EP300 EP300 Q1455L Y1467N  § -- HS0841 DLBCL line EP300 Q160* - HS0900 DLBCL line EP300 R1627W - Table S11 : S11 All MEF2B mutations detected. 97-10270 chr19:19121045 T &gt; A D83V DLBCL Case (res_id) DB (cell line) 06-11109 03-31934 07-20462 02-17440 91-34915 98-17403 03-16286 06-20044 05-12024 06-23741 06-22766 06-33903 Position (chromosome) chr19:19121045 chr19:19121045 chr19:19122543 chr19:19121045 chr19:19122535 chr19:19121045 chr19:19122535 chr19:19121045 chr19:19122535  § chr19:19121045 chr19:19121045 chr19:19122535  § chr19:19121045 Change (DNA) T &gt; A T &gt; G A &gt; T T &gt; G T &gt; C T &gt; G T &gt; C T &gt; C T &gt; C T &gt; A T &gt; A T &gt; C T &gt; A Change (protein) D83V D83A M1K D83A K4E D83A K4E D83G K4E D83V D83V K4E D83V Diagnosis and GCB DLBCL (GEP) subtype (subtyping FL method) FL FL FL GCB DLBCL (GEP) FL DLBCL FL FL FL FL FL 07-14540 89-30159 chr19:19122535 chr19:19121045 T &gt; C T &gt; A K4E D83V FL FL 98-14740 91-53679 chr19:19122535 chr19:19121045 T &gt; C T &gt; A K4E D83V FL FL 05-15463 97-23234 chr19:19122532 chr19:19121045 T &gt; C T &gt; A K5E D83V FL FL 03-28045 92-59893 02-28712 99-21548 01-24821 05-22052 07-10201 SPEC1187 06-20952 03-18669 03-33888 01-16433 00-15694 05-11328 06-12968 06-18193 85-31959 06-16716 02-18484 91-53679 08-15460 06-10398 06-30389 08-10448 07-18609 99-30068 05-20543 05-11369 05-14545 06-23851 06-23851 06-12557 chr19:19122523 chr19:19122502 chr19:19122493 chr19:19121045 chr19:19119600 chr19:19121225 chr19:19121222 chr19:19121217 chr19:19121195 chr19:19121153 chr19:19121135 chr19:19121093  § chr19:19121088  § chr19:19121088 chr19:19121087  § chr19:19121087 chr19:19119578 chr19:19119559  ‡ chr19:19119539 chr19:19118877 chr19:19118875 chr19:19118406 chr19:19118365 chr19:19121087 chr19:19117831 chr19:19121087 chr19:19117794 chr19:19121066 chr19:19117608 chr19:19117608 chr19:19121066 chr19:19117606 T &gt; C T &gt; C G &gt; A T &gt; A +A T &gt; C C &gt; T A &gt; C T &gt; G A &gt; G C &gt; T A &gt; C A &gt; G A &gt; G T &gt; C T &gt; C C &gt; A C &gt; T 10bp del -GGAA -AAGG +GG -C T &gt; C A &gt; C T &gt; C G &gt; T -GGGGCT A &gt; G A &gt; C T &gt; C C &gt; G I8V R15G Q18* D83V L100 Frameshift K23R R24Q F26V Y33S I47T R53H L67R Y69H Y69H Y69C Y69C E108* R114Q G121 Frameshift F170 Frameshift P169 Frameshift G242 Frameshift P256 Frameshift Y69C S294R † Y69C R307S † *369G † E74-P75-H76 &gt; D *369E † H76R *369Y † DLBCL DLBCL FL FL DLBCL DLBCL FL GCB DLBCL (GEP) FL DLBCL DLBCL FL GCB DLBCL (GEP) GCB DLBCL (GEP) FL FL ABC DLBCL (GEP) FL FL DLBCL ABC DLBCL (GEP) FL FL FL FL ABC DLBCL (GEP) FL FL FL FL FL FL 07-21828 07-30109 06-30145 05-23110  † annotation is unique to NM_001145785, representing the longest MEF2B chr19:19121064 C &gt; T E77K DLBCL chr19:19121063 T &gt; C E77G Composite FL chr19:19121052  § T &gt; A N81Y GCB DLBCL (GEP) chr19:19121050  § G &gt; T N81K GCB DLBCL (GEP) isoform ;  § was proven to be somatic (absent in matched constitutional DNA);  ‡ was also found in the matched constitutional DNA (inherited variant) 00-13940 06-15922 chr19:19121045 chr19:19121045  § T &gt; G T &gt; G D83A D83A GCB DLBCL (IHC) GCB DLBCL (GEP) 07-23804 chr19:19121045 T &gt; G D83A GCB DLBCL (GEP) 00-22287 chr19:19121045 T &gt; A D83V GCB DLBCL (IHC) 01-18672 02-30647 chr19:19121045 chr19:19121045  § T &gt; A T &gt; A D83V D83V GCB DLBCL (IHC) GCB DLBCL (GEP) 03-11110 chr19:19121045 T &gt; A D83V DLBCL 03-26817 chr19:19121045 T &gt; A D83V GCB DLBCL (GEP) 03-30438 chr19:19121045 T &gt; A D83V GCB DLBCL (GEP) 05-24666 06-30025 06-33777 chr19:19121045 chr19:19121045  § chr19:19121045  § T &gt; A T &gt; A T &gt; A D83V D83V D83V GCB DLBCL (GEP) GCB DLBCL (GEP) GCB DLBCL (GEP) 78-60284 95-32814 chr19:19121045 chr19:19121045  § T &gt; A T &gt; A D83V D83V GCB DLBCL (IHC) GCB DLBCL (GEP) Table S12 : Catalogue of MEF2B cSNVs in FL and DLBCL. S12 Amino Acid Change FL DLBCL Total % variants M1K K4E  § 1 4 0 2 1 6 1.4 8.7 K5E 1 0 1 1.4 I8V 0 1 1 1.4 R15G 0 1 1 1.4 K23R 0 1 1 1.4 R24Q 1 0 1 1.4 F26V 0 1 1 1.4 Y33S 1 0 1 1.4 I47T 0 1 1 1.4 R53H 0 1 1 1.4 L67R Y69C/H  § 1 4 0 2 1 6 1.4 8.7 E74-P75-H76 &gt; D 1 0 1 1.4 H76R 1 0 1 1.4 E77K N81K/Y  § D83A/G/V  § 0 0 11 1 2 16 1 2 27 1.4 2.9 39.1 R114Q 0 1 1 1.4 S294Y 1 0 1 1.4 R307S 0 1 1 1.4 *369Y/E/G 3 0 3 4.3 Truncation 5 3 8 11.6 Any mutation 35 34 69 100.0 Total cases sequenced 261 292 Prevalence 13.41% 11.64% § at least one representative mutation at this position has been confirmed as a somatic mutation. § mutation was proven to be somatic (absent in matched constitutional DNA); ‡ was also found in the matched constitutional DNA (inherited variant); bold indicates mutation hot spots.</text>
       <annotation id="2">
         <infon key="type">CellLine</infon>
         <location offset="144" length="2"/>
@@ -835,1643 +835,1693 @@
         <text>Cabin1</text>
       </annotation>
       <annotation id="164">
-        <infon key="type">Species</infon>
-        <location offset="10259" length="7"/>
-        <text>Patient</text>
+        <infon key="type">Gene</infon>
+        <location offset="10275" length="4"/>
+        <text>chr7</text>
       </annotation>
       <annotation id="165">
-        <infon key="type">Disease</infon>
-        <location offset="10267" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="10301" length="4"/>
+        <text>CBX3</text>
       </annotation>
       <annotation id="166">
-        <infon key="type">Species</infon>
-        <location offset="10273" length="7"/>
-        <text>Patient</text>
+        <infon key="type">Gene</infon>
+        <location offset="10316" length="5"/>
+        <text>chr15</text>
       </annotation>
       <annotation id="167">
-        <infon key="type">Disease</infon>
-        <location offset="10283" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="10340" length="8"/>
+        <text>C15orf57</text>
       </annotation>
       <annotation id="168">
         <infon key="type">Species</infon>
-        <location offset="10289" length="7"/>
+        <location offset="10350" length="7"/>
         <text>Patient</text>
       </annotation>
       <annotation id="169">
         <infon key="type">Disease</infon>
-        <location offset="10299" length="5"/>
+        <location offset="10358" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="170">
         <infon key="type">Species</infon>
-        <location offset="10305" length="7"/>
+        <location offset="10364" length="7"/>
         <text>Patient</text>
       </annotation>
       <annotation id="171">
         <infon key="type">Disease</infon>
-        <location offset="10315" length="5"/>
+        <location offset="10374" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="172">
         <infon key="type">Species</infon>
-        <location offset="10321" length="7"/>
+        <location offset="10380" length="7"/>
         <text>Patient</text>
       </annotation>
       <annotation id="173">
         <infon key="type">Disease</infon>
-        <location offset="10331" length="5"/>
+        <location offset="10390" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="174">
         <infon key="type">Species</infon>
-        <location offset="10337" length="7"/>
+        <location offset="10396" length="7"/>
         <text>Patient</text>
       </annotation>
       <annotation id="175">
         <infon key="type">Disease</infon>
-        <location offset="10347" length="5"/>
+        <location offset="10406" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="176">
         <infon key="type">Species</infon>
-        <location offset="10353" length="7"/>
+        <location offset="10412" length="7"/>
         <text>Patient</text>
       </annotation>
       <annotation id="177">
         <infon key="type">Disease</infon>
-        <location offset="10363" length="5"/>
+        <location offset="10422" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="178">
         <infon key="type">Species</infon>
-        <location offset="10369" length="8"/>
-        <text>PatientI</text>
+        <location offset="10428" length="7"/>
+        <text>Patient</text>
       </annotation>
       <annotation id="179">
         <infon key="type">Disease</infon>
-        <location offset="10378" length="5"/>
+        <location offset="10438" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="180">
         <infon key="type">Species</infon>
-        <location offset="10384" length="7"/>
+        <location offset="10444" length="7"/>
         <text>Patient</text>
       </annotation>
       <annotation id="181">
         <infon key="type">Disease</infon>
-        <location offset="10394" length="5"/>
+        <location offset="10454" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="182">
         <infon key="type">Species</infon>
-        <location offset="10400" length="7"/>
-        <text>Patient</text>
+        <location offset="10460" length="8"/>
+        <text>PatientI</text>
       </annotation>
       <annotation id="183">
         <infon key="type">Disease</infon>
-        <location offset="10410" length="5"/>
+        <location offset="10469" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="184">
         <infon key="type">Species</infon>
-        <location offset="10416" length="7"/>
+        <location offset="10475" length="7"/>
         <text>Patient</text>
       </annotation>
       <annotation id="185">
         <infon key="type">Disease</infon>
-        <location offset="10426" length="5"/>
+        <location offset="10485" length="5"/>
         <text>DLBCL</text>
       </annotation>
       <annotation id="186">
         <infon key="type">Species</infon>
-        <location offset="10432" length="7"/>
+        <location offset="10491" length="7"/>
         <text>Patient</text>
       </annotation>
       <annotation id="187">
-        <infon key="type">Gene</infon>
-        <location offset="10457" length="8"/>
-        <text>KIAA1532</text>
+        <infon key="type">Disease</infon>
+        <location offset="10501" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="188">
-        <infon key="type">Gene</infon>
-        <location offset="10467" length="6"/>
-        <text>POLR2E</text>
+        <infon key="type">Species</infon>
+        <location offset="10507" length="7"/>
+        <text>Patient</text>
       </annotation>
       <annotation id="189">
-        <infon key="type">Gene</infon>
-        <location offset="10474" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Disease</infon>
+        <location offset="10517" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="190">
-        <infon key="type">Gene</infon>
-        <location offset="10480" length="3"/>
-        <text>IGH</text>
+        <infon key="type">Species</infon>
+        <location offset="10523" length="7"/>
+        <text>Patient</text>
       </annotation>
       <annotation id="191">
         <infon key="type">Gene</infon>
-        <location offset="10484" length="8"/>
-        <text>C15orf57</text>
+        <location offset="10548" length="8"/>
+        <text>KIAA1532</text>
       </annotation>
       <annotation id="192">
         <infon key="type">Gene</infon>
-        <location offset="10494" length="4"/>
-        <text>CBX3</text>
+        <location offset="10559" length="6"/>
+        <text>POLR2E</text>
       </annotation>
       <annotation id="193">
         <infon key="type">Gene</infon>
-        <location offset="10509" length="4"/>
+        <location offset="10566" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="194">
         <infon key="type">Gene</infon>
-        <location offset="10515" length="3"/>
+        <location offset="10572" length="3"/>
         <text>IGH</text>
       </annotation>
       <annotation id="195">
         <infon key="type">Gene</infon>
-        <location offset="10519" length="7"/>
-        <text>MAPKBP1</text>
+        <location offset="10576" length="8"/>
+        <text>C15orf57</text>
       </annotation>
       <annotation id="196">
         <infon key="type">Gene</infon>
-        <location offset="10528" length="3"/>
-        <text>MGA</text>
+        <location offset="10586" length="4"/>
+        <text>CBX3</text>
       </annotation>
       <annotation id="197">
         <infon key="type">Gene</infon>
-        <location offset="10532" length="5"/>
-        <text>SMEK1</text>
+        <location offset="10601" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="198">
         <infon key="type">Gene</infon>
-        <location offset="10539" length="7"/>
-        <text>CCDC88C</text>
+        <location offset="10607" length="3"/>
+        <text>IGH</text>
       </annotation>
       <annotation id="199">
         <infon key="type">Gene</infon>
-        <location offset="10552" length="3"/>
-        <text>IGH</text>
+        <location offset="10611" length="8"/>
+        <text>MAPKBP 1</text>
       </annotation>
       <annotation id="200">
         <infon key="type">Gene</infon>
-        <location offset="10557" length="6"/>
-        <text>DUSP22</text>
+        <location offset="10620" length="3"/>
+        <text>MGA</text>
       </annotation>
       <annotation id="201">
         <infon key="type">Gene</infon>
-        <location offset="10564" length="8"/>
-        <text>C15orf57</text>
+        <location offset="10624" length="5"/>
+        <text>SMEK1</text>
       </annotation>
       <annotation id="202">
         <infon key="type">Gene</infon>
-        <location offset="10574" length="4"/>
-        <text>CBX3</text>
+        <location offset="10631" length="6"/>
+        <text>CCDC88</text>
       </annotation>
       <annotation id="203">
         <infon key="type">Gene</infon>
-        <location offset="10579" length="4"/>
-        <text>GIT1</text>
+        <location offset="10645" length="3"/>
+        <text>IGH</text>
       </annotation>
       <annotation id="204">
         <infon key="type">Gene</infon>
-        <location offset="10585" length="5"/>
-        <text>SHMT1</text>
+        <location offset="10650" length="6"/>
+        <text>DUSP22</text>
       </annotation>
       <annotation id="205">
         <infon key="type">Gene</infon>
-        <location offset="10591" length="4"/>
-        <text>YES1</text>
+        <location offset="10657" length="8"/>
+        <text>C15orf57</text>
       </annotation>
       <annotation id="206">
         <infon key="type">Gene</infon>
-        <location offset="10597" length="6"/>
-        <text>ENOSF1</text>
+        <location offset="10667" length="4"/>
+        <text>CBX3</text>
       </annotation>
       <annotation id="207">
         <infon key="type">Gene</infon>
-        <location offset="10604" length="4"/>
-        <text>BCL2</text>
+        <location offset="10672" length="4"/>
+        <text>GIT1</text>
       </annotation>
       <annotation id="208">
         <infon key="type">Gene</infon>
-        <location offset="10610" length="3"/>
-        <text>IGH</text>
+        <location offset="10678" length="5"/>
+        <text>SHMT1</text>
       </annotation>
       <annotation id="209">
         <infon key="type">Gene</infon>
-        <location offset="10614" length="4"/>
-        <text>BCL6</text>
+        <location offset="10684" length="4"/>
+        <text>YES1</text>
       </annotation>
       <annotation id="210">
         <infon key="type">Gene</infon>
-        <location offset="10620" length="6"/>
-        <text>FBX018</text>
+        <location offset="10690" length="6"/>
+        <text>ENOSF1</text>
       </annotation>
       <annotation id="211">
         <infon key="type">Gene</infon>
-        <location offset="10627" length="8"/>
-        <text>C15orf57</text>
+        <location offset="10697" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="212">
         <infon key="type">Gene</infon>
-        <location offset="10637" length="4"/>
-        <text>CBX3</text>
+        <location offset="10703" length="3"/>
+        <text>IGH</text>
       </annotation>
       <annotation id="213">
         <infon key="type">Gene</infon>
-        <location offset="10642" length="7"/>
-        <text>C4orf18</text>
+        <location offset="10707" length="4"/>
+        <text>BCL6</text>
       </annotation>
       <annotation id="214">
         <infon key="type">Gene</infon>
-        <location offset="10651" length="7"/>
-        <text>TMEM144</text>
+        <location offset="10713" length="6"/>
+        <text>FBX018</text>
       </annotation>
       <annotation id="215">
         <infon key="type">Gene</infon>
-        <location offset="11671" length="4"/>
-        <text>CBX3</text>
+        <location offset="10720" length="8"/>
+        <text>C15orf57</text>
       </annotation>
       <annotation id="216">
         <infon key="type">Gene</infon>
-        <location offset="11710" length="8"/>
-        <text>C15orf57</text>
+        <location offset="10730" length="4"/>
+        <text>CBX3</text>
       </annotation>
       <annotation id="217">
         <infon key="type">Gene</infon>
-        <location offset="11916" length="4"/>
-        <text>EZH2</text>
+        <location offset="10735" length="7"/>
+        <text>C4orf18</text>
       </annotation>
       <annotation id="218">
         <infon key="type">Gene</infon>
-        <location offset="11923" length="5"/>
-        <text>MEF2B</text>
+        <location offset="10744" length="7"/>
+        <text>TMEM144</text>
       </annotation>
       <annotation id="219">
         <infon key="type">Gene</infon>
-        <location offset="11931" length="5"/>
-        <text>MEF2B</text>
+        <location offset="11060" length="5"/>
+        <text>chr15</text>
       </annotation>
       <annotation id="220">
         <infon key="type">Gene</infon>
-        <location offset="11939" length="5"/>
-        <text>MEF2B</text>
+        <location offset="11096" length="5"/>
+        <text>chr15</text>
       </annotation>
       <annotation id="221">
         <infon key="type">Gene</infon>
-        <location offset="11947" length="8"/>
-        <text>CREBBP 2</text>
+        <location offset="11145" length="5"/>
+        <text>chr15</text>
       </annotation>
       <annotation id="222">
         <infon key="type">Gene</infon>
-        <location offset="11956" length="8"/>
-        <text>CREBBP 2</text>
+        <location offset="11218" length="5"/>
+        <text>chr15</text>
       </annotation>
       <annotation id="223">
         <infon key="type">Gene</infon>
-        <location offset="11965" length="5"/>
-        <text>EP300</text>
+        <location offset="11291" length="4"/>
+        <text>chr7</text>
       </annotation>
       <annotation id="224">
         <infon key="type">Gene</infon>
-        <location offset="11973" length="7"/>
-        <text>HLA-C 1</text>
+        <location offset="11327" length="5"/>
+        <text>chr15</text>
       </annotation>
       <annotation id="225">
         <infon key="type">Gene</infon>
-        <location offset="12012" length="5"/>
-        <text>BCL7A</text>
+        <location offset="11372" length="4"/>
+        <text>chr7</text>
       </annotation>
       <annotation id="226">
         <infon key="type">Gene</infon>
-        <location offset="12023" length="5"/>
-        <text>MYD88</text>
+        <location offset="11444" length="4"/>
+        <text>chr7</text>
       </annotation>
       <annotation id="227">
         <infon key="type">Gene</infon>
-        <location offset="12034" length="5"/>
-        <text>MYD88</text>
+        <location offset="11918" length="4"/>
+        <text>EZH2</text>
       </annotation>
       <annotation id="228">
         <infon key="type">Gene</infon>
-        <location offset="12045" length="5"/>
-        <text>MYD88</text>
+        <location offset="11925" length="5"/>
+        <text>MEF2B</text>
       </annotation>
       <annotation id="229">
         <infon key="type">Gene</infon>
-        <location offset="12061" length="4"/>
-        <text>BCL2</text>
+        <location offset="11933" length="5"/>
+        <text>MEF2B</text>
       </annotation>
       <annotation id="230">
         <infon key="type">Gene</infon>
-        <location offset="12107" length="5"/>
-        <text>CD79B</text>
+        <location offset="11941" length="5"/>
+        <text>MEF2B</text>
       </annotation>
       <annotation id="231">
         <infon key="type">Gene</infon>
-        <location offset="12118" length="5"/>
-        <text>IKZF3</text>
+        <location offset="11949" length="8"/>
+        <text>CREBBP 2</text>
       </annotation>
       <annotation id="232">
         <infon key="type">Gene</infon>
-        <location offset="12129" length="4"/>
-        <text>PIM1</text>
+        <location offset="11958" length="8"/>
+        <text>CREBBP 2</text>
       </annotation>
       <annotation id="233">
         <infon key="type">Gene</infon>
-        <location offset="12173" length="4"/>
-        <text>PIM1</text>
+        <location offset="11967" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="234">
         <infon key="type">Gene</infon>
-        <location offset="12183" length="4"/>
-        <text>IRF4</text>
+        <location offset="11975" length="7"/>
+        <text>HLA-C 1</text>
       </annotation>
       <annotation id="235">
         <infon key="type">Gene</infon>
-        <location offset="12193" length="4"/>
-        <text>BCL6</text>
+        <location offset="12014" length="5"/>
+        <text>BCL7A</text>
       </annotation>
       <annotation id="236">
         <infon key="type">Gene</infon>
-        <location offset="12200" length="4"/>
-        <text>BTG2</text>
+        <location offset="12025" length="5"/>
+        <text>MYD88</text>
       </annotation>
       <annotation id="237">
         <infon key="type">Gene</infon>
-        <location offset="12251" length="6"/>
-        <text>CREBBP</text>
+        <location offset="12036" length="5"/>
+        <text>MYD88</text>
       </annotation>
       <annotation id="238">
         <infon key="type">Gene</infon>
-        <location offset="12261" length="5"/>
-        <text>EP300</text>
+        <location offset="12047" length="5"/>
+        <text>MYD88</text>
       </annotation>
       <annotation id="239">
         <infon key="type">Gene</infon>
-        <location offset="12331" length="5"/>
-        <text>EP300</text>
+        <location offset="12063" length="4"/>
+        <text>BCL2</text>
       </annotation>
       <annotation id="240">
-        <infon key="type">Disease</infon>
-        <location offset="12353" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="12109" length="5"/>
+        <text>CD79B</text>
       </annotation>
       <annotation id="241">
         <infon key="type">Gene</infon>
-        <location offset="12364" length="6"/>
-        <text>CREBBP</text>
+        <location offset="12120" length="5"/>
+        <text>IKZF3</text>
       </annotation>
       <annotation id="242">
-        <infon key="type">Disease</infon>
-        <location offset="12398" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="12131" length="4"/>
+        <text>PIM1</text>
       </annotation>
       <annotation id="243">
         <infon key="type">Gene</infon>
-        <location offset="12409" length="6"/>
-        <text>CREBBP</text>
+        <location offset="12175" length="4"/>
+        <text>PIM1</text>
       </annotation>
       <annotation id="244">
-        <infon key="type">Mutation</infon>
-        <location offset="12416" length="5"/>
-        <text>A436V</text>
+        <infon key="type">Gene</infon>
+        <location offset="12185" length="4"/>
+        <text>IRF4</text>
       </annotation>
       <annotation id="245">
-        <infon key="type">Disease</infon>
-        <location offset="12441" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="12195" length="4"/>
+        <text>BCL6</text>
       </annotation>
       <annotation id="246">
-        <infon key="type">Disease</infon>
-        <location offset="12452" length="2"/>
-        <text>FL</text>
+        <infon key="type">Gene</infon>
+        <location offset="12202" length="4"/>
+        <text>BTG2</text>
       </annotation>
       <annotation id="247">
         <infon key="type">Gene</infon>
-        <location offset="12455" length="6"/>
+        <location offset="12253" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="248">
         <infon key="type">Gene</infon>
-        <location offset="12462" length="6"/>
-        <text>CREBBP</text>
+        <location offset="12263" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="249">
-        <infon key="type">Mutation</infon>
-        <location offset="12481" length="18"/>
-        <text>Y71H;Y1482H;Y1512H</text>
+        <infon key="type">Gene</infon>
+        <location offset="12333" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="250">
         <infon key="type">Disease</infon>
-        <location offset="12530" length="2"/>
-        <text>FL</text>
+        <location offset="12355" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="251">
         <infon key="type">Gene</infon>
-        <location offset="12533" length="6"/>
+        <location offset="12366" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="252">
-        <infon key="type">Mutation</infon>
-        <location offset="12540" length="13"/>
-        <text>G1411E;G1441E</text>
+        <infon key="type">Disease</infon>
+        <location offset="12400" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="253">
-        <infon key="type">Mutation</infon>
-        <location offset="12554" length="5"/>
-        <text>G1375</text>
+        <infon key="type">Gene</infon>
+        <location offset="12411" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="254">
-        <infon key="type">Disease</infon>
-        <location offset="12567" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="12418" length="5"/>
+        <text>A436V</text>
       </annotation>
       <annotation id="255">
-        <infon key="type">Gene</infon>
-        <location offset="12570" length="6"/>
-        <text>CREBBP</text>
+        <infon key="type">Disease</infon>
+        <location offset="12443" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="256">
-        <infon key="type">Mutation</infon>
-        <location offset="12577" length="18"/>
-        <text>Y92F;Y1503F;Y1533F</text>
+        <infon key="type">Disease</infon>
+        <location offset="12454" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="257">
-        <infon key="type">Disease</infon>
-        <location offset="12616" length="2"/>
-        <text>FL</text>
+        <infon key="type">Gene</infon>
+        <location offset="12457" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="258">
-        <infon key="type">Disease</infon>
-        <location offset="12619" length="2"/>
-        <text>FL</text>
+        <infon key="type">Gene</infon>
+        <location offset="12464" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="259">
-        <infon key="type">Gene</infon>
-        <location offset="12622" length="6"/>
-        <text>CREBBP</text>
+        <infon key="type">Mutation</infon>
+        <location offset="12483" length="18"/>
+        <text>Y71H;Y1482H;Y1512H</text>
       </annotation>
       <annotation id="260">
-        <infon key="type">Gene</infon>
-        <location offset="12629" length="6"/>
-        <text>CREBBP</text>
+        <infon key="type">Disease</infon>
+        <location offset="12532" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="261">
-        <infon key="type">Mutation</infon>
-        <location offset="12636" length="18"/>
-        <text>R35C;R1446C;R1476C</text>
+        <infon key="type">Gene</infon>
+        <location offset="12535" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="262">
         <infon key="type">Mutation</infon>
-        <location offset="12655" length="18"/>
-        <text>S25N;S1436N;S1466N</text>
+        <location offset="12542" length="13"/>
+        <text>G1411E;G1441E</text>
       </annotation>
       <annotation id="263">
-        <infon key="type">Disease</infon>
-        <location offset="12710" length="11"/>
-        <text>DLBCL DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="12556" length="5"/>
+        <text>G1375</text>
       </annotation>
       <annotation id="264">
-        <infon key="type">Gene</infon>
-        <location offset="12728" length="6"/>
-        <text>CREBBP</text>
+        <infon key="type">Disease</infon>
+        <location offset="12569" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="265">
         <infon key="type">Gene</infon>
-        <location offset="12735" length="6"/>
+        <location offset="12572" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="266">
-        <infon key="type">Gene</infon>
-        <location offset="12742" length="6"/>
-        <text>CREBBP</text>
+        <infon key="type">Mutation</infon>
+        <location offset="12579" length="18"/>
+        <text>Y92F;Y1503F;Y1533F</text>
       </annotation>
       <annotation id="267">
-        <infon key="type">Mutation</infon>
-        <location offset="12763" length="18"/>
-        <text>L88Q;L1499Q;L1529Q</text>
+        <infon key="type">Disease</infon>
+        <location offset="12618" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="268">
         <infon key="type">Disease</infon>
-        <location offset="12832" length="5"/>
-        <text>DLBCL</text>
+        <location offset="12621" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="269">
         <infon key="type">Gene</infon>
-        <location offset="12838" length="6"/>
+        <location offset="12624" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="270">
-        <infon key="type">Mutation</infon>
-        <location offset="12845" length="11"/>
-        <text>A687V;A717V</text>
+        <infon key="type">Gene</infon>
+        <location offset="12631" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="271">
-        <infon key="type">Disease</infon>
-        <location offset="12878" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="12638" length="18"/>
+        <text>R35C;R1446C;R1476C</text>
       </annotation>
       <annotation id="272">
-        <infon key="type">Gene</infon>
-        <location offset="12884" length="6"/>
-        <text>CREBBP</text>
+        <infon key="type">Mutation</infon>
+        <location offset="12657" length="18"/>
+        <text>S25N;S1436N;S1466N</text>
       </annotation>
       <annotation id="273">
         <infon key="type">Disease</infon>
-        <location offset="12925" length="11"/>
+        <location offset="12712" length="11"/>
         <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="274">
         <infon key="type">Gene</infon>
-        <location offset="12937" length="6"/>
+        <location offset="12730" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="275">
         <infon key="type">Gene</infon>
-        <location offset="12944" length="6"/>
+        <location offset="12737" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="276">
-        <infon key="type">Disease</infon>
-        <location offset="13005" length="11"/>
-        <text>DLBCL DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="12744" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="277">
-        <infon key="type">Gene</infon>
-        <location offset="13017" length="6"/>
-        <text>CREBBP</text>
+        <infon key="type">Mutation</infon>
+        <location offset="12765" length="18"/>
+        <text>L88Q;L1499Q;L1529Q</text>
       </annotation>
       <annotation id="278">
-        <infon key="type">Gene</infon>
-        <location offset="13024" length="6"/>
-        <text>CREBBP</text>
-      </annotation>
-      <annotation id="279">
         <infon key="type">Disease</infon>
-        <location offset="13086" length="5"/>
+        <location offset="12834" length="5"/>
         <text>DLBCL</text>
       </annotation>
-      <annotation id="280">
+      <annotation id="279">
         <infon key="type">Gene</infon>
-        <location offset="13092" length="6"/>
+        <location offset="12840" length="6"/>
         <text>CREBBP</text>
+      </annotation>
+      <annotation id="280">
+        <infon key="type">Mutation</infon>
+        <location offset="12847" length="11"/>
+        <text>A687V;A717V</text>
       </annotation>
       <annotation id="281">
         <infon key="type">Disease</infon>
-        <location offset="13133" length="11"/>
-        <text>DLBCL DLBCL</text>
+        <location offset="12880" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="282">
         <infon key="type">Gene</infon>
-        <location offset="13145" length="6"/>
+        <location offset="12886" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="283">
-        <infon key="type">Gene</infon>
-        <location offset="13152" length="6"/>
-        <text>CREBBP</text>
-      </annotation>
-      <annotation id="284">
         <infon key="type">Disease</infon>
-        <location offset="13242" length="11"/>
+        <location offset="12927" length="11"/>
         <text>DLBCL DLBCL</text>
       </annotation>
+      <annotation id="284">
+        <infon key="type">Gene</infon>
+        <location offset="12939" length="6"/>
+        <text>CREBBP</text>
+      </annotation>
       <annotation id="285">
-        <infon key="type">Disease</infon>
-        <location offset="13254" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="12946" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="286">
-        <infon key="type">Gene</infon>
-        <location offset="13260" length="6"/>
-        <text>CREBBP</text>
+        <infon key="type">Disease</infon>
+        <location offset="13007" length="11"/>
+        <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="287">
         <infon key="type">Gene</infon>
-        <location offset="13267" length="6"/>
+        <location offset="13019" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="288">
         <infon key="type">Gene</infon>
-        <location offset="13274" length="6"/>
+        <location offset="13026" length="6"/>
         <text>CREBBP</text>
       </annotation>
       <annotation id="289">
-        <infon key="type">Mutation</infon>
-        <location offset="13323" length="18"/>
-        <text>R35C;R1446C;R1476C</text>
+        <infon key="type">Disease</infon>
+        <location offset="13088" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="290">
-        <infon key="type">Disease</infon>
-        <location offset="13385" length="11"/>
-        <text>DLBCL DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="13094" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="291">
-        <infon key="type">Gene</infon>
-        <location offset="13397" length="5"/>
-        <text>EP300</text>
+        <infon key="type">Disease</infon>
+        <location offset="13135" length="11"/>
+        <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="292">
         <infon key="type">Gene</infon>
-        <location offset="13403" length="5"/>
-        <text>EP300</text>
+        <location offset="13147" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="293">
-        <infon key="type">Disease</infon>
-        <location offset="13457" length="11"/>
-        <text>DLBCL DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="13154" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="294">
         <infon key="type">Disease</infon>
-        <location offset="13469" length="11"/>
+        <location offset="13244" length="11"/>
         <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="295">
-        <infon key="type">Gene</infon>
-        <location offset="13481" length="5"/>
-        <text>EP300</text>
+        <infon key="type">Disease</infon>
+        <location offset="13256" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="296">
         <infon key="type">Gene</infon>
-        <location offset="13487" length="5"/>
-        <text>EP300</text>
+        <location offset="13262" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="297">
         <infon key="type">Gene</infon>
-        <location offset="13493" length="5"/>
-        <text>EP300</text>
+        <location offset="13269" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="298">
         <infon key="type">Gene</infon>
-        <location offset="13499" length="5"/>
-        <text>EP300</text>
+        <location offset="13276" length="6"/>
+        <text>CREBBP</text>
       </annotation>
       <annotation id="299">
-        <infon key="type">Disease</infon>
-        <location offset="13551" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="13325" length="18"/>
+        <text>R35C;R1446C;R1476C</text>
       </annotation>
       <annotation id="300">
-        <infon key="type">Gene</infon>
-        <location offset="13554" length="5"/>
-        <text>EP300</text>
+        <infon key="type">Disease</infon>
+        <location offset="13387" length="11"/>
+        <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="301">
-        <infon key="type">Disease</infon>
-        <location offset="13583" length="2"/>
-        <text>FL</text>
+        <infon key="type">Gene</infon>
+        <location offset="13399" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="302">
-        <infon key="type">Disease</infon>
-        <location offset="13586" length="2"/>
-        <text>FL</text>
+        <infon key="type">Gene</infon>
+        <location offset="13405" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="303">
-        <infon key="type">Gene</infon>
-        <location offset="13589" length="5"/>
-        <text>EP300</text>
+        <infon key="type">Disease</infon>
+        <location offset="13459" length="11"/>
+        <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="304">
-        <infon key="type">Gene</infon>
-        <location offset="13595" length="5"/>
-        <text>EP300</text>
+        <infon key="type">Disease</infon>
+        <location offset="13471" length="11"/>
+        <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="305">
-        <infon key="type">Disease</infon>
-        <location offset="13628" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="13483" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="306">
         <infon key="type">Gene</infon>
-        <location offset="13639" length="5"/>
+        <location offset="13489" length="5"/>
         <text>EP300</text>
       </annotation>
       <annotation id="307">
-        <infon key="type">Disease</infon>
-        <location offset="13660" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="13495" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="308">
         <infon key="type">Gene</infon>
-        <location offset="13671" length="5"/>
+        <location offset="13501" length="5"/>
         <text>EP300</text>
       </annotation>
       <annotation id="309">
-        <infon key="type">Gene</infon>
-        <location offset="13706" length="5"/>
-        <text>MEF2B</text>
+        <infon key="type">Disease</infon>
+        <location offset="13553" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="310">
-        <infon key="type">Mutation</infon>
-        <location offset="13756" length="5"/>
-        <text>T &gt; A</text>
+        <infon key="type">Gene</infon>
+        <location offset="13556" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="311">
-        <infon key="type">Mutation</infon>
-        <location offset="13762" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="13585" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="312">
         <infon key="type">Disease</infon>
-        <location offset="13767" length="5"/>
-        <text>DLBCL</text>
+        <location offset="13588" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="313">
-        <infon key="type">Mutation</infon>
-        <location offset="14146" length="77"/>
-        <text>T &gt; A T &gt; G A &gt; T T &gt; G T &gt; C T &gt; G T &gt; C T &gt; C T &gt; C T &gt; A T &gt; A T &gt; C T &gt; A</text>
+        <infon key="type">Gene</infon>
+        <location offset="13591" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="314">
-        <infon key="type">Mutation</infon>
-        <location offset="14241" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Gene</infon>
+        <location offset="13597" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="315">
-        <infon key="type">Mutation</infon>
-        <location offset="14246" length="4"/>
-        <text>D83A</text>
+        <infon key="type">Disease</infon>
+        <location offset="13630" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="316">
-        <infon key="type">Mutation</infon>
-        <location offset="14255" length="4"/>
-        <text>D83A</text>
+        <infon key="type">Gene</infon>
+        <location offset="13641" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="317">
-        <infon key="type">Mutation</infon>
-        <location offset="14260" length="3"/>
-        <text>K4E</text>
+        <infon key="type">Disease</infon>
+        <location offset="13662" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="318">
-        <infon key="type">Mutation</infon>
-        <location offset="14264" length="4"/>
-        <text>D83A</text>
+        <infon key="type">Gene</infon>
+        <location offset="13673" length="5"/>
+        <text>EP300</text>
       </annotation>
       <annotation id="319">
-        <infon key="type">Mutation</infon>
-        <location offset="14269" length="3"/>
-        <text>K4E</text>
+        <infon key="type">Gene</infon>
+        <location offset="13708" length="5"/>
+        <text>MEF2B</text>
       </annotation>
       <annotation id="320">
         <infon key="type">Mutation</infon>
-        <location offset="14278" length="3"/>
-        <text>K4E</text>
+        <location offset="13758" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="321">
         <infon key="type">Mutation</infon>
-        <location offset="14282" length="4"/>
+        <location offset="13764" length="4"/>
         <text>D83V</text>
       </annotation>
       <annotation id="322">
-        <infon key="type">Mutation</infon>
-        <location offset="14287" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="13769" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="323">
         <infon key="type">Mutation</infon>
-        <location offset="14292" length="3"/>
-        <text>K4E</text>
+        <location offset="14148" length="77"/>
+        <text>T &gt; A T &gt; G A &gt; T T &gt; G T &gt; C T &gt; G T &gt; C T &gt; C T &gt; C T &gt; A T &gt; A T &gt; C T &gt; A</text>
       </annotation>
       <annotation id="324">
         <infon key="type">Mutation</infon>
-        <location offset="14296" length="4"/>
+        <location offset="14243" length="4"/>
         <text>D83V</text>
       </annotation>
       <annotation id="325">
-        <infon key="type">Disease</infon>
-        <location offset="14315" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14248" length="4"/>
+        <text>D83A</text>
       </annotation>
       <annotation id="326">
-        <infon key="type">Disease</infon>
-        <location offset="14350" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14257" length="4"/>
+        <text>D83A</text>
       </annotation>
       <annotation id="327">
-        <infon key="type">Disease</infon>
-        <location offset="14361" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14262" length="3"/>
+        <text>K4E</text>
       </annotation>
       <annotation id="328">
-        <infon key="type">Disease</infon>
-        <location offset="14364" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14266" length="4"/>
+        <text>D83A</text>
       </annotation>
       <annotation id="329">
-        <infon key="type">Disease</infon>
-        <location offset="14367" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14271" length="3"/>
+        <text>K4E</text>
       </annotation>
       <annotation id="330">
-        <infon key="type">Disease</infon>
-        <location offset="14370" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14280" length="3"/>
+        <text>K4E</text>
       </annotation>
       <annotation id="331">
-        <infon key="type">Disease</infon>
-        <location offset="14386" length="8"/>
-        <text>FL DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14284" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="332">
-        <infon key="type">Disease</infon>
-        <location offset="14395" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14289" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="333">
-        <infon key="type">Disease</infon>
-        <location offset="14398" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14294" length="3"/>
+        <text>K4E</text>
       </annotation>
       <annotation id="334">
-        <infon key="type">Disease</infon>
-        <location offset="14401" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14298" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="335">
         <infon key="type">Disease</infon>
-        <location offset="14404" length="2"/>
-        <text>FL</text>
+        <location offset="14317" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="336">
         <infon key="type">Disease</infon>
-        <location offset="14407" length="2"/>
+        <location offset="14352" length="2"/>
         <text>FL</text>
       </annotation>
       <annotation id="337">
-        <infon key="type">Mutation</infon>
-        <location offset="14458" length="5"/>
-        <text>T &gt; C</text>
+        <infon key="type">Disease</infon>
+        <location offset="14363" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="338">
-        <infon key="type">Mutation</infon>
-        <location offset="14464" length="5"/>
-        <text>T &gt; A</text>
+        <infon key="type">Disease</infon>
+        <location offset="14366" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="339">
-        <infon key="type">Mutation</infon>
-        <location offset="14470" length="3"/>
-        <text>K4E</text>
+        <infon key="type">Disease</infon>
+        <location offset="14369" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="340">
-        <infon key="type">Mutation</infon>
-        <location offset="14474" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="14372" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="341">
         <infon key="type">Disease</infon>
-        <location offset="14479" length="2"/>
-        <text>FL</text>
+        <location offset="14388" length="8"/>
+        <text>FL DLBCL</text>
       </annotation>
       <annotation id="342">
         <infon key="type">Disease</infon>
-        <location offset="14482" length="2"/>
+        <location offset="14397" length="2"/>
         <text>FL</text>
       </annotation>
       <annotation id="343">
-        <infon key="type">Mutation</infon>
-        <location offset="14533" length="5"/>
-        <text>T &gt; C</text>
+        <infon key="type">Disease</infon>
+        <location offset="14400" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="344">
-        <infon key="type">Mutation</infon>
-        <location offset="14539" length="5"/>
-        <text>T &gt; A</text>
+        <infon key="type">Disease</infon>
+        <location offset="14403" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="345">
-        <infon key="type">Mutation</infon>
-        <location offset="14545" length="3"/>
-        <text>K4E</text>
+        <infon key="type">Disease</infon>
+        <location offset="14406" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="346">
-        <infon key="type">Mutation</infon>
-        <location offset="14549" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="14409" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="347">
-        <infon key="type">Disease</infon>
-        <location offset="14554" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14460" length="5"/>
+        <text>T &gt; C</text>
       </annotation>
       <annotation id="348">
-        <infon key="type">Disease</infon>
-        <location offset="14557" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="14466" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="349">
         <infon key="type">Mutation</infon>
-        <location offset="14608" length="5"/>
-        <text>T &gt; C</text>
+        <location offset="14472" length="3"/>
+        <text>K4E</text>
       </annotation>
       <annotation id="350">
         <infon key="type">Mutation</infon>
-        <location offset="14614" length="5"/>
-        <text>T &gt; A</text>
-      </annotation>
-      <annotation id="351">
-        <infon key="type">Mutation</infon>
-        <location offset="14620" length="3"/>
-        <text>K5E</text>
-      </annotation>
-      <annotation id="352">
-        <infon key="type">Mutation</infon>
-        <location offset="14624" length="4"/>
+        <location offset="14476" length="4"/>
         <text>D83V</text>
       </annotation>
-      <annotation id="353">
+      <annotation id="351">
         <infon key="type">Disease</infon>
-        <location offset="14629" length="2"/>
+        <location offset="14481" length="2"/>
         <text>FL</text>
       </annotation>
-      <annotation id="354">
+      <annotation id="352">
         <infon key="type">Disease</infon>
-        <location offset="14632" length="2"/>
+        <location offset="14484" length="2"/>
         <text>FL</text>
+      </annotation>
+      <annotation id="353">
+        <infon key="type">Mutation</infon>
+        <location offset="14535" length="5"/>
+        <text>T &gt; C</text>
+      </annotation>
+      <annotation id="354">
+        <infon key="type">Mutation</infon>
+        <location offset="14541" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="355">
         <infon key="type">Mutation</infon>
-        <location offset="15415" length="5"/>
-        <text>T &gt; C</text>
+        <location offset="14547" length="3"/>
+        <text>K4E</text>
       </annotation>
       <annotation id="356">
         <infon key="type">Mutation</infon>
-        <location offset="15421" length="5"/>
-        <text>T &gt; C</text>
+        <location offset="14551" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="357">
-        <infon key="type">Mutation</infon>
-        <location offset="15433" length="5"/>
-        <text>T &gt; A</text>
+        <infon key="type">Disease</infon>
+        <location offset="14556" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="358">
-        <infon key="type">Mutation</infon>
-        <location offset="15442" length="5"/>
-        <text>T &gt; C</text>
+        <infon key="type">Disease</infon>
+        <location offset="14559" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="359">
         <infon key="type">Mutation</infon>
-        <location offset="15448" length="5"/>
-        <text>C &gt; T</text>
+        <location offset="14610" length="5"/>
+        <text>T &gt; C</text>
       </annotation>
       <annotation id="360">
         <infon key="type">Mutation</infon>
-        <location offset="15460" length="5"/>
-        <text>T &gt; G</text>
+        <location offset="14616" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="361">
         <infon key="type">Mutation</infon>
-        <location offset="15472" length="5"/>
-        <text>C &gt; T</text>
+        <location offset="14622" length="3"/>
+        <text>K5E</text>
       </annotation>
       <annotation id="362">
         <infon key="type">Mutation</infon>
-        <location offset="15496" length="5"/>
-        <text>T &gt; C</text>
+        <location offset="14626" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="363">
-        <infon key="type">Mutation</infon>
-        <location offset="15502" length="5"/>
-        <text>T &gt; C</text>
+        <infon key="type">Disease</infon>
+        <location offset="14631" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="364">
-        <infon key="type">Mutation</infon>
-        <location offset="15514" length="5"/>
-        <text>C &gt; T</text>
+        <infon key="type">Disease</infon>
+        <location offset="14634" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="365">
         <infon key="type">Mutation</infon>
-        <location offset="15548" length="5"/>
+        <location offset="15417" length="5"/>
         <text>T &gt; C</text>
       </annotation>
       <annotation id="366">
         <infon key="type">Mutation</infon>
-        <location offset="15560" length="5"/>
+        <location offset="15423" length="5"/>
         <text>T &gt; C</text>
       </annotation>
       <annotation id="367">
         <infon key="type">Mutation</infon>
-        <location offset="15566" length="5"/>
-        <text>G &gt; T</text>
+        <location offset="15435" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="368">
         <infon key="type">Mutation</infon>
-        <location offset="15592" length="5"/>
+        <location offset="15444" length="5"/>
         <text>T &gt; C</text>
       </annotation>
       <annotation id="369">
         <infon key="type">Mutation</infon>
-        <location offset="15604" length="3"/>
-        <text>I8V</text>
+        <location offset="15450" length="5"/>
+        <text>C &gt; T</text>
       </annotation>
       <annotation id="370">
         <infon key="type">Mutation</infon>
-        <location offset="15608" length="4"/>
-        <text>R15G</text>
+        <location offset="15462" length="5"/>
+        <text>T &gt; G</text>
       </annotation>
       <annotation id="371">
         <infon key="type">Mutation</infon>
-        <location offset="15618" length="4"/>
-        <text>D83V</text>
+        <location offset="15474" length="5"/>
+        <text>C &gt; T</text>
       </annotation>
       <annotation id="372">
         <infon key="type">Mutation</infon>
-        <location offset="15639" length="4"/>
-        <text>K23R</text>
+        <location offset="15498" length="5"/>
+        <text>T &gt; C</text>
       </annotation>
       <annotation id="373">
         <infon key="type">Mutation</infon>
-        <location offset="15644" length="4"/>
-        <text>R24Q</text>
+        <location offset="15504" length="5"/>
+        <text>T &gt; C</text>
       </annotation>
       <annotation id="374">
         <infon key="type">Mutation</infon>
-        <location offset="15649" length="4"/>
-        <text>F26V</text>
+        <location offset="15516" length="5"/>
+        <text>C &gt; T</text>
       </annotation>
       <annotation id="375">
         <infon key="type">Mutation</infon>
-        <location offset="15654" length="4"/>
-        <text>Y33S</text>
+        <location offset="15550" length="5"/>
+        <text>T &gt; C</text>
       </annotation>
       <annotation id="376">
         <infon key="type">Mutation</infon>
-        <location offset="15659" length="4"/>
-        <text>I47T</text>
+        <location offset="15562" length="5"/>
+        <text>T &gt; C</text>
       </annotation>
       <annotation id="377">
         <infon key="type">Mutation</infon>
-        <location offset="15664" length="4"/>
-        <text>R53H</text>
+        <location offset="15568" length="5"/>
+        <text>G &gt; T</text>
       </annotation>
       <annotation id="378">
         <infon key="type">Mutation</infon>
-        <location offset="15669" length="4"/>
-        <text>L67R</text>
+        <location offset="15594" length="5"/>
+        <text>T &gt; C</text>
       </annotation>
       <annotation id="379">
         <infon key="type">Mutation</infon>
-        <location offset="15684" length="4"/>
-        <text>Y69C</text>
+        <location offset="15606" length="3"/>
+        <text>I8V</text>
       </annotation>
       <annotation id="380">
         <infon key="type">Mutation</infon>
-        <location offset="15689" length="4"/>
-        <text>Y69C</text>
+        <location offset="15610" length="4"/>
+        <text>R15G</text>
       </annotation>
       <annotation id="381">
         <infon key="type">Mutation</infon>
-        <location offset="15700" length="5"/>
-        <text>R114Q</text>
+        <location offset="15620" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="382">
         <infon key="type">Mutation</infon>
-        <location offset="15786" length="4"/>
-        <text>Y69C</text>
+        <location offset="15641" length="4"/>
+        <text>K23R</text>
       </annotation>
       <annotation id="383">
         <infon key="type">Mutation</infon>
-        <location offset="15799" length="4"/>
-        <text>Y69C</text>
+        <location offset="15646" length="4"/>
+        <text>R24Q</text>
       </annotation>
       <annotation id="384">
         <infon key="type">Mutation</infon>
-        <location offset="15804" length="5"/>
-        <text>R307S</text>
+        <location offset="15651" length="4"/>
+        <text>F26V</text>
       </annotation>
       <annotation id="385">
         <infon key="type">Mutation</infon>
-        <location offset="15824" length="3"/>
-        <text>P75</text>
+        <location offset="15656" length="4"/>
+        <text>Y33S</text>
       </annotation>
       <annotation id="386">
         <infon key="type">Mutation</infon>
-        <location offset="15828" length="3"/>
-        <text>H76</text>
+        <location offset="15661" length="4"/>
+        <text>I47T</text>
       </annotation>
       <annotation id="387">
         <infon key="type">Mutation</infon>
-        <location offset="15844" length="4"/>
-        <text>H76R</text>
+        <location offset="15666" length="4"/>
+        <text>R53H</text>
       </annotation>
       <annotation id="388">
-        <infon key="type">Disease</infon>
-        <location offset="15857" length="11"/>
-        <text>DLBCL DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15671" length="4"/>
+        <text>L67R</text>
       </annotation>
       <annotation id="389">
-        <infon key="type">Disease</infon>
-        <location offset="15869" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15686" length="4"/>
+        <text>Y69C</text>
       </annotation>
       <annotation id="390">
-        <infon key="type">Disease</infon>
-        <location offset="15875" length="11"/>
-        <text>DLBCL DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15691" length="4"/>
+        <text>Y69C</text>
       </annotation>
       <annotation id="391">
-        <infon key="type">Disease</infon>
-        <location offset="15887" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15702" length="5"/>
+        <text>R114Q</text>
       </annotation>
       <annotation id="392">
-        <infon key="type">Disease</infon>
-        <location offset="15890" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15788" length="4"/>
+        <text>Y69C</text>
       </annotation>
       <annotation id="393">
-        <infon key="type">Disease</infon>
-        <location offset="15909" length="11"/>
-        <text>DLBCL DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15801" length="4"/>
+        <text>Y69C</text>
       </annotation>
       <annotation id="394">
-        <infon key="type">Disease</infon>
-        <location offset="15921" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15806" length="5"/>
+        <text>R307S</text>
       </annotation>
       <annotation id="395">
-        <infon key="type">Disease</infon>
-        <location offset="15924" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15826" length="3"/>
+        <text>P75</text>
       </annotation>
       <annotation id="396">
-        <infon key="type">Disease</infon>
-        <location offset="15940" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15830" length="3"/>
+        <text>H76</text>
       </annotation>
       <annotation id="397">
-        <infon key="type">Disease</infon>
-        <location offset="15956" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="15846" length="4"/>
+        <text>H76R</text>
       </annotation>
       <annotation id="398">
         <infon key="type">Disease</infon>
-        <location offset="15959" length="2"/>
-        <text>FL</text>
+        <location offset="15859" length="11"/>
+        <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="399">
         <infon key="type">Disease</infon>
-        <location offset="15962" length="9"/>
-        <text>ABC DLBCL</text>
+        <location offset="15871" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="400">
         <infon key="type">Disease</infon>
-        <location offset="15978" length="2"/>
-        <text>FL</text>
+        <location offset="15877" length="11"/>
+        <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="401">
         <infon key="type">Disease</infon>
-        <location offset="15984" length="15"/>
-        <text>DLBCL ABC DLBCL</text>
+        <location offset="15889" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="402">
         <infon key="type">Disease</infon>
-        <location offset="16006" length="2"/>
-        <text>FL</text>
+        <location offset="15892" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="403">
         <infon key="type">Disease</infon>
-        <location offset="16009" length="2"/>
-        <text>FL</text>
+        <location offset="15911" length="11"/>
+        <text>DLBCL DLBCL</text>
       </annotation>
       <annotation id="404">
         <infon key="type">Disease</infon>
-        <location offset="16012" length="2"/>
+        <location offset="15923" length="2"/>
         <text>FL</text>
       </annotation>
       <annotation id="405">
         <infon key="type">Disease</infon>
-        <location offset="16015" length="2"/>
-        <text>FL</text>
+        <location offset="15926" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="406">
         <infon key="type">Disease</infon>
-        <location offset="16018" length="9"/>
-        <text>ABC DLBCL</text>
+        <location offset="15942" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="407">
         <infon key="type">Disease</infon>
-        <location offset="16034" length="2"/>
+        <location offset="15958" length="2"/>
         <text>FL</text>
       </annotation>
       <annotation id="408">
         <infon key="type">Disease</infon>
-        <location offset="16037" length="2"/>
+        <location offset="15961" length="2"/>
         <text>FL</text>
       </annotation>
       <annotation id="409">
         <infon key="type">Disease</infon>
-        <location offset="16040" length="2"/>
-        <text>FL</text>
+        <location offset="15964" length="9"/>
+        <text>ABC DLBCL</text>
       </annotation>
       <annotation id="410">
         <infon key="type">Disease</infon>
-        <location offset="16043" length="2"/>
+        <location offset="15980" length="2"/>
         <text>FL</text>
       </annotation>
       <annotation id="411">
         <infon key="type">Disease</infon>
-        <location offset="16046" length="2"/>
-        <text>FL</text>
+        <location offset="15986" length="15"/>
+        <text>DLBCL ABC DLBCL</text>
       </annotation>
       <annotation id="412">
         <infon key="type">Disease</infon>
-        <location offset="16049" length="2"/>
+        <location offset="16008" length="2"/>
         <text>FL</text>
       </annotation>
       <annotation id="413">
-        <infon key="type">Gene</infon>
-        <location offset="16154" length="5"/>
-        <text>MEF2B</text>
+        <infon key="type">Disease</infon>
+        <location offset="16011" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="414">
-        <infon key="type">Mutation</infon>
-        <location offset="16175" length="5"/>
-        <text>C &gt; T</text>
+        <infon key="type">Disease</infon>
+        <location offset="16014" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="415">
-        <infon key="type">Mutation</infon>
-        <location offset="16181" length="4"/>
-        <text>E77K</text>
+        <infon key="type">Disease</infon>
+        <location offset="16017" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="416">
         <infon key="type">Disease</infon>
-        <location offset="16186" length="5"/>
-        <text>DLBCL</text>
+        <location offset="16020" length="9"/>
+        <text>ABC DLBCL</text>
       </annotation>
       <annotation id="417">
-        <infon key="type">Gene</infon>
-        <location offset="16192" length="14"/>
-        <text>chr19:19121063</text>
+        <infon key="type">Disease</infon>
+        <location offset="16036" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="418">
-        <infon key="type">Mutation</infon>
-        <location offset="16207" length="5"/>
-        <text>T &gt; C</text>
+        <infon key="type">Disease</infon>
+        <location offset="16039" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="419">
-        <infon key="type">Mutation</infon>
-        <location offset="16213" length="4"/>
-        <text>E77G</text>
+        <infon key="type">Disease</infon>
+        <location offset="16042" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="420">
         <infon key="type">Disease</infon>
-        <location offset="16228" length="2"/>
+        <location offset="16045" length="2"/>
         <text>FL</text>
       </annotation>
       <annotation id="421">
-        <infon key="type">Gene</infon>
-        <location offset="16231" length="14"/>
-        <text>chr19:19121052</text>
+        <infon key="type">Disease</infon>
+        <location offset="16048" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="422">
-        <infon key="type">Mutation</infon>
-        <location offset="16249" length="5"/>
-        <text>T &gt; A</text>
+        <infon key="type">Disease</infon>
+        <location offset="16051" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="423">
-        <infon key="type">Disease</infon>
-        <location offset="16260" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="16156" length="5"/>
+        <text>MEF2B</text>
       </annotation>
       <annotation id="424">
         <infon key="type">Mutation</infon>
-        <location offset="16294" length="5"/>
-        <text>G &gt; T</text>
+        <location offset="16177" length="5"/>
+        <text>C &gt; T</text>
       </annotation>
       <annotation id="425">
         <infon key="type">Mutation</infon>
-        <location offset="16300" length="4"/>
-        <text>N81K</text>
+        <location offset="16183" length="4"/>
+        <text>E77K</text>
       </annotation>
       <annotation id="426">
         <infon key="type">Disease</infon>
-        <location offset="16305" length="9"/>
-        <text>GCB DLBCL</text>
+        <location offset="16188" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="427">
-        <infon key="type">Mutation</infon>
-        <location offset="16522" length="11"/>
-        <text>T &gt; G T &gt; G</text>
+        <infon key="type">Gene</infon>
+        <location offset="16194" length="14"/>
+        <text>chr19:19121063</text>
       </annotation>
       <annotation id="428">
         <infon key="type">Mutation</infon>
-        <location offset="16534" length="4"/>
-        <text>D83A</text>
+        <location offset="16209" length="5"/>
+        <text>T &gt; C</text>
       </annotation>
       <annotation id="429">
         <infon key="type">Mutation</infon>
-        <location offset="16539" length="4"/>
-        <text>D83A</text>
+        <location offset="16215" length="4"/>
+        <text>E77G</text>
       </annotation>
       <annotation id="430">
         <infon key="type">Disease</infon>
-        <location offset="16544" length="9"/>
-        <text>GCB DLBCL</text>
+        <location offset="16230" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="431">
-        <infon key="type">Disease</infon>
-        <location offset="16560" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Gene</infon>
+        <location offset="16233" length="14"/>
+        <text>chr19:19121052</text>
       </annotation>
       <annotation id="432">
         <infon key="type">Mutation</infon>
-        <location offset="16600" length="5"/>
-        <text>T &gt; G</text>
+        <location offset="16251" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="433">
-        <infon key="type">Mutation</infon>
-        <location offset="16606" length="4"/>
-        <text>D83A</text>
+        <infon key="type">Disease</infon>
+        <location offset="16262" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="434">
-        <infon key="type">Disease</infon>
-        <location offset="16611" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="16296" length="5"/>
+        <text>G &gt; T</text>
       </annotation>
       <annotation id="435">
         <infon key="type">Mutation</infon>
-        <location offset="16651" length="5"/>
-        <text>T &gt; A</text>
+        <location offset="16302" length="4"/>
+        <text>N81K</text>
       </annotation>
       <annotation id="436">
-        <infon key="type">Mutation</infon>
-        <location offset="16657" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="16307" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="437">
-        <infon key="type">Disease</infon>
-        <location offset="16662" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="16524" length="11"/>
+        <text>T &gt; G T &gt; G</text>
       </annotation>
       <annotation id="438">
         <infon key="type">Mutation</infon>
-        <location offset="16729" length="11"/>
-        <text>T &gt; A T &gt; A</text>
+        <location offset="16536" length="4"/>
+        <text>D83A</text>
       </annotation>
       <annotation id="439">
         <infon key="type">Mutation</infon>
-        <location offset="16741" length="4"/>
-        <text>D83V</text>
+        <location offset="16541" length="4"/>
+        <text>D83A</text>
       </annotation>
       <annotation id="440">
-        <infon key="type">Mutation</infon>
-        <location offset="16746" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="16546" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="441">
         <infon key="type">Disease</infon>
-        <location offset="16751" length="9"/>
+        <location offset="16562" length="9"/>
         <text>GCB DLBCL</text>
       </annotation>
       <annotation id="442">
-        <infon key="type">Disease</infon>
-        <location offset="16767" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="16602" length="5"/>
+        <text>T &gt; G</text>
       </annotation>
       <annotation id="443">
         <infon key="type">Mutation</infon>
-        <location offset="16807" length="5"/>
-        <text>T &gt; A</text>
+        <location offset="16608" length="4"/>
+        <text>D83A</text>
       </annotation>
       <annotation id="444">
-        <infon key="type">Mutation</infon>
-        <location offset="16813" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="16613" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="445">
-        <infon key="type">Disease</infon>
-        <location offset="16818" length="5"/>
-        <text>DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="16653" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="446">
         <infon key="type">Mutation</infon>
-        <location offset="16848" length="5"/>
-        <text>T &gt; A</text>
-      </annotation>
-      <annotation id="447">
-        <infon key="type">Mutation</infon>
-        <location offset="16854" length="4"/>
+        <location offset="16659" length="4"/>
         <text>D83V</text>
       </annotation>
-      <annotation id="448">
+      <annotation id="447">
         <infon key="type">Disease</infon>
-        <location offset="16859" length="9"/>
+        <location offset="16664" length="9"/>
         <text>GCB DLBCL</text>
+      </annotation>
+      <annotation id="448">
+        <infon key="type">Mutation</infon>
+        <location offset="16731" length="11"/>
+        <text>T &gt; A T &gt; A</text>
       </annotation>
       <annotation id="449">
         <infon key="type">Mutation</infon>
-        <location offset="16899" length="5"/>
-        <text>T &gt; A</text>
+        <location offset="16743" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="450">
         <infon key="type">Mutation</infon>
-        <location offset="16905" length="4"/>
+        <location offset="16748" length="4"/>
         <text>D83V</text>
       </annotation>
       <annotation id="451">
         <infon key="type">Disease</infon>
-        <location offset="16910" length="9"/>
+        <location offset="16753" length="9"/>
         <text>GCB DLBCL</text>
       </annotation>
       <annotation id="452">
-        <infon key="type">Mutation</infon>
-        <location offset="17004" length="11"/>
-        <text>T &gt; A T &gt; A</text>
+        <infon key="type">Disease</infon>
+        <location offset="16769" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="453">
         <infon key="type">Mutation</infon>
-        <location offset="17016" length="5"/>
+        <location offset="16809" length="5"/>
         <text>T &gt; A</text>
       </annotation>
       <annotation id="454">
         <infon key="type">Mutation</infon>
-        <location offset="17022" length="4"/>
+        <location offset="16815" length="4"/>
         <text>D83V</text>
       </annotation>
       <annotation id="455">
-        <infon key="type">Mutation</infon>
-        <location offset="17027" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="16820" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="456">
         <infon key="type">Mutation</infon>
-        <location offset="17032" length="4"/>
-        <text>D83V</text>
+        <location offset="16850" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="457">
-        <infon key="type">Disease</infon>
-        <location offset="17037" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="16856" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="458">
         <infon key="type">Disease</infon>
-        <location offset="17053" length="9"/>
+        <location offset="16861" length="9"/>
         <text>GCB DLBCL</text>
       </annotation>
       <annotation id="459">
-        <infon key="type">Disease</infon>
-        <location offset="17069" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="16901" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="460">
         <infon key="type">Mutation</infon>
-        <location offset="17136" length="11"/>
-        <text>T &gt; A T &gt; A</text>
+        <location offset="16907" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="461">
-        <infon key="type">Mutation</infon>
-        <location offset="17148" length="4"/>
-        <text>D83V</text>
+        <infon key="type">Disease</infon>
+        <location offset="16912" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="462">
         <infon key="type">Mutation</infon>
-        <location offset="17153" length="4"/>
-        <text>D83V</text>
+        <location offset="17006" length="11"/>
+        <text>T &gt; A T &gt; A</text>
       </annotation>
       <annotation id="463">
-        <infon key="type">Disease</infon>
-        <location offset="17158" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="17018" length="5"/>
+        <text>T &gt; A</text>
       </annotation>
       <annotation id="464">
-        <infon key="type">Disease</infon>
-        <location offset="17174" length="9"/>
-        <text>GCB DLBCL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="17024" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="465">
-        <infon key="type">Gene</infon>
-        <location offset="17215" length="5"/>
-        <text>MEF2B</text>
+        <infon key="type">Mutation</infon>
+        <location offset="17029" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="466">
-        <infon key="type">Disease</infon>
-        <location offset="17230" length="2"/>
-        <text>FL</text>
+        <infon key="type">Mutation</infon>
+        <location offset="17034" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="467">
         <infon key="type">Disease</infon>
-        <location offset="17237" length="5"/>
-        <text>DLBCL</text>
+        <location offset="17039" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="468">
-        <infon key="type">Chemical</infon>
-        <location offset="17254" length="4"/>
-        <text>Acid</text>
+        <infon key="type">Disease</infon>
+        <location offset="17055" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="469">
         <infon key="type">Disease</infon>
-        <location offset="17266" length="8"/>
-        <text>FL DLBCL</text>
+        <location offset="17071" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="470">
         <infon key="type">Mutation</infon>
-        <location offset="17294" length="1"/>
-        <text>K</text>
+        <location offset="17138" length="11"/>
+        <text>T &gt; A T &gt; A</text>
       </annotation>
       <annotation id="471">
         <infon key="type">Mutation</infon>
-        <location offset="17296" length="3"/>
-        <text>K4E</text>
+        <location offset="17150" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="472">
         <infon key="type">Mutation</infon>
-        <location offset="17323" length="3"/>
-        <text>K5E</text>
+        <location offset="17155" length="4"/>
+        <text>D83V</text>
       </annotation>
       <annotation id="473">
-        <infon key="type">Mutation</infon>
-        <location offset="17337" length="3"/>
-        <text>I8V</text>
+        <infon key="type">Disease</infon>
+        <location offset="17160" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="474">
-        <infon key="type">Mutation</infon>
-        <location offset="17351" length="4"/>
-        <text>R15G</text>
+        <infon key="type">Disease</infon>
+        <location offset="17176" length="9"/>
+        <text>GCB DLBCL</text>
       </annotation>
       <annotation id="475">
-        <infon key="type">Mutation</infon>
-        <location offset="17366" length="4"/>
-        <text>K23R</text>
+        <infon key="type">Gene</infon>
+        <location offset="17217" length="5"/>
+        <text>MEF2B</text>
       </annotation>
       <annotation id="476">
-        <infon key="type">Mutation</infon>
-        <location offset="17381" length="4"/>
-        <text>R24Q</text>
+        <infon key="type">Disease</infon>
+        <location offset="17232" length="2"/>
+        <text>FL</text>
       </annotation>
       <annotation id="477">
-        <infon key="type">Mutation</infon>
-        <location offset="17396" length="4"/>
-        <text>F26V</text>
+        <infon key="type">Disease</infon>
+        <location offset="17239" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="478">
-        <infon key="type">Mutation</infon>
-        <location offset="17411" length="4"/>
-        <text>Y33S</text>
+        <infon key="type">Chemical</infon>
+        <location offset="17256" length="4"/>
+        <text>Acid</text>
       </annotation>
       <annotation id="479">
-        <infon key="type">Mutation</infon>
-        <location offset="17426" length="4"/>
-        <text>I47T</text>
+        <infon key="type">Disease</infon>
+        <location offset="17268" length="8"/>
+        <text>FL DLBCL</text>
       </annotation>
       <annotation id="480">
         <infon key="type">Mutation</infon>
-        <location offset="17441" length="4"/>
-        <text>R53H</text>
+        <location offset="17296" length="1"/>
+        <text>K</text>
       </annotation>
       <annotation id="481">
         <infon key="type">Mutation</infon>
-        <location offset="17456" length="4"/>
-        <text>L67R</text>
+        <location offset="17298" length="3"/>
+        <text>K4E</text>
       </annotation>
       <annotation id="482">
         <infon key="type">Mutation</infon>
-        <location offset="17461" length="4"/>
-        <text>Y69C</text>
+        <location offset="17325" length="3"/>
+        <text>K5E</text>
       </annotation>
       <annotation id="483">
         <infon key="type">Mutation</infon>
-        <location offset="17495" length="3"/>
-        <text>P75</text>
+        <location offset="17339" length="3"/>
+        <text>I8V</text>
       </annotation>
       <annotation id="484">
         <infon key="type">Mutation</infon>
-        <location offset="17499" length="3"/>
-        <text>H76</text>
+        <location offset="17353" length="4"/>
+        <text>R15G</text>
       </annotation>
       <annotation id="485">
         <infon key="type">Mutation</infon>
-        <location offset="17517" length="4"/>
-        <text>H76R</text>
+        <location offset="17368" length="4"/>
+        <text>K23R</text>
       </annotation>
       <annotation id="486">
         <infon key="type">Mutation</infon>
-        <location offset="17532" length="4"/>
-        <text>E77K</text>
+        <location offset="17383" length="4"/>
+        <text>R24Q</text>
       </annotation>
       <annotation id="487">
         <infon key="type">Mutation</infon>
-        <location offset="17537" length="4"/>
-        <text>N81K</text>
+        <location offset="17398" length="4"/>
+        <text>F26V</text>
       </annotation>
       <annotation id="488">
         <infon key="type">Mutation</infon>
-        <location offset="17547" length="4"/>
-        <text>D83A</text>
+        <location offset="17413" length="4"/>
+        <text>Y33S</text>
       </annotation>
       <annotation id="489">
         <infon key="type">Mutation</infon>
-        <location offset="17593" length="5"/>
-        <text>R114Q</text>
+        <location offset="17428" length="4"/>
+        <text>I47T</text>
       </annotation>
       <annotation id="490">
         <infon key="type">Mutation</infon>
-        <location offset="17609" length="5"/>
-        <text>S294Y</text>
+        <location offset="17443" length="4"/>
+        <text>R53H</text>
       </annotation>
       <annotation id="491">
         <infon key="type">Mutation</infon>
-        <location offset="17625" length="5"/>
+        <location offset="17458" length="4"/>
+        <text>L67R</text>
+      </annotation>
+      <annotation id="492">
+        <infon key="type">Mutation</infon>
+        <location offset="17463" length="4"/>
+        <text>Y69C</text>
+      </annotation>
+      <annotation id="493">
+        <infon key="type">Mutation</infon>
+        <location offset="17497" length="3"/>
+        <text>P75</text>
+      </annotation>
+      <annotation id="494">
+        <infon key="type">Mutation</infon>
+        <location offset="17501" length="3"/>
+        <text>H76</text>
+      </annotation>
+      <annotation id="495">
+        <infon key="type">Mutation</infon>
+        <location offset="17519" length="4"/>
+        <text>H76R</text>
+      </annotation>
+      <annotation id="496">
+        <infon key="type">Mutation</infon>
+        <location offset="17534" length="4"/>
+        <text>E77K</text>
+      </annotation>
+      <annotation id="497">
+        <infon key="type">Mutation</infon>
+        <location offset="17539" length="4"/>
+        <text>N81K</text>
+      </annotation>
+      <annotation id="498">
+        <infon key="type">Mutation</infon>
+        <location offset="17549" length="4"/>
+        <text>D83A</text>
+      </annotation>
+      <annotation id="499">
+        <infon key="type">Mutation</infon>
+        <location offset="17595" length="5"/>
+        <text>R114Q</text>
+      </annotation>
+      <annotation id="500">
+        <infon key="type">Mutation</infon>
+        <location offset="17611" length="5"/>
+        <text>S294Y</text>
+      </annotation>
+      <annotation id="501">
+        <infon key="type">Mutation</infon>
+        <location offset="17627" length="5"/>
         <text>R307S</text>
       </annotation>
     </passage>

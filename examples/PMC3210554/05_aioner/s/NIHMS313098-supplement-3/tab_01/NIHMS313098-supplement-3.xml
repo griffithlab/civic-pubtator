@@ -13,156 +13,351 @@
     <passage>
       <infon key="type">body</infon>
       <offset>34</offset>
-      <text>dehydrogenase 0=normal, 1=greater than the upper level of normal; PS, performance status 0=0-1, 1=2-4; ENS, extranodal sites 0=0-1, 1=2 or more; IPI, International Prognostic Index; ND, not done; NC, not calculable LN, lymph node; IFR, involved field radiotherapy; Code OS, patient alive 0=yes, 1=no; Code PFS, progressive disease 0=no, 1=yes; OS, overall survival (years); PFS, progression free survival (years) BCL2 BA, BCL2 status by breakpart probe; BCL6 BA, BCL6 status by breakpart probe; MYC BA, MYC status by breakpart probe; N=no breakpart; Y=breakpart detected Patient DLBCL-PatientA DLBCL-PatientB DLBCL-PatientC DLBCL-PatientD DLBCL-PatientE DLBCL-PatientF DLBCL-PatientG DLBCL-PatientH DLBCL-PatientI DLBCL-PatientJ DLBCL-PatientK DLBCL-PatientL DLBCL-PatientM LDH, lactate gender F F M F M M F M M F F M M Age STAGE 68 IIIB 57 IIIA 61 IVB 76 IIIA 59 IIA 22 IIA 63 IAE 31 IA 73 IIIA 16 IA 62 IAE 47 IVB 47 IIIBE LDH ND 0 1 1 0 0 0 0 0 0 0 1 1 PS 1 0 1 0 0 0 0 0 0 0 0 0 0 ENS IPI 0 NC 0 0 0 0 0 0 0 0 0 0 1 0 site 3 LN 2 LN 4 LN 2 LN 0 LN 0 LN 1 Tonsil 0 LN 2 LN LN 1 Breast 3 LN 2 LN treatment 7xR-CHOP 6xR-CHOP 6xR-CHOP 6xR-CHOP 3xR-CHOP plus IFR 4xR-CHOP 3xR-CHOP plus IFR 4xR-CHOP 8xR-CHOP +G3139 4xR-CHOP 3xR-CHOP plus IFR 6xR-CHOP 6xR-CHOP Code OS 0 1 0 0 0 0 0 0 0 0 0 0 1 Code PFS 0 1 0 0 0 0 0 0 0 0 0 1 1 OS 6.59 1.5879 4.39 5.36 5.17 4.13 4.54 4.23 5.56 4.41 4.25 5.46 1.31 PFS BCL2 BA 6.59 Y 0.752909 N 4.39 N 5.36 Y 5.17 N 4.13 N 4.54 ND 4.23 ND 5.56 N 4.41 N 4.25 N 2.35 Y 1.02 ND BCL6 BA N Y N N N N ND ND N N Y N ND MYC BA N N N N N Y ND ND N N N N ND</text>
+      <text>Sheet1 Tab 1 Patient gender STAGE LDH IPI site treatment BCL2 BA BCL6 BA MYC BA DLBCL-PatientA F IIIB 0 3 LN 7xR-CHOP Y N N DLBCL-PatientB F IIIA 1 2 LN 6xR-CHOP N Y N DLBCL-PatientC M IVB 1 4 LN 6xR-CHOP N N N DLBCL-PatientD F IIIA 0 2 LN 6xR-CHOP Y N N DLBCL-PatientE M IIA 0 0 LN 3xR-CHOP plus IFR N N N DLBCL-PatientF M IIA 0 0 LN 4xR-CHOP N N Y DLBCL-PatientG F IAE 0 1 Tonsil 3xR-CHOP plus IFR ND ND ND DLBCL-PatientH M IA 0 0 LN 4xR-CHOP ND ND ND DLBCL-PatientI M IIIA 0 2 LN 8xR-CHOP +G3139 N N N DLBCL-PatientJ F IA ND NC LN 4xR-CHOP N N N DLBCL-PatientK F IAE 0 1 Breast 3xR-CHOP plus IFR N Y N DLBCL-PatientL M IVB 1 3 LN 6xR-CHOP Y N N DLBCL-PatientM M IIIBE dehydrogenase 0=normal, 1=greater than the upper level of normal; PS, performance status 0=0-1, 1=2-4; ENS, extranodal sites 0=0-1, 1=2 or more; IPI, International Prognostic Index; ND, not done; NC, not calculable LN, lymph node; IFR, involved field radiotherapy; Code OS, patient alive 0=yes, 1=no; Code PFS, progressive disease 0=no, 1=yes; OS, overall survival (years); PFS, progression free survival (years) BCL2 BA, BCL2 status by breakpart probe; BCL6 BA, BCL6 status by breakpart probe; MYC BA, MYC status by breakpart probe; N=no breakpart; Y=breakpart detected LDH, lactate 1 2 LN 6xR-CHOP ND ND ND</text>
       <annotation id="0">
-        <infon key="type">Disease</infon>
-        <location offset="265" length="3"/>
-        <text>IFR</text>
+        <infon key="type">Species</infon>
+        <location offset="47" length="7"/>
+        <text>Patient</text>
       </annotation>
       <annotation id="1">
-        <infon key="type">Species</infon>
-        <location offset="308" length="7"/>
-        <text>patient</text>
+        <infon key="type">Gene</infon>
+        <location offset="68" length="3"/>
+        <text>LDH</text>
       </annotation>
       <annotation id="2">
         <infon key="type">Gene</infon>
-        <location offset="447" length="4"/>
+        <location offset="91" length="4"/>
         <text>BCL2</text>
       </annotation>
       <annotation id="3">
         <infon key="type">Gene</infon>
-        <location offset="456" length="4"/>
-        <text>BCL2</text>
+        <location offset="99" length="4"/>
+        <text>BCL6</text>
       </annotation>
       <annotation id="4">
         <infon key="type">Gene</infon>
-        <location offset="488" length="4"/>
-        <text>BCL6</text>
+        <location offset="107" length="3"/>
+        <text>MYC</text>
       </annotation>
       <annotation id="5">
-        <infon key="type">Gene</infon>
-        <location offset="497" length="4"/>
-        <text>BCL6</text>
+        <infon key="type">Disease</infon>
+        <location offset="114" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="6">
-        <infon key="type">Gene</infon>
-        <location offset="529" length="3"/>
-        <text>MYC</text>
-      </annotation>
-      <annotation id="7">
-        <infon key="type">Gene</infon>
-        <location offset="537" length="3"/>
-        <text>MYC</text>
-      </annotation>
-      <annotation id="8">
         <infon key="type">Species</infon>
-        <location offset="605" length="7"/>
-        <text>Patient</text>
-      </annotation>
-      <annotation id="9">
-        <infon key="type">Species</infon>
-        <location offset="619" length="8"/>
+        <location offset="120" length="8"/>
         <text>PatientA</text>
       </annotation>
+      <annotation id="7">
+        <infon key="type">Chemical</infon>
+        <location offset="140" length="2"/>
+        <text>LN</text>
+      </annotation>
+      <annotation id="8">
+        <infon key="type">Chemical</infon>
+        <location offset="147" length="4"/>
+        <text>CHOP</text>
+      </annotation>
+      <annotation id="9">
+        <infon key="type">Disease</infon>
+        <location offset="158" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
       <annotation id="10">
-        <infon key="type">Species</infon>
-        <location offset="634" length="8"/>
-        <text>PatientB</text>
+        <infon key="type">Chemical</infon>
+        <location offset="184" length="2"/>
+        <text>LN</text>
       </annotation>
       <annotation id="11">
-        <infon key="type">Species</infon>
-        <location offset="649" length="8"/>
-        <text>PatientC</text>
+        <infon key="type">Chemical</infon>
+        <location offset="191" length="4"/>
+        <text>CHOP</text>
       </annotation>
       <annotation id="12">
-        <infon key="type">Species</infon>
-        <location offset="664" length="8"/>
-        <text>PatientD</text>
+        <infon key="type">Disease</infon>
+        <location offset="202" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="13">
         <infon key="type">Species</infon>
-        <location offset="679" length="8"/>
-        <text>PatientE</text>
+        <location offset="208" length="8"/>
+        <text>PatientC</text>
       </annotation>
       <annotation id="14">
-        <infon key="type">Species</infon>
-        <location offset="694" length="8"/>
-        <text>PatientF</text>
+        <infon key="type">Chemical</infon>
+        <location offset="227" length="2"/>
+        <text>LN</text>
       </annotation>
       <annotation id="15">
-        <infon key="type">Species</infon>
-        <location offset="709" length="8"/>
-        <text>PatientG</text>
+        <infon key="type">Chemical</infon>
+        <location offset="234" length="4"/>
+        <text>CHOP</text>
       </annotation>
       <annotation id="16">
-        <infon key="type">Species</infon>
-        <location offset="724" length="8"/>
-        <text>PatientH</text>
+        <infon key="type">Disease</infon>
+        <location offset="245" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="17">
         <infon key="type">Species</infon>
-        <location offset="739" length="8"/>
-        <text>PatientI</text>
+        <location offset="251" length="8"/>
+        <text>PatientD</text>
       </annotation>
       <annotation id="18">
-        <infon key="type">Species</infon>
-        <location offset="754" length="8"/>
-        <text>PatientJ</text>
+        <infon key="type">Chemical</infon>
+        <location offset="271" length="2"/>
+        <text>LN</text>
       </annotation>
       <annotation id="19">
-        <infon key="type">Species</infon>
-        <location offset="769" length="8"/>
-        <text>PatientK</text>
+        <infon key="type">Chemical</infon>
+        <location offset="278" length="4"/>
+        <text>CHOP</text>
       </annotation>
       <annotation id="20">
-        <infon key="type">Species</infon>
-        <location offset="784" length="8"/>
-        <text>PatientL</text>
+        <infon key="type">Disease</infon>
+        <location offset="289" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="21">
         <infon key="type">Species</infon>
-        <location offset="799" length="8"/>
-        <text>PatientM</text>
+        <location offset="295" length="8"/>
+        <text>PatientE</text>
       </annotation>
       <annotation id="22">
         <infon key="type">Chemical</infon>
-        <location offset="1093" length="6"/>
-        <text>Tonsil</text>
+        <location offset="314" length="2"/>
+        <text>LN</text>
       </annotation>
       <annotation id="23">
         <infon key="type">Chemical</infon>
-        <location offset="1192" length="3"/>
-        <text>IFR</text>
+        <location offset="321" length="4"/>
+        <text>CHOP</text>
       </annotation>
       <annotation id="24">
         <infon key="type">Chemical</infon>
-        <location offset="1219" length="3"/>
+        <location offset="331" length="3"/>
         <text>IFR</text>
       </annotation>
       <annotation id="25">
-        <infon key="type">Mutation</infon>
-        <location offset="1242" length="5"/>
-        <text>G3139</text>
+        <infon key="type">Disease</infon>
+        <location offset="341" length="5"/>
+        <text>DLBCL</text>
       </annotation>
       <annotation id="26">
-        <infon key="type">Chemical</infon>
-        <location offset="1271" length="3"/>
-        <text>IFR</text>
+        <infon key="type">Species</infon>
+        <location offset="347" length="8"/>
+        <text>PatientF</text>
       </annotation>
       <annotation id="27">
-        <infon key="type">Gene</infon>
-        <location offset="1436" length="4"/>
-        <text>BCL2</text>
+        <infon key="type">Chemical</infon>
+        <location offset="366" length="2"/>
+        <text>LN</text>
       </annotation>
       <annotation id="28">
-        <infon key="type">Gene</infon>
-        <location offset="1542" length="4"/>
-        <text>BCL6</text>
+        <infon key="type">Chemical</infon>
+        <location offset="373" length="4"/>
+        <text>CHOP</text>
       </annotation>
       <annotation id="29">
+        <infon key="type">Disease</infon>
+        <location offset="384" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="30">
+        <infon key="type">Species</infon>
+        <location offset="390" length="8"/>
+        <text>PatientG</text>
+      </annotation>
+      <annotation id="31">
+        <infon key="type">Chemical</infon>
+        <location offset="409" length="6"/>
+        <text>Tonsil</text>
+      </annotation>
+      <annotation id="32">
+        <infon key="type">Chemical</infon>
+        <location offset="420" length="4"/>
+        <text>CHOP</text>
+      </annotation>
+      <annotation id="33">
+        <infon key="type">Chemical</infon>
+        <location offset="430" length="3"/>
+        <text>IFR</text>
+      </annotation>
+      <annotation id="34">
+        <infon key="type">Disease</infon>
+        <location offset="443" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="35">
+        <infon key="type">Species</infon>
+        <location offset="449" length="8"/>
+        <text>PatientH</text>
+      </annotation>
+      <annotation id="36">
+        <infon key="type">Chemical</infon>
+        <location offset="467" length="2"/>
+        <text>LN</text>
+      </annotation>
+      <annotation id="37">
+        <infon key="type">Chemical</infon>
+        <location offset="474" length="4"/>
+        <text>CHOP</text>
+      </annotation>
+      <annotation id="38">
+        <infon key="type">Disease</infon>
+        <location offset="488" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="39">
+        <infon key="type">Species</infon>
+        <location offset="494" length="8"/>
+        <text>PatientI</text>
+      </annotation>
+      <annotation id="40">
+        <infon key="type">Chemical</infon>
+        <location offset="514" length="2"/>
+        <text>LN</text>
+      </annotation>
+      <annotation id="41">
+        <infon key="type">Chemical</infon>
+        <location offset="521" length="4"/>
+        <text>CHOP</text>
+      </annotation>
+      <annotation id="42">
+        <infon key="type">Mutation</infon>
+        <location offset="527" length="7"/>
+        <text>G3139 N</text>
+      </annotation>
+      <annotation id="43">
+        <infon key="type">Disease</infon>
+        <location offset="539" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="44">
+        <infon key="type">Species</infon>
+        <location offset="545" length="8"/>
+        <text>PatientJ</text>
+      </annotation>
+      <annotation id="45">
+        <infon key="type">Chemical</infon>
+        <location offset="565" length="2"/>
+        <text>LN</text>
+      </annotation>
+      <annotation id="46">
+        <infon key="type">Chemical</infon>
+        <location offset="572" length="4"/>
+        <text>CHOP</text>
+      </annotation>
+      <annotation id="47">
+        <infon key="type">Disease</infon>
+        <location offset="583" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="48">
+        <infon key="type">Species</infon>
+        <location offset="589" length="8"/>
+        <text>PatientK</text>
+      </annotation>
+      <annotation id="49">
+        <infon key="type">Chemical</infon>
+        <location offset="619" length="4"/>
+        <text>CHOP</text>
+      </annotation>
+      <annotation id="50">
+        <infon key="type">Chemical</infon>
+        <location offset="629" length="3"/>
+        <text>IFR</text>
+      </annotation>
+      <annotation id="51">
+        <infon key="type">Disease</infon>
+        <location offset="639" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="52">
+        <infon key="type">Species</infon>
+        <location offset="645" length="8"/>
+        <text>PatientL</text>
+      </annotation>
+      <annotation id="53">
+        <infon key="type">Chemical</infon>
+        <location offset="664" length="2"/>
+        <text>LN</text>
+      </annotation>
+      <annotation id="54">
+        <infon key="type">Chemical</infon>
+        <location offset="671" length="4"/>
+        <text>CHOP</text>
+      </annotation>
+      <annotation id="55">
+        <infon key="type">Disease</infon>
+        <location offset="682" length="5"/>
+        <text>DLBCL</text>
+      </annotation>
+      <annotation id="56">
+        <infon key="type">Chemical</infon>
+        <location offset="920" length="2"/>
+        <text>LN</text>
+      </annotation>
+      <annotation id="57">
+        <infon key="type">Disease</infon>
+        <location offset="936" length="3"/>
+        <text>IFR</text>
+      </annotation>
+      <annotation id="58">
+        <infon key="type">Species</infon>
+        <location offset="979" length="7"/>
+        <text>patient</text>
+      </annotation>
+      <annotation id="59">
         <infon key="type">Gene</infon>
-        <location offset="1579" length="3"/>
+        <location offset="1118" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="60">
+        <infon key="type">Gene</infon>
+        <location offset="1127" length="4"/>
+        <text>BCL2</text>
+      </annotation>
+      <annotation id="61">
+        <infon key="type">Gene</infon>
+        <location offset="1159" length="4"/>
+        <text>BCL6</text>
+      </annotation>
+      <annotation id="62">
+        <infon key="type">Gene</infon>
+        <location offset="1168" length="4"/>
+        <text>BCL6</text>
+      </annotation>
+      <annotation id="63">
+        <infon key="type">Gene</infon>
+        <location offset="1200" length="3"/>
         <text>MYC</text>
+      </annotation>
+      <annotation id="64">
+        <infon key="type">Gene</infon>
+        <location offset="1208" length="3"/>
+        <text>MYC</text>
+      </annotation>
+      <annotation id="65">
+        <infon key="type">Gene</infon>
+        <location offset="1276" length="3"/>
+        <text>LDH</text>
+      </annotation>
+      <annotation id="66">
+        <infon key="type">Gene</infon>
+        <location offset="1281" length="9"/>
+        <text>lactate 1</text>
+      </annotation>
+      <annotation id="67">
+        <infon key="type">Chemical</infon>
+        <location offset="1293" length="2"/>
+        <text>LN</text>
+      </annotation>
+      <annotation id="68">
+        <infon key="type">Gene</infon>
+        <location offset="1300" length="4"/>
+        <text>CHOP</text>
       </annotation>
     </passage>
   </document>

@@ -1,27 +1,28 @@
 26142220|title|NIHMS313098-supplement-3 — tab_01
-26142220|body|dehydrogenase 0=normal, 1=greater than the upper level of normal; PS, performance status 0=0-1, 1=2-4; ENS, extranodal sites 0=0-1, 1=2 or more; IPI, International Prognostic Index; ND, not done; NC, not calculable LN, lymph node; IFR, involved field radiotherapy; Code OS, patient alive 0=yes, 1=no; Code PFS, progressive disease 0=no, 1=yes; OS, overall survival (years); PFS, progression free survival (years) BCL2 BA, BCL2 status by breakpart probe; BCL6 BA, BCL6 status by breakpart probe; MYC BA, MYC status by breakpart probe; N=no breakpart; Y=breakpart detected Patient DLBCL-PatientA DLBCL-PatientB DLBCL-PatientC DLBCL-PatientD DLBCL-PatientE DLBCL-PatientF DLBCL-PatientG DLBCL-PatientH DLBCL-PatientI DLBCL-PatientJ DLBCL-PatientK DLBCL-PatientL DLBCL-PatientM LDH, lactate gender F F M F M M F M M F F M M Age STAGE 68 IIIB 57 IIIA 61 IVB 76 IIIA 59 IIA 22 IIA 63 IAE 31 IA 73 IIIA 16 IA 62 IAE 47 IVB 47 IIIBE LDH ND 0 1 1 0 0 0 0 0 0 0 1 1 PS 1 0 1 0 0 0 0 0 0 0 0 0 0 ENS IPI 0 NC 0 0 0 0 0 0 0 0 0 0 1 0 site 3 LN 2 LN 4 LN 2 LN 0 LN 0 LN 1 Tonsil 0 LN 2 LN LN 1 Breast 3 LN 2 LN treatment 7xR-CHOP 6xR-CHOP 6xR-CHOP 6xR-CHOP 3xR-CHOP plus IFR 4xR-CHOP 3xR-CHOP plus IFR 4xR-CHOP 8xR-CHOP +G3139 4xR-CHOP 3xR-CHOP plus IFR 6xR-CHOP 6xR-CHOP Code OS 0 1 0 0 0 0 0 0 0 0 0 0 1 Code PFS 0 1 0 0 0 0 0 0 0 0 0 1 1 OS 6.59 1.5879 4.39 5.36 5.17 4.13 4.54 4.23 5.56 4.41 4.25 5.46 1.31 PFS BCL2 BA 6.59 Y 0.752909 N 4.39 N 5.36 Y 5.17 N 4.13 N 4.54 ND 4.23 ND 5.56 N 4.41 N 4.25 N 2.35 Y 1.02 ND BCL6 BA N Y N N N N ND ND N N Y N ND MYC BA N N N N N Y ND ND N N N N ND
+26142220|body|Sheet1 Tab 1 Patient gender STAGE LDH IPI site treatment BCL2 BA BCL6 BA MYC BA DLBCL-PatientA F IIIB 0 3 LN 7xR-CHOP Y N N DLBCL-PatientB F IIIA 1 2 LN 6xR-CHOP N Y N DLBCL-PatientC M IVB 1 4 LN 6xR-CHOP N N N DLBCL-PatientD F IIIA 0 2 LN 6xR-CHOP Y N N DLBCL-PatientE M IIA 0 0 LN 3xR-CHOP plus IFR N N N DLBCL-PatientF M IIA 0 0 LN 4xR-CHOP N N Y DLBCL-PatientG F IAE 0 1 Tonsil 3xR-CHOP plus IFR ND ND ND DLBCL-PatientH M IA 0 0 LN 4xR-CHOP ND ND ND DLBCL-PatientI M IIIA 0 2 LN 8xR-CHOP +G3139 N N N DLBCL-PatientJ F IA ND NC LN 4xR-CHOP N N N DLBCL-PatientK F IAE 0 1 Breast 3xR-CHOP plus IFR N Y N DLBCL-PatientL M IVB 1 3 LN 6xR-CHOP Y N N DLBCL-PatientM M IIIBE dehydrogenase 0=normal, 1=greater than the upper level of normal; PS, performance status 0=0-1, 1=2-4; ENS, extranodal sites 0=0-1, 1=2 or more; IPI, International Prognostic Index; ND, not done; NC, not calculable LN, lymph node; IFR, involved field radiotherapy; Code OS, patient alive 0=yes, 1=no; Code PFS, progressive disease 0=no, 1=yes; OS, overall survival (years); PFS, progression free survival (years) BCL2 BA, BCL2 status by breakpart probe; BCL6 BA, BCL6 status by breakpart probe; MYC BA, MYC status by breakpart probe; N=no breakpart; Y=breakpart detected LDH, lactate 1 2 LN 6xR-CHOP ND ND ND
+26142220	527	534	G3139 N	ProteinMutation	tmVar:p|SUB|G|3139|N;HGVS:p.G3139N;VariantGroup:0
 
-26142220	308	315	patient	Species	9606
-26142220	605	612	Patient	Species	9606
-26142220	447	451	BCL2	Gene	596
-26142220	456	460	BCL2	Gene	596
-26142220	488	492	BCL6	Gene	604
-26142220	497	501	BCL6	Gene	604
-26142220	529	532	MYC	Gene	4609
-26142220	537	540	MYC	Gene	4609
-26142220	1146	1150	CHOP	Gene	1649
-26142220	1155	1159	CHOP	Gene	1649
-26142220	1164	1168	CHOP	Gene	1649
-26142220	1173	1177	CHOP	Gene	1649
-26142220	1182	1186	CHOP	Gene	1649
-26142220	1200	1204	CHOP	Gene	1649
-26142220	1209	1213	CHOP	Gene	1649
-26142220	1227	1231	CHOP	Gene	1649
-26142220	1236	1240	CHOP	Gene	1649
-26142220	1252	1256	CHOP	Gene	1649
-26142220	1261	1265	CHOP	Gene	1649
-26142220	1279	1283	CHOP	Gene	1649
-26142220	1288	1292	CHOP	Gene	1649
-26142220	1436	1440	BCL2	Gene	596
-26142220	1579	1582	MYC	Gene	4609
-26142220	1542	1546	BCL6	Gene	604
+26142220	47	54	Patient	Species	9606
+26142220	979	986	patient	Species	9606
+26142220	91	95	BCL2	Gene	596
+26142220	99	103	BCL6	Gene	604
+26142220	107	110	MYC	Gene	4609
+26142220	1118	1122	BCL2	Gene	596
+26142220	1127	1131	BCL2	Gene	596
+26142220	1159	1163	BCL6	Gene	604
+26142220	1168	1172	BCL6	Gene	604
+26142220	1200	1203	MYC	Gene	4609
+26142220	1208	1211	MYC	Gene	4609
+26142220	1300	1304	CHOP	Gene	1649
+26142220	671	675	CHOP	Gene	1649
+26142220	619	623	CHOP	Gene	1649
+26142220	572	576	CHOP	Gene	1649
+26142220	521	525	CHOP	Gene	1649
+26142220	474	478	CHOP	Gene	1649
+26142220	420	424	CHOP	Gene	1649
+26142220	373	377	CHOP	Gene	1649
+26142220	321	325	CHOP	Gene	1649
+26142220	278	282	CHOP	Gene	1649
+26142220	234	238	CHOP	Gene	1649
+26142220	191	195	CHOP	Gene	1649
+26142220	147	151	CHOP	Gene	1649

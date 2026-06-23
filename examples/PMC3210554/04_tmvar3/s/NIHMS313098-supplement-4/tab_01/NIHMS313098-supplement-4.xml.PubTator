@@ -1,9 +1,9 @@
 77835138|title|NIHMS313098-supplement-4 — tab_01
-77835138|body|T910A;T940A L252P,I165V 1 For genes with hot spot mutations, cSNVs are identified by the exact change, otherwise the total number of cSNVs detected in the gene in that library/sample are reported Mutations in bold indicates the mutation has been shown to be somatic, either in this study or in published studies For MLL2, an asterisk indicates identified by RNA-seq only, others were identified by either genome or amplicon sequencing For EZH2, the annotation is based on two refseq isoforms. Y646 is the same as Y641 as described in Morin et al, 2010. The two mutations in EZH2 not corresponding to the known hot spot were confirmed to be somatic. COO subtype is shown from Affymetrix expression values where available (Wright et al, 2003)
+77835138|body|T910A;T940A L252P,I165V For genes with hot spot mutations, cSNVs are identified by the exact change, otherwise the total number of cSNVs detected in the gene in that library/sample are reported Mutations in bold indicates the mutation has been shown to be somatic, either in this study or in published studies For MLL2, an asterisk indicates identified by RNA-seq only, others were identified by either genome or amplicon sequencing For EZH2, the annotation is based on two refseq isoforms. Y646 is the same as Y641 as described in Morin et al, 2010. The two mutations in EZH2 not corresponding to the known hot spot were confirmed to be somatic. COO subtype is shown from Affymetrix expression values where available (Wright et al, 2003)
 77835138	34	39	T910A	DNAMutation	tmVar:c|SUB|T|910|A;HGVS:c.910T>A;VariantGroup:1;CorrespondingGene:9757;CorrespondingSpecies:9606
 77835138	40	51	T940A L252P	ProteinMutation	tmVar:p|SUB|T,L|940,252|P;HGVS:p.T,L940,252P;VariantGroup:0;CorrespondingGene:9757;RS#:762449324;CorrespondingSpecies:9606
 77835138	52	57	I165V	ProteinMutation	tmVar:p|SUB|I|165|V;HGVS:p.I165V;VariantGroup:2;CorrespondingGene:9757;CorrespondingSpecies:9606
 
-77835138	350	354	MLL2	Gene	9757
-77835138	473	477	EZH2	Gene	2146
-77835138	608	612	EZH2	Gene	2146
+77835138	348	352	MLL2	Gene	9757
+77835138	471	475	EZH2	Gene	2146
+77835138	606	610	EZH2	Gene	2146

@@ -1,0 +1,9 @@
+label	source_file	pdf_file	conversion_method	extraction_method	source_words	grobid_words	pct_captured
+main	nihms313098.pdf	01_source/nihms313098.pdf	direct	grobid	7258	4102	56.5
+s/NIHMS313098-supplement-1	NIHMS313098-supplement-1.docx	01_source/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.pdf	soffice	grobid	6119	3264	53.3
+s/NIHMS313098-supplement-10/tab_01	NIHMS313098-supplement-10.xls	01_source/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.pdf	soffice	grobid	626	139	22.2
+s/NIHMS313098-supplement-2	NIHMS313098-supplement-2.docx	01_source/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.pdf	soffice	grobid	6228	3010	48.3
+s/NIHMS313098-supplement-3/tab_01	NIHMS313098-supplement-3.xls	01_source/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.pdf	soffice	grobid	239	242	101.3
+s/NIHMS313098-supplement-4/tab_01	NIHMS313098-supplement-4.xls	01_source/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.pdf	soffice	grobid	1299	125	9.6
+s/NIHMS313098-supplement-7/tab_01	NIHMS313098-supplement-7.xls	01_source/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.pdf	soffice	pymupdf_fallback	525	528	100.6
+s/NIHMS313098-supplement-9/tab_01	NIHMS313098-supplement-9.xls	01_source/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.pdf	soffice	grobid	877	872	99.4
