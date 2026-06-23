@@ -12,5 +12,7 @@ reportlab
 openpyxl
 xlrd
 pymupdf
+pdfplumber
+pdfminer.six
 civicpy
 

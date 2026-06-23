@@ -97,6 +97,7 @@ SYSTEM_PACKAGES = [
     'python3-setuptools',
     'libreoffice-nogui',    # Word/Excel conversion in run_civic_pubtator.py (headless server)
     'build-essential',     # gcc/g++/make — needed to compile tmVar's bundled CRF++ from source
+    'poppler-utils',       # pdftotext — PDF text extraction for source word count comparison
 ]
 
 
