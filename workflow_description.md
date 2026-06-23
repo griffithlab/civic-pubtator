@@ -110,16 +110,6 @@ Two additional filters apply to Excel sheets before PDF rendering:
    → 7/8 columns kept after numeric filter
    ```
 
-#### Installing LibreOffice
-
-```bash
-# macOS
-brew install --cask libreoffice
-
-# Ubuntu/Debian
-sudo apt-get install -y libreoffice
-```
-
 ### `src/pipeline_steps/pdf_to_bioc.py`
 
 Wraps the GROBID REST API (expected at `http://localhost:8070`, typically run via Docker)
