@@ -924,9 +924,11 @@ def process_input(top_dir, args):
         f.write(f"# Source dir: {source_dir}\n")
 
         max_rows_str  = f"{args.max_rows:,}"  if args.max_rows  else "unlimited"
+        max_tabs_str  = f"{args.max_tabs:,}"  if args.max_tabs  else "unlimited"
         max_chars_str = f"{args.max_chars:,}" if args.max_chars else "unlimited"
         timeout_str   = f"{args.timeout_per_doc}s" if args.timeout_per_doc else "unlimited"
         f.write(f"# Max rows (Excel): {max_rows_str}\n")
+        f.write(f"# Max tabs (Excel): {max_tabs_str}\n")
         f.write(f"# Max chars:        {max_chars_str}\n")
         f.write(f"# tmVar timeout/doc: {timeout_str}\n")
         f.write(f"# Clear intermediates: {args.clear_intermediates}\n")
@@ -941,7 +943,7 @@ def process_input(top_dir, args):
                     source_dir]
         if args.no_libreoffice:
             supp_cmd.append("--no-libreoffice")
-        supp_cmd += ["--max-rows", str(args.max_rows)]
+        supp_cmd += ["--max-rows", str(args.max_rows), "--max-tabs", str(args.max_tabs)]
         run("Supplementary prep", supp_cmd)
 
     # Write manifest of source files and tool version
@@ -1052,7 +1054,12 @@ def main():
                         help="Maximum rows to read per Excel sheet tab when converting "
                              "supplementary .xls/.xlsx files to PDF (default: 1000; "
                              "use 0 for no limit). Applied first, at the conversion stage. "
-                             "See also --max-chars.")
+                             "See also --max-tabs and --max-chars.")
+    parser.add_argument("--max-tabs", type=int, default=15, metavar="N",
+                        help="Maximum number of tabs to extract from a single Excel "
+                             "spreadsheet when converting supplementary .xls/.xlsx files "
+                             "to PDF (default: 15; use 0 for no limit). Tabs beyond this "
+                             "limit are skipped with a warning. See also --max-rows.")
     parser.add_argument("--max-chars", type=int, default=1_000_000, metavar="N",
                         help="Skip any document whose converted output exceeds N characters "
                              "at any annotation step; all remaining steps are skipped for "

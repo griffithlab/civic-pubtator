@@ -35,6 +35,7 @@ SCRIPT_DIR    = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR      = os.path.dirname(os.path.dirname(SCRIPT_DIR))
 DATA_ROOT     = "/data/pub-data"
 FAILURES_FILE = os.path.join(DATA_ROOT, ".monitor_failures.json")
+SUMMARY_DIR   = "/data/civic-pubtator-data"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -331,6 +332,24 @@ def upload(bucket, pubid):
     return True
 
 
+# ── Corpus summary ───────────────────────────────────────────────────────────
+
+def run_summarize_corpus(bucket):
+    """Regenerate the grand corpus summary HTML from the current bucket contents."""
+    script = os.path.join(REPO_DIR, "src", "summary", "summarize_corpus.py")
+    cmd = [
+        sys.executable, script,
+        "--input-dir", f"gs://{bucket}/",
+        "--output-dir", SUMMARY_DIR,
+    ]
+    log.info("Regenerating corpus summary → %s", SUMMARY_DIR)
+    result = subprocess.run(cmd, check=False, capture_output=True, text=True, cwd=REPO_DIR)
+    if result.returncode != 0:
+        log.warning("summarize_corpus exited %d:\n%s", result.returncode, result.stderr.strip())
+    else:
+        log.info("Corpus summary updated.")
+
+
 # ── Main polling loop ─────────────────────────────────────────────────────────
 
 def run_cycle(bucket, rerun=False, rerun_pubids=None):
@@ -400,6 +419,7 @@ def run_cycle(bucket, rerun=False, rerun_pubids=None):
         upload(bucket, pubid)
         log.info("Successfully processed and uploaded %s.", pubid)
 
+    run_summarize_corpus(bucket)
     log.info("=== Cycle complete ===")
 
 

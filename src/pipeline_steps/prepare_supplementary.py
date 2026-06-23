@@ -228,11 +228,13 @@ def _filter_numeric_columns(rows, threshold=0.95):
     return filtered, dropped
 
 
-def process_excel(src, stem, s_dir, soffice, max_rows):
+def process_excel(src, stem, s_dir, soffice, max_rows, max_tabs=15):
     ext = os.path.splitext(src)[1].lower()
     tmp_xls_dir = None
     if not max_rows:
         max_rows = float('inf')
+    if not max_tabs:
+        max_tabs = float('inf')
 
     # use_soffice tracks whether soffice is available AND has not crashed yet for this file.
     use_soffice = bool(soffice)
@@ -284,6 +286,10 @@ def process_excel(src, stem, s_dir, soffice, max_rows):
     wb = openpyxl.load_workbook(src, data_only=True)
 
     for tab_num, sheet_name in enumerate(wb.sheetnames, start=1):
+        if tab_num > max_tabs:
+            remaining = len(wb.sheetnames) - int(max_tabs)
+            print(f"  Tab limit ({int(max_tabs)}) reached: skipping {remaining} remaining tab(s)")
+            break
         ws = wb[sheet_name]
         rows = []
         for i, row in enumerate(ws.iter_rows(values_only=True)):
@@ -417,6 +423,10 @@ def main():
                              "pipeline a second filter, --max-chars, removes any document "
                              "whose total converted text still exceeds the character limit "
                              "after this row cap is applied.")
+    parser.add_argument("--max-tabs", type=int, default=15, metavar="N",
+                        help="Maximum number of tabs to extract from a single Excel "
+                             "spreadsheet (default: 15; use 0 for no limit). Tabs beyond "
+                             "this limit are skipped with a warning.")
     args = parser.parse_args()
 
     if args.no_libreoffice:
@@ -458,7 +468,7 @@ def main():
             elif ext in (".docx", ".doc"):
                 process_word(fpath, stem, s_dir, soffice)
             elif ext in (".xlsx", ".xls"):
-                process_excel(fpath, stem, s_dir, soffice, args.max_rows)
+                process_excel(fpath, stem, s_dir, soffice, args.max_rows, args.max_tabs)
             elif ext in (".pptx", ".ppt"):
                 process_powerpoint(fpath, stem, s_dir, soffice)
             else:
