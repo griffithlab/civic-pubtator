@@ -25,6 +25,8 @@ Options:
                            Reusing the same profile avoids re-solving reCAPTCHA on
                            repeat runs because Google's trust signals accumulate.
                            (default: ~/.civic-pubtator/browser-profile/)
+    --bucket-sync          After a successful --download, upload results to the
+                           GCS bucket via src/cloud/sync_pub_data.sh
     --headless             Run browser without a visible window (not recommended;
                            headed mode passes reCAPTCHA more reliably)
 
@@ -45,6 +47,9 @@ import subprocess
 import sys
 import urllib.request
 import urllib.error
+
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_REPO_DIR   = os.path.dirname(os.path.dirname(_SCRIPT_DIR))
 
 
 # ── GCS helpers ───────────────────────────────────────────────────────────────
@@ -423,6 +428,77 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
     return False
 
 
+# ── Browser dependency check ──────────────────────────────────────────────────
+
+def check_browser_dependencies():
+    """
+    Verify that Playwright and at least one usable browser binary are present.
+    Prints clear installation instructions and returns False if anything is missing.
+    """
+    # 1. Playwright Python package
+    try:
+        import playwright  # noqa: F401
+    except ImportError:
+        print(
+            "ERROR: Playwright is not installed.\n"
+            "\nTo install:\n"
+            "  pip install playwright\n"
+            "  playwright install chromium",
+            file=sys.stderr, flush=True,
+        )
+        return False
+
+    # 2. A usable browser binary — system Chrome (preferred) or Playwright Chromium
+    chrome_paths = [
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",  # macOS
+        "/usr/bin/google-chrome",                                          # Linux
+        "/usr/bin/chromium-browser",
+        "/usr/bin/chromium",
+    ]
+    has_system_chrome = any(os.path.isfile(p) for p in chrome_paths)
+
+    pw_cache = os.path.expanduser("~/Library/Caches/ms-playwright")   # macOS
+    if not os.path.isdir(pw_cache):
+        pw_cache = os.path.expanduser("~/.cache/ms-playwright")        # Linux
+    has_pw_chromium = os.path.isdir(pw_cache) and any(
+        "chromium" in entry.lower() for entry in os.listdir(pw_cache)
+    )
+
+    if not has_system_chrome and not has_pw_chromium:
+        print(
+            "ERROR: No browser found for Playwright.\n"
+            "\nTo install Playwright's bundled Chromium:\n"
+            "  playwright install chromium\n"
+            "\nAlternatively, install Google Chrome from https://www.google.com/chrome/",
+            file=sys.stderr, flush=True,
+        )
+        return False
+
+    return True
+
+
+# ── Bucket sync ───────────────────────────────────────────────────────────────
+
+def sync_to_bucket(bucket, pmid, work_dir):
+    """
+    Upload <work_dir>/<pmid>/ to gs://<bucket>/<pmid>/ using sync_pub_data.sh.
+    Returns True on success, False on failure.
+    """
+    script = os.path.join(_REPO_DIR, "src", "cloud", "sync_pub_data.sh")
+    cmd    = ["bash", script, "--bucket", bucket, "--local-dir", work_dir, "up", pmid]
+    print(f"\nUploading {pmid}/ to gs://{bucket}/{pmid}/ …", flush=True)
+    result = subprocess.run(cmd, check=False, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"  ERROR: upload failed:\n{result.stderr.strip()}",
+              file=sys.stderr, flush=True)
+        return False
+    if result.stdout.strip():
+        for line in result.stdout.strip().splitlines():
+            print(f"  {line}", flush=True)
+    print("  Upload complete.", flush=True)
+    return True
+
+
 # ── Download orchestration ────────────────────────────────────────────────────
 
 def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFILE_DIR):
@@ -534,6 +610,7 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
         context.close()
 
     print(f"\nDone — {len(saved)}/{total} file(s) saved.", flush=True)
+    return len(saved)
 
 
 # ── Argument helpers ──────────────────────────────────────────────────────────
@@ -615,10 +692,20 @@ def main():
         help="Run browser without a visible window (default: headed). "
              "Headed mode is more reliable for sites with reCAPTCHA or Cloudflare.",
     )
+    parser.add_argument(
+        "--bucket-sync",
+        action="store_true",
+        help=(
+            "After a successful --download, upload the result to the GCS bucket "
+            "using src/cloud/sync_pub_data.sh. Requires --download."
+        ),
+    )
     args = parser.parse_args()
 
     if args.check_download and not args.email:
         parser.error("--email is required when using --check-download")
+    if args.bucket_sync and not args.download:
+        parser.error("--bucket-sync requires --download")
 
     pmid   = args.pmid.strip()
     bucket = args.bucket
@@ -673,9 +760,22 @@ def main():
 
     # ── 5. Download files (optional) ─────────────────────────────────────────
     if args.download:
+        if not check_browser_dependencies():
+            sys.exit(1)
         work_dir    = os.path.expanduser(args.output_dir)
         profile_dir = os.path.expanduser(args.profile_dir)
-        run_download(pmid, doi, work_dir, headless=args.headless, profile_dir=profile_dir)
+        n_saved = run_download(pmid, doi, work_dir,
+                               headless=args.headless, profile_dir=profile_dir)
+
+        # ── 6. Sync to bucket (optional) ─────────────────────────────────────
+        if args.bucket_sync:
+            if n_saved:
+                sync_to_bucket(bucket, pmid, work_dir)
+            else:
+                print(
+                    "\nWARNING: --bucket-sync skipped — no files were saved.",
+                    file=sys.stderr, flush=True,
+                )
 
 
 if __name__ == "__main__":

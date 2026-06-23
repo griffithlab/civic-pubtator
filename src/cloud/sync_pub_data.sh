@@ -49,6 +49,11 @@ while [[ $# -gt 0 ]]; do
             BUCKET_NAME="$2"
             shift 2
             ;;
+        --local-dir)
+            [[ -n "${2:-}" ]] || die '"--local-dir" requires a non-empty argument.'
+            LOCAL="$2"
+            shift 2
+            ;;
         *)
             break
             ;;
