@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, datetime, os, re, shutil, subprocess, sys, time
+import argparse, datetime, json, os, re, shutil, subprocess, sys, time
 import xml.etree.ElementTree as ET
 
 REPO_DIR  = os.path.dirname(os.path.realpath(__file__))
@@ -157,6 +157,108 @@ def count_file_stats(filepath):
         return 0, 0
 
 
+def count_pdf_words_pymupdf(pdf_path):
+    """Return word count of text extracted from a PDF via PyMuPDF."""
+    try:
+        import fitz
+        doc = fitz.open(pdf_path)
+        text = " ".join(page.get_text() for page in doc)
+        doc.close()
+        return len(text.split())
+    except Exception:
+        return 0
+
+
+def count_bioc_text_words(xml_path):
+    """Return word count of text content inside <text> elements of a BioC XML file."""
+    try:
+        tree = ET.parse(xml_path)
+        text = " ".join(el.text or "" for el in tree.iter() if el.tag == "text" and el.text)
+        return len(text.split())
+    except Exception:
+        return 0
+
+
+def collect_source_word_counts(pdf_dir):
+    """Return {stem: word_count} for all PDFs in pdf_dir using PyMuPDF."""
+    counts = {}
+    if not os.path.isdir(pdf_dir):
+        return counts
+    for fname in os.listdir(pdf_dir):
+        if fname.lower().endswith(".pdf"):
+            stem = os.path.splitext(fname)[0]
+            counts[stem] = count_pdf_words_pymupdf(os.path.join(pdf_dir, fname))
+    return counts
+
+
+def _read_extraction_sidecar(grobid_out, stem):
+    """Read the .extraction.json sidecar written by pdf_to_bioc.py.
+
+    Returns the extraction_method string, or None if the sidecar is absent.
+    """
+    path = os.path.join(grobid_out, stem + ".extraction.json")
+    try:
+        with open(path) as fh:
+            return json.load(fh).get("extraction_method", "")
+    except (FileNotFoundError, json.JSONDecodeError):
+        return None
+
+
+def _read_conversion_sidecar(pdf_dir, stem):
+    """Read the .conversion.json sidecar written by prepare_supplementary.py.
+
+    Returns (source_file, conversion_method), or (None, None) if absent
+    (which means the PDF entered the pipeline directly without conversion).
+    """
+    path = os.path.join(pdf_dir, stem + ".conversion.json")
+    try:
+        with open(path) as fh:
+            data = json.load(fh)
+        return data.get("source_file", ""), data.get("conversion_method", "")
+    except (FileNotFoundError, json.JSONDecodeError):
+        return None, None
+
+
+def append_capture_stats(capture_tsv, base_dir, label, source_wc, pdf_dir, grobid_out):
+    """Append per-document content capture rows to content_capture_stats.tsv.
+
+    One row per GROBID output XML: source_words (PyMuPDF) vs grobid_words
+    (<text>-element-only from BioC XML) with a pct_captured metric.
+    """
+    if not os.path.isdir(grobid_out):
+        return
+
+    write_header = not os.path.isfile(capture_tsv) or os.path.getsize(capture_tsv) == 0
+    rows = []
+    for fname in sorted(os.listdir(grobid_out)):
+        if not fname.lower().endswith(".xml") or not os.path.isfile(os.path.join(grobid_out, fname)):
+            continue
+        stem         = os.path.splitext(fname)[0]
+        src_words    = source_wc.get(stem, 0)
+        grobid_words = count_bioc_text_words(os.path.join(grobid_out, fname))
+        pct_str      = f"{grobid_words / src_words * 100:.1f}" if src_words > 0 else ""
+        grobid_rel   = os.path.relpath(os.path.join(grobid_out, fname), base_dir)
+        pdf_rel      = os.path.relpath(os.path.join(pdf_dir, stem + ".pdf"), base_dir)
+
+        source_file, conv_method = _read_conversion_sidecar(pdf_dir, stem)
+        if source_file is None:
+            # No sidecar: PDF entered the pipeline directly (main pub or supp PDF)
+            source_file = stem + ".pdf"
+            conv_method = "direct"
+
+        extraction_method = _read_extraction_sidecar(grobid_out, stem) or ""
+
+        rows.append((label, source_file, pdf_rel, conv_method,
+                     extraction_method, src_words, grobid_words, pct_str))
+
+    with open(capture_tsv, "a", encoding="utf-8") as f:
+        if write_header:
+            f.write("label\tsource_file\tpdf_file\tconversion_method\t"
+                    "extraction_method\tsource_words\tgrobid_words\tpct_captured\n")
+        for row in rows:
+            f.write("\t".join(str(v) for v in row) + "\n")
+
+
 def collect_output_files(output_dir):
     """Return list of (rel_path, chars, words) for .xml/.txt files directly in output_dir.
 
@@ -186,18 +288,31 @@ def log_group_header(log_path, label, pdf_dir):
 
 
 def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, elapsed,
-                   file_elapsed=None, timeout_fallback=None):
+                   file_elapsed=None, timeout_fallback=None, source_word_counts=None):
     """Append character/word stats to the log and TSV for all output files.
 
     file_elapsed: optional dict mapping output basename → elapsed seconds.
     When provided, per-file timings appear in the log table and TSV rows.
     The step header still shows the total elapsed for context.
     timeout_fallback: seconds to record for files absent from file_elapsed (timed-out docs).
+    source_word_counts: optional {stem: word_count} dict (GROBID step only).  When provided,
+    source_words and pct_captured columns are written to the TSV and log.  pct_captured is
+    computed from <text>-element-only words in the BioC XML vs PyMuPDF words from the source PDF.
     """
     files = collect_output_files(output_dir)
 
     timestamp    = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     duration_str = format_duration(elapsed)
+
+    # Precompute source-capture data for GROBID rows
+    src_data = {}  # fname -> (src_words, pct_str)
+    if source_word_counts is not None:
+        for fname, chars, words in files:
+            stem      = os.path.splitext(fname)[0]
+            src_words = source_word_counts.get(stem, 0)
+            bioc_words = count_bioc_text_words(os.path.join(output_dir, fname))
+            pct_str   = f"{bioc_words / src_words * 100:.1f}" if src_words > 0 else ""
+            src_data[fname] = (src_words, pct_str)
 
     # --- human-readable log ---
     with open(log_path, "a", encoding="utf-8") as f:
@@ -210,6 +325,9 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
             if file_elapsed:
                 f.write(f"     {'File':<{name_w}}  {'Chars':>12}  {'Words':>9}  {'Time':>10}\n")
                 f.write(f"     {'-'*name_w}  {'-'*12}  {'-'*9}  {'-'*10}\n")
+            elif source_word_counts is not None:
+                f.write(f"     {'File':<{name_w}}  {'Chars':>12}  {'Words':>9}  {'Src Words':>9}  {'% Captured':>10}\n")
+                f.write(f"     {'-'*name_w}  {'-'*12}  {'-'*9}  {'-'*9}  {'-'*10}\n")
             else:
                 f.write(f"     {'File':<{name_w}}  {'Chars':>12}  {'Words':>9}\n")
                 f.write(f"     {'-'*name_w}  {'-'*12}  {'-'*9}\n")
@@ -226,6 +344,10 @@ def log_step_stats(log_path, tsv_path, base_dir, step_name, label, output_dir, e
                     else:
                         time_col = "—"
                     f.write(f"     {rel:<{name_w}}  {chars:>12,}  {words:>9,}  {time_col:>10}\n")
+                elif source_word_counts is not None:
+                    src_words, pct_str = src_data.get(rel, (0, ""))
+                    pct_col = f"{pct_str}%" if pct_str else "—"
+                    f.write(f"     {rel:<{name_w}}  {chars:>12,}  {words:>9,}  {src_words:>9,}  {pct_col:>10}\n")
                 else:
                     f.write(f"     {rel:<{name_w}}  {chars:>12,}  {words:>9,}\n")
             f.write(f"     {'TOTAL':<{name_w}}  {total_chars:>12,}  {total_words:>9,}\n")
@@ -462,8 +584,12 @@ def run_grobid_for_group(label, pdf_dir, grobid_out, args, log_path, tsv_path, b
         grobid_cmd.append("--supplementary")
     t0 = time.time()
     run(f"GROBID  [{label}]", grobid_cmd)
+    source_wc = collect_source_word_counts(pdf_dir)
+    elapsed = time.time() - t0
     log_step_stats(log_path, tsv_path, base_dir, "GROBID", label, grobid_out,
-                   elapsed=time.time() - t0)
+                   elapsed=elapsed, source_word_counts=source_wc)
+    capture_tsv = os.path.join(base_dir, "content_capture_stats.tsv")
+    append_capture_stats(capture_tsv, base_dir, label, source_wc, pdf_dir, grobid_out)
     enforce_max_chars(grobid_out, args.max_chars, log_path, "GROBID", label)
 
 
@@ -891,6 +1017,7 @@ def process_input(top_dir, args):
                 shutil.rmtree(d)
         run_title = os.path.basename(os.path.abspath(top_dir))
         for f in (log_path, tsv_path, manifest_path,
+                  os.path.join(top_dir, "content_capture_stats.tsv"),
                   os.path.join(top_dir, f"report_{run_title}.html"),
                   os.path.join(top_dir, f"report_{run_title}.tsv")):
             if os.path.exists(f):

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, datetime, os, shutil, subprocess, sys, tempfile
+import argparse, datetime, json, os, shutil, subprocess, sys, tempfile
 
 # ── LibreOffice detection ─────────────────────────────────────────────────────
 
@@ -47,6 +47,22 @@ def soffice_convert(soffice, src, out_dir, convert_to="pdf"):
     ext = convert_to.split(":")[0]  # e.g. "pdf" or "xlsx" (strip filter hints if any)
     return os.path.join(out_dir, f"{stem}.{ext}")
 
+# ── Conversion sidecar ───────────────────────────────────────────────────────
+
+def _write_conversion_sidecar(out_dir, stem, source_path, method):
+    """Write a .conversion.json sidecar alongside the converted PDF.
+
+    Records the original source filename and the method used so that
+    civic_pubtator.py can include this information in content_capture_stats.tsv.
+    """
+    sidecar = {
+        "source_file":       os.path.basename(source_path),
+        "conversion_method": method,
+    }
+    with open(os.path.join(out_dir, stem + ".conversion.json"), "w") as fh:
+        json.dump(sidecar, fh)
+
+
 # ── Per-type processors ───────────────────────────────────────────────────────
 
 def process_pdf(src, stem, s_dir):
@@ -55,6 +71,7 @@ def process_pdf(src, stem, s_dir):
     dst = os.path.join(out_dir, stem + ".pdf")
     shutil.copy2(src, dst)
     print(f"  Copied → {dst}")
+    _write_conversion_sidecar(out_dir, stem, src, "direct")
 
 def process_word(src, stem, s_dir, soffice):
     out_dir = os.path.join(s_dir, stem)
@@ -79,6 +96,7 @@ def process_word(src, stem, s_dir, soffice):
                 if created != dst:
                     os.replace(created, dst)
                 print(f"  Word → PDF (soffice): {dst}")
+                _write_conversion_sidecar(out_dir, stem, src, "soffice")
                 return
             except RuntimeError as exc:
                 print(f"  WARNING: soffice failed — {exc}")
@@ -107,6 +125,7 @@ def process_word(src, stem, s_dir, soffice):
                 story.append(Spacer(1, 4))
         SimpleDocTemplate(dst, pagesize=letter).build(story)
         print(f"  Word → PDF (python-docx fallback): {dst}")
+        _write_conversion_sidecar(out_dir, stem, src, "python-docx")
     finally:
         if tmp_dir:
             shutil.rmtree(tmp_dir, ignore_errors=True)
@@ -134,6 +153,7 @@ def process_powerpoint(src, stem, s_dir, soffice):
                 if created != dst:
                     os.replace(created, dst)
                 print(f"  PowerPoint → PDF (soffice): {dst}")
+                _write_conversion_sidecar(out_dir, stem, src, "soffice")
                 return
             except RuntimeError as exc:
                 print(f"  WARNING: soffice failed — {exc}")
@@ -167,6 +187,7 @@ def process_powerpoint(src, stem, s_dir, soffice):
             story.append(Spacer(1, 12))
         SimpleDocTemplate(dst, pagesize=letter).build(story)
         print(f"  PowerPoint → PDF (python-pptx fallback): {dst}")
+        _write_conversion_sidecar(out_dir, stem, src, "python-pptx")
     finally:
         if tmp_dir:
             shutil.rmtree(tmp_dir, ignore_errors=True)
@@ -229,6 +250,7 @@ def _filter_numeric_columns(rows, threshold=0.95):
 
 
 def process_excel(src, stem, s_dir, soffice, max_rows, max_tabs=15):
+    original_src = src  # preserve before any .xls → .xlsx reassignment
     ext = os.path.splitext(src)[1].lower()
     tmp_xls_dir = None
     if not max_rows:
@@ -399,6 +421,9 @@ def process_excel(src, stem, s_dir, soffice, max_rows, max_tabs=15):
                               topMargin=MARGINS, bottomMargin=MARGINS).build(
                 [title, Spacer(1, 0.15 * inch), table])
             print(f"  Sheet '{sheet_name}' (tab {tab_num}, {len(rows)} rows) → {dst} (reportlab fallback)")
+
+        _write_conversion_sidecar(out_dir, stem, original_src,
+                                  "soffice" if soffice_tab_ok else "reportlab")
 
     wb.close()
     if tmp_xls_dir:

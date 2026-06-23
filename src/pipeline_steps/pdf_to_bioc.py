@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, hashlib, os, sys, requests
+import argparse, hashlib, json, os, sys, requests
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape
 
@@ -183,11 +183,13 @@ def process_folder(input_dir, output_dir, supplementary=False):
 
             if supplementary:
                 grobid_title, body = tei_to_sections_supp(tei_xml)
+                extraction_method = "grobid"
 
                 # Fall back to PyMuPDF if GROBID returned no body text
                 if not body:
                     body = extract_text_pymupdf(pdf_path)
                     if body:
+                        extraction_method = "pymupdf_fallback"
                         print(f"  (GROBID returned no body; used PyMuPDF fallback)")
 
                 # Use GROBID title if it looks reasonable, else derive from path
@@ -202,6 +204,7 @@ def process_folder(input_dir, output_dir, supplementary=False):
             else:
                 title, abstract, body = tei_to_sections(tei_xml)
                 extra = extract_figures_and_tables(tei_xml)
+                extraction_method = "grobid"
                 n_caps = sum(1 for t, _ in extra if t == "fig_caption")
                 n_tbls = sum(1 for t, _ in extra if t == "table")
                 write_bioc_xml(doc_id,
@@ -209,6 +212,10 @@ def process_folder(input_dir, output_dir, supplementary=False):
                                out_path)
                 print(f"  → {out_path}  (title={bool(title)}, abstract={bool(abstract)}, "
                       f"body={bool(body)}, fig_captions={n_caps}, tables={n_tbls})")
+
+            sidecar_path = os.path.join(output_dir, stem + ".extraction.json")
+            with open(sidecar_path, "w") as fh:
+                json.dump({"extraction_method": extraction_method}, fh)
 
         except Exception as e:
             print(f"  ERROR on {fname}: {e}")
