@@ -17,7 +17,8 @@ Options:
                            routine use since --download handles retrieval automatically.
     --email EMAIL          Email for Unpaywall API (required with --check-download)
     --download             Download main PDF (publisher page first, PMC fallback)
-                           and supplementary files (PMC)
+                           and supplementary files (PMC first, publisher page
+                           fallback when PMC lists none)
     --output-dir DIR       Working root directory (default: current directory).
                            Creates <DIR>/<pmid>/01_source/ for the main PDF and
                            <DIR>/<pmid>/01_source/s/ for supplementary files.
@@ -428,6 +429,77 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
     return False
 
 
+_SUPP_EXTENSIONS = frozenset([
+    '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx',
+    '.zip', '.csv', '.txt', '.fasta', '.sdf',
+])
+
+
+def _scan_publisher_supplementary(page):
+    """
+    Scan the currently-loaded publisher page for supplementary file links.
+    Returns list of (filename, url, display_text) tuples.
+    Applies two independent heuristics:
+      1. The href path contains a supplementary-indicating token.
+      2. The visible link text/title contains a supplementary-indicating phrase.
+    Only links with a recognised file extension are returned.
+    """
+    import posixpath
+
+    _SUPP_URL_TOKENS = [
+        'supplement', '/supp', 'supp-', 'supp_', 'suppl',
+        'supporting-info', 'supporting_info',
+    ]
+    _SUPP_TEXT_TOKENS = [
+        'supplement', 'table s', 'figure s', 'supp. ', 'supporting info',
+    ]
+
+    try:
+        links = page.evaluate("""() =>
+            Array.from(document.querySelectorAll('a[href]')).map(a => ({
+                href: a.href,
+                text: (a.innerText || a.textContent || '').trim().slice(0, 300),
+                title: (a.title || '').trim()
+            }))
+        """)
+    except Exception:
+        return []
+
+    seen_urls = set()
+    found = []
+
+    for link in links:
+        href  = (link.get('href') or '').strip()
+        text  = (link.get('text') or '').strip()
+        title = (link.get('title') or '').strip()
+
+        if not href or href.startswith(('javascript:', 'mailto:', '#')):
+            continue
+        if href in seen_urls:
+            continue
+
+        # Require a recognisable downloadable file extension
+        path_part = href.split('?')[0].split('#')[0]
+        _, ext = posixpath.splitext(path_part)
+        if ext.lower() not in _SUPP_EXTENSIONS:
+            continue
+
+        href_lower    = href.lower()
+        combined_text = (text + ' ' + title).lower()
+
+        has_supp_url  = any(t in href_lower      for t in _SUPP_URL_TOKENS)
+        has_supp_text = any(t in combined_text    for t in _SUPP_TEXT_TOKENS)
+
+        if not (has_supp_url or has_supp_text):
+            continue
+
+        filename = posixpath.basename(path_part) or f"supplement_{len(found) + 1}{ext.lower()}"
+        seen_urls.add(href)
+        found.append((filename, href, text or title or filename))
+
+    return found
+
+
 # ── Browser dependency check ──────────────────────────────────────────────────
 
 def check_browser_dependencies():
@@ -510,7 +582,8 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
 
     The main PDF is attempted from the publisher's journal page first (via DOI),
     falling back to PMC if the publisher page yields no downloadable link.
-    Supplementary files are always fetched from PMC.
+    Supplementary files are fetched from PMC when available; if PMC lists none,
+    the publisher page is scanned for supplementary links as a fallback.
 
     All downloads share a single browser session so CAPTCHA cookies carry across.
     """
@@ -569,8 +642,7 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
 
     # 3. Download everything in one browser session
     mode = "headless" if headless else "headed"
-    total = 1 + len(supp_downloads)
-    print(f"\nStarting {mode} browser — {total} file(s) to download …", flush=True)
+    print(f"\nStarting {mode} browser session …", flush=True)
     _ensure_pdf_preference(profile_dir)
     print(f"  Using browser profile: {profile_dir}", flush=True)
 
@@ -579,7 +651,7 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
         context = _launch_browser(pw, headless, profile_dir)
         page    = context.new_page()
 
-        # 3a. Main PDF — publisher first, PMC fallback
+        # 3a. Main PDF — publisher first
         os.makedirs(source_dir, exist_ok=True)
         print(f"\n  Main PDF ({pmid}.pdf):", flush=True)
         if doi:
@@ -588,6 +660,23 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
             print("    No DOI available — skipping publisher attempt.", flush=True)
             pdf_ok = False
 
+        # 3b. If PMC had no supplementary files, scan the publisher page while
+        # we are still on it — the PMC-PDF fallback below would navigate away.
+        if not supp_downloads and doi:
+            print("\n  Scanning publisher page for supplementary files …", flush=True)
+            pub_supps = _scan_publisher_supplementary(page)
+            if pub_supps:
+                print(
+                    f"  Found {len(pub_supps)} supplementary file(s) on publisher page:",
+                    flush=True,
+                )
+                for filename, url, display in pub_supps:
+                    print(f"    {display[:80]}  ({filename})", flush=True)
+                    supp_downloads.append((os.path.join(supp_dir, filename), url))
+            else:
+                print("  No supplementary files found on publisher page.", flush=True)
+
+        # 3c. PMC fallback if publisher PDF failed
         if not pdf_ok:
             if pmc_pdf:
                 print(f"    Falling back to PMC: {pmc_pdf}", flush=True)
@@ -598,7 +687,7 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
         if pdf_ok:
             saved.append(pdf_dest)
 
-        # 3b. Supplementary files — PMC
+        # 3d. Supplementary files — from PMC or publisher page
         if supp_downloads:
             print(f"\n  Supplementary files:", flush=True)
             os.makedirs(supp_dir, exist_ok=True)
@@ -609,6 +698,7 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
 
         context.close()
 
+    total = 1 + len(supp_downloads)
     print(f"\nDone — {len(saved)}/{total} file(s) saved.", flush=True)
     return len(saved)
 
@@ -663,7 +753,8 @@ def main():
             "Download the main PDF and supplementary files via a headed browser. "
             "The main PDF is fetched from the publisher's journal page first "
             "(via DOI), falling back to PMC if no link is found. "
-            "Supplementary files are always fetched from PMC."
+            "Supplementary files are fetched from PMC when available; if PMC "
+            "lists none, the publisher page is also scanned for supplementary links."
         ),
     )
     parser.add_argument(
