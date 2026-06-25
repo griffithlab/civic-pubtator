@@ -300,6 +300,7 @@ DEFAULT_PROFILE_DIR = os.path.expanduser("~/.civic-pubtator/browser-profile")
 # More specific patterns come first to avoid false positives.
 _PDF_LINK_SELECTORS = [
     'a[href*="article-pdf"]',           # AACR, Oxford Academic
+    'a[data-article-pdf="true"]',       # Nature / Springer Nature
     'a[href*="/pdf/"][href$=".pdf"]',    # Springer, Nature
     'a[href$=".pdf"]',                   # generic .pdf href
     'a:has-text("Download PDF")',
@@ -405,8 +406,16 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
 
     for selector in _PDF_LINK_SELECTORS:
         try:
-            el = page.locator(selector).first
-            if not el.is_visible(timeout=2_000):
+            locator = page.locator(selector)
+            # Walk up to 5 matches per selector: the first match may be in a
+            # hidden sticky header; a later match in the article body is visible.
+            el = None
+            for i in range(min(locator.count(), 5)):
+                candidate = locator.nth(i)
+                if candidate.is_visible(timeout=1_000):
+                    el = candidate
+                    break
+            if el is None:
                 continue
             print(f"    Found PDF link ({selector})", flush=True)
             with page.expect_download(timeout=60_000) as dl_info:
@@ -421,7 +430,7 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
             print(f"    Saved (publisher) → {dest}  ({size:,} bytes)", flush=True)
             return True
         except PWTimeout:
-            continue  # selector found but click didn't trigger a download; try next
+            continue  # selector matched but click didn't trigger a download; try next
         except Exception:
             continue
 
@@ -449,6 +458,7 @@ def _scan_publisher_supplementary(page):
     _SUPP_URL_TOKENS = [
         'supplement', '/supp', 'supp-', 'supp_', 'suppl',
         'supporting-info', 'supporting_info',
+        '/esm/',        # Springer Nature ESM CDN (static-content.springer.com/esm/)
     ]
     _SUPP_TEXT_TOKENS = [
         'supplement', 'table s', 'figure s', 'supp. ', 'supporting info',
