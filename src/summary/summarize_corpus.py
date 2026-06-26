@@ -268,6 +268,8 @@ def load_civic_metadata_map():
     """
     try:
         from civicpy import civic  # optional dependency
+        for _ln in ('civicpy', 'civicpy.civic'):
+            logging.getLogger(_ln).setLevel(logging.WARNING)
         sources = civic.get_all_sources()
         pubmed = [s for s in sources if s.source_type == "PUBMED"]
         pmid_map, pmcid_map = {}, {}
@@ -281,7 +283,8 @@ def load_civic_metadata_map():
                 pmid_map[str(s.citation_id)] = entry
             if s.pmc_id:
                 pmcid_map[str(s.pmc_id)] = entry
-        log.info("Loaded CIViC metadata for %d PUBMED sources.", len(pmid_map))
+        log.info("Loaded CIViC metadata: %d total sources, %d PUBMED (%d with PMID, %d with PMCID).",
+                 len(sources), len(pubmed), len(pmid_map), len(pmcid_map))
         return pmid_map, pmcid_map
     except Exception as exc:
         log.warning("Could not load CIViC metadata: %s", exc)

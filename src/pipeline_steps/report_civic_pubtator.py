@@ -449,6 +449,69 @@ def parse_pipeline_stats(path):
     return rows, total_runtime
 
 
+def parse_content_capture_stats(path):
+    """Return list of dicts from content_capture_stats.tsv, excluding source_file and pdf_file columns."""
+    rows = []
+    if not os.path.isfile(path):
+        return rows
+    with open(path, encoding='utf-8') as f:
+        lines = f.readlines()
+    if not lines:
+        return rows
+    header = lines[0].rstrip('\n').split('\t')
+    skip = {'source_file', 'pdf_file'}
+    keep = [col for col in header if col not in skip]
+    for line in lines[1:]:
+        parts = line.rstrip('\n').split('\t')
+        if len(parts) < len(header):
+            parts += [''] * (len(header) - len(parts))
+        row_full = dict(zip(header, parts))
+        rows.append({col: row_full.get(col, '') for col in keep})
+    return rows
+
+
+def build_content_capture_table(capture_rows):
+    """Build HTML table rows for content_capture_stats data."""
+    col_labels = {
+        'label':             'Document',
+        'conversion_method': 'Conversion',
+        'extraction_method': 'Extraction',
+        'source_words':      'Source Words',
+        'grobid_words':      'GROBID Words',
+        'pct_captured':      '% Captured',
+    }
+    cols = list(col_labels.keys())
+    thead = '<tr>' + ''.join(f'<th>{col_labels[c]}</th>' for c in cols) + '</tr>'
+
+    rows_html = []
+    for row in capture_rows:
+        cells = []
+        for col in cols:
+            val = row.get(col, '')
+            if col == 'pct_captured':
+                try:
+                    pct = float(val)
+                    if pct >= 80:
+                        color = '#166534'; bg = '#dcfce7'
+                    elif pct >= 50:
+                        color = '#92400e'; bg = '#fef3c7'
+                    else:
+                        color = '#991b1b'; bg = '#fee2e2'
+                    cells.append(
+                        f'<td style="color:{color};background:{bg};font-weight:600;text-align:right">'
+                        f'{html.escape(val)}%</td>'
+                    )
+                except (ValueError, TypeError):
+                    cells.append(f'<td>{html.escape(val)}</td>')
+            elif col in ('source_words', 'grobid_words'):
+                cells.append(f'<td style="text-align:right">{html.escape(val)}</td>')
+            else:
+                cells.append(f'<td>{html.escape(val)}</td>')
+        rows_html.append('<tr>' + ''.join(cells) + '</tr>')
+
+    return thead, '\n'.join(rows_html)
+
+
 def parse_duration(s):
     """Parse a duration string like '1h 2m 34s', '5m 3s', '42s' → total seconds."""
     total = 0
@@ -1638,7 +1701,7 @@ def get_paper_title(doc_data):
 
 def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_map=None,
                   civic_gene_map=None, civic_pmid_map=None, civic_pmcid_map=None,
-                  civic_therapy_map=None, total_runtime=''):
+                  civic_therapy_map=None, total_runtime='', capture_rows=None):
     run_title = os.path.basename(os.path.abspath(run_dir))
 
     civic_entry = _civic_source_entry(run_title, civic_pmid_map, civic_pmcid_map)
@@ -1670,6 +1733,20 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
 {runtime_row}</dl>'''
 
     source_files_html = build_source_files_html(manifest)
+
+    capture_table_html = ''
+    if capture_rows:
+        cap_thead, cap_tbody = build_content_capture_table(capture_rows)
+        capture_table_html = f'''
+<div class="card">
+  <h2>Content Capture Statistics</h2>
+  <div style="overflow-x:auto">
+    <table class="data-table">
+      <thead>{cap_thead}</thead>
+      <tbody>{cap_tbody}</tbody>
+    </table>
+  </div>
+</div>'''
 
     stats_table_html = ''
     if stats_rows:
@@ -1814,6 +1891,7 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
     {annotation_section}
     {aioner_section}
     {"" if not source_files_html else f'<div class="card"><h2>Source Files</h2>{source_files_html}</div>'}
+    {capture_table_html}
     {stats_table_html}
     <div class="card">
       <h2>Run Information</h2>
@@ -1844,6 +1922,7 @@ def main():
 
     manifest = parse_manifest(os.path.join(run_dir, 'MANIFEST.txt'))
     stats_rows, total_runtime = parse_pipeline_stats(os.path.join(run_dir, 'pipeline_stats.tsv'))
+    capture_rows = parse_content_capture_stats(os.path.join(run_dir, 'content_capture_stats.tsv'))
 
     tmvar3_dir = os.path.join(run_dir, '04_tmvar3')
     tmvar3_dir = tmvar3_dir if os.path.isdir(tmvar3_dir) else None
@@ -1951,7 +2030,7 @@ def main():
 
     html_content = generate_html(run_dir, manifest, stats_rows, doc_data, gene_map, taxon_map,
                                  civic_gene_map, civic_pmid_map, civic_pmcid_map, civic_therapy_map,
-                                 total_runtime)
+                                 total_runtime, capture_rows)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
