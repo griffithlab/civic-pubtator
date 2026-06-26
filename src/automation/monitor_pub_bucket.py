@@ -394,6 +394,7 @@ def run_cycle(bucket, rerun=False, rerun_pubids=None):
                 targets.append(pubid)
         log.info("%d publication(s) pending processing.", len(targets))
 
+    uploaded_any = False
     for pubid in targets:
         log.info("--- Processing %s ---", pubid)
 
@@ -417,9 +418,13 @@ def run_cycle(bucket, rerun=False, rerun_pubids=None):
             continue
 
         upload(bucket, pubid)
+        uploaded_any = True
         log.info("Successfully processed and uploaded %s.", pubid)
 
-    run_summarize_corpus(bucket)
+    if uploaded_any:
+        run_summarize_corpus(bucket)
+    else:
+        log.info("No new publications processed — skipping corpus summary regeneration.")
     log.info("=== Cycle complete ===")
 
 
