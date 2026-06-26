@@ -46,6 +46,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 import urllib.request
 import urllib.error
 
@@ -301,7 +302,8 @@ DEFAULT_PROFILE_DIR = os.path.expanduser("~/.civic-pubtator/browser-profile")
 _PDF_LINK_SELECTORS = [
     'a[href*="article-pdf"]',           # AACR, Oxford Academic
     'a[data-article-pdf="true"]',       # Nature / Springer Nature
-    'a[href*="/pdf/"][href$=".pdf"]',    # Springer, Nature
+    'a[href*="/doi/pdf/"]',             # Wiley Online Library (/doi/pdf/{DOI})
+    'a[href*="/pdf/"][href$=".pdf"]',    # Springer, Nature (older patterns)
     'a[href$=".pdf"]',                   # generic .pdf href
     'a:has-text("Download PDF")',
     'a:has-text("PDF")',
@@ -340,7 +342,11 @@ def _launch_browser(pw, headless, profile_dir):
         user_data_dir=profile_dir,
         headless=headless,
         accept_downloads=True,
-        args=["--disable-blink-features=AutomationControlled"],
+        args=[
+            "--disable-blink-features=AutomationControlled",
+            "--disable-automation",
+            "--disable-infobars",
+        ],
         user_agent=(
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -348,9 +354,58 @@ def _launch_browser(pw, headless, profile_dir):
         ),
     )
     try:
-        return pw.chromium.launch_persistent_context(channel="chrome", **kwargs)
+        ctx = pw.chromium.launch_persistent_context(channel="chrome", **kwargs)
     except Exception:
-        return pw.chromium.launch_persistent_context(**kwargs)
+        ctx = pw.chromium.launch_persistent_context(**kwargs)
+    # Suppress the navigator.webdriver property that automation-detection
+    # scripts (including Cloudflare Turnstile) commonly check.
+    ctx.add_init_script(
+        "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+    )
+    return ctx
+
+
+_CF_TIMEOUT = 90  # seconds to wait for user to solve Cloudflare challenge
+
+
+def _wait_for_cloudflare_if_present(page):
+    """
+    If the current page is a Cloudflare managed challenge ("Just a moment..."),
+    print a prompt and poll every second with a live countdown until the
+    challenge is solved or the timeout expires.
+    Returns True once the challenge is gone (or if there was none).
+    Returns False and prints an error if the wait times out.
+    """
+    if "just a moment" not in (page.title() or "").lower():
+        return True
+    print(
+        "    Cloudflare challenge — please click the verification box in the browser.",
+        flush=True,
+    )
+    deadline = time.time() + _CF_TIMEOUT
+    while time.time() < deadline:
+        remaining = int(deadline - time.time())
+        print(f"\r    Waiting for challenge to be solved: {remaining:3d}s remaining ",
+              end="", flush=True)
+        try:
+            resolved = page.evaluate(
+                "() => !document.title.toLowerCase().includes('just a moment')"
+            )
+            if resolved:
+                print(f"\r    Challenge passed — continuing.{' ' * 20}", flush=True)
+                try:
+                    page.wait_for_load_state("networkidle", timeout=10_000)
+                except Exception:
+                    pass
+                return True
+        except Exception:
+            pass  # page may be mid-navigation; keep polling
+        time.sleep(1)
+    print(
+        f"\r    Timed out waiting for Cloudflare challenge.{' ' * 15}",
+        file=sys.stderr, flush=True,
+    )
+    return False
 
 
 def _download_direct(page, url, dest, PWTimeout):
@@ -404,6 +459,10 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
     except Exception:
         pass
 
+    # Handle Cloudflare managed challenge on the article page itself.
+    if not _wait_for_cloudflare_if_present(page):
+        return False
+
     for selector in _PDF_LINK_SELECTORS:
         try:
             locator = page.locator(selector)
@@ -418,12 +477,24 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
             if el is None:
                 continue
             print(f"    Found PDF link ({selector})", flush=True)
-            with page.expect_download(timeout=60_000) as dl_info:
+            # Use a long timeout: clicking the PDF link may navigate to a second
+            # Cloudflare challenge (e.g. Wiley gates /doi/pdf/ separately).
+            with page.expect_download(timeout=180_000) as dl_info:
                 try:
                     el.click()
                 except Exception as click_exc:
                     if "Download is starting" not in str(click_exc):
                         raise
+                # el.click() is non-blocking — wait briefly for any navigation
+                # triggered by the click to settle before checking for Cloudflare.
+                try:
+                    page.wait_for_load_state("domcontentloaded", timeout=5_000)
+                except Exception:
+                    pass  # no navigation occurred (click triggered direct download)
+                # If we landed on a Cloudflare challenge, wait for the user to
+                # solve it before the download fires.
+                if not _wait_for_cloudflare_if_present(page):
+                    raise RuntimeError("Cloudflare challenge on PDF link not resolved")
             dl = dl_info.value
             dl.save_as(dest)
             size = os.path.getsize(dest)
@@ -661,8 +732,27 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
         context = _launch_browser(pw, headless, profile_dir)
         page    = context.new_page()
 
-        # 3a. Main PDF — publisher first
+        # 3a. Open the journal page in the user's personal browser immediately
+        # so they can follow along and manually download if automation fails.
         os.makedirs(source_dir, exist_ok=True)
+        manual_browser_opened = False
+        if doi:
+            doi_url = f"https://doi.org/{doi}"
+            print(f"\n  ┌─ Manual download reference ────────────────────────────────",
+                  flush=True)
+            print(f"  │  Journal URL : {doi_url}", flush=True)
+            print(f"  │  Save PDF to : {pdf_dest}", flush=True)
+            print(f"  │  Filename    : {pmid}.pdf", flush=True)
+            print(f"  └────────────────────────────────────────────────────────────",
+                  flush=True)
+            try:
+                subprocess.run(["open", doi_url], check=True)
+                manual_browser_opened = True
+            except Exception as exc:
+                print(f"  (Could not open URL in browser: {exc})",
+                      file=sys.stderr, flush=True)
+
+        # 3b. Main PDF — publisher first
         print(f"\n  Main PDF ({pmid}.pdf):", flush=True)
         if doi:
             pdf_ok = _try_publisher_pdf(page, doi, pdf_dest, PWTimeout)
@@ -670,7 +760,7 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
             print("    No DOI available — skipping publisher attempt.", flush=True)
             pdf_ok = False
 
-        # 3b. If PMC had no supplementary files, scan the publisher page while
+        # 3c. If PMC had no supplementary files, scan the publisher page while
         # we are still on it — the PMC-PDF fallback below would navigate away.
         if not supp_downloads and doi:
             print("\n  Scanning publisher page for supplementary files …", flush=True)
@@ -686,7 +776,7 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
             else:
                 print("  No supplementary files found on publisher page.", flush=True)
 
-        # 3c. PMC fallback if publisher PDF failed
+        # 3d. PMC fallback if publisher PDF failed
         if not pdf_ok:
             if pmc_pdf:
                 print(f"    Falling back to PMC: {pmc_pdf}", flush=True)
@@ -697,7 +787,7 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
         if pdf_ok:
             saved.append(pdf_dest)
 
-        # 3d. Supplementary files — from PMC or publisher page
+        # 3e. Supplementary files — from PMC or publisher page
         if supp_downloads:
             print(f"\n  Supplementary files:", flush=True)
             os.makedirs(supp_dir, exist_ok=True)
@@ -705,6 +795,22 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
                 print(f"  Downloading {os.path.basename(dest)} …", flush=True)
                 if _download_direct(page, url, dest, PWTimeout):
                     saved.append(dest)
+
+        # 3f. If automation could not save the PDF but the user's browser is
+        # open on the journal page, pause so they can download it manually.
+        if manual_browser_opened and pdf_dest not in saved:
+            print(f"\n  Automation did not save a PDF.", flush=True)
+            print(f"  Please download from the journal page in your browser and save to:",
+                  flush=True)
+            print(f"    {pdf_dest}", flush=True)
+            try:
+                input("\n  Press Enter when done … ")
+            except (KeyboardInterrupt, EOFError):
+                print(flush=True)
+            if os.path.isfile(pdf_dest):
+                saved.append(pdf_dest)
+                size = os.path.getsize(pdf_dest)
+                print(f"  PDF confirmed: {size:,} bytes", flush=True)
 
         context.close()
 
