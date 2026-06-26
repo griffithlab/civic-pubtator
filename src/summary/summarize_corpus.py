@@ -339,7 +339,8 @@ body {
   font-size: 13px; background: #f0f2f5; color: #222;
 }
 h1 { padding: 1.2rem 1.5rem 0.6rem; font-size: 1.35rem; color: #1a3a5c; }
-.wrapper { overflow-x: auto; margin: 0 1rem 1rem; background: white;
+.wrapper { overflow-x: auto; overflow-y: auto; max-height: 80vh;
+           margin: 0 1rem 1rem; background: white;
            border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
 #summary-table { border-collapse: collapse; width: 100%; }
 #summary-table th, #summary-table td {
