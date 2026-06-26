@@ -46,6 +46,7 @@ import re
 import shutil
 import subprocess
 import sys
+import threading
 import time
 import urllib.request
 import urllib.error
@@ -368,6 +369,35 @@ def _launch_browser(pw, headless, profile_dir):
 _CF_TIMEOUT = 90  # seconds to wait for user to solve Cloudflare challenge
 
 
+def _start_countdown(total_secs, label):
+    """
+    Start a background thread that prints a live countdown on one terminal line.
+    Returns (thread, stop_event).  Caller must call stop_event.set() when done.
+    """
+    stop = threading.Event()
+    width = len(label) + 20
+
+    def _run():
+        deadline = time.time() + total_secs
+        while not stop.is_set():
+            remaining = max(0, int(deadline - time.time()))
+            print(f"\r    {label}: {remaining:3d}s remaining ",
+                  end="", flush=True)
+            stop.wait(timeout=1)
+        print(f"\r{' ' * width}\r", end="", flush=True)
+
+    t = threading.Thread(target=_run, daemon=True)
+    t.start()
+    return t, stop
+
+
+def _stop_countdown(t, stop, final_msg=""):
+    stop.set()
+    t.join(timeout=2)
+    if final_msg:
+        print(f"    {final_msg}", flush=True)
+
+
 def _wait_for_cloudflare_if_present(page):
     """
     If the current page is a Cloudflare managed challenge ("Just a moment..."),
@@ -413,6 +443,7 @@ def _download_direct(page, url, dest, PWTimeout):
     Download a single file from a direct URL using Playwright's download event.
     Returns True if saved successfully, False otherwise.
     """
+    t, stop = _start_countdown(90, "Waiting for download")
     try:
         with page.expect_download(timeout=90_000) as dl_info:
             try:
@@ -421,19 +452,16 @@ def _download_direct(page, url, dest, PWTimeout):
                 if "Download is starting" not in str(nav_exc):
                     raise
         dl = dl_info.value
+        _stop_countdown(t, stop)
         dl.save_as(dest)
         size = os.path.getsize(dest)
         print(f"    Saved → {dest}  ({size:,} bytes)", flush=True)
         return True
     except PWTimeout:
-        print(
-            f"    TIMEOUT: no download started.\n"
-            f"    The site may require interactive CAPTCHA resolution.",
-            file=sys.stderr, flush=True,
-        )
+        _stop_countdown(t, stop, "TIMEOUT: no download started.")
         return False
     except Exception as exc:
-        print(f"    ERROR: {exc}", file=sys.stderr, flush=True)
+        _stop_countdown(t, stop, f"ERROR: {exc}")
         return False
 
 
@@ -463,6 +491,96 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
     if not _wait_for_cloudflare_if_present(page):
         return False
 
+    # LWW / Wolters Kluwer EJP platform: detected via wkhealth_pdf_url meta tag
+    # or data-pdf-url attribute.  The PDF lives behind a "Download" dropdown —
+    # we must click the toggle to open it, then click the "PDF" option.
+    try:
+        lww_pdf_url = page.evaluate("""
+            () => {
+                const m = document.querySelector('meta[name="wkhealth_pdf_url"]');
+                if (m) return m.getAttribute('content');
+                const d = document.querySelector('[data-pdf-url]');
+                if (d) return d.getAttribute('data-pdf-url');
+                return null;
+            }
+        """)
+        if lww_pdf_url:
+            # Approach 1: API fetch with browser session cookies — fast if the
+            # server returns the PDF directly (avoids clicking entirely).
+            try:
+                r = page.request.get(lww_pdf_url)
+                if r.ok and 'pdf' in r.headers.get('content-type', '').lower():
+                    os.makedirs(os.path.dirname(dest), exist_ok=True)
+                    with open(dest, 'wb') as fh:
+                        fh.write(r.body())
+                    size = os.path.getsize(dest)
+                    print(f"    Saved (LWW API) → {dest}  ({size:,} bytes)",
+                          flush=True)
+                    return True
+            except Exception:
+                pass
+
+            # Approach 2: open the "Download" dropdown, then click "PDF".
+            print(f"    Detected LWW platform — opening Download dropdown …",
+                  flush=True)
+            for toggle_sel in [
+                'button:has-text("Download")',
+                'a:has-text("Download")',
+            ]:
+                try:
+                    toggle = page.locator(toggle_sel).first
+                    if toggle.is_visible(timeout=3_000):
+                        toggle.click()
+                        break
+                except Exception:
+                    pass
+            # Wait for the PDF option to become visible inside the dropdown.
+            pdf_opt = page.locator('a:has-text("PDF"), button:has-text("PDF")').first
+            pdf_opt.wait_for(state="visible", timeout=5_000)
+            print(f"    Found PDF option in dropdown", flush=True)
+            # Click it — LWW may download on the current page or open a new tab.
+            t, stop = _start_countdown(30, "Waiting for PDF download")
+            try:
+                with page.expect_download(timeout=30_000) as dl_info:
+                    pdf_opt.click()
+                _stop_countdown(t, stop)
+                dl = dl_info.value
+                dl.save_as(dest)
+                size = os.path.getsize(dest)
+                print(f"    Saved (publisher) → {dest}  ({size:,} bytes)",
+                      flush=True)
+                return True
+            except Exception:
+                _stop_countdown(t, stop)
+            # If no download on this page, check for a new tab.
+            t2, stop2 = _start_countdown(30, "Waiting for LWW to open PDF tab")
+            try:
+                with page.context.expect_page(timeout=30_000) as np_info:
+                    try:
+                        pdf_opt.click()
+                    except Exception:
+                        pass
+                _stop_countdown(t2, stop2)
+                new_page = np_info.value
+                new_page.wait_for_load_state("domcontentloaded", timeout=15_000)
+                t3, stop3 = _start_countdown(60, "Waiting for download in new tab")
+                try:
+                    with new_page.expect_download(timeout=60_000) as dl_info:
+                        pass
+                    _stop_countdown(t3, stop3)
+                    dl = dl_info.value
+                    dl.save_as(dest)
+                    size = os.path.getsize(dest)
+                    print(f"    Saved (publisher) → {dest}  ({size:,} bytes)",
+                          flush=True)
+                    return True
+                except Exception:
+                    _stop_countdown(t3, stop3)
+            except Exception:
+                _stop_countdown(t2, stop2)
+    except Exception:
+        pass
+
     for selector in _PDF_LINK_SELECTORS:
         try:
             locator = page.locator(selector)
@@ -477,31 +595,43 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
             if el is None:
                 continue
             print(f"    Found PDF link ({selector})", flush=True)
-            # Use a long timeout: clicking the PDF link may navigate to a second
-            # Cloudflare challenge (e.g. Wiley gates /doi/pdf/ separately).
-            with page.expect_download(timeout=180_000) as dl_info:
-                try:
-                    el.click()
-                except Exception as click_exc:
-                    if "Download is starting" not in str(click_exc):
-                        raise
-                # el.click() is non-blocking — wait briefly for any navigation
-                # triggered by the click to settle before checking for Cloudflare.
-                try:
-                    page.wait_for_load_state("domcontentloaded", timeout=5_000)
-                except Exception:
-                    pass  # no navigation occurred (click triggered direct download)
-                # If we landed on a Cloudflare challenge, wait for the user to
-                # solve it before the download fires.
-                if not _wait_for_cloudflare_if_present(page):
-                    raise RuntimeError("Cloudflare challenge on PDF link not resolved")
+            # Start a countdown — clicking may trigger a Cloudflare challenge
+            # before the download fires (e.g. Wiley /doi/pdf/ is gated).
+            t, stop = _start_countdown(180, "Waiting for PDF download")
+            try:
+                with page.expect_download(timeout=180_000) as dl_info:
+                    try:
+                        el.click()
+                    except Exception as click_exc:
+                        if "Download is starting" not in str(click_exc):
+                            raise
+                    try:
+                        page.wait_for_load_state("domcontentloaded", timeout=5_000)
+                    except Exception:
+                        pass
+                    # Stop main countdown before Cloudflare check (which has
+                    # its own per-second countdown display).
+                    _stop_countdown(t, stop)
+                    t = stop = None
+                    if not _wait_for_cloudflare_if_present(page):
+                        raise RuntimeError(
+                            "Cloudflare challenge on PDF link not resolved"
+                        )
+            except PWTimeout:
+                if stop is not None:
+                    _stop_countdown(t, stop)
+                continue
+            except Exception:
+                if stop is not None:
+                    _stop_countdown(t, stop)
+                continue
+            if stop is not None:
+                _stop_countdown(t, stop)
             dl = dl_info.value
             dl.save_as(dest)
             size = os.path.getsize(dest)
             print(f"    Saved (publisher) → {dest}  ({size:,} bytes)", flush=True)
             return True
-        except PWTimeout:
-            continue  # selector matched but click didn't trigger a download; try next
         except Exception:
             continue
 
