@@ -335,7 +335,10 @@ def upload(bucket, pubid):
 # ── Corpus summary ───────────────────────────────────────────────────────────
 
 def run_summarize_corpus(bucket):
-    """Regenerate the grand corpus summary HTML from the current bucket contents."""
+    """Regenerate the grand corpus summary HTML from the current bucket contents.
+
+    Returns True on success, False on failure.
+    """
     script = os.path.join(REPO_DIR, "src", "summary", "summarize_corpus.py")
     cmd = [
         sys.executable, script,
@@ -346,19 +349,61 @@ def run_summarize_corpus(bucket):
     result = subprocess.run(cmd, check=False, capture_output=True, text=True, cwd=REPO_DIR)
     if result.returncode != 0:
         log.warning("summarize_corpus exited %d:\n%s", result.returncode, result.stderr.strip())
-    else:
-        log.info("Corpus summary updated.")
+        return False
+    log.info("Corpus summary updated.")
+    return True
+
+
+def commit_and_push_results(repo_dir):
+    """Stage all changes in repo_dir, commit, and push.
+
+    Skips the commit if there are no changes.  Logs a warning on any failure
+    but does not raise — a push failure should not abort the monitor cycle.
+    """
+    def _run(cmd):
+        return subprocess.run(
+            cmd, check=False, capture_output=True, text=True, cwd=repo_dir,
+        )
+
+    # Check for changes first to avoid a "nothing to commit" error.
+    status = _run(["git", "status", "--porcelain"])
+    if status.returncode != 0:
+        log.warning("git status failed in %s: %s", repo_dir, status.stderr.strip())
+        return
+    if not status.stdout.strip():
+        log.info("Results repo %s has no changes to commit.", repo_dir)
+        return
+
+    add = _run(["git", "add", "-A"])
+    if add.returncode != 0:
+        log.warning("git add failed in %s: %s", repo_dir, add.stderr.strip())
+        return
+
+    commit = _run(["git", "commit", "-m", "updating corpus summary results"])
+    if commit.returncode != 0:
+        log.warning("git commit failed in %s: %s", repo_dir, commit.stderr.strip())
+        return
+
+    push = _run(["git", "push"])
+    if push.returncode != 0:
+        log.warning("git push failed in %s: %s", repo_dir, push.stderr.strip())
+        return
+
+    log.info("Corpus summary results committed and pushed (%s).", repo_dir)
 
 
 # ── Main polling loop ─────────────────────────────────────────────────────────
 
-def run_cycle(bucket, rerun=False, rerun_pubids=None):
+def run_cycle(bucket, rerun=False, rerun_pubids=None, results_repo=None):
     """Run one polling cycle: remediate bucket, then process all pending publications.
 
     If rerun=True, target already-processed publications instead of unprocessed
     ones.  rerun_pubids restricts the rerun to a specific list; when omitted all
     processed publications in the bucket are rerun.  Failures are skipped in
     both modes.
+
+    If results_repo is set, commit and push the corpus summary to that local git
+    repo after a successful summary regeneration.
     """
     label = " (rerun)" if rerun else ""
     log.info("=== Cycle start%s — bucket: gs://%s/ ===", label, bucket)
@@ -422,7 +467,9 @@ def run_cycle(bucket, rerun=False, rerun_pubids=None):
         log.info("Successfully processed and uploaded %s.", pubid)
 
     if uploaded_any:
-        run_summarize_corpus(bucket)
+        ok = run_summarize_corpus(bucket)
+        if ok and results_repo:
+            commit_and_push_results(results_repo)
     else:
         log.info("No new publications processed — skipping corpus summary regeneration.")
     log.info("=== Cycle complete ===")
@@ -448,6 +495,15 @@ def main():
         "--pubids", nargs="+", metavar="PUBID",
         help="With --rerun: specific publication IDs to rerun (default: all processed).",
     )
+    parser.add_argument(
+        "--results-repo", metavar="PATH", default=None,
+        help=(
+            "Path to a local git repo where corpus summary results are stored "
+            "(e.g. /data/civic-pubtator-data).  When provided, the monitor will "
+            "commit and push any changes to that repo after each successful summary "
+            "regeneration."
+        ),
+    )
     args = parser.parse_args()
 
     if args.pubids and not args.rerun:
@@ -455,7 +511,8 @@ def main():
 
     if args.rerun:
         log.info("Rerun mode — bucket: gs://%s/", args.bucket)
-        run_cycle(args.bucket, rerun=True, rerun_pubids=args.pubids)
+        run_cycle(args.bucket, rerun=True, rerun_pubids=args.pubids,
+                  results_repo=args.results_repo)
         log.info("Rerun complete. Exiting.")
     else:
         log.info(
@@ -464,7 +521,7 @@ def main():
         )
         try:
             while True:
-                run_cycle(args.bucket)
+                run_cycle(args.bucket, results_repo=args.results_repo)
                 log.info("Sleeping %ds until next cycle.", args.sleep)
                 time.sleep(args.sleep)
         except KeyboardInterrupt:
