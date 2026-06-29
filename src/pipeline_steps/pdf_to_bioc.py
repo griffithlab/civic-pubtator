@@ -189,7 +189,7 @@ def process_folder(input_dir, output_dir, supplementary=False):
                 if not body:
                     body = extract_text_pymupdf(pdf_path)
                     if body:
-                        extraction_method = "pymupdf_fallback"
+                        extraction_method = "pymupdf"
                         print(f"  (GROBID returned no body; used PyMuPDF fallback)")
 
                 # Use GROBID title if it looks reasonable, else derive from path

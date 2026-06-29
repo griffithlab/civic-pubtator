@@ -474,10 +474,10 @@ def build_content_capture_table(capture_rows):
     """Build HTML table rows for content_capture_stats data."""
     col_labels = {
         'label':             'Document',
-        'conversion_method': 'Conversion',
-        'extraction_method': 'Extraction',
-        'source_words':      'Source Words',
-        'grobid_words':      'GROBID Words',
+        'conversion_method': 'Conversion Method<br>(Source → PDF)',
+        'extraction_method': 'PDF Extraction Method<br>(PDF → XML)',
+        'source_words':      'PDF Words<br>(by PyMuPDF)',
+        'grobid_words':      'XML Words<br>(captured)',
         'pct_captured':      '% Captured',
     }
     cols = list(col_labels.keys())
@@ -1746,6 +1746,14 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
       <tbody>{cap_tbody}</tbody>
     </table>
   </div>
+  <p style="margin-top:0.6rem;font-size:0.82em;color:#555;line-height:1.5">
+    <em>"Conversion Method (Source &rarr; PDF)"</em> describes how the source file was converted to PDF (e.g. direct upload, Word/HTML conversion).
+    <em>"PDF Extraction Method (PDF &rarr; XML)"</em> is the tool used to extract text from the PDF &mdash; GROBID (preferred) or PyMuPDF (fallback when GROBID returns no body).
+    <em>"PDF Words (by PyMuPDF)"</em> is a raw word count extracted directly from the PDF and serves as the baseline.
+    <em>"XML Words (captured)"</em> is the word count in the final BioC XML output.
+    <em>"% Captured"</em> is the ratio of XML words to PDF words, indicating how completely the document text was extracted into the pipeline.
+    Values &ge;80% are green, 50&ndash;79% amber, and &lt;50% red.
+  </p>
 </div>'''
 
     stats_table_html = ''
