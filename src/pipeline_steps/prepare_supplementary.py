@@ -96,7 +96,7 @@ def process_word(src, stem, s_dir, soffice):
                 if created != dst:
                     os.replace(created, dst)
                 print(f"  Word → PDF (soffice): {dst}")
-                _write_conversion_sidecar(out_dir, stem, src, "soffice")
+                _write_conversion_sidecar(out_dir, stem, src, "word (soffice)")
                 return
             except RuntimeError as exc:
                 print(f"  WARNING: soffice failed — {exc}")
@@ -125,7 +125,7 @@ def process_word(src, stem, s_dir, soffice):
                 story.append(Spacer(1, 4))
         SimpleDocTemplate(dst, pagesize=letter).build(story)
         print(f"  Word → PDF (python-docx fallback): {dst}")
-        _write_conversion_sidecar(out_dir, stem, src, "python-docx")
+        _write_conversion_sidecar(out_dir, stem, src, "word (python-docx)")
     finally:
         if tmp_dir:
             shutil.rmtree(tmp_dir, ignore_errors=True)
@@ -153,7 +153,7 @@ def process_powerpoint(src, stem, s_dir, soffice):
                 if created != dst:
                     os.replace(created, dst)
                 print(f"  PowerPoint → PDF (soffice): {dst}")
-                _write_conversion_sidecar(out_dir, stem, src, "soffice")
+                _write_conversion_sidecar(out_dir, stem, src, "powerpoint (soffice)")
                 return
             except RuntimeError as exc:
                 print(f"  WARNING: soffice failed — {exc}")
@@ -187,7 +187,7 @@ def process_powerpoint(src, stem, s_dir, soffice):
             story.append(Spacer(1, 12))
         SimpleDocTemplate(dst, pagesize=letter).build(story)
         print(f"  PowerPoint → PDF (python-pptx fallback): {dst}")
-        _write_conversion_sidecar(out_dir, stem, src, "python-pptx")
+        _write_conversion_sidecar(out_dir, stem, src, "powerpoint (python-pptx)")
     finally:
         if tmp_dir:
             shutil.rmtree(tmp_dir, ignore_errors=True)
@@ -423,7 +423,7 @@ def process_excel(src, stem, s_dir, soffice, max_rows, max_tabs=15):
             print(f"  Sheet '{sheet_name}' (tab {tab_num}, {len(rows)} rows) → {dst} (reportlab fallback)")
 
         _write_conversion_sidecar(out_dir, stem, original_src,
-                                  "soffice" if soffice_tab_ok else "reportlab")
+                                  "excel (soffice)" if soffice_tab_ok else "excel (reportlab)")
 
     wb.close()
     if tmp_xls_dir:

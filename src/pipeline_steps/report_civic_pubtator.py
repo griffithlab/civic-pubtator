@@ -477,7 +477,7 @@ def build_content_capture_table(capture_rows):
         'conversion_method': 'Conversion Method<br>(Source → PDF)',
         'extraction_method': 'PDF Extraction Method<br>(PDF → XML)',
         'source_words':      'PDF Words<br>(by PyMuPDF)',
-        'grobid_words':      'XML Words<br>(captured)',
+        'xml_words':         'XML Words<br>(captured)',
         'pct_captured':      '% Captured',
     }
     cols = list(col_labels.keys())
@@ -503,7 +503,7 @@ def build_content_capture_table(capture_rows):
                     )
                 except (ValueError, TypeError):
                     cells.append(f'<td>{html.escape(val)}</td>')
-            elif col in ('source_words', 'grobid_words'):
+            elif col in ('source_words', 'xml_words'):
                 cells.append(f'<td style="text-align:right">{html.escape(val)}</td>')
             else:
                 cells.append(f'<td>{html.escape(val)}</td>')
@@ -1747,12 +1747,17 @@ def generate_html(run_dir, manifest, stats_rows, doc_data, gene_map=None, taxon_
     </table>
   </div>
   <p style="margin-top:0.6rem;font-size:0.82em;color:#555;line-height:1.5">
-    <em>"Conversion Method (Source &rarr; PDF)"</em> describes how the source file was converted to PDF (e.g. direct upload, Word/HTML conversion).
-    <em>"PDF Extraction Method (PDF &rarr; XML)"</em> is the tool used to extract text from the PDF &mdash; GROBID (preferred) or PyMuPDF (fallback when GROBID returns no body).
-    <em>"PDF Words (by PyMuPDF)"</em> is a raw word count extracted directly from the PDF and serves as the baseline.
-    <em>"XML Words (captured)"</em> is the word count in the final BioC XML output.
-    <em>"% Captured"</em> is the ratio of XML words to PDF words, indicating how completely the document text was extracted into the pipeline.
-    Values &ge;80% are green, 50&ndash;79% amber, and &lt;50% red.
+    <em>"Conversion Method (Source &rarr; PDF)"</em> describes how the source file was converted to PDF:
+    <em>direct</em> = source was already a PDF;
+    <em>word (soffice)</em> / <em>word (python-docx)</em> = Word document converted via LibreOffice or python-docx+reportlab;
+    <em>powerpoint (soffice)</em> / <em>powerpoint (python-pptx)</em> = PowerPoint converted via LibreOffice or python-pptx+reportlab;
+    <em>excel (soffice)</em> / <em>excel (reportlab)</em> = Excel spreadsheet converted via LibreOffice or reportlab.
+    <em>"PDF Extraction Method (PDF &rarr; XML)"</em> is the tool used to extract text from the PDF &mdash; <em>grobid</em> (preferred, structure-aware) or <em>pymupdf</em> (fallback used when GROBID returns no body text).
+    <em>"PDF Words (by PyMuPDF)"</em> is a baseline word count extracted directly from the PDF via PyMuPDF.
+    <em>"XML Words (captured)"</em> is the word count in the final BioC XML, drawn from whichever extraction method succeeded.
+    <em>"% Captured"</em> is the ratio of XML words to PDF words.
+    Both counts are approximations based on whitespace tokenization, so values near 100% indicate good capture; values well below 100% may indicate that the PDF contains image-based or otherwise non-extractable content; values slightly above 100% reflect minor tokenization differences between the two counting methods and can be treated as full capture.
+    Color coding: &ge;80% green, 50&ndash;79% amber, &lt;50% red.
   </p>
 </div>'''
 

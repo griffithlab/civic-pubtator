@@ -161,10 +161,11 @@ def count_pdf_words_pymupdf(pdf_path):
     """Return word count of text extracted from a PDF via PyMuPDF."""
     try:
         import fitz
+        import re
         doc = fitz.open(pdf_path)
-        text = " ".join(page.get_text() for page in doc)
+        pages = [re.sub(r'\s+', ' ', page.get_text()).strip() for page in doc]
         doc.close()
-        return len(text.split())
+        return len(" ".join(pages).split())
     except Exception:
         return 0
 
@@ -222,7 +223,7 @@ def _read_conversion_sidecar(pdf_dir, stem):
 def append_capture_stats(capture_tsv, base_dir, label, source_wc, pdf_dir, grobid_out):
     """Append per-document content capture rows to content_capture_stats.tsv.
 
-    One row per GROBID output XML: source_words (PyMuPDF) vs grobid_words
+    One row per GROBID output XML: source_words (PyMuPDF) vs xml_words
     (<text>-element-only from BioC XML) with a pct_captured metric.
     """
     if not os.path.isdir(grobid_out):
@@ -233,12 +234,12 @@ def append_capture_stats(capture_tsv, base_dir, label, source_wc, pdf_dir, grobi
     for fname in sorted(os.listdir(grobid_out)):
         if not fname.lower().endswith(".xml") or not os.path.isfile(os.path.join(grobid_out, fname)):
             continue
-        stem         = os.path.splitext(fname)[0]
-        src_words    = source_wc.get(stem, 0)
-        grobid_words = count_bioc_text_words(os.path.join(grobid_out, fname))
-        pct_str      = f"{grobid_words / src_words * 100:.1f}" if src_words > 0 else ""
-        grobid_rel   = os.path.relpath(os.path.join(grobid_out, fname), base_dir)
-        pdf_rel      = os.path.relpath(os.path.join(pdf_dir, stem + ".pdf"), base_dir)
+        stem      = os.path.splitext(fname)[0]
+        src_words = source_wc.get(stem, 0)
+        xml_words = count_bioc_text_words(os.path.join(grobid_out, fname))
+        pct_str   = f"{xml_words / src_words * 100:.1f}" if src_words > 0 else ""
+        grobid_rel = os.path.relpath(os.path.join(grobid_out, fname), base_dir)
+        pdf_rel    = os.path.relpath(os.path.join(pdf_dir, stem + ".pdf"), base_dir)
 
         source_file, conv_method = _read_conversion_sidecar(pdf_dir, stem)
         if source_file is None:
@@ -249,12 +250,12 @@ def append_capture_stats(capture_tsv, base_dir, label, source_wc, pdf_dir, grobi
         extraction_method = _read_extraction_sidecar(grobid_out, stem) or ""
 
         rows.append((label, source_file, pdf_rel, conv_method,
-                     extraction_method, src_words, grobid_words, pct_str))
+                     extraction_method, src_words, xml_words, pct_str))
 
     with open(capture_tsv, "a", encoding="utf-8") as f:
         if write_header:
             f.write("label\tsource_file\tpdf_file\tconversion_method\t"
-                    "extraction_method\tsource_words\tgrobid_words\tpct_captured\n")
+                    "extraction_method\tsource_words\txml_words\tpct_captured\n")
         for row in rows:
             f.write("\t".join(str(v) for v in row) + "\n")
 
