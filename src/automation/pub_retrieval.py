@@ -54,6 +54,21 @@ import urllib.error
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _REPO_DIR   = os.path.dirname(os.path.dirname(_SCRIPT_DIR))
 
+_BOLD_BLUE = "\033[1;94m"
+_RESET     = "\033[0m"
+
+
+def _pub_banner(pmid):
+    bar = "═" * 70  # ══════ double-line box character
+    tty = sys.stdout.isatty()
+    if tty:
+        return (
+            f"\n{_BOLD_BLUE}{bar}{_RESET}\n"
+            f"{_BOLD_BLUE}  PUBLICATION: PMID {pmid}{_RESET}\n"
+            f"{_BOLD_BLUE}{bar}{_RESET}\n"
+        )
+    return f"\n{'=' * 70}\n  PUBLICATION: PMID {pmid}\n{'=' * 70}\n"
+
 
 # ── GCS helpers ───────────────────────────────────────────────────────────────
 
@@ -971,7 +986,16 @@ def main():
         description="Validate a GCS bucket, look up a PubMed publication, "
                     "assess download feasibility, and download files.",
     )
-    parser.add_argument("--pmid", required=True, help="PubMed ID of the publication")
+    pmid_group = parser.add_mutually_exclusive_group(required=True)
+    pmid_group.add_argument("--pmid", help="PubMed ID of the publication")
+    pmid_group.add_argument(
+        "--pmid-file",
+        metavar="TSV",
+        help=(
+            "TSV file with a header row and PMIDs in the first column. "
+            "Each PMID is processed in order, one at a time."
+        ),
+    )
     parser.add_argument(
         "--bucket",
         type=parse_bucket_arg,
@@ -1044,10 +1068,18 @@ def main():
     if args.bucket_sync and not args.download:
         parser.error("--bucket-sync requires --download")
 
-    pmid   = args.pmid.strip()
+    # ── Resolve PMID list ─────────────────────────────────────────────────────
+    if args.pmid:
+        pmids = [args.pmid.strip()]
+    else:
+        pmids = _load_pmids_from_tsv(args.pmid_file)
+        if not pmids:
+            print("ERROR: No valid PMIDs found in the file.", file=sys.stderr, flush=True)
+            sys.exit(1)
+
     bucket = args.bucket
 
-    # ── 1. Validate the bucket ────────────────────────────────────────────────
+    # ── 1. Validate the bucket once (shared across all PMIDs) ─────────────────
     print(f"Checking bucket gs://{bucket}/ …", flush=True)
     ok, err = bucket_exists(bucket)
     if not ok:
@@ -1055,64 +1087,142 @@ def main():
         sys.exit(1)
     print(f"  Bucket gs://{bucket}/ is accessible.", flush=True)
 
-    # ── 2. Check for an existing publication directory ────────────────────────
-    print(f"Checking for existing publication directory gs://{bucket}/{pmid}/ …", flush=True)
-    if pubid_in_bucket(bucket, pmid):
-        print(
-            f"WARNING: gs://{bucket}/{pmid}/ already exists. "
-            "Skipping further retrieval to avoid overwriting existing data.",
-            file=sys.stderr, flush=True,
-        )
-        sys.exit(0)
-    print("  Not yet present — safe to proceed.", flush=True)
-
-    # ── 3. Fetch PubMed metadata and report the journal URL ───────────────────
-    print(f"\nQuerying PubMed for PMID {pmid} …", flush=True)
-    try:
-        article = fetch_pubmed_summary(pmid)
-    except RuntimeError as exc:
-        print(f"ERROR: {exc}", file=sys.stderr, flush=True)
+    if args.download and not check_browser_dependencies():
         sys.exit(1)
 
-    title   = article.get("title", "(title unavailable)")
-    journal = article.get("fulljournalname") or article.get("source", "(journal unavailable)")
-    doi     = extract_doi(article)
+    work_dir    = os.path.expanduser(args.output_dir)
+    profile_dir = os.path.expanduser(args.profile_dir)
 
-    print(f"  Title:   {title}")
-    print(f"  Journal: {journal}")
-    if doi:
-        print(f"  DOI:     {doi}")
-        print(f"  URL:     {journal_url_from_doi(doi)}")
-    else:
-        print("  DOI:     (not available in PubMed record)")
-        print(f"  URL:     https://pubmed.ncbi.nlm.nih.gov/{pmid}/")
+    n_total   = len(pmids)
+    n_skipped = 0
+    n_failed  = 0
 
-    # ── 4. Unpaywall assessment (optional) ────────────────────────────────────
-    if args.check_download:
+    for idx, pmid in enumerate(pmids, 1):
+        if n_total > 1:
+            print(f"\n{'═' * 60}", flush=True)
+            print(f"  PMID {idx}/{n_total}: {pmid}", flush=True)
+            print(f"{'═' * 60}", flush=True)
+
+        print(_pub_banner(pmid), flush=True)
+
+        # ── 2. Check for existing publication directory in bucket ──────────────
+        print(f"Checking for existing publication directory gs://{bucket}/{pmid}/ …",
+              flush=True)
+        if pubid_in_bucket(bucket, pmid):
+            print(
+                f"WARNING: gs://{bucket}/{pmid}/ already exists. "
+                "Skipping to avoid overwriting existing data.",
+                file=sys.stderr, flush=True,
+            )
+            n_skipped += 1
+            continue
+        print("  Not yet present — safe to proceed.", flush=True)
+
+        # ── 3. Fetch PubMed metadata ───────────────────────────────────────────
+        print(f"\nQuerying PubMed for PMID {pmid} …", flush=True)
+        try:
+            article = fetch_pubmed_summary(pmid)
+        except RuntimeError as exc:
+            print(f"ERROR: {exc}", file=sys.stderr, flush=True)
+            n_failed += 1
+            continue
+
+        title   = article.get("title", "(title unavailable)")
+        journal = (article.get("fulljournalname")
+                   or article.get("source", "(journal unavailable)"))
+        doi     = extract_doi(article)
+
+        print(f"  Title:   {title}")
+        print(f"  Journal: {journal}")
         if doi:
-            report_unpaywall(doi, args.email)
+            print(f"  DOI:     {doi}")
+            print(f"  URL:     {journal_url_from_doi(doi)}")
         else:
-            print("\nWARNING: --check-download skipped — no DOI available for this record.",
-                  file=sys.stderr, flush=True)
+            print("  DOI:     (not available in PubMed record)")
+            print(f"  URL:     https://pubmed.ncbi.nlm.nih.gov/{pmid}/")
 
-    # ── 5. Download files (optional) ─────────────────────────────────────────
-    if args.download:
-        if not check_browser_dependencies():
-            sys.exit(1)
-        work_dir    = os.path.expanduser(args.output_dir)
-        profile_dir = os.path.expanduser(args.profile_dir)
-        n_saved = run_download(pmid, doi, work_dir,
-                               headless=args.headless, profile_dir=profile_dir)
-
-        # ── 6. Sync to bucket (optional) ─────────────────────────────────────
-        if args.bucket_sync:
-            if n_saved:
-                sync_to_bucket(bucket, pmid, work_dir)
+        # ── 4. Unpaywall assessment (optional) ────────────────────────────────
+        if args.check_download:
+            if doi:
+                report_unpaywall(doi, args.email)
             else:
                 print(
-                    "\nWARNING: --bucket-sync skipped — no files were saved.",
+                    "\nWARNING: --check-download skipped — no DOI for this record.",
                     file=sys.stderr, flush=True,
                 )
+
+        # ── 5. Download files (optional) ──────────────────────────────────────
+        if args.download:
+            n_saved = run_download(pmid, doi, work_dir,
+                                   headless=args.headless, profile_dir=profile_dir)
+            if not n_saved:
+                n_failed += 1
+
+            # ── 6. Sync to bucket (optional) ──────────────────────────────────
+            if args.bucket_sync:
+                if n_saved:
+                    sync_to_bucket(bucket, pmid, work_dir)
+                else:
+                    print(
+                        "\nWARNING: --bucket-sync skipped — no files were saved.",
+                        file=sys.stderr, flush=True,
+                    )
+
+    if n_total > 1:
+        print(f"\n{'═' * 60}", flush=True)
+        print(f"  Batch complete: {n_total} PMID(s), "
+              f"{n_skipped} skipped, {n_failed} failed.", flush=True)
+        print(f"{'═' * 60}", flush=True)
+
+
+def _load_pmids_from_tsv(path):
+    """
+    Read a TSV file with a header row and PMIDs in the first column.
+    Returns a list of validated PMID strings.
+    Prints a warning for any row where the first column is not a numeric PMID.
+    """
+    path = os.path.expanduser(path)
+    if not os.path.isfile(path):
+        print(f"ERROR: PMID file not found: {path}", file=sys.stderr, flush=True)
+        sys.exit(1)
+
+    pmids   = []
+    skipped = 0
+    with open(path, newline="", encoding="utf-8") as fh:
+        for lineno, line in enumerate(fh, 1):
+            fields = line.rstrip("\n").split("\t")
+            if not fields:
+                continue
+            val = fields[0].strip()
+            if lineno == 1:
+                # Skip the header row — it should not be numeric.
+                if not val.isdigit():
+                    print(f"  TSV header: {val!r}", flush=True)
+                    continue
+                # If the first row IS numeric, treat it as data (no header).
+                print(
+                    f"WARNING: first row of {path!r} looks like a PMID, not a header. "
+                    "Processing it as data.",
+                    file=sys.stderr, flush=True,
+                )
+            if not val:
+                continue
+            if not val.isdigit():
+                print(
+                    f"WARNING: row {lineno} — first column {val!r} is not a numeric "
+                    "PMID; skipping.",
+                    file=sys.stderr, flush=True,
+                )
+                skipped += 1
+                continue
+            pmids.append(val)
+
+    print(
+        f"  Loaded {len(pmids)} PMID(s) from {path}"
+        + (f" ({skipped} invalid row(s) skipped)" if skipped else ""),
+        flush=True,
+    )
+    return pmids
 
 
 if __name__ == "__main__":
