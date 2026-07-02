@@ -23,461 +23,1021 @@
     <passage>
       <infon key="type">body</infon>
       <offset>36</offset>
-      <text>RAC1 RAC2 RIT1 KRAS RAC1 RAC2 RIT1 KRAS RAC1 RAC2 RIT1 KRAS RAC1 RAC2 RIT1 KRAS Supplementary Figure 1 | Protein sequence alignment of RAC, RAS, and RIT1 small GTPases. Protein sequence alignment of RAC1, RAC2, KRAS, and RIT1 sequences generated using ClustalW 54 . The numbers on the right indicate amino acid position. *, identical amino acid. :, strongly similar amino acid. , weakly similar amino acid. Black arrows indicate the G12 and Q61 mutation hotspots in KRAS. An orange arrow indicates the P29 hotspot in RAC1. A blue box indicates the switch II domain mutational hotspot identified in RIT1 in the present study. Sequences were obtained from www.ensembl.org and correspond to the following transcripts: RAC1, ENST00000348035. RAC2, ENST00000249071. KRAS, ENST00000311936. RIT1, ENST00000368323. . 1 , depicted as in (a). Fusion genes and exon skipping were not analyzed. 4 27 26 23 https://tcga-data.nci.nih.gov/tcga/ Berger et al. Supplementary Table 1 Supplementary Variant Tumor Supplementary Figure 2 | 2 Mutual exclusivity of RIT1 and other driver mutations in lung adenocarcinoma. a, Depiction of mutation data from 230 samples from The Cancer Genome Atlas lung adenocarcinoma sequencing study, displayed using the MSKCC cBio portal (http://cbio.mskcc.org). Each column represents a sample; each row corresponds to a different gene. Samples lacking alterations in the genes shown are not displayed. Green box: missense mutation present, purple box: in-frame insertion/deletion, orange triangles: fusion event, blue box: MET exon 14 skipping. For all genes except RIT1, only mutations of known significance are displayed. Numbers indicate the percentage of samples in the cohort with mutation in the respective gene. b, Data from 183 lung adenocarcinomas described in Imielinski et al. Supplementary Figure 3 | 3 Transforming capability of somatic RIT1 mutants. NIH3T3 cells were transduced with retrovirus to induce expression of wild-type RIT1 (WT), mutated RIT1, empty vector, or known oncogenic mutations (KRAS G12V, EGFR L858R) as positive controls. After selection with puromycin, cells were expanded and 2x10 5 cells injected per site subcutaneously into the flanks of nude mice. Beginning at day 7 post-injection, tumors were measured every three days with a digital caliper. Data shown is mean+SEM at each timepoint, n = 9 injection sites per condition. expression (RMA, log2) H2110 p.M90I RIT1 mut Supplementary Figure 4 | RNA expression of RIT1 in driver-negative non-squamous NSCLC lines. We queried genotype data from the Cancer Cell Line Encyclopedia (CCLE) and identified 35 driver-negative non-squamous NSCLC lines with gene expression data (Supplementary Table Table 1 . 1 Clinical and genomic data of RIT1-mutated tumors identified in Broad 1 and TCGA datasets. Dataset Sample ID Age Gender Histopathology Review Stage Protein change mRNA change Allelic fraction Broad LUAD-E00934 58 M Acinar predominant Adc IB p.Q40L c.119A&gt;T 0.12 Broad LUAD-S01345 74 M Solid predominant Adc IB p.A77P c.229G&gt;C 0.13 Broad LUAD-CHTN-MAD06-00490 36 F Micropapillary predominant Adc NA p.M90I c.270G&gt;A 0.15 Broad LUAD-S00499 72 F Acinar predominant Adc IIIA p.R122L c.365G&gt;T 0.25 Broad LUAD-NYU627 67 F Papillary predominant Adc IA p.A192T c.574G&gt;A 0.17 TCGA TCGA-44-6779 50 F Solid predominant Adc IIB p.76_76T&gt;TLDT c.227_228insTTTGGATAC 0.16 TCGA TCGA-55-1596 55 M Solid predominant Adc IIB p.F82L c.246T&gt;G 0.38 TCGA TCGA-73-4675 59 M Micropapillary predominant Adc IIIA p.TA83del c.248_253delCAGCCA 0.50 TCGA TCGA-05-4384 66 M Papillary predominant Adc IIIA p.M90I c.270G&gt;T 0.31 TCGA TCGA-49-4514 79 F Papillary predominant Adc IA p.M90I c.270G&gt;T 0.20 Supplementary Table Table 3 . 3 Transforming capability of RIT1 mutations from diverse tumor subtypes. Somatic RIT1 mutations were identified in the COSMIC database (v67)</text>
+      <text>Berger et al. Supplementary Fig. 1 RAC1 RAC2 RIT1 KRAS RAC1 RAC2 RIT1 KRAS RAC1 RAC2 RIT1 KRAS RAC1 RAC2 RIT1 KRAS Supplementary Figure 1 | Protein sequence alignment of RAC, RAS, and RIT1 small GTPases. Protein sequence alignment of RAC1, RAC2, KRAS, and RIT1 sequences generated using ClustalW54. The numbers on the right indicate amino acid position. *, identical amino acid. :, strongly similar amino acid. , weakly similar amino acid. Black arrows indicate the G12 and Q61 mutation hotspots in KRAS. An orange arrow indicates the P29 hotspot in RAC1. A blue box indicates the switch II domain mutational hotspot identified in RIT1 in the present study. Sequences were obtained from www.ensembl.org and correspond to the following transcripts: RAC1, ENST00000348035. RAC2, ENST00000249071. KRAS, ENST00000311936. RIT1, ENST00000368323. . a b Berger et al. Supplementary Fig. 2 KRAS EGFR BRAF ERBB2 HRAS NRAS MAP2K1 RIT1 KRAS EGFR BRAF MET ERBB2 ROS1 ALK RET MAP2K1 HRAS NRAS RIT1 27% 14% 4% 1% 1% 1% 1% 3% 32% 11% 7% 4% 2% 2% 1% &lt;1% 1% &lt;1% 1% 2% Supplementary Figure 2 | Mutual exclusivity of RIT1 and other driver mutations in lung adenocarcinoma. a, Depiction of mutation data from 230 samples from The Cancer Genome Atlas lung adenocarcinoma sequencing study, displayed using the MSKCC cBio portal (http://cbio.mskcc.org). Each column represents a sample; each row corresponds to a different gene. Samples lacking alterations in the genes shown are not displayed. Green box: missense mutation present, purple box: in-frame insertion/deletion, orange triangles: fusion event, blue box: MET exon 14 skipping. For all genes except RIT1, only mutations of known significance are displayed. Numbers indicate the percentage of samples in the cohort with mutation in the respective gene. b, Data from 183 lung adenocarcinomas described in Imielinski et al.1, depicted as in (a). Fusion genes and exon skipping were not analyzed. 0 5 10 15 20 25 0 500 1000 1500 2000 Days Volume (mm3) Q79L Q40L WT empty T76insTLDT A77P A77S F82L TA83del M90I R122L A192T EGFR L858R KRAS G12V Berger et al. Supplementary Fig. 3 Supplementary Figure 3 | Transforming capability of somatic RIT1 mutants. NIH3T3 cells were transduced with retrovirus to induce expression of wild-type RIT1 (WT), mutated RIT1, empty vector, or known oncogenic mutations (KRAS G12V, EGFR L858R) as positive controls. After selection with puromycin, cells were expanded and 2x105 cells injected per site subcutaneously into the flanks of nude mice. Beginning at day 7 post-injection, tumors were measured every three days with a digital caliper. Data shown is mean+SEM at each timepoint, n = 9 injection sites per condition. Berger et al. Supplementary Fig. 4 4 6 8 10 Cell line mRNA expression (RMA, log2) H2110 p.M90I RIT1 mut Supplementary Figure 4 | RNA expression of RIT1 in driver-negative non-squamous NSCLC lines. We queried genotype data from the Cancer Cell Line Encyclopedia (CCLE) and identified 35 driver-negative non-squamous NSCLC lines with gene expression data (Supplementary Table 4). Data shown is the log2 robust multi-array average (RMA) of RIT1, generated as described27 from the 35 cell lines, sorted in order of lowest to highest RIT1 expression. Berger et al. Supplementary Table 1 Supplementary Table 1. Clinical and genomic data of RIT1-mutated tumors identified in Broad1 and TCGA datasets. Dataset Sample ID Age Gender Histopathology Review Stage Protein change mRNA change Allelic fraction Broad LUAD-E00934 58 M Acinar predominant Adc IB p.Q40L c.119A&gt;T 0.12 Broad LUAD-S01345 74 M Solid predominant Adc IB p.A77P c.229G&gt;C 0.13 Broad LUAD-CHTN-MAD06-00490 36 F Micropapillary predominant Adc NA p.M90I c.270G&gt;A 0.15 Broad LUAD-S00499 72 F Acinar predominant Adc IIIA p.R122L c.365G&gt;T 0.25 Broad LUAD-NYU627 67 F Papillary predominant Adc IA p.A192T c.574G&gt;A 0.17 TCGA TCGA-44-6779 50 F Solid predominant Adc IIB p.76_76T&gt;TLDT c.227_228insTTTGGATAC 0.16 TCGA TCGA-55-1596 55 M Solid predominant Adc IIB p.F82L c.246T&gt;G 0.38 TCGA TCGA-73-4675 59 M Micropapillary predominant Adc IIIA p.TA83del c.248_253delCAGCCA 0.50 TCGA TCGA-05-4384 66 M Papillary predominant Adc IIIA p.M90I c.270G&gt;T 0.31 TCGA TCGA-49-4514 79 F Papillary predominant Adc IA p.M90I c.270G&gt;T 0.20 Berger et al. Supplementary Table 2 Supplementary Table 2. Survey of RIT1 mutations in varied tumor types. Data from the eleven tumor types were queried in the MSKCC cbio portal (http://cbioportal.org) or from The Cancer Genome Atlas portal (tcga-portal.nci.nih.gov/ ) or from the references cited. Parentheses indicate specific amino acid changes also seen in the present study. Tumor Type n, samples n, mutations Reference Glioblastoma 91 0 44 Prostate 103 0 45 Sarcoma 207 0 46 Ovarian 316 0 47 Breast 507 0 48 Squamous cell lung cancer 178 2 49 Colorectal 224 2 50 Pancreatic 142 0 51 Acute myelogenous leukemia 200 1 (p.M90I) 52 Endometrial 248 3 53 Cervical 36 1 (p.M90I) TCGA (unpublished) Berger et al. Supplementary Table 3 Supplementary Table 3. Transforming capability of RIT1 mutations from diverse tumor subtypes. Somatic RIT1 mutations were identified in the COSMIC database (v67)26, reported in G mez-Segu  et al.23, or present in additional TCGA lung adenocarcinoma samples not analyzed in the 230 tumor study (https://tcga-data.nci.nih.gov/tcga/). NIH3T3 cells were transduced with retrovirus, selected with puromycin, and seeded in soft agar to determine colony-forming potential. Foci formation was determined after cells were grown to confluence in 10 cm dishes and transformed foci evaluated by quantification of foci in three fields/condition. +, significant colony or foci formation compared to wild-type RIT1 (p &lt; 0.05 by one-tailed t-test). +/-, p &lt; 0.15 by one-tailed t- test. Variant Tumor type Reference Soft agar Foci S10del endometrial COSMIC - - K23E salivary gland; lung adenocarcinoma COSMIC; TCGA + n.d. T38A endometrial COSMIC + + R45Q endometrial COSMIC - - D51V chronic myelogenous leukemia COSMIC + + L74M colon COSMIC + +/- E81G myeloid malignancies 23 + + E81Q melanoma; myeloid malignancies COSMIC; 23 + + F82C myeloid malignancies 23 + + F82J myeloid malignancies 23 + +/- F82V myeloid malignancies 23 + +/- D87N salivary gland COSMIC + + R112C melanoma COSMIC - - P159F melanoma COSMIC - - A165S lung adenocarcinoma TCGA +/- - D173N lung adenocarcinoma TCGA - - Berger et al. Supplementary Table 4 is included as an accompanying excel file. Berger et al. Supplementary Table 5 is included as an accompanying excel file. SUPPLEMENTARY REFERENCES 44. Comprehensive genomic characterization defines human glioblastoma genes and core pathways. Nature 455, 1061-1068 (2008). 45. Taylor, B.S., et al. Integrative genomic profiling of human prostate cancer. Cancer Cell 18, 11-22 (2010). 46. Barretina, J., et al. Subtype-specific genomic alterations define new targets for soft-tissue sarcoma therapy. Nat Genet 42, 715-721 (2010). 47. Integrated genomic analyses of ovarian carcinoma. Nature 474, 609-615 (2011). 48. Comprehensive molecular portraits of human breast tumours. Nature 490, 61-70 (2012). 49. Hammerman, P.S., et al. Comprehensive genomic characterization of squamous cell lung cancers. Nature 489, 519-525 (2012). 50. Comprehensive molecular characterization of human colon and rectal cancer. Nature 487, 330-337 (2012). 51. Biankin, A.V., et al. Pancreatic cancer genomes reveal aberrations in axon guidance pathway genes. Nature 491, 399-405 (2012). 52. Genomic and Epigenomic Landscapes of Adult De Novo Acute Myeloid Leukemia. N Engl J Med (2013). 53. Kandoth, C., et al. Integrated genomic characterization of endometrial carcinoma. Nature 497, 67-73 (2013). 54. Larkin MA, Blackshields G, Brown NP, Chenna R, McGettigan PA, McWilliam H et al (2007). Clustal W and Clustal X version 2.0. Bioinformatics 23: 2947- 2948.</text>
       <annotation id="2">
         <infon key="type">Gene</infon>
-        <location offset="36" length="14"/>
-        <text>RAC1 RAC2 RIT1</text>
+        <location offset="71" length="4"/>
+        <text>RAC1</text>
       </annotation>
       <annotation id="3">
         <infon key="type">Gene</infon>
-        <location offset="56" length="14"/>
-        <text>RAC1 RAC2 RIT1</text>
+        <location offset="76" length="9"/>
+        <text>RAC2 RIT1</text>
       </annotation>
       <annotation id="4">
         <infon key="type">Gene</infon>
-        <location offset="76" length="14"/>
-        <text>RAC1 RAC2 RIT1</text>
+        <location offset="86" length="9"/>
+        <text>KRAS RAC1</text>
       </annotation>
       <annotation id="5">
         <infon key="type">Gene</infon>
-        <location offset="96" length="14"/>
-        <text>RAC1 RAC2 RIT1</text>
+        <location offset="96" length="9"/>
+        <text>RAC2 RIT1</text>
       </annotation>
       <annotation id="6">
         <infon key="type">Gene</infon>
-        <location offset="111" length="4"/>
-        <text>KRAS</text>
+        <location offset="106" length="9"/>
+        <text>KRAS RAC1</text>
       </annotation>
       <annotation id="7">
         <infon key="type">Gene</infon>
-        <location offset="171" length="3"/>
-        <text>RAC</text>
+        <location offset="116" length="9"/>
+        <text>RAC2 RIT1</text>
       </annotation>
       <annotation id="8">
         <infon key="type">Gene</infon>
-        <location offset="176" length="3"/>
-        <text>RAS</text>
+        <location offset="126" length="9"/>
+        <text>KRAS RAC1</text>
       </annotation>
       <annotation id="9">
         <infon key="type">Gene</infon>
-        <location offset="185" length="4"/>
-        <text>RIT1</text>
+        <location offset="136" length="9"/>
+        <text>RAC2 RIT1</text>
       </annotation>
       <annotation id="10">
-        <infon key="type">FamilyName</infon>
-        <location offset="190" length="13"/>
-        <text>small GTPases</text>
+        <infon key="type">Gene</infon>
+        <location offset="146" length="4"/>
+        <text>KRAS</text>
       </annotation>
       <annotation id="11">
         <infon key="type">Gene</infon>
-        <location offset="235" length="4"/>
-        <text>RAC1</text>
+        <location offset="206" length="3"/>
+        <text>RAC</text>
       </annotation>
       <annotation id="12">
         <infon key="type">Gene</infon>
-        <location offset="241" length="4"/>
-        <text>RAC2</text>
+        <location offset="211" length="3"/>
+        <text>RAS</text>
       </annotation>
       <annotation id="13">
         <infon key="type">Gene</infon>
-        <location offset="247" length="4"/>
-        <text>KRAS</text>
+        <location offset="220" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="14">
-        <infon key="type">Gene</infon>
-        <location offset="257" length="4"/>
-        <text>RIT1</text>
+        <infon key="type">FamilyName</infon>
+        <location offset="231" length="7"/>
+        <text>GTPases</text>
       </annotation>
       <annotation id="15">
-        <infon key="type">Chemical</infon>
-        <location offset="342" length="4"/>
-        <text>acid</text>
+        <infon key="type">Gene</infon>
+        <location offset="270" length="4"/>
+        <text>RAC1</text>
       </annotation>
       <annotation id="16">
-        <infon key="type">Chemical</infon>
-        <location offset="376" length="4"/>
-        <text>acid</text>
+        <infon key="type">Gene</infon>
+        <location offset="276" length="4"/>
+        <text>RAC2</text>
       </annotation>
       <annotation id="17">
-        <infon key="type">Chemical</infon>
-        <location offset="408" length="4"/>
-        <text>acid</text>
-      </annotation>
-      <annotation id="18">
-        <infon key="type">Chemical</infon>
-        <location offset="437" length="4"/>
-        <text>acid</text>
-      </annotation>
-      <annotation id="19">
         <infon key="type">Gene</infon>
-        <location offset="502" length="4"/>
+        <location offset="282" length="4"/>
         <text>KRAS</text>
       </annotation>
-      <annotation id="20">
+      <annotation id="18">
         <infon key="type">Gene</infon>
-        <location offset="553" length="4"/>
-        <text>RAC1</text>
-      </annotation>
-      <annotation id="21">
-        <infon key="type">Gene</infon>
-        <location offset="634" length="4"/>
+        <location offset="292" length="4"/>
         <text>RIT1</text>
       </annotation>
+      <annotation id="19">
+        <infon key="type">Chemical</infon>
+        <location offset="375" length="4"/>
+        <text>acid</text>
+      </annotation>
+      <annotation id="20">
+        <infon key="type">Chemical</infon>
+        <location offset="409" length="4"/>
+        <text>acid</text>
+      </annotation>
+      <annotation id="21">
+        <infon key="type">Chemical</infon>
+        <location offset="441" length="4"/>
+        <text>acid</text>
+      </annotation>
       <annotation id="22">
-        <infon key="type">Gene</infon>
-        <location offset="751" length="4"/>
-        <text>RAC1</text>
+        <infon key="type">Chemical</infon>
+        <location offset="470" length="4"/>
+        <text>acid</text>
       </annotation>
       <annotation id="23">
         <infon key="type">Gene</infon>
-        <location offset="774" length="4"/>
-        <text>RAC2</text>
+        <location offset="535" length="4"/>
+        <text>KRAS</text>
       </annotation>
       <annotation id="24">
         <infon key="type">Gene</infon>
-        <location offset="797" length="4"/>
-        <text>KRAS</text>
+        <location offset="586" length="4"/>
+        <text>RAC1</text>
       </annotation>
       <annotation id="25">
         <infon key="type">Gene</infon>
-        <location offset="820" length="4"/>
+        <location offset="667" length="4"/>
         <text>RIT1</text>
       </annotation>
       <annotation id="26">
-        <infon key="type">Disease</infon>
-        <location offset="1024" length="5"/>
-        <text>Tumor</text>
+        <infon key="type">Gene</infon>
+        <location offset="784" length="4"/>
+        <text>RAC1</text>
       </annotation>
       <annotation id="27">
         <infon key="type">Gene</infon>
-        <location offset="1079" length="4"/>
-        <text>RIT1</text>
+        <location offset="807" length="4"/>
+        <text>RAC2</text>
       </annotation>
       <annotation id="28">
-        <infon key="type">Disease</infon>
-        <location offset="1114" length="19"/>
-        <text>lung adenocarcinoma</text>
+        <infon key="type">Gene</infon>
+        <location offset="830" length="4"/>
+        <text>KRAS</text>
       </annotation>
       <annotation id="29">
-        <infon key="type">Disease</infon>
-        <location offset="1191" length="6"/>
-        <text>Cancer</text>
+        <infon key="type">Gene</infon>
+        <location offset="853" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="30">
-        <infon key="type">Disease</infon>
-        <location offset="1211" length="19"/>
-        <text>lung adenocarcinoma</text>
+        <infon key="type">Gene</infon>
+        <location offset="917" length="4"/>
+        <text>KRAS</text>
       </annotation>
       <annotation id="31">
         <infon key="type">Gene</infon>
-        <location offset="1574" length="3"/>
-        <text>MET</text>
+        <location offset="922" length="4"/>
+        <text>EGFR</text>
       </annotation>
       <annotation id="32">
         <infon key="type">Gene</infon>
-        <location offset="1617" length="4"/>
-        <text>RIT1</text>
+        <location offset="927" length="4"/>
+        <text>BRAF</text>
       </annotation>
       <annotation id="33">
-        <infon key="type">Disease</infon>
-        <location offset="1787" length="20"/>
-        <text>lung adenocarcinomas</text>
+        <infon key="type">Gene</infon>
+        <location offset="932" length="5"/>
+        <text>ERBB2</text>
       </annotation>
       <annotation id="34">
         <infon key="type">Gene</infon>
-        <location offset="1901" length="4"/>
-        <text>RIT1</text>
+        <location offset="938" length="4"/>
+        <text>HRAS</text>
       </annotation>
       <annotation id="35">
-        <infon key="type">CellLine</infon>
-        <location offset="1915" length="6"/>
-        <text>NIH3T3</text>
+        <infon key="type">Gene</infon>
+        <location offset="943" length="4"/>
+        <text>NRAS</text>
       </annotation>
       <annotation id="36">
         <infon key="type">Gene</infon>
-        <location offset="1994" length="4"/>
-        <text>RIT1</text>
+        <location offset="948" length="11"/>
+        <text>MAP2K1 RIT1</text>
       </annotation>
       <annotation id="37">
         <infon key="type">Gene</infon>
-        <location offset="2013" length="4"/>
-        <text>RIT1</text>
+        <location offset="960" length="4"/>
+        <text>KRAS</text>
       </annotation>
       <annotation id="38">
         <infon key="type">Gene</infon>
-        <location offset="2063" length="4"/>
-        <text>KRAS</text>
+        <location offset="965" length="4"/>
+        <text>EGFR</text>
       </annotation>
       <annotation id="39">
-        <infon key="type">Mutation</infon>
-        <location offset="2068" length="4"/>
-        <text>G12V</text>
+        <infon key="type">Gene</infon>
+        <location offset="970" length="4"/>
+        <text>BRAF</text>
       </annotation>
       <annotation id="40">
         <infon key="type">Gene</infon>
-        <location offset="2074" length="4"/>
-        <text>EGFR</text>
+        <location offset="975" length="3"/>
+        <text>MET</text>
       </annotation>
       <annotation id="41">
-        <infon key="type">Mutation</infon>
-        <location offset="2079" length="5"/>
-        <text>L858R</text>
+        <infon key="type">Gene</infon>
+        <location offset="979" length="5"/>
+        <text>ERBB2</text>
       </annotation>
       <annotation id="42">
-        <infon key="type">Chemical</infon>
-        <location offset="2129" length="9"/>
-        <text>puromycin</text>
+        <infon key="type">Gene</infon>
+        <location offset="985" length="4"/>
+        <text>ROS1</text>
       </annotation>
       <annotation id="43">
-        <infon key="type">Species</infon>
-        <location offset="2234" length="4"/>
-        <text>mice</text>
+        <infon key="type">Gene</infon>
+        <location offset="990" length="3"/>
+        <text>ALK</text>
       </annotation>
       <annotation id="44">
-        <infon key="type">Disease</infon>
-        <location offset="2275" length="6"/>
-        <text>tumors</text>
+        <infon key="type">Gene</infon>
+        <location offset="994" length="3"/>
+        <text>RET</text>
       </annotation>
       <annotation id="45">
         <infon key="type">Gene</infon>
-        <location offset="2439" length="5"/>
-        <text>H2110</text>
+        <location offset="998" length="6"/>
+        <text>MAP2K1</text>
       </annotation>
       <annotation id="46">
-        <infon key="type">Mutation</infon>
-        <location offset="2447" length="4"/>
-        <text>M90I</text>
+        <infon key="type">Gene</infon>
+        <location offset="1005" length="4"/>
+        <text>HRAS</text>
       </annotation>
       <annotation id="47">
         <infon key="type">Gene</infon>
-        <location offset="2452" length="4"/>
-        <text>RIT1</text>
+        <location offset="1010" length="9"/>
+        <text>NRAS RIT1</text>
       </annotation>
       <annotation id="48">
         <infon key="type">Gene</infon>
-        <location offset="2504" length="4"/>
+        <location offset="1133" length="4"/>
         <text>RIT1</text>
       </annotation>
       <annotation id="49">
         <infon key="type">Disease</infon>
-        <location offset="2541" length="5"/>
-        <text>NSCLC</text>
+        <location offset="1168" length="19"/>
+        <text>lung adenocarcinoma</text>
       </annotation>
       <annotation id="50">
         <infon key="type">Disease</infon>
-        <location offset="2588" length="6"/>
+        <location offset="1245" length="6"/>
         <text>Cancer</text>
       </annotation>
       <annotation id="51">
         <infon key="type">Disease</infon>
-        <location offset="2672" length="5"/>
-        <text>NSCLC</text>
+        <location offset="1265" length="19"/>
+        <text>lung adenocarcinoma</text>
       </annotation>
       <annotation id="52">
         <infon key="type">Gene</infon>
-        <location offset="2772" length="4"/>
-        <text>RIT1</text>
+        <location offset="1628" length="3"/>
+        <text>MET</text>
       </annotation>
       <annotation id="53">
-        <infon key="type">Disease</infon>
-        <location offset="2785" length="6"/>
-        <text>tumors</text>
+        <infon key="type">Gene</infon>
+        <location offset="1671" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="54">
         <infon key="type">Disease</infon>
-        <location offset="2940" length="4"/>
-        <text>LUAD</text>
+        <location offset="1841" length="20"/>
+        <text>lung adenocarcinomas</text>
       </annotation>
       <annotation id="55">
-        <infon key="type">Disease</infon>
-        <location offset="2976" length="3"/>
-        <text>Adc</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2020" length="4"/>
+        <text>Q79L</text>
       </annotation>
       <annotation id="56">
         <infon key="type">Mutation</infon>
-        <location offset="2985" length="4"/>
+        <location offset="2025" length="4"/>
         <text>Q40L</text>
       </annotation>
       <annotation id="57">
         <infon key="type">Mutation</infon>
-        <location offset="2990" length="8"/>
-        <text>c.119A&gt;T</text>
+        <location offset="2039" length="10"/>
+        <text>T76insTLDT</text>
       </annotation>
       <annotation id="58">
-        <infon key="type">Disease</infon>
-        <location offset="3010" length="4"/>
-        <text>LUAD</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2050" length="4"/>
+        <text>A77P</text>
       </annotation>
       <annotation id="59">
-        <infon key="type">Disease</infon>
-        <location offset="3045" length="3"/>
-        <text>Adc</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2055" length="4"/>
+        <text>A77S</text>
       </annotation>
       <annotation id="60">
         <infon key="type">Mutation</infon>
-        <location offset="3054" length="4"/>
-        <text>A77P</text>
+        <location offset="2060" length="4"/>
+        <text>F82L</text>
       </annotation>
       <annotation id="61">
         <infon key="type">Mutation</infon>
-        <location offset="3059" length="8"/>
-        <text>c.229G&gt;C</text>
+        <location offset="2065" length="7"/>
+        <text>TA83del</text>
       </annotation>
       <annotation id="62">
-        <infon key="type">Disease</infon>
-        <location offset="3079" length="4"/>
-        <text>LUAD</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2073" length="4"/>
+        <text>M90I</text>
       </annotation>
       <annotation id="63">
-        <infon key="type">Gene</infon>
-        <location offset="3084" length="4"/>
-        <text>CHTN</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2078" length="5"/>
+        <text>R122L</text>
       </annotation>
       <annotation id="64">
-        <infon key="type">Disease</infon>
-        <location offset="3133" length="3"/>
-        <text>Adc</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2084" length="5"/>
+        <text>A192T</text>
       </annotation>
       <annotation id="65">
-        <infon key="type">Mutation</infon>
-        <location offset="3142" length="4"/>
-        <text>M90I</text>
+        <infon key="type">Gene</infon>
+        <location offset="2090" length="4"/>
+        <text>EGFR</text>
       </annotation>
       <annotation id="66">
         <infon key="type">Mutation</infon>
-        <location offset="3147" length="8"/>
-        <text>c.270G&gt;A</text>
+        <location offset="2095" length="5"/>
+        <text>L858R</text>
       </annotation>
       <annotation id="67">
         <infon key="type">Gene</infon>
-        <location offset="3167" length="4"/>
-        <text>LUAD</text>
+        <location offset="2101" length="4"/>
+        <text>KRAS</text>
       </annotation>
       <annotation id="68">
-        <infon key="type">Gene</infon>
-        <location offset="3203" length="8"/>
-        <text>Adc IIIA</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2106" length="4"/>
+        <text>G12V</text>
       </annotation>
       <annotation id="69">
-        <infon key="type">Mutation</infon>
-        <location offset="3214" length="5"/>
-        <text>R122L</text>
+        <infon key="type">Gene</infon>
+        <location offset="2206" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="70">
-        <infon key="type">Mutation</infon>
-        <location offset="3220" length="8"/>
-        <text>c.365G&gt;T</text>
+        <infon key="type">CellLine</infon>
+        <location offset="2220" length="6"/>
+        <text>NIH3T3</text>
       </annotation>
       <annotation id="71">
-        <infon key="type">Disease</infon>
-        <location offset="3240" length="4"/>
-        <text>LUAD</text>
+        <infon key="type">Gene</infon>
+        <location offset="2299" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="72">
-        <infon key="type">Disease</infon>
-        <location offset="3279" length="6"/>
-        <text>Adc IA</text>
+        <infon key="type">Gene</infon>
+        <location offset="2318" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="73">
-        <infon key="type">Mutation</infon>
-        <location offset="3288" length="5"/>
-        <text>A192T</text>
+        <infon key="type">Gene</infon>
+        <location offset="2368" length="4"/>
+        <text>KRAS</text>
       </annotation>
       <annotation id="74">
         <infon key="type">Mutation</infon>
-        <location offset="3294" length="8"/>
-        <text>c.574G&gt;A</text>
+        <location offset="2373" length="4"/>
+        <text>G12V</text>
       </annotation>
       <annotation id="75">
-        <infon key="type">Disease</infon>
-        <location offset="3349" length="7"/>
-        <text>Adc IIB</text>
+        <infon key="type">Gene</infon>
+        <location offset="2379" length="4"/>
+        <text>EGFR</text>
       </annotation>
       <annotation id="76">
         <infon key="type">Mutation</infon>
-        <location offset="3357" length="13"/>
-        <text>p.76_76T&gt;TLDT</text>
+        <location offset="2384" length="5"/>
+        <text>L858R</text>
       </annotation>
       <annotation id="77">
-        <infon key="type">Mutation</infon>
-        <location offset="3371" length="21"/>
-        <text>c.227_228insTTTGGATAC</text>
+        <infon key="type">Chemical</infon>
+        <location offset="2434" length="9"/>
+        <text>puromycin</text>
       </annotation>
       <annotation id="78">
-        <infon key="type">Disease</infon>
-        <location offset="3439" length="7"/>
-        <text>Adc IIB</text>
+        <infon key="type">Species</infon>
+        <location offset="2538" length="4"/>
+        <text>mice</text>
       </annotation>
       <annotation id="79">
-        <infon key="type">Mutation</infon>
-        <location offset="3449" length="4"/>
-        <text>F82L</text>
+        <infon key="type">Disease</infon>
+        <location offset="2579" length="6"/>
+        <text>tumors</text>
       </annotation>
       <annotation id="80">
-        <infon key="type">Mutation</infon>
-        <location offset="3454" length="8"/>
-        <text>c.246T&gt;G</text>
+        <infon key="type">CellLine</infon>
+        <location offset="2802" length="5"/>
+        <text>H2110</text>
       </annotation>
       <annotation id="81">
-        <infon key="type">Gene</infon>
-        <location offset="3518" length="8"/>
-        <text>Adc IIIA</text>
+        <infon key="type">Mutation</infon>
+        <location offset="2810" length="4"/>
+        <text>M90I</text>
       </annotation>
       <annotation id="82">
-        <infon key="type">Mutation</infon>
-        <location offset="3529" length="7"/>
-        <text>TA83del</text>
+        <infon key="type">Gene</infon>
+        <location offset="2815" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="83">
-        <infon key="type">Mutation</infon>
-        <location offset="3537" length="18"/>
-        <text>c.248_253delCAGCCA</text>
+        <infon key="type">Gene</infon>
+        <location offset="2867" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="84">
         <infon key="type">Disease</infon>
-        <location offset="3606" length="8"/>
-        <text>Adc IIIA</text>
+        <location offset="2904" length="5"/>
+        <text>NSCLC</text>
       </annotation>
       <annotation id="85">
-        <infon key="type">Mutation</infon>
-        <location offset="3617" length="4"/>
-        <text>M90I</text>
+        <infon key="type">Disease</infon>
+        <location offset="2951" length="6"/>
+        <text>Cancer</text>
       </annotation>
       <annotation id="86">
-        <infon key="type">Mutation</infon>
-        <location offset="3622" length="8"/>
-        <text>c.270G&gt;T</text>
+        <infon key="type">Disease</infon>
+        <location offset="3035" length="5"/>
+        <text>NSCLC</text>
       </annotation>
       <annotation id="87">
-        <infon key="type">Disease</infon>
-        <location offset="3681" length="6"/>
-        <text>Adc IA</text>
+        <infon key="type">Gene</infon>
+        <location offset="3157" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="88">
-        <infon key="type">Mutation</infon>
-        <location offset="3690" length="4"/>
-        <text>M90I</text>
+        <infon key="type">Gene</infon>
+        <location offset="3249" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="89">
-        <infon key="type">Mutation</infon>
-        <location offset="3695" length="8"/>
-        <text>c.270G&gt;T</text>
+        <infon key="type">Gene</infon>
+        <location offset="3354" length="4"/>
+        <text>RIT1</text>
       </annotation>
       <annotation id="90">
-        <infon key="type">Gene</infon>
-        <location offset="3768" length="4"/>
-        <text>RIT1</text>
+        <infon key="type">Disease</infon>
+        <location offset="3367" length="6"/>
+        <text>tumors</text>
       </annotation>
       <annotation id="91">
         <infon key="type">Disease</infon>
-        <location offset="3796" length="5"/>
-        <text>tumor</text>
+        <location offset="3521" length="4"/>
+        <text>LUAD</text>
       </annotation>
       <annotation id="92">
+        <infon key="type">Disease</infon>
+        <location offset="3557" length="3"/>
+        <text>Adc</text>
+      </annotation>
+      <annotation id="93">
+        <infon key="type">Mutation</infon>
+        <location offset="3566" length="4"/>
+        <text>Q40L</text>
+      </annotation>
+      <annotation id="94">
+        <infon key="type">Mutation</infon>
+        <location offset="3571" length="8"/>
+        <text>c.119A&gt;T</text>
+      </annotation>
+      <annotation id="95">
+        <infon key="type">Disease</infon>
+        <location offset="3591" length="4"/>
+        <text>LUAD</text>
+      </annotation>
+      <annotation id="96">
+        <infon key="type">Disease</infon>
+        <location offset="3626" length="3"/>
+        <text>Adc</text>
+      </annotation>
+      <annotation id="97">
+        <infon key="type">Mutation</infon>
+        <location offset="3635" length="4"/>
+        <text>A77P</text>
+      </annotation>
+      <annotation id="98">
+        <infon key="type">Mutation</infon>
+        <location offset="3640" length="8"/>
+        <text>c.229G&gt;C</text>
+      </annotation>
+      <annotation id="99">
+        <infon key="type">Disease</infon>
+        <location offset="3660" length="4"/>
+        <text>LUAD</text>
+      </annotation>
+      <annotation id="100">
         <infon key="type">Gene</infon>
-        <location offset="3820" length="4"/>
+        <location offset="3665" length="4"/>
+        <text>CHTN</text>
+      </annotation>
+      <annotation id="101">
+        <infon key="type">Disease</infon>
+        <location offset="3714" length="3"/>
+        <text>Adc</text>
+      </annotation>
+      <annotation id="102">
+        <infon key="type">Mutation</infon>
+        <location offset="3723" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="103">
+        <infon key="type">Mutation</infon>
+        <location offset="3728" length="8"/>
+        <text>c.270G&gt;A</text>
+      </annotation>
+      <annotation id="104">
+        <infon key="type">Gene</infon>
+        <location offset="3748" length="4"/>
+        <text>LUAD</text>
+      </annotation>
+      <annotation id="105">
+        <infon key="type">Gene</infon>
+        <location offset="3784" length="8"/>
+        <text>Adc IIIA</text>
+      </annotation>
+      <annotation id="106">
+        <infon key="type">Mutation</infon>
+        <location offset="3795" length="5"/>
+        <text>R122L</text>
+      </annotation>
+      <annotation id="107">
+        <infon key="type">Mutation</infon>
+        <location offset="3801" length="8"/>
+        <text>c.365G&gt;T</text>
+      </annotation>
+      <annotation id="108">
+        <infon key="type">Disease</infon>
+        <location offset="3821" length="4"/>
+        <text>LUAD</text>
+      </annotation>
+      <annotation id="109">
+        <infon key="type">Disease</infon>
+        <location offset="3860" length="6"/>
+        <text>Adc IA</text>
+      </annotation>
+      <annotation id="110">
+        <infon key="type">Mutation</infon>
+        <location offset="3869" length="5"/>
+        <text>A192T</text>
+      </annotation>
+      <annotation id="111">
+        <infon key="type">Mutation</infon>
+        <location offset="3875" length="8"/>
+        <text>c.574G&gt;A</text>
+      </annotation>
+      <annotation id="112">
+        <infon key="type">Disease</infon>
+        <location offset="3930" length="7"/>
+        <text>Adc IIB</text>
+      </annotation>
+      <annotation id="113">
+        <infon key="type">Mutation</infon>
+        <location offset="3938" length="13"/>
+        <text>p.76_76T&gt;TLDT</text>
+      </annotation>
+      <annotation id="114">
+        <infon key="type">Mutation</infon>
+        <location offset="3952" length="21"/>
+        <text>c.227_228insTTTGGATAC</text>
+      </annotation>
+      <annotation id="115">
+        <infon key="type">Disease</infon>
+        <location offset="4020" length="7"/>
+        <text>Adc IIB</text>
+      </annotation>
+      <annotation id="116">
+        <infon key="type">Mutation</infon>
+        <location offset="4030" length="4"/>
+        <text>F82L</text>
+      </annotation>
+      <annotation id="117">
+        <infon key="type">Mutation</infon>
+        <location offset="4035" length="8"/>
+        <text>c.246T&gt;G</text>
+      </annotation>
+      <annotation id="118">
+        <infon key="type">Gene</infon>
+        <location offset="4099" length="8"/>
+        <text>Adc IIIA</text>
+      </annotation>
+      <annotation id="119">
+        <infon key="type">Mutation</infon>
+        <location offset="4110" length="7"/>
+        <text>TA83del</text>
+      </annotation>
+      <annotation id="120">
+        <infon key="type">Mutation</infon>
+        <location offset="4118" length="18"/>
+        <text>c.248_253delCAGCCA</text>
+      </annotation>
+      <annotation id="121">
+        <infon key="type">Disease</infon>
+        <location offset="4187" length="8"/>
+        <text>Adc IIIA</text>
+      </annotation>
+      <annotation id="122">
+        <infon key="type">Mutation</infon>
+        <location offset="4198" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="123">
+        <infon key="type">Mutation</infon>
+        <location offset="4203" length="8"/>
+        <text>c.270G&gt;T</text>
+      </annotation>
+      <annotation id="124">
+        <infon key="type">Disease</infon>
+        <location offset="4262" length="6"/>
+        <text>Adc IA</text>
+      </annotation>
+      <annotation id="125">
+        <infon key="type">Mutation</infon>
+        <location offset="4271" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="126">
+        <infon key="type">Mutation</infon>
+        <location offset="4276" length="8"/>
+        <text>c.270G&gt;T</text>
+      </annotation>
+      <annotation id="127">
+        <infon key="type">Gene</infon>
+        <location offset="4359" length="4"/>
         <text>RIT1</text>
+      </annotation>
+      <annotation id="128">
+        <infon key="type">Disease</infon>
+        <location offset="4384" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="129">
+        <infon key="type">Disease</infon>
+        <location offset="4418" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="130">
+        <infon key="type">Disease</infon>
+        <location offset="4504" length="6"/>
+        <text>Cancer</text>
+      </annotation>
+      <annotation id="131">
+        <infon key="type">Chemical</infon>
+        <location offset="4625" length="4"/>
+        <text>acid</text>
+      </annotation>
+      <annotation id="132">
+        <infon key="type">Disease</infon>
+        <location offset="4670" length="5"/>
+        <text>Tumor</text>
+      </annotation>
+      <annotation id="133">
+        <infon key="type">Disease</infon>
+        <location offset="4715" length="12"/>
+        <text>Glioblastoma</text>
+      </annotation>
+      <annotation id="134">
+        <infon key="type">Disease</infon>
+        <location offset="4754" length="7"/>
+        <text>Sarcoma</text>
+      </annotation>
+      <annotation id="135">
+        <infon key="type">Disease</infon>
+        <location offset="4788" length="6"/>
+        <text>Breast</text>
+      </annotation>
+      <annotation id="136">
+        <infon key="type">Disease</infon>
+        <location offset="4804" length="25"/>
+        <text>Squamous cell lung cancer</text>
+      </annotation>
+      <annotation id="137">
+        <infon key="type">Disease</infon>
+        <location offset="4839" length="10"/>
+        <text>Colorectal</text>
+      </annotation>
+      <annotation id="138">
+        <infon key="type">Disease</infon>
+        <location offset="4859" length="10"/>
+        <text>Pancreatic</text>
+      </annotation>
+      <annotation id="139">
+        <infon key="type">Disease</infon>
+        <location offset="4879" length="26"/>
+        <text>Acute myelogenous leukemia</text>
+      </annotation>
+      <annotation id="140">
+        <infon key="type">Mutation</infon>
+        <location offset="4915" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="141">
+        <infon key="type">Mutation</infon>
+        <location offset="4962" length="4"/>
+        <text>M90I</text>
+      </annotation>
+      <annotation id="142">
+        <infon key="type">Gene</infon>
+        <location offset="5073" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="143">
+        <infon key="type">Disease</infon>
+        <location offset="5101" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="144">
+        <infon key="type">Gene</infon>
+        <location offset="5125" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="145">
+        <infon key="type">CellLine</infon>
+        <location offset="5163" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="146">
+        <infon key="type">Disease</infon>
+        <location offset="5252" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="147">
+        <infon key="type">Disease</infon>
+        <location offset="5304" length="5"/>
+        <text>tumor</text>
+      </annotation>
+      <annotation id="148">
+        <infon key="type">CellLine</infon>
+        <location offset="5355" length="6"/>
+        <text>NIH3T3</text>
+      </annotation>
+      <annotation id="149">
+        <infon key="type">Chemical</infon>
+        <location offset="5415" length="9"/>
+        <text>puromycin</text>
+      </annotation>
+      <annotation id="150">
+        <infon key="type">Chemical</infon>
+        <location offset="5445" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="151">
+        <infon key="type">Gene</infon>
+        <location offset="5718" length="4"/>
+        <text>RIT1</text>
+      </annotation>
+      <annotation id="152">
+        <infon key="type">Disease</infon>
+        <location offset="5801" length="5"/>
+        <text>Tumor</text>
+      </annotation>
+      <annotation id="153">
+        <infon key="type">Chemical</infon>
+        <location offset="5827" length="4"/>
+        <text>agar</text>
+      </annotation>
+      <annotation id="154">
+        <infon key="type">Mutation</infon>
+        <location offset="5832" length="11"/>
+        <text>Foci S10del</text>
+      </annotation>
+      <annotation id="155">
+        <infon key="type">CellLine</infon>
+        <location offset="5856" length="15"/>
+        <text>COSMIC - - K23E</text>
+      </annotation>
+      <annotation id="156">
+        <infon key="type">Disease</infon>
+        <location offset="5888" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="157">
+        <infon key="type">Disease</infon>
+        <location offset="5908" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="158">
+        <infon key="type">Gene</infon>
+        <location offset="5945" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="159">
+        <infon key="type">Mutation</infon>
+        <location offset="5956" length="4"/>
+        <text>R45Q</text>
+      </annotation>
+      <annotation id="160">
+        <infon key="type">CellLine</infon>
+        <location offset="5973" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="161">
+        <infon key="type">Mutation</infon>
+        <location offset="5984" length="4"/>
+        <text>D51V</text>
+      </annotation>
+      <annotation id="162">
+        <infon key="type">Disease</infon>
+        <location offset="5989" length="28"/>
+        <text>chronic myelogenous leukemia</text>
+      </annotation>
+      <annotation id="163">
+        <infon key="type">CellLine</infon>
+        <location offset="6018" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="164">
+        <infon key="type">Mutation</infon>
+        <location offset="6029" length="4"/>
+        <text>L74M</text>
+      </annotation>
+      <annotation id="165">
+        <infon key="type">CellLine</infon>
+        <location offset="6040" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="166">
+        <infon key="type">Mutation</infon>
+        <location offset="6053" length="4"/>
+        <text>E81G</text>
+      </annotation>
+      <annotation id="167">
+        <infon key="type">Disease</infon>
+        <location offset="6058" length="23"/>
+        <text>myeloid malignancies 23</text>
+      </annotation>
+      <annotation id="168">
+        <infon key="type">Mutation</infon>
+        <location offset="6086" length="4"/>
+        <text>E81Q</text>
+      </annotation>
+      <annotation id="169">
+        <infon key="type">Disease</infon>
+        <location offset="6091" length="8"/>
+        <text>melanoma</text>
+      </annotation>
+      <annotation id="170">
+        <infon key="type">Disease</infon>
+        <location offset="6101" length="20"/>
+        <text>myeloid malignancies</text>
+      </annotation>
+      <annotation id="171">
+        <infon key="type">Disease</infon>
+        <location offset="6122" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="172">
+        <infon key="type">Mutation</infon>
+        <location offset="6137" length="4"/>
+        <text>F82C</text>
+      </annotation>
+      <annotation id="173">
+        <infon key="type">Disease</infon>
+        <location offset="6142" length="23"/>
+        <text>myeloid malignancies 23</text>
+      </annotation>
+      <annotation id="174">
+        <infon key="type">Mutation</infon>
+        <location offset="6170" length="4"/>
+        <text>F82J</text>
+      </annotation>
+      <annotation id="175">
+        <infon key="type">Disease</infon>
+        <location offset="6175" length="23"/>
+        <text>myeloid malignancies 23</text>
+      </annotation>
+      <annotation id="176">
+        <infon key="type">Mutation</infon>
+        <location offset="6205" length="4"/>
+        <text>F82V</text>
+      </annotation>
+      <annotation id="177">
+        <infon key="type">Disease</infon>
+        <location offset="6210" length="23"/>
+        <text>myeloid malignancies 23</text>
+      </annotation>
+      <annotation id="178">
+        <infon key="type">Mutation</infon>
+        <location offset="6240" length="4"/>
+        <text>D87N</text>
+      </annotation>
+      <annotation id="179">
+        <infon key="type">CellLine</infon>
+        <location offset="6260" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="180">
+        <infon key="type">Mutation</infon>
+        <location offset="6271" length="5"/>
+        <text>R112C</text>
+      </annotation>
+      <annotation id="181">
+        <infon key="type">Disease</infon>
+        <location offset="6277" length="8"/>
+        <text>melanoma</text>
+      </annotation>
+      <annotation id="182">
+        <infon key="type">CellLine</infon>
+        <location offset="6286" length="16"/>
+        <text>COSMIC - - P159F</text>
+      </annotation>
+      <annotation id="183">
+        <infon key="type">Disease</infon>
+        <location offset="6303" length="8"/>
+        <text>melanoma</text>
+      </annotation>
+      <annotation id="184">
+        <infon key="type">CellLine</infon>
+        <location offset="6312" length="6"/>
+        <text>COSMIC</text>
+      </annotation>
+      <annotation id="185">
+        <infon key="type">Mutation</infon>
+        <location offset="6323" length="5"/>
+        <text>A165S</text>
+      </annotation>
+      <annotation id="186">
+        <infon key="type">Disease</infon>
+        <location offset="6329" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="187">
+        <infon key="type">Disease</infon>
+        <location offset="6360" length="5"/>
+        <text>D173N</text>
+      </annotation>
+      <annotation id="188">
+        <infon key="type">Disease</infon>
+        <location offset="6366" length="19"/>
+        <text>lung adenocarcinoma</text>
+      </annotation>
+      <annotation id="189">
+        <infon key="type">Species</infon>
+        <location offset="6629" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="190">
+        <infon key="type">Disease</infon>
+        <location offset="6635" length="12"/>
+        <text>glioblastoma</text>
+      </annotation>
+      <annotation id="191">
+        <infon key="type">Species</infon>
+        <location offset="6761" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="192">
+        <infon key="type">Disease</infon>
+        <location offset="6767" length="15"/>
+        <text>prostate cancer</text>
+      </annotation>
+      <annotation id="193">
+        <infon key="type">Disease</infon>
+        <location offset="6784" length="6"/>
+        <text>Cancer</text>
+      </annotation>
+      <annotation id="194">
+        <infon key="type">Disease</infon>
+        <location offset="6900" length="19"/>
+        <text>soft-tissue sarcoma</text>
+      </annotation>
+      <annotation id="195">
+        <infon key="type">Disease</infon>
+        <location offset="6994" length="17"/>
+        <text>ovarian carcinoma</text>
+      </annotation>
+      <annotation id="196">
+        <infon key="type">Species</infon>
+        <location offset="7082" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="197">
+        <infon key="type">Disease</infon>
+        <location offset="7088" length="14"/>
+        <text>breast tumours</text>
+      </annotation>
+      <annotation id="198">
+        <infon key="type">Disease</infon>
+        <location offset="7200" length="26"/>
+        <text>squamous cell lung cancers</text>
+      </annotation>
+      <annotation id="199">
+        <infon key="type">Species</infon>
+        <location offset="7304" length="5"/>
+        <text>human</text>
+      </annotation>
+      <annotation id="200">
+        <infon key="type">Disease</infon>
+        <location offset="7310" length="23"/>
+        <text>colon and rectal cancer</text>
+      </annotation>
+      <annotation id="201">
+        <infon key="type">Disease</infon>
+        <location offset="7389" length="17"/>
+        <text>Pancreatic cancer</text>
+      </annotation>
+      <annotation id="202">
+        <infon key="type">Disease</infon>
+        <location offset="7541" length="2"/>
+        <text>De</text>
+      </annotation>
+      <annotation id="203">
+        <infon key="type">Disease</infon>
+        <location offset="7549" length="22"/>
+        <text>Acute Myeloid Leukemia</text>
+      </annotation>
+      <annotation id="204">
+        <infon key="type">Disease</infon>
+        <location offset="7657" length="21"/>
+        <text>endometrial carcinoma</text>
       </annotation>
     </passage>
   </document>

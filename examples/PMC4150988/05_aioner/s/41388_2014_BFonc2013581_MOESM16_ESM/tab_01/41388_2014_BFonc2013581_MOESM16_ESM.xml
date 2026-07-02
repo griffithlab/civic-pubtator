@@ -8,17 +8,1682 @@
     <passage>
       <infon key="type">title</infon>
       <offset>0</offset>
-      <text>41388_2014_BFonc2013581_MOESM16_ESM — tab_01</text>
-      <annotation id="0">
-        <infon key="type">Gene</infon>
-        <location offset="24" length="7"/>
-        <text>MOESM16</text>
-      </annotation>
+      <text>41388_2014_BFonc2013581_MOESM16_ESM   tab_01</text>
     </passage>
     <passage>
       <infon key="type">body</infon>
       <offset>45</offset>
-      <text>CCLE name Cell</text>
+      <text>Supplementary Table 4 Tab 1 Berger et al. Supplementary Table 4 CCLE name Cell line primary name Gender Site Primary Histology Subtype Source KRAS EGFR BRAF ERBB2 AKT1 PIK3CA MET HRAS NRAS MAP2K1 "Oncogene-negative"? NCIH2110_LUNG NCI-H2110 lung carcinoma non_small_cell_carcinoma ATCC p.N319Y Y NCIH2342_LUNG NCI-H2342 M lung carcinoma adenocarcinoma ATCC p.E168K Y NCIH838_LUNG NCI-H838 M lung carcinoma non_small_cell_carcinoma ATCC p.I638L Y NCIH1793_LUNG NCI-H1793 F lung carcinoma non_small_cell_carcinoma ATCC p.C311F p.V541M Y NCIH2023_LUNG NCI-H2023 M lung carcinoma adenocarcinoma ATCC Y NCIH1435_LUNG NCI-H1435 F lung carcinoma non_small_cell_carcinoma ATCC Y RERFLCMS_LUNG RERF-LC-MS lung carcinoma non_small_cell_carcinoma HSRRB Y NCIH522_LUNG NCI-H522 M lung carcinoma non_small_cell_carcinoma ATCC Y BEN_LUNG BEN M lung carcinoma NS DSMZ p.G967R Y RERFLCKJ_LUNG RERF-LC-KJ M lung carcinoma non_small_cell_carcinoma HSRRB Y NCIH322_LUNG NCI-H322 M lung carcinoma adenocarcinoma ECACC Y HS618T_LUNG Hs 618.T F lung carcinoma adenocarcinoma ATCC Y NCIH1623_LUNG NCI-H1623 M lung carcinoma adenocarcinoma ATCC Y LXF289_LUNG LXF-289 M lung carcinoma adenocarcinoma DSMZ Y NCIH2228_LUNG NCI-H2228 F lung carcinoma adenocarcinoma ATCC Y NCIH2405_LUNG NCI-H2405 M lung carcinoma adenocarcinoma ATCC Y NCIH1693_LUNG NCI-H1693 F lung carcinoma adenocarcinoma ATCC Y CHAGOK1_LUNG ChaGo-K-1 M lung carcinoma NS ECACC Y NCIH1651_LUNG NCI-H1651 M lung carcinoma adenocarcinoma ATCC p.E375D Y ABC1_LUNG ABC-1 M lung carcinoma non_small_cell_carcinoma HSRRB Y HCC366_LUNG HCC-366 F lung carcinoma mixed_adenosquamous_carcinoma DSMZ Y NCIH2172_LUNG NCI-H2172 F lung carcinoma non_small_cell_carcinoma ATCC p.S1130G Y HS229T_LUNG Hs 229.T M lung carcinoma adenocarcinoma ATCC Y NCIH2106_LUNG NCI-H2106 M lung carcinoma non_small_cell_carcinoma ATCC Y NCIH1838_LUNG NCI-H1838 F lung carcinoma non_small_cell_carcinoma ATCC p.V941L Y HCC78_LUNG HCC-78 M lung carcinoma adenocarcinoma DSMZ Y CALU3_LUNG Calu-3 M lung carcinoma adenocarcinoma ATCC Y NCIH2126_LUNG NCI-H2126 M lung carcinoma adenocarcinoma ATCC Y NCIH1648_LUNG NCI-H1648 M lung carcinoma adenocarcinoma ATCC Y NCIH1563_LUNG NCI-H1563 M lung carcinoma adenocarcinoma ATCC Y NCIH1703_LUNG NCI-H1703 M lung carcinoma adenocarcinoma ATCC Y CORL105_LUNG COR-L105 M lung carcinoma adenocarcinoma ECACC Y VMRCLCD_LUNG VMRC-LCD M lung carcinoma adenocarcinoma HSRRB Y NCIH2085_LUNG NCI-H2085 M lung carcinoma adenocarcinoma ATCC Y NCIH1568_LUNG NCI-H1568 F lung carcinoma non_small_cell_carcinoma ATCC Y NCIH1944_LUNG NCI-H1944 F lung carcinoma non_small_cell_carcinoma ATCC p.G13D N HCC1171_LUNG HCC-1171 M lung carcinoma non_small_cell_carcinoma KCLB p.G12C N NCIH647_LUNG NCI-H647 M lung carcinoma mixed_adenosquamous_carcinoma ATCC p.G13D N NCIH2030_LUNG NCI-H2030 M lung carcinoma non_small_cell_carcinoma ATCC p.G12C N NCIH2122_LUNG NCI-H2122 F lung carcinoma adenocarcinoma ATCC p.G12C N MORCPR_LUNG MOR/CPR lung carcinoma adenocarcinoma ECACC p.G13C N NCIH1734_LUNG NCI-H1734 F lung carcinoma adenocarcinoma ATCC p.G13C N NCIH1781_LUNG NCI-H1781 F lung carcinoma bronchioloalveolar_adenocarcinoma ATCC p.776_776G&gt;VC N HCC2935_LUNG HCC2935 M lung carcinoma non_small_cell_carcinoma ATCC EGFR mut by literature N NCIH2347_LUNG NCI-H2347 F lung carcinoma adenocarcinoma ATCC p.L19F p.Q61R N NCIH1355_LUNG NCI-H1355 M lung carcinoma adenocarcinoma ATCC p.G13C N NCIH596_LUNG NCI-H596 M lung carcinoma mixed_adenosquamous_carcinoma ATCC p.E545K p.D1028_splice N NCIH358_LUNG NCI-H358 M lung carcinoma bronchioloalveolar_adenocarcinoma ATCC p.G12C N NCIH1792_LUNG NCI-H1792 M lung carcinoma adenocarcinoma ATCC p.G12C N NCIH1573_LUNG NCI-H1573 F lung carcinoma adenocarcinoma ATCC p.G12A N NCIH2009_LUNG NCI-H2009 F lung carcinoma adenocarcinoma ATCC p.G12A N NCIH2087_LUNG NCI-H2087 M lung carcinoma adenocarcinoma ATCC p.L597V p.Q61K N NCIH1666_LUNG NCI-H1666 F lung carcinoma bronchioloalveolar_adenocarcinoma ATCC p.G466V N NCIH1755_LUNG NCI-H1755 F lung carcinoma adenocarcinoma ATCC p.G469A N HCC1195_LUNG HCC-1195 M lung carcinoma mixed_adenosquamous_carcinoma KCLB p.Q61L N NCIH2444_LUNG NCI-H2444 M lung carcinoma non_small_cell_carcinoma ATCC p.G12V N NCIH441_LUNG NCI-H441 M lung carcinoma adenocarcinoma ATCC p.G12V N PC14_LUNG PC-14 lung carcinoma non_small_cell_carcinoma RIKEN p.ELREA746del N NCIH1373_LUNG NCI-H1373 M lung carcinoma adenocarcinoma ATCC p.G12C N CAL12T_LUNG CAL-12T M lung carcinoma non_small_cell_carcinoma DSMZ p.G466V N NCIH3255_LUNG NCI-H3255 F lung carcinoma adenocarcinoma Academic Lab p.L858R N HCC4006_LUNG HCC4006 M lung carcinoma adenocarcinoma ATCC p.ELR746del N SKLU1_LUNG SK-LU-1 F lung carcinoma adenocarcinoma ATCC p.G12D N NCIH1650_LUNG NCI-H1650 M lung carcinoma bronchioloalveolar_adenocarcinoma ATCC p.ELREA746del N HCC827_LUNG HCC827 F lung carcinoma adenocarcinoma ATCC p.ELREA746del N HCC44_LUNG HCC-44 F lung carcinoma adenocarcinoma DSMZ p.G12C N NCIH1975_LUNG NCI-H1975 F lung carcinoma non_small_cell_carcinoma ATCC p.T790M, p.L858R p.G118D N NCIH650_LUNG NCI-H650 M lung carcinoma bronchioloalveolar_adenocarcinoma ATCC p.Q61L N HLC1_LUNG HLC-1 lung carcinoma adenocarcinoma RIKEN p.G12V N NCIH1437_LUNG NCI-H1437 M lung carcinoma adenocarcinoma ATCC p.Q56P N A549_LUNG A549 M lung carcinoma non_small_cell_carcinoma ATCC p.G12S N NCIH2291_LUNG NCI-H2291 M lung carcinoma adenocarcinoma ATCC p.G12F p.V592F N RERFLCAD1_LUNG RERF-LC-Ad1 M lung carcinoma adenocarcinoma HSRRB p.G12A p.R435S N NCIH1299_LUNG NCI-H1299 M lung carcinoma non_small_cell_carcinoma ATCC p.Q61K N LU65_LUNG LU65 M lung carcinoma non_small_cell_carcinoma HSRRB p.G12C N NCIH854_LUNG NCI-H854 lung carcinoma adenocarcinoma KCLB p.V600E N HCC2279_LUNG HCC-2279 F lung carcinoma adenocarcinoma KCLB p.ELREA746del N DV90_LUNG DV-90 M lung carcinoma adenocarcinoma DSMZ p.G13D p.V842I N RERFLCAD2_LUNG RERF-LC-Ad2 M lung carcinoma adenocarcinoma HSRRB p.G12V N NCIH1395_LUNG NCI-H1395 F lung carcinoma adenocarcinoma ATCC p.G469A N</text>
+      <annotation id="0">
+        <infon key="type">Gene</infon>
+        <location offset="187" length="4"/>
+        <text>KRAS</text>
+      </annotation>
+      <annotation id="1">
+        <infon key="type">Gene</infon>
+        <location offset="192" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="2">
+        <infon key="type">Gene</infon>
+        <location offset="197" length="4"/>
+        <text>BRAF</text>
+      </annotation>
+      <annotation id="3">
+        <infon key="type">Gene</infon>
+        <location offset="202" length="5"/>
+        <text>ERBB2</text>
+      </annotation>
+      <annotation id="4">
+        <infon key="type">Gene</infon>
+        <location offset="208" length="4"/>
+        <text>AKT1</text>
+      </annotation>
+      <annotation id="5">
+        <infon key="type">Gene</infon>
+        <location offset="213" length="6"/>
+        <text>PIK3CA</text>
+      </annotation>
+      <annotation id="6">
+        <infon key="type">Gene</infon>
+        <location offset="220" length="3"/>
+        <text>MET</text>
+      </annotation>
+      <annotation id="7">
+        <infon key="type">Gene</infon>
+        <location offset="224" length="4"/>
+        <text>HRAS</text>
+      </annotation>
+      <annotation id="8">
+        <infon key="type">Gene</infon>
+        <location offset="229" length="4"/>
+        <text>NRAS</text>
+      </annotation>
+      <annotation id="9">
+        <infon key="type">Gene</infon>
+        <location offset="234" length="6"/>
+        <text>MAP2K1</text>
+      </annotation>
+      <annotation id="10">
+        <infon key="type">Disease</infon>
+        <location offset="262" length="8"/>
+        <text>NCIH2110</text>
+      </annotation>
+      <annotation id="11">
+        <infon key="type">Disease</infon>
+        <location offset="271" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="12">
+        <infon key="type">Disease</infon>
+        <location offset="276" length="49"/>
+        <text>NCI-H2110 lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="13">
+        <infon key="type">Mutation</infon>
+        <location offset="333" length="5"/>
+        <text>N319Y</text>
+      </annotation>
+      <annotation id="14">
+        <infon key="type">Species</infon>
+        <location offset="341" length="8"/>
+        <text>NCIH2342</text>
+      </annotation>
+      <annotation id="15">
+        <infon key="type">Species</infon>
+        <location offset="350" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="16">
+        <infon key="type">Disease</infon>
+        <location offset="355" length="9"/>
+        <text>NCI-H2342</text>
+      </annotation>
+      <annotation id="17">
+        <infon key="type">Disease</infon>
+        <location offset="367" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="18">
+        <infon key="type">Species</infon>
+        <location offset="412" length="7"/>
+        <text>NCIH838</text>
+      </annotation>
+      <annotation id="19">
+        <infon key="type">Species</infon>
+        <location offset="420" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="20">
+        <infon key="type">Disease</infon>
+        <location offset="425" length="8"/>
+        <text>NCI-H838</text>
+      </annotation>
+      <annotation id="21">
+        <infon key="type">Disease</infon>
+        <location offset="436" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="22">
+        <infon key="type">Mutation</infon>
+        <location offset="483" length="5"/>
+        <text>I638L</text>
+      </annotation>
+      <annotation id="23">
+        <infon key="type">Species</infon>
+        <location offset="491" length="8"/>
+        <text>NCIH1793</text>
+      </annotation>
+      <annotation id="24">
+        <infon key="type">Disease</infon>
+        <location offset="500" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="25">
+        <infon key="type">Species</infon>
+        <location offset="505" length="9"/>
+        <text>NCI-H1793</text>
+      </annotation>
+      <annotation id="26">
+        <infon key="type">Disease</infon>
+        <location offset="517" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="27">
+        <infon key="type">Mutation</infon>
+        <location offset="564" length="5"/>
+        <text>C311F</text>
+      </annotation>
+      <annotation id="28">
+        <infon key="type">CellLine</infon>
+        <location offset="580" length="8"/>
+        <text>NCIH2023</text>
+      </annotation>
+      <annotation id="29">
+        <infon key="type">Disease</infon>
+        <location offset="589" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="30">
+        <infon key="type">CellLine</infon>
+        <location offset="594" length="4"/>
+        <text>NCI-</text>
+      </annotation>
+      <annotation id="31">
+        <infon key="type">Disease</infon>
+        <location offset="606" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="32">
+        <infon key="type">Species</infon>
+        <location offset="643" length="8"/>
+        <text>NCIH1435</text>
+      </annotation>
+      <annotation id="33">
+        <infon key="type">Disease</infon>
+        <location offset="652" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="34">
+        <infon key="type">Species</infon>
+        <location offset="657" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="35">
+        <infon key="type">Disease</infon>
+        <location offset="669" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="36">
+        <infon key="type">Disease</infon>
+        <location offset="725" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="37">
+        <infon key="type">Disease</infon>
+        <location offset="741" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="38">
+        <infon key="type">Gene</infon>
+        <location offset="781" length="5"/>
+        <text>HSRRB</text>
+      </annotation>
+      <annotation id="39">
+        <infon key="type">CellLine</infon>
+        <location offset="789" length="7"/>
+        <text>NCIH522</text>
+      </annotation>
+      <annotation id="40">
+        <infon key="type">Disease</infon>
+        <location offset="797" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="41">
+        <infon key="type">CellLine</infon>
+        <location offset="802" length="4"/>
+        <text>NCI-</text>
+      </annotation>
+      <annotation id="42">
+        <infon key="type">Disease</infon>
+        <location offset="813" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="43">
+        <infon key="type">Species</infon>
+        <location offset="860" length="3"/>
+        <text>BEN</text>
+      </annotation>
+      <annotation id="44">
+        <infon key="type">Disease</infon>
+        <location offset="864" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="45">
+        <infon key="type">Species</infon>
+        <location offset="869" length="3"/>
+        <text>BEN</text>
+      </annotation>
+      <annotation id="46">
+        <infon key="type">Disease</infon>
+        <location offset="875" length="14"/>
+        <text>lung carcinoma</text>
+      </annotation>
+      <annotation id="47">
+        <infon key="type">CellLine</infon>
+        <location offset="900" length="5"/>
+        <text>G967R</text>
+      </annotation>
+      <annotation id="48">
+        <infon key="type">Disease</infon>
+        <location offset="917" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="49">
+        <infon key="type">Disease</infon>
+        <location offset="935" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="50">
+        <infon key="type">Gene</infon>
+        <location offset="975" length="5"/>
+        <text>HSRRB</text>
+      </annotation>
+      <annotation id="51">
+        <infon key="type">Disease</infon>
+        <location offset="991" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="52">
+        <infon key="type">Species</infon>
+        <location offset="996" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="53">
+        <infon key="type">Disease</infon>
+        <location offset="1007" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="54">
+        <infon key="type">Disease</infon>
+        <location offset="1037" length="5"/>
+        <text>ECACC</text>
+      </annotation>
+      <annotation id="55">
+        <infon key="type">CellLine</infon>
+        <location offset="1045" length="5"/>
+        <text>HS618</text>
+      </annotation>
+      <annotation id="56">
+        <infon key="type">Disease</infon>
+        <location offset="1052" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="57">
+        <infon key="type">Disease</infon>
+        <location offset="1068" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="58">
+        <infon key="type">Disease</infon>
+        <location offset="1114" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="59">
+        <infon key="type">Species</infon>
+        <location offset="1119" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="60">
+        <infon key="type">Disease</infon>
+        <location offset="1131" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="61">
+        <infon key="type">Disease</infon>
+        <location offset="1175" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="62">
+        <infon key="type">Disease</infon>
+        <location offset="1190" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="63">
+        <infon key="type">Disease</infon>
+        <location offset="1236" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="64">
+        <infon key="type">Species</infon>
+        <location offset="1241" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="65">
+        <infon key="type">Disease</infon>
+        <location offset="1253" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="66">
+        <infon key="type">Disease</infon>
+        <location offset="1299" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="67">
+        <infon key="type">Species</infon>
+        <location offset="1304" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="68">
+        <infon key="type">Disease</infon>
+        <location offset="1316" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="69">
+        <infon key="type">Disease</infon>
+        <location offset="1362" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="70">
+        <infon key="type">Species</infon>
+        <location offset="1367" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="71">
+        <infon key="type">Disease</infon>
+        <location offset="1379" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="72">
+        <infon key="type">Gene</infon>
+        <location offset="1416" length="7"/>
+        <text>CHAGOK1</text>
+      </annotation>
+      <annotation id="73">
+        <infon key="type">Disease</infon>
+        <location offset="1424" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="74">
+        <infon key="type">Disease</infon>
+        <location offset="1441" length="14"/>
+        <text>lung carcinoma</text>
+      </annotation>
+      <annotation id="75">
+        <infon key="type">Disease</infon>
+        <location offset="1459" length="5"/>
+        <text>ECACC</text>
+      </annotation>
+      <annotation id="76">
+        <infon key="type">Disease</infon>
+        <location offset="1476" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="77">
+        <infon key="type">Species</infon>
+        <location offset="1481" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="78">
+        <infon key="type">Disease</infon>
+        <location offset="1493" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="79">
+        <infon key="type">Mutation</infon>
+        <location offset="1530" length="5"/>
+        <text>E375D</text>
+      </annotation>
+      <annotation id="80">
+        <infon key="type">Gene</infon>
+        <location offset="1538" length="4"/>
+        <text>ABC1</text>
+      </annotation>
+      <annotation id="81">
+        <infon key="type">Gene</infon>
+        <location offset="1543" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="82">
+        <infon key="type">Gene</infon>
+        <location offset="1548" length="5"/>
+        <text>ABC-1</text>
+      </annotation>
+      <annotation id="83">
+        <infon key="type">Disease</infon>
+        <location offset="1556" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="84">
+        <infon key="type">Gene</infon>
+        <location offset="1596" length="5"/>
+        <text>HSRRB</text>
+      </annotation>
+      <annotation id="85">
+        <infon key="type">CellLine</infon>
+        <location offset="1604" length="6"/>
+        <text>HCC366</text>
+      </annotation>
+      <annotation id="86">
+        <infon key="type">CellLine</infon>
+        <location offset="1611" length="14"/>
+        <text>LUNG HCC-366 F</text>
+      </annotation>
+      <annotation id="87">
+        <infon key="type">Disease</infon>
+        <location offset="1626" length="14"/>
+        <text>lung carcinoma</text>
+      </annotation>
+      <annotation id="88">
+        <infon key="type">Disease</infon>
+        <location offset="1647" length="23"/>
+        <text>adenosquamous_carcinoma</text>
+      </annotation>
+      <annotation id="89">
+        <infon key="type">CellLine</infon>
+        <location offset="1678" length="8"/>
+        <text>NCIH2172</text>
+      </annotation>
+      <annotation id="90">
+        <infon key="type">CellLine</infon>
+        <location offset="1687" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="91">
+        <infon key="type">CellLine</infon>
+        <location offset="1692" length="9"/>
+        <text>NCI-H2172</text>
+      </annotation>
+      <annotation id="92">
+        <infon key="type">Disease</infon>
+        <location offset="1704" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="93">
+        <infon key="type">Mutation</infon>
+        <location offset="1751" length="6"/>
+        <text>S1130G</text>
+      </annotation>
+      <annotation id="94">
+        <infon key="type">CellLine</infon>
+        <location offset="1760" length="6"/>
+        <text>HS229T</text>
+      </annotation>
+      <annotation id="95">
+        <infon key="type">Disease</infon>
+        <location offset="1767" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="96">
+        <infon key="type">Species</infon>
+        <location offset="1775" length="5"/>
+        <text>229.T</text>
+      </annotation>
+      <annotation id="97">
+        <infon key="type">Disease</infon>
+        <location offset="1783" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="98">
+        <infon key="type">Disease</infon>
+        <location offset="1829" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="99">
+        <infon key="type">Species</infon>
+        <location offset="1834" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="100">
+        <infon key="type">Disease</infon>
+        <location offset="1846" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="101">
+        <infon key="type">Disease</infon>
+        <location offset="1902" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="102">
+        <infon key="type">Species</infon>
+        <location offset="1907" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="103">
+        <infon key="type">Disease</infon>
+        <location offset="1919" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="104">
+        <infon key="type">Disease</infon>
+        <location offset="1980" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="105">
+        <infon key="type">Disease</infon>
+        <location offset="1994" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="106">
+        <infon key="type">Disease</infon>
+        <location offset="2037" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="107">
+        <infon key="type">CellLine</infon>
+        <location offset="2042" length="4"/>
+        <text>Calu</text>
+      </annotation>
+      <annotation id="108">
+        <infon key="type">Disease</infon>
+        <location offset="2051" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="109">
+        <infon key="type">Disease</infon>
+        <location offset="2097" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="110">
+        <infon key="type">Species</infon>
+        <location offset="2102" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="111">
+        <infon key="type">Disease</infon>
+        <location offset="2114" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="112">
+        <infon key="type">Disease</infon>
+        <location offset="2160" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="113">
+        <infon key="type">Species</infon>
+        <location offset="2165" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="114">
+        <infon key="type">Disease</infon>
+        <location offset="2177" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="115">
+        <infon key="type">Disease</infon>
+        <location offset="2223" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="116">
+        <infon key="type">Species</infon>
+        <location offset="2228" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="117">
+        <infon key="type">Disease</infon>
+        <location offset="2240" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="118">
+        <infon key="type">Disease</infon>
+        <location offset="2286" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="119">
+        <infon key="type">Species</infon>
+        <location offset="2291" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="120">
+        <infon key="type">Disease</infon>
+        <location offset="2303" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="121">
+        <infon key="type">Disease</infon>
+        <location offset="2348" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="122">
+        <infon key="type">Disease</infon>
+        <location offset="2364" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="123">
+        <infon key="type">Disease</infon>
+        <location offset="2394" length="5"/>
+        <text>ECACC</text>
+      </annotation>
+      <annotation id="124">
+        <infon key="type">Disease</infon>
+        <location offset="2410" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="125">
+        <infon key="type">Disease</infon>
+        <location offset="2426" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="126">
+        <infon key="type">Gene</infon>
+        <location offset="2456" length="5"/>
+        <text>HSRRB</text>
+      </annotation>
+      <annotation id="127">
+        <infon key="type">Disease</infon>
+        <location offset="2473" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="128">
+        <infon key="type">Species</infon>
+        <location offset="2478" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="129">
+        <infon key="type">Disease</infon>
+        <location offset="2490" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="130">
+        <infon key="type">Disease</infon>
+        <location offset="2536" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="131">
+        <infon key="type">Species</infon>
+        <location offset="2541" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="132">
+        <infon key="type">Disease</infon>
+        <location offset="2553" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="133">
+        <infon key="type">Disease</infon>
+        <location offset="2609" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="134">
+        <infon key="type">Species</infon>
+        <location offset="2614" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="135">
+        <infon key="type">Disease</infon>
+        <location offset="2626" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="136">
+        <infon key="type">Mutation</infon>
+        <location offset="2673" length="4"/>
+        <text>G13D</text>
+      </annotation>
+      <annotation id="137">
+        <infon key="type">Mutation</infon>
+        <location offset="2680" length="23"/>
+        <text>HCC1171_LUNG HCC-1171 M</text>
+      </annotation>
+      <annotation id="138">
+        <infon key="type">Disease</infon>
+        <location offset="2704" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="139">
+        <infon key="type">Gene</infon>
+        <location offset="2744" length="4"/>
+        <text>KCLB</text>
+      </annotation>
+      <annotation id="140">
+        <infon key="type">Disease</infon>
+        <location offset="2758" length="7"/>
+        <text>NCIH647</text>
+      </annotation>
+      <annotation id="141">
+        <infon key="type">Disease</infon>
+        <location offset="2766" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="142">
+        <infon key="type">Disease</infon>
+        <location offset="2771" length="8"/>
+        <text>NCI-H647</text>
+      </annotation>
+      <annotation id="143">
+        <infon key="type">Disease</infon>
+        <location offset="2782" length="14"/>
+        <text>lung carcinoma</text>
+      </annotation>
+      <annotation id="144">
+        <infon key="type">Disease</infon>
+        <location offset="2803" length="23"/>
+        <text>adenosquamous_carcinoma</text>
+      </annotation>
+      <annotation id="145">
+        <infon key="type">Mutation</infon>
+        <location offset="2834" length="4"/>
+        <text>G13D</text>
+      </annotation>
+      <annotation id="146">
+        <infon key="type">Species</infon>
+        <location offset="2841" length="8"/>
+        <text>NCIH2030</text>
+      </annotation>
+      <annotation id="147">
+        <infon key="type">Disease</infon>
+        <location offset="2850" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="148">
+        <infon key="type">Species</infon>
+        <location offset="2855" length="9"/>
+        <text>NCI-H2030</text>
+      </annotation>
+      <annotation id="149">
+        <infon key="type">Disease</infon>
+        <location offset="2867" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="150">
+        <infon key="type">Disease</infon>
+        <location offset="2921" length="13"/>
+        <text>NCIH2122_LUNG</text>
+      </annotation>
+      <annotation id="151">
+        <infon key="type">Disease</infon>
+        <location offset="2935" length="11"/>
+        <text>NCI-H2122 F</text>
+      </annotation>
+      <annotation id="152">
+        <infon key="type">Disease</infon>
+        <location offset="2947" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="153">
+        <infon key="type">Gene</infon>
+        <location offset="2991" length="6"/>
+        <text>MORCPR</text>
+      </annotation>
+      <annotation id="154">
+        <infon key="type">Gene</infon>
+        <location offset="2998" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="155">
+        <infon key="type">Gene</infon>
+        <location offset="3003" length="3"/>
+        <text>MOR</text>
+      </annotation>
+      <annotation id="156">
+        <infon key="type">Disease</infon>
+        <location offset="3007" length="3"/>
+        <text>CPR</text>
+      </annotation>
+      <annotation id="157">
+        <infon key="type">Disease</infon>
+        <location offset="3011" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="158">
+        <infon key="type">Disease</infon>
+        <location offset="3041" length="5"/>
+        <text>ECACC</text>
+      </annotation>
+      <annotation id="159">
+        <infon key="type">CellLine</infon>
+        <location offset="3049" length="4"/>
+        <text>G13C</text>
+      </annotation>
+      <annotation id="160">
+        <infon key="type">Species</infon>
+        <location offset="3056" length="8"/>
+        <text>NCIH1734</text>
+      </annotation>
+      <annotation id="161">
+        <infon key="type">Disease</infon>
+        <location offset="3065" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="162">
+        <infon key="type">Disease</infon>
+        <location offset="3070" length="11"/>
+        <text>NCI-H1734 F</text>
+      </annotation>
+      <annotation id="163">
+        <infon key="type">Disease</infon>
+        <location offset="3082" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="164">
+        <infon key="type">CellLine</infon>
+        <location offset="3119" length="4"/>
+        <text>G13C</text>
+      </annotation>
+      <annotation id="165">
+        <infon key="type">CellLine</infon>
+        <location offset="3126" length="8"/>
+        <text>NCIH1781</text>
+      </annotation>
+      <annotation id="166">
+        <infon key="type">Disease</infon>
+        <location offset="3135" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="167">
+        <infon key="type">Species</infon>
+        <location offset="3140" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="168">
+        <infon key="type">Disease</infon>
+        <location offset="3152" length="48"/>
+        <text>lung carcinoma bronchioloalveolar_adenocarcinoma</text>
+      </annotation>
+      <annotation id="169">
+        <infon key="type">CellLine</infon>
+        <location offset="3222" length="7"/>
+        <text>HCC2935</text>
+      </annotation>
+      <annotation id="170">
+        <infon key="type">Disease</infon>
+        <location offset="3230" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="171">
+        <infon key="type">CellLine</infon>
+        <location offset="3235" length="7"/>
+        <text>HCC2935</text>
+      </annotation>
+      <annotation id="172">
+        <infon key="type">Disease</infon>
+        <location offset="3245" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="173">
+        <infon key="type">Gene</infon>
+        <location offset="3290" length="4"/>
+        <text>EGFR</text>
+      </annotation>
+      <annotation id="174">
+        <infon key="type">CellLine</infon>
+        <location offset="3315" length="8"/>
+        <text>NCIH2347</text>
+      </annotation>
+      <annotation id="175">
+        <infon key="type">Disease</infon>
+        <location offset="3324" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="176">
+        <infon key="type">Species</infon>
+        <location offset="3329" length="3"/>
+        <text>NCI</text>
+      </annotation>
+      <annotation id="177">
+        <infon key="type">Disease</infon>
+        <location offset="3341" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="178">
+        <infon key="type">Mutation</infon>
+        <location offset="3378" length="4"/>
+        <text>L19F</text>
+      </annotation>
+      <annotation id="179">
+        <infon key="type">Mutation</infon>
+        <location offset="3385" length="6"/>
+        <text>Q61R N</text>
+      </annotation>
+      <annotation id="180">
+        <infon key="type">Species</infon>
+        <location offset="3392" length="13"/>
+        <text>NCIH1355_LUNG</text>
+      </annotation>
+      <annotation id="181">
+        <infon key="type">Disease</infon>
+        <location offset="3406" length="11"/>
+        <text>NCI-H1355 M</text>
+      </annotation>
+      <annotation id="182">
+        <infon key="type">Disease</infon>
+        <location offset="3418" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="183">
+        <infon key="type">CellLine</infon>
+        <location offset="3455" length="4"/>
+        <text>G13C</text>
+      </annotation>
+      <annotation id="184">
+        <infon key="type">Disease</infon>
+        <location offset="3462" length="7"/>
+        <text>NCIH596</text>
+      </annotation>
+      <annotation id="185">
+        <infon key="type">Disease</infon>
+        <location offset="3470" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="186">
+        <infon key="type">Disease</infon>
+        <location offset="3475" length="8"/>
+        <text>NCI-H596</text>
+      </annotation>
+      <annotation id="187">
+        <infon key="type">Disease</infon>
+        <location offset="3486" length="14"/>
+        <text>lung carcinoma</text>
+      </annotation>
+      <annotation id="188">
+        <infon key="type">Disease</infon>
+        <location offset="3507" length="23"/>
+        <text>adenosquamous_carcinoma</text>
+      </annotation>
+      <annotation id="189">
+        <infon key="type">Mutation</infon>
+        <location offset="3538" length="5"/>
+        <text>E545K</text>
+      </annotation>
+      <annotation id="190">
+        <infon key="type">Species</infon>
+        <location offset="3561" length="7"/>
+        <text>NCIH358</text>
+      </annotation>
+      <annotation id="191">
+        <infon key="type">Disease</infon>
+        <location offset="3569" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="192">
+        <infon key="type">Disease</infon>
+        <location offset="3574" length="10"/>
+        <text>NCI-H358 M</text>
+      </annotation>
+      <annotation id="193">
+        <infon key="type">Disease</infon>
+        <location offset="3585" length="48"/>
+        <text>lung carcinoma bronchioloalveolar_adenocarcinoma</text>
+      </annotation>
+      <annotation id="194">
+        <infon key="type">Species</infon>
+        <location offset="3648" length="8"/>
+        <text>NCIH1792</text>
+      </annotation>
+      <annotation id="195">
+        <infon key="type">Disease</infon>
+        <location offset="3657" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="196">
+        <infon key="type">Disease</infon>
+        <location offset="3662" length="9"/>
+        <text>NCI-H1792</text>
+      </annotation>
+      <annotation id="197">
+        <infon key="type">Disease</infon>
+        <location offset="3674" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="198">
+        <infon key="type">Disease</infon>
+        <location offset="3718" length="8"/>
+        <text>NCIH1573</text>
+      </annotation>
+      <annotation id="199">
+        <infon key="type">Disease</infon>
+        <location offset="3727" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="200">
+        <infon key="type">Disease</infon>
+        <location offset="3732" length="11"/>
+        <text>NCI-H1573 F</text>
+      </annotation>
+      <annotation id="201">
+        <infon key="type">Disease</infon>
+        <location offset="3744" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="202">
+        <infon key="type">Species</infon>
+        <location offset="3788" length="8"/>
+        <text>NCIH2009</text>
+      </annotation>
+      <annotation id="203">
+        <infon key="type">Species</infon>
+        <location offset="3797" length="16"/>
+        <text>LUNG NCI-H2009 F</text>
+      </annotation>
+      <annotation id="204">
+        <infon key="type">Disease</infon>
+        <location offset="3814" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="205">
+        <infon key="type">Species</infon>
+        <location offset="3858" length="8"/>
+        <text>NCIH2087</text>
+      </annotation>
+      <annotation id="206">
+        <infon key="type">Disease</infon>
+        <location offset="3867" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="207">
+        <infon key="type">Disease</infon>
+        <location offset="3872" length="9"/>
+        <text>NCI-H2087</text>
+      </annotation>
+      <annotation id="208">
+        <infon key="type">Disease</infon>
+        <location offset="3884" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="209">
+        <infon key="type">Mutation</infon>
+        <location offset="3921" length="7"/>
+        <text>L597V p</text>
+      </annotation>
+      <annotation id="210">
+        <infon key="type">Mutation</infon>
+        <location offset="3929" length="6"/>
+        <text>Q61K N</text>
+      </annotation>
+      <annotation id="211">
+        <infon key="type">Disease</infon>
+        <location offset="3936" length="8"/>
+        <text>NCIH1666</text>
+      </annotation>
+      <annotation id="212">
+        <infon key="type">Disease</infon>
+        <location offset="3945" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="213">
+        <infon key="type">Disease</infon>
+        <location offset="3950" length="11"/>
+        <text>NCI-H1666 F</text>
+      </annotation>
+      <annotation id="214">
+        <infon key="type">Disease</infon>
+        <location offset="3962" length="48"/>
+        <text>lung carcinoma bronchioloalveolar_adenocarcinoma</text>
+      </annotation>
+      <annotation id="215">
+        <infon key="type">Mutation</infon>
+        <location offset="4018" length="7"/>
+        <text>G466V N</text>
+      </annotation>
+      <annotation id="216">
+        <infon key="type">Disease</infon>
+        <location offset="4026" length="8"/>
+        <text>NCIH1755</text>
+      </annotation>
+      <annotation id="217">
+        <infon key="type">Disease</infon>
+        <location offset="4035" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="218">
+        <infon key="type">Disease</infon>
+        <location offset="4040" length="11"/>
+        <text>NCI-H1755 F</text>
+      </annotation>
+      <annotation id="219">
+        <infon key="type">Disease</infon>
+        <location offset="4052" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="220">
+        <infon key="type">Mutation</infon>
+        <location offset="4089" length="7"/>
+        <text>G469A N</text>
+      </annotation>
+      <annotation id="221">
+        <infon key="type">Mutation</infon>
+        <location offset="4097" length="7"/>
+        <text>HCC1195</text>
+      </annotation>
+      <annotation id="222">
+        <infon key="type">CellLine</infon>
+        <location offset="4105" length="13"/>
+        <text>LUNG HCC-1195</text>
+      </annotation>
+      <annotation id="223">
+        <infon key="type">Disease</infon>
+        <location offset="4121" length="14"/>
+        <text>lung carcinoma</text>
+      </annotation>
+      <annotation id="224">
+        <infon key="type">Disease</infon>
+        <location offset="4142" length="23"/>
+        <text>adenosquamous_carcinoma</text>
+      </annotation>
+      <annotation id="225">
+        <infon key="type">Gene</infon>
+        <location offset="4166" length="4"/>
+        <text>KCLB</text>
+      </annotation>
+      <annotation id="226">
+        <infon key="type">Mutation</infon>
+        <location offset="4173" length="4"/>
+        <text>Q61L</text>
+      </annotation>
+      <annotation id="227">
+        <infon key="type">Species</infon>
+        <location offset="4180" length="8"/>
+        <text>NCIH2444</text>
+      </annotation>
+      <annotation id="228">
+        <infon key="type">Disease</infon>
+        <location offset="4189" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="229">
+        <infon key="type">Species</infon>
+        <location offset="4194" length="9"/>
+        <text>NCI-H2444</text>
+      </annotation>
+      <annotation id="230">
+        <infon key="type">Disease</infon>
+        <location offset="4206" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="231">
+        <infon key="type">Mutation</infon>
+        <location offset="4253" length="4"/>
+        <text>G12V</text>
+      </annotation>
+      <annotation id="232">
+        <infon key="type">Species</infon>
+        <location offset="4260" length="12"/>
+        <text>NCIH441_LUNG</text>
+      </annotation>
+      <annotation id="233">
+        <infon key="type">Disease</infon>
+        <location offset="4273" length="10"/>
+        <text>NCI-H441 M</text>
+      </annotation>
+      <annotation id="234">
+        <infon key="type">Disease</infon>
+        <location offset="4284" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="235">
+        <infon key="type">Mutation</infon>
+        <location offset="4321" length="4"/>
+        <text>G12V</text>
+      </annotation>
+      <annotation id="236">
+        <infon key="type">CellLine</infon>
+        <location offset="4328" length="4"/>
+        <text>PC14</text>
+      </annotation>
+      <annotation id="237">
+        <infon key="type">Disease</infon>
+        <location offset="4333" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="238">
+        <infon key="type">Disease</infon>
+        <location offset="4338" length="5"/>
+        <text>PC-14</text>
+      </annotation>
+      <annotation id="239">
+        <infon key="type">Disease</infon>
+        <location offset="4344" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="240">
+        <infon key="type">Gene</infon>
+        <location offset="4384" length="5"/>
+        <text>RIKEN</text>
+      </annotation>
+      <annotation id="241">
+        <infon key="type">Mutation</infon>
+        <location offset="4392" length="13"/>
+        <text>ELREA746del N</text>
+      </annotation>
+      <annotation id="242">
+        <infon key="type">Disease</infon>
+        <location offset="4406" length="8"/>
+        <text>NCIH1373</text>
+      </annotation>
+      <annotation id="243">
+        <infon key="type">Disease</infon>
+        <location offset="4415" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="244">
+        <infon key="type">Disease</infon>
+        <location offset="4420" length="11"/>
+        <text>NCI-H1373 M</text>
+      </annotation>
+      <annotation id="245">
+        <infon key="type">Disease</infon>
+        <location offset="4432" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="246">
+        <infon key="type">Gene</infon>
+        <location offset="4476" length="5"/>
+        <text>CAL12</text>
+      </annotation>
+      <annotation id="247">
+        <infon key="type">Disease</infon>
+        <location offset="4483" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="248">
+        <infon key="type">Gene</infon>
+        <location offset="4488" length="6"/>
+        <text>CAL-12</text>
+      </annotation>
+      <annotation id="249">
+        <infon key="type">Disease</infon>
+        <location offset="4498" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="250">
+        <infon key="type">Mutation</infon>
+        <location offset="4545" length="7"/>
+        <text>G466V N</text>
+      </annotation>
+      <annotation id="251">
+        <infon key="type">Disease</infon>
+        <location offset="4553" length="8"/>
+        <text>NCIH3255</text>
+      </annotation>
+      <annotation id="252">
+        <infon key="type">Disease</infon>
+        <location offset="4562" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="253">
+        <infon key="type">Species</infon>
+        <location offset="4567" length="9"/>
+        <text>NCI-H3255</text>
+      </annotation>
+      <annotation id="254">
+        <infon key="type">Disease</infon>
+        <location offset="4579" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="255">
+        <infon key="type">Mutation</infon>
+        <location offset="4624" length="30"/>
+        <text>L858R N HCC4006_LUNG HCC4006 M</text>
+      </annotation>
+      <annotation id="256">
+        <infon key="type">Disease</infon>
+        <location offset="4655" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="257">
+        <infon key="type">Mutation</infon>
+        <location offset="4692" length="11"/>
+        <text>ELR746del N</text>
+      </annotation>
+      <annotation id="258">
+        <infon key="type">CellLine</infon>
+        <location offset="4704" length="10"/>
+        <text>SKLU1_LUNG</text>
+      </annotation>
+      <annotation id="259">
+        <infon key="type">CellLine</infon>
+        <location offset="4715" length="9"/>
+        <text>SK-LU-1 F</text>
+      </annotation>
+      <annotation id="260">
+        <infon key="type">Disease</infon>
+        <location offset="4725" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="261">
+        <infon key="type">Disease</infon>
+        <location offset="4769" length="8"/>
+        <text>NCIH1650</text>
+      </annotation>
+      <annotation id="262">
+        <infon key="type">Disease</infon>
+        <location offset="4778" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="263">
+        <infon key="type">Disease</infon>
+        <location offset="4783" length="9"/>
+        <text>NCI-H1650</text>
+      </annotation>
+      <annotation id="264">
+        <infon key="type">Disease</infon>
+        <location offset="4795" length="48"/>
+        <text>lung carcinoma bronchioloalveolar_adenocarcinoma</text>
+      </annotation>
+      <annotation id="265">
+        <infon key="type">Mutation</infon>
+        <location offset="4851" length="13"/>
+        <text>ELREA746del N</text>
+      </annotation>
+      <annotation id="266">
+        <infon key="type">Mutation</infon>
+        <location offset="4865" length="20"/>
+        <text>HCC827_LUNG HCC827 F</text>
+      </annotation>
+      <annotation id="267">
+        <infon key="type">Disease</infon>
+        <location offset="4886" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="268">
+        <infon key="type">Mutation</infon>
+        <location offset="4923" length="13"/>
+        <text>ELREA746del N</text>
+      </annotation>
+      <annotation id="269">
+        <infon key="type">Mutation</infon>
+        <location offset="4937" length="19"/>
+        <text>HCC44_LUNG HCC-44 F</text>
+      </annotation>
+      <annotation id="270">
+        <infon key="type">Disease</infon>
+        <location offset="4957" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="271">
+        <infon key="type">Disease</infon>
+        <location offset="5001" length="8"/>
+        <text>NCIH1975</text>
+      </annotation>
+      <annotation id="272">
+        <infon key="type">Disease</infon>
+        <location offset="5010" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="273">
+        <infon key="type">Disease</infon>
+        <location offset="5015" length="11"/>
+        <text>NCI-H1975 F</text>
+      </annotation>
+      <annotation id="274">
+        <infon key="type">Disease</infon>
+        <location offset="5027" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="275">
+        <infon key="type">Mutation</infon>
+        <location offset="5074" length="5"/>
+        <text>T790M</text>
+      </annotation>
+      <annotation id="276">
+        <infon key="type">Mutation</infon>
+        <location offset="5083" length="7"/>
+        <text>L858R p</text>
+      </annotation>
+      <annotation id="277">
+        <infon key="type">Mutation</infon>
+        <location offset="5091" length="5"/>
+        <text>G118D</text>
+      </annotation>
+      <annotation id="278">
+        <infon key="type">Disease</infon>
+        <location offset="5099" length="7"/>
+        <text>NCIH650</text>
+      </annotation>
+      <annotation id="279">
+        <infon key="type">Disease</infon>
+        <location offset="5107" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="280">
+        <infon key="type">Disease</infon>
+        <location offset="5112" length="8"/>
+        <text>NCI-H650</text>
+      </annotation>
+      <annotation id="281">
+        <infon key="type">Disease</infon>
+        <location offset="5123" length="48"/>
+        <text>lung carcinoma bronchioloalveolar_adenocarcinoma</text>
+      </annotation>
+      <annotation id="282">
+        <infon key="type">Mutation</infon>
+        <location offset="5179" length="4"/>
+        <text>Q61L</text>
+      </annotation>
+      <annotation id="283">
+        <infon key="type">CellLine</infon>
+        <location offset="5186" length="9"/>
+        <text>HLC1_LUNG</text>
+      </annotation>
+      <annotation id="284">
+        <infon key="type">Disease</infon>
+        <location offset="5196" length="35"/>
+        <text>HLC-1 lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="285">
+        <infon key="type">CellLine</infon>
+        <location offset="5232" length="5"/>
+        <text>RIKEN</text>
+      </annotation>
+      <annotation id="286">
+        <infon key="type">Mutation</infon>
+        <location offset="5240" length="4"/>
+        <text>G12V</text>
+      </annotation>
+      <annotation id="287">
+        <infon key="type">Disease</infon>
+        <location offset="5247" length="8"/>
+        <text>NCIH1437</text>
+      </annotation>
+      <annotation id="288">
+        <infon key="type">Disease</infon>
+        <location offset="5256" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="289">
+        <infon key="type">Disease</infon>
+        <location offset="5261" length="9"/>
+        <text>NCI-H1437</text>
+      </annotation>
+      <annotation id="290">
+        <infon key="type">Disease</infon>
+        <location offset="5273" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="291">
+        <infon key="type">Mutation</infon>
+        <location offset="5310" length="6"/>
+        <text>Q56P N</text>
+      </annotation>
+      <annotation id="292">
+        <infon key="type">CellLine</infon>
+        <location offset="5317" length="4"/>
+        <text>A549</text>
+      </annotation>
+      <annotation id="293">
+        <infon key="type">CellLine</infon>
+        <location offset="5322" length="9"/>
+        <text>LUNG A549</text>
+      </annotation>
+      <annotation id="294">
+        <infon key="type">Disease</infon>
+        <location offset="5334" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="295">
+        <infon key="type">Disease</infon>
+        <location offset="5388" length="8"/>
+        <text>NCIH2291</text>
+      </annotation>
+      <annotation id="296">
+        <infon key="type">Disease</infon>
+        <location offset="5397" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="297">
+        <infon key="type">Disease</infon>
+        <location offset="5402" length="9"/>
+        <text>NCI-H2291</text>
+      </annotation>
+      <annotation id="298">
+        <infon key="type">Disease</infon>
+        <location offset="5414" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="299">
+        <infon key="type">Mutation</infon>
+        <location offset="5451" length="4"/>
+        <text>G12F</text>
+      </annotation>
+      <annotation id="300">
+        <infon key="type">Mutation</infon>
+        <location offset="5458" length="5"/>
+        <text>V592F</text>
+      </annotation>
+      <annotation id="301">
+        <infon key="type">Species</infon>
+        <location offset="5466" length="28"/>
+        <text>RERFLCAD1_LUNG RERF-LC-Ad1 M</text>
+      </annotation>
+      <annotation id="302">
+        <infon key="type">Disease</infon>
+        <location offset="5495" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="303">
+        <infon key="type">Gene</infon>
+        <location offset="5525" length="5"/>
+        <text>HSRRB</text>
+      </annotation>
+      <annotation id="304">
+        <infon key="type">Mutation</infon>
+        <location offset="5533" length="6"/>
+        <text>G12A p</text>
+      </annotation>
+      <annotation id="305">
+        <infon key="type">CellLine</infon>
+        <location offset="5540" length="5"/>
+        <text>R435S</text>
+      </annotation>
+      <annotation id="306">
+        <infon key="type">Disease</infon>
+        <location offset="5548" length="8"/>
+        <text>NCIH1299</text>
+      </annotation>
+      <annotation id="307">
+        <infon key="type">Disease</infon>
+        <location offset="5557" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="308">
+        <infon key="type">CellLine</infon>
+        <location offset="5562" length="9"/>
+        <text>NCI-H1299</text>
+      </annotation>
+      <annotation id="309">
+        <infon key="type">Disease</infon>
+        <location offset="5574" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="310">
+        <infon key="type">Mutation</infon>
+        <location offset="5621" length="6"/>
+        <text>Q61K N</text>
+      </annotation>
+      <annotation id="311">
+        <infon key="type">Gene</infon>
+        <location offset="5628" length="4"/>
+        <text>LU65</text>
+      </annotation>
+      <annotation id="312">
+        <infon key="type">Mutation</infon>
+        <location offset="5633" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="313">
+        <infon key="type">Gene</infon>
+        <location offset="5638" length="6"/>
+        <text>LU65 M</text>
+      </annotation>
+      <annotation id="314">
+        <infon key="type">Disease</infon>
+        <location offset="5645" length="39"/>
+        <text>lung carcinoma non_small_cell_carcinoma</text>
+      </annotation>
+      <annotation id="315">
+        <infon key="type">Gene</infon>
+        <location offset="5685" length="5"/>
+        <text>HSRRB</text>
+      </annotation>
+      <annotation id="316">
+        <infon key="type">Disease</infon>
+        <location offset="5708" length="4"/>
+        <text>LUNG</text>
+      </annotation>
+      <annotation id="317">
+        <infon key="type">Disease</infon>
+        <location offset="5713" length="38"/>
+        <text>NCI-H854 lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="318">
+        <infon key="type">Gene</infon>
+        <location offset="5752" length="4"/>
+        <text>KCLB</text>
+      </annotation>
+      <annotation id="319">
+        <infon key="type">Mutation</infon>
+        <location offset="5759" length="31"/>
+        <text>V600E N HCC2279_LUNG HCC-2279 F</text>
+      </annotation>
+      <annotation id="320">
+        <infon key="type">Disease</infon>
+        <location offset="5791" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="321">
+        <infon key="type">Gene</infon>
+        <location offset="5821" length="4"/>
+        <text>KCLB</text>
+      </annotation>
+      <annotation id="322">
+        <infon key="type">Mutation</infon>
+        <location offset="5828" length="13"/>
+        <text>ELREA746del N</text>
+      </annotation>
+      <annotation id="323">
+        <infon key="type">Mutation</infon>
+        <location offset="5842" length="17"/>
+        <text>DV90_LUNG DV-90 M</text>
+      </annotation>
+      <annotation id="324">
+        <infon key="type">Disease</infon>
+        <location offset="5860" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="325">
+        <infon key="type">Mutation</infon>
+        <location offset="5897" length="6"/>
+        <text>G13D p</text>
+      </annotation>
+      <annotation id="326">
+        <infon key="type">Mutation</infon>
+        <location offset="5904" length="7"/>
+        <text>V842I N</text>
+      </annotation>
+      <annotation id="327">
+        <infon key="type">Species</infon>
+        <location offset="5912" length="28"/>
+        <text>RERFLCAD2_LUNG RERF-LC-Ad2 M</text>
+      </annotation>
+      <annotation id="328">
+        <infon key="type">Disease</infon>
+        <location offset="5941" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="329">
+        <infon key="type">Gene</infon>
+        <location offset="5971" length="5"/>
+        <text>HSRRB</text>
+      </annotation>
+      <annotation id="330">
+        <infon key="type">Mutation</infon>
+        <location offset="5979" length="4"/>
+        <text>G12V</text>
+      </annotation>
+      <annotation id="331">
+        <infon key="type">Species</infon>
+        <location offset="5986" length="25"/>
+        <text>NCIH1395_LUNG NCI-H1395 F</text>
+      </annotation>
+      <annotation id="332">
+        <infon key="type">Disease</infon>
+        <location offset="6012" length="29"/>
+        <text>lung carcinoma adenocarcinoma</text>
+      </annotation>
+      <annotation id="333">
+        <infon key="type">Mutation</infon>
+        <location offset="6049" length="7"/>
+        <text>G469A N</text>
+      </annotation>
     </passage>
   </document>
 </collection>
