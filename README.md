@@ -31,8 +31,9 @@ The following tools are used, roughly in pipeline order:
 ## Table of contents
 
 1. [Quick start](#quick-start)
-2. [Directory structure](#directory-structure)
-3. [Running the pipeline](#running-the-pipeline)
+2. [Automated monitoring service](#automated-monitoring-service)
+3. [Directory structure](#directory-structure)
+4. [Running the pipeline](#running-the-pipeline)
    - [Basic usage](#basic-usage)
    - [Supplementary files](#supplementary-files)
    - [All options](#all-options)
@@ -127,6 +128,105 @@ Stopping vs. deleting is worthwhile if you plan to resume within ~30 days.
 
 ---
 
+## Automated monitoring service
+
+The VM runs a systemd service (`civic-pubtator-monitor`) that continuously polls
+the GCS bucket for new publications and processes them automatically. This lets
+you upload source PDFs to GCS, turn the VM on, and come back to find completed
+annotation reports — without manually running the pipeline.
+
+### How it works
+
+The monitor (`src/automation/monitor_pub_bucket.py`) loops on a 10-minute poll
+cycle:
+
+1. **Remediation** — fixes any structural issues in the bucket (stray PDFs or
+   `s/` directories that weren't placed inside `01_source/`, stale `.DS_Store`
+   files).
+2. **Detection** — lists all publication directories in the bucket and identifies
+   any that are missing expected output files (report HTML, pipeline stats, etc.).
+3. **Processing** — for each unprocessed publication, downloads the source files
+   to `/data/pub-data/`, runs `civic-pubtator`, and uploads the results back to
+   GCS.
+4. **Summary** — regenerates the corpus-wide summary report and, if the results
+   repo is configured, commits and pushes the updated summary to
+   `git@github.com:griffithlab/civic-pubtator-data.git`.
+
+Publications that fail are recorded in `/data/pub-data/.monitor_failures.json`
+and skipped on subsequent cycles. Remove a publication's entry from that file to
+allow a retry.
+
+### Setup
+
+The service is installed and enabled automatically by `gcp_server_startup.py`
+on first boot — no manual setup is required. The results data repo
+(`/data/civic-pubtator-data`) is cloned during first-login user setup via
+`user_environment_config.py` (Step 4), which prompts for the clone URL.
+
+### Controlling the service
+
+```bash
+# Check current status and recent log lines
+sudo systemctl status civic-pubtator-monitor
+
+# Stop the service (e.g. to run the pipeline manually without interference)
+sudo systemctl stop civic-pubtator-monitor
+
+# Start it again
+sudo systemctl start civic-pubtator-monitor
+
+# Disable auto-start on boot (stays stopped across reboots)
+sudo systemctl disable civic-pubtator-monitor
+
+# Re-enable auto-start on boot
+sudo systemctl enable civic-pubtator-monitor
+```
+
+### Viewing logs
+
+All output from the monitor is written to `/data/pub-data/monitor.log`:
+
+```bash
+# Follow live output
+tail -f /data/pub-data/monitor.log
+
+# Show the last 100 lines
+tail -100 /data/pub-data/monitor.log
+```
+
+Per-publication pipeline output (stdout/stderr from each `civic-pubtator` run)
+is captured separately in `/data/pub-data/<pubid>/pipeline_stats.log`.
+
+### Failure registry
+
+When a publication fails, the monitor records it so it is not retried
+automatically on every cycle:
+
+```bash
+# View all recorded failures
+cat /data/pub-data/.monitor_failures.json
+
+# Allow a specific publication to be retried (remove its entry)
+# Edit the file and delete the entry for the pubid, then save.
+```
+
+### Manual rerun
+
+To reprocess already-completed publications (e.g. after a pipeline update):
+
+```bash
+# Rerun all publications
+python3 src/automation/monitor_pub_bucket.py --rerun
+
+# Rerun specific publications
+python3 src/automation/monitor_pub_bucket.py --rerun --pubids 28783719 32152447
+```
+
+`--rerun` processes the publications and exits; it does not enter the continuous
+polling loop.
+
+---
+
 ## Directory structure
 
 The pipeline expects and produces a fixed layout inside each run directory:
@@ -204,6 +304,7 @@ usage: civic_pubtator.py [-h] [--clean] [--no-clear-intermediates]
 | `--memory SIZE` | `32G` | Java max heap for GNorm2 and tmVar3; initial heap is set to half this value |
 | `--gnorm2-python PATH_OR_ENV` | `gnorm2-tf215` conda env | Python interpreter or conda env name for the GNorm2 ML step |
 | `--aioner-python PATH_OR_ENV` | `aioner-tf23` conda env | Python interpreter or conda env name for AIONER |
+| `--pymupdf-threshold FRAC` | `0.66` | For supplementary PDFs, fall back to PyMuPDF when GROBID captures less than this fraction of PyMuPDF word count (`0.0` = always GROBID, `1.0` = always PyMuPDF) |
 | `--taggerone-model PATH` | `tools/TaggerOne/output/model_DISE.bin` | Path to a trained TaggerOne model; set to empty string to skip TaggerOne |
 | `--nlmchem-python PATH_OR_ENV` | `nlmchem-py39` conda env | Python interpreter or conda env name for NLMChem |
 

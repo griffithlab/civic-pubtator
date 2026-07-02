@@ -16,8 +16,10 @@ import pwd
 import subprocess
 import sys
 
-REPO_DIR = '/opt/civic-pubtator'
-DATA_DIR = '/data'
+REPO_DIR         = '/opt/civic-pubtator'
+DATA_DIR         = '/data'
+RESULTS_REPO_DIR = '/data/civic-pubtator-data'
+RESULTS_REPO_URL = 'git@github.com:griffithlab/civic-pubtator-data.git'
 
 
 def run(cmd, check=True, **kwargs):
@@ -173,10 +175,40 @@ def setup_github_ssh():
         print("    ssh -T git@github.com")
 
 
-# ── Step 4: Claude Code ───────────────────────────────────────────────────────
+# ── Step 4: Results data repo ─────────────────────────────────────────────────
+
+def setup_results_repo():
+    section("Step 4: Set up corpus results data repo")
+
+    print(f"  The monitor service commits corpus summary results to a private git repo")
+    print(f"  at {RESULTS_REPO_DIR}.  This step clones it (or pulls if already present).")
+    print(f"  Your GitHub SSH key (set up in Step 3) is used for authentication.")
+
+    if os.path.isdir(os.path.join(RESULTS_REPO_DIR, '.git')):
+        print(f"\n  Repo already cloned at {RESULTS_REPO_DIR} — pulling latest ...")
+        run(["git", "-C", RESULTS_REPO_DIR, "pull", "--ff-only"], check=False)
+        print(f"  OK  {RESULTS_REPO_DIR} is up to date")
+        return
+
+    print(f"\n  {RESULTS_REPO_DIR} not found.")
+    clone_url = prompt(
+        "SSH clone URL for the results repo (enter '-' to skip)",
+        default=RESULTS_REPO_URL,
+    )
+    if not clone_url or clone_url == '-':
+        print("  Skipped.  The monitor service will run without committing results.")
+        print(f"  Clone it later with:  git clone <url> {RESULTS_REPO_DIR}")
+        return
+
+    os.makedirs(RESULTS_REPO_DIR, exist_ok=True)
+    run(["git", "clone", clone_url, RESULTS_REPO_DIR])
+    print(f"  OK  cloned to {RESULTS_REPO_DIR}")
+
+
+# ── Step 5: Claude Code ───────────────────────────────────────────────────────
 
 def install_claude_code():
-    section("Step 4: Install Claude Code")
+    section("Step 5: Install Claude Code")
 
     local_bin = os.path.expanduser("~/.local/bin")
     claude_bin = os.path.join(local_bin, "claude")
@@ -214,6 +246,7 @@ def main():
     fix_ownership()
     configure_git()
     setup_github_ssh()
+    setup_results_repo()
     install_claude_code()
 
     print(f"""

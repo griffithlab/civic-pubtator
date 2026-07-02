@@ -329,6 +329,50 @@ def install_grobid():
         f'./gradlew clean install -x test --no-daemon -q')
 
 
+@step('install_monitor_service')
+def install_monitor_service():
+    """Install the civic-pubtator-monitor as a systemd service that starts on boot.
+
+    The monitor polls the GCS bucket for new publications and runs the pipeline
+    on any that have not yet been processed.  It depends on GROBID being up, so
+    Wants/After=grobid.service ensures both start together and in the right order.
+    """
+    unit = f"""\
+[Unit]
+Description=civic-pubtator GCS bucket monitor
+Documentation=https://github.com/griffithlab/civic-pubtator
+After=network-online.target grobid.service
+Wants=network-online.target grobid.service
+
+[Service]
+Type=simple
+User=mgriffit
+Group=mgriffit
+WorkingDirectory={REPO_DIR}
+
+Environment=PATH={CONDA_PREFIX}/bin:{CONDA_PREFIX}/condabin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
+Environment=HOME=/home/mgriffit
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart={CONDA_PREFIX}/bin/python3 {REPO_DIR}/src/automation/monitor_pub_bucket.py \\
+    --results-repo /data/civic-pubtator-data/
+
+StandardOutput=append:{PUB_DIR}/monitor.log
+StandardError=append:{PUB_DIR}/monitor.log
+
+Restart=on-failure
+RestartSec=300
+
+[Install]
+WantedBy=multi-user.target
+"""
+    unit_path = '/etc/systemd/system/civic-pubtator-monitor.service'
+    with open(unit_path, 'w') as f:
+        f.write(unit)
+    run('systemctl daemon-reload')
+    run('systemctl enable civic-pubtator-monitor')
+
+
 @step('install_grobid_service')
 def install_grobid_service():
     """Install GROBID as a systemd service that starts on boot.
@@ -544,6 +588,7 @@ def main():
     install_civic_pubtator_bin()
     install_grobid()
     install_grobid_service()
+    install_monitor_service()
     sync_tool_data()
     install_ncbitextlib()  # source arrives from GCS via sync_tool_data
     install_ab3p()         # same
@@ -555,6 +600,11 @@ def main():
     setup_conda_aioner_gpu()
     setup_conda_nlmchem()
     add_aliases()
+
+    # Start the monitor service now that all setup is complete.  On subsequent
+    # boots the service is already running (enabled via systemd), so this is a
+    # no-op; on first boot it kicks off the polling loop immediately.
+    run('systemctl start civic-pubtator-monitor', check=False)
 
     log('=== startup complete ===')
     log('Next steps:')

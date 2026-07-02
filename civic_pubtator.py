@@ -582,7 +582,7 @@ def run_grobid_for_group(label, pdf_dir, grobid_out, args, log_path, tsv_path, b
     log_group_header(log_path, label, pdf_dir)
     grobid_cmd = [sys.executable, os.path.join(STEPS_DIR, "pdf_to_bioc.py"), pdf_dir, grobid_out]
     if supplementary:
-        grobid_cmd.append("--supplementary")
+        grobid_cmd += ["--supplementary", "--pymupdf-threshold", str(args.pymupdf_threshold)]
     t0 = time.time()
     run(f"GROBID  [{label}]", grobid_cmd)
     source_wc = collect_source_word_counts(pdf_dir)
@@ -1234,6 +1234,10 @@ def main():
                              "Examples: "
                              "--nlmchem-python nlmchem-py39  (conda env name) or "
                              "--nlmchem-python /path/to/envs/nlmchem-py39/bin/python3")
+    parser.add_argument("--pymupdf-threshold", type=float, default=0.66, metavar="FRAC",
+                        help="For supplementary PDFs, fall back to PyMuPDF extraction when "
+                             "GROBID captures less than this fraction of PyMuPDF word count "
+                             "(0.0 = always use GROBID, 1.0 = always use PyMuPDF; default: 0.66)")
     parser.add_argument("--quiet-tf", action="store_true",
                         help="Suppress TensorFlow and HuggingFace Transformers "
                              "informational messages (sets TF_CPP_MIN_LOG_LEVEL=3, "

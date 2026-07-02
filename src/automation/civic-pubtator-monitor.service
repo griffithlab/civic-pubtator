@@ -1,0 +1,27 @@
+[Unit]
+Description=civic-pubtator GCS bucket monitor
+Documentation=https://github.com/griffithlab/civic-pubtator
+After=network-online.target grobid.service
+Wants=network-online.target grobid.service
+
+[Service]
+Type=simple
+User=mgriffit
+Group=mgriffit
+WorkingDirectory=/opt/civic-pubtator
+
+Environment=PATH=/opt/conda/bin:/opt/conda/condabin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
+Environment=HOME=/home/mgriffit
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart=/opt/conda/bin/python3 /opt/civic-pubtator/src/automation/monitor_pub_bucket.py \
+    --results-repo /data/civic-pubtator-data/
+
+StandardOutput=append:/data/pub-data/monitor.log
+StandardError=append:/data/pub-data/monitor.log
+
+Restart=on-failure
+RestartSec=300
+
+[Install]
+WantedBy=multi-user.target

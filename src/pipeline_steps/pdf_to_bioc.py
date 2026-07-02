@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, hashlib, json, os, sys, requests
+import argparse, hashlib, json, os, sys, requests, unicodedata
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape
 
@@ -26,7 +26,12 @@ def extract_with_grobid(pdf_path):
     return resp.text
 
 def clean_text(text):
-    return "".join(c for c in text if c.isprintable() or c in "\t\n\r")
+    # NFKC normalization first (e.g. µ → μ, ligatures → ascii equivalents)
+    text = unicodedata.normalize('NFKC', text)
+    # Replace non-ASCII characters with a space — GNorm2's Stanza tokenizer
+    # can produce malformed token output for certain Unicode symbols (§, †, –, etc.)
+    # and GROBID's own extraction produces ASCII-only output anyway.
+    return "".join(c if ord(c) < 128 and (c.isprintable() or c in "\t\n\r") else ' ' for c in text)
 
 def tei_to_sections(tei_xml):
     """Extract title, abstract, body from a structured scientific article."""
@@ -164,7 +169,7 @@ def write_bioc_xml(doc_id, passages, out_path):
         f.write('</document>\n')
         f.write('</collection>\n')
 
-def process_folder(input_dir, output_dir, supplementary=False):
+def process_folder(input_dir, output_dir, supplementary=False, pymupdf_threshold=0.66):
     os.makedirs(output_dir, exist_ok=True)
     # Used to derive fallback title for supplementary files
     parent_dir_name = os.path.basename(os.path.abspath(input_dir))
@@ -185,12 +190,20 @@ def process_folder(input_dir, output_dir, supplementary=False):
                 grobid_title, body = tei_to_sections_supp(tei_xml)
                 extraction_method = "grobid"
 
-                # Fall back to PyMuPDF if GROBID returned no body text
-                if not body:
-                    body = extract_text_pymupdf(pdf_path)
-                    if body:
-                        extraction_method = "pymupdf"
+                # For supplementary files, fall back to PyMuPDF if GROBID
+                # captures less than pymupdf_threshold of what PyMuPDF extracts.
+                pymupdf_text  = extract_text_pymupdf(pdf_path)
+                pymupdf_words = len(pymupdf_text.split()) if pymupdf_text else 0
+                grobid_words  = len(body.split()) if body else 0
+
+                if pymupdf_words > 0 and grobid_words < pymupdf_threshold * pymupdf_words:
+                    body = pymupdf_text
+                    extraction_method = "pymupdf"
+                    if grobid_words == 0:
                         print(f"  (GROBID returned no body; used PyMuPDF fallback)")
+                    else:
+                        pct = grobid_words / pymupdf_words * 100
+                        print(f"  (GROBID captured only {pct:.0f}% of PyMuPDF words; used PyMuPDF fallback)")
 
                 # Use GROBID title if it looks reasonable, else derive from path
                 if grobid_title and len(grobid_title) <= 200:
@@ -229,11 +242,15 @@ def main():
     parser.add_argument("--supplementary", action="store_true",
                         help="Supplementary mode: treat all content as body, "
                              "derive title from path context rather than article structure")
+    parser.add_argument("--pymupdf-threshold", type=float, default=0.66, metavar="FRAC",
+                        help="Fall back to PyMuPDF when GROBID captures less than this "
+                             "fraction of PyMuPDF word count (supplementary only, default: 0.66)")
     args = parser.parse_args()
 
     check_grobid()
     process_folder(os.path.abspath(args.input_dir), os.path.abspath(args.output_dir),
-                   supplementary=args.supplementary)
+                   supplementary=args.supplementary,
+                   pymupdf_threshold=args.pymupdf_threshold)
 
 if __name__ == "__main__":
     main()

@@ -16,12 +16,12 @@ def ml_intext(file):
 
     for sents in alltexts:
         lines=sents.split('\n')
-        temp_sentece=[]
+        temp_sentence=[]
         for i in range(0,len(lines)):
             seg=lines[i].split('\t')
-            temp_sentece.append(seg[:])
+            temp_sentence.append(seg[:])
         
-        data_list.append(temp_sentece)
+        data_list.append(temp_sentence)
     #print(data_list)
     #print(label_list)
     return data_list
@@ -34,12 +34,15 @@ def ml_intext_fn(ml_input):
 
     for sents in alltexts:
         lines=sents.split('\n')
-        temp_sentece=[]
+        temp_sentence=[]
         for i in range(0,len(lines)):
             seg=lines[i].split('\t')
-            temp_sentece.append(seg[:])
-        
-        data_list.append(temp_sentece)
+            # Skip lines without a tab (empty lines from max_len/sentence boundary overlap)
+            if len(seg) >= 2:
+                temp_sentence.append(seg[:])
+
+        if temp_sentence:
+            data_list.append(temp_sentence)
     #print(data_list)
     #print(label_list)
     return data_list
