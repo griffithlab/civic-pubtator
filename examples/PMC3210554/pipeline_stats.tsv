@@ -1,48 +1,47 @@
 step	step_name	label	chars	words	runtime	input_name	output_file
-1	GROBID	main	26890	4142	3s	nihms313098	02_grobid/nihms313098.xml
-1	GROBID	s/NIHMS313098-supplement-1	21119	3289	2s	NIHMS313098-supplement-1	02_grobid/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
-1	GROBID	s/NIHMS313098-supplement-10/tab_01	1537	164	1s	NIHMS313098-supplement-10	02_grobid/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
-1	GROBID	s/NIHMS313098-supplement-2	18666	3035	2s	NIHMS313098-supplement-2	02_grobid/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
-1	GROBID	s/NIHMS313098-supplement-3/tab_01	1729	267	1s	NIHMS313098-supplement-3	02_grobid/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
-1	GROBID	s/NIHMS313098-supplement-4/tab_01	1188	150	1s	NIHMS313098-supplement-4	02_grobid/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
-1	GROBID	s/NIHMS313098-supplement-7/tab_01	4813	553	1s	NIHMS313098-supplement-7	02_grobid/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
-1	GROBID	s/NIHMS313098-supplement-9/tab_01	7019	897	1s	NIHMS313098-supplement-9	02_grobid/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
-2	GNorm2	main	56854	5285	1m 33s	nihms313098	03_gnorm2/nihms313098.xml
-2	GNorm2	s/NIHMS313098-supplement-1	26052	3462	1s	NIHMS313098-supplement-1	03_gnorm2/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
-2	GNorm2	s/NIHMS313098-supplement-10/tab_01	4094	253	1s	NIHMS313098-supplement-10	03_gnorm2/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
-2	GNorm2	s/NIHMS313098-supplement-2	47719	4158	1s	NIHMS313098-supplement-2	03_gnorm2/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
-2	GNorm2	s/NIHMS313098-supplement-3/tab_01	5282	392	1s	NIHMS313098-supplement-3	03_gnorm2/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
-2	GNorm2	s/NIHMS313098-supplement-4/tab_01	1583	149	0s	NIHMS313098-supplement-4	03_gnorm2/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
-2	GNorm2	s/NIHMS313098-supplement-7/tab_01	15766	972	1s	NIHMS313098-supplement-7	03_gnorm2/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
-2	GNorm2	s/NIHMS313098-supplement-9/tab_01	7435	902	1s	NIHMS313098-supplement-9	03_gnorm2/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
-3	tmVar3	main	58704	5331	42s	nihms313098.xml.BioC	04_tmvar3/nihms313098.xml.BioC.XML
-3	tmVar3	s/NIHMS313098-supplement-1	26257	3467	5s	NIHMS313098-supplement-1.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml.BioC.XML
-3	tmVar3	s/NIHMS313098-supplement-10/tab_01	18471	588	1m 3s	NIHMS313098-supplement-10.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml.BioC.XML
-3	tmVar3	s/NIHMS313098-supplement-2	111522	5663	8m 36s	NIHMS313098-supplement-2.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml.BioC.XML
-3	tmVar3	s/NIHMS313098-supplement-3/tab_01	5492	398	1s	NIHMS313098-supplement-3.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml.BioC.XML
-3	tmVar3	s/NIHMS313098-supplement-4/tab_01	2372	165	4s	NIHMS313098-supplement-4.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml.BioC.XML
-4	AIONER	main	85472	7467	15s	nihms313098	05_aioner/nihms313098.xml
-4	AIONER	s/NIHMS313098-supplement-1	38376	4276	1s	NIHMS313098-supplement-1	05_aioner/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
-4	AIONER	s/NIHMS313098-supplement-10/tab_01	9136	594	0s	NIHMS313098-supplement-10	05_aioner/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
-4	AIONER	s/NIHMS313098-supplement-2	100275	7732	0s	NIHMS313098-supplement-2	05_aioner/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
-4	AIONER	s/NIHMS313098-supplement-3/tab_01	12736	887	0s	NIHMS313098-supplement-3	05_aioner/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
-4	AIONER	s/NIHMS313098-supplement-4/tab_01	2304	210	0s	NIHMS313098-supplement-4	05_aioner/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
-4	AIONER	s/NIHMS313098-supplement-7/tab_01	36253	2305	0s	NIHMS313098-supplement-7	05_aioner/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
-4	AIONER	s/NIHMS313098-supplement-9/tab_01	12633	1214	0s	NIHMS313098-supplement-9	05_aioner/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
-5	NLMChem	main	27994	4196	0s	nihms313098	06_nlmchem/nihms313098.xml
-5	NLMChem	s/NIHMS313098-supplement-1	21129	3286	0s	NIHMS313098-supplement-1	06_nlmchem/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
-5	NLMChem	s/NIHMS313098-supplement-10/tab_01	1547	161	0s	NIHMS313098-supplement-10	06_nlmchem/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
-5	NLMChem	s/NIHMS313098-supplement-2	20537	3137	0s	NIHMS313098-supplement-2	06_nlmchem/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
-5	NLMChem	s/NIHMS313098-supplement-3/tab_01	4765	429	0s	NIHMS313098-supplement-3	06_nlmchem/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
-5	NLMChem	s/NIHMS313098-supplement-4/tab_01	1198	147	5m 55s	NIHMS313098-supplement-4	06_nlmchem/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
-5	NLMChem	s/NIHMS313098-supplement-7/tab_01	4823	550	0s	NIHMS313098-supplement-7	06_nlmchem/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
-5	NLMChem	s/NIHMS313098-supplement-9/tab_01	7644	927	0s	NIHMS313098-supplement-9	06_nlmchem/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
-6	TaggerOne	main	43489	4638	9s	nihms313098	07_taggerone/nihms313098.xml
-6	TaggerOne	s/NIHMS313098-supplement-1	21716	3291	6s	NIHMS313098-supplement-1	07_taggerone/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
-6	TaggerOne	s/NIHMS313098-supplement-10/tab_01	1419	145	6s	NIHMS313098-supplement-10	07_taggerone/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
-6	TaggerOne	s/NIHMS313098-supplement-2	19085	3038	6s	NIHMS313098-supplement-2	07_taggerone/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
-6	TaggerOne	s/NIHMS313098-supplement-3/tab_01	2407	291	6s	NIHMS313098-supplement-3	07_taggerone/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
-6	TaggerOne	s/NIHMS313098-supplement-4/tab_01	1136	131	6s	NIHMS313098-supplement-4	07_taggerone/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
-6	TaggerOne	s/NIHMS313098-supplement-7/tab_01	4761	534	14s	NIHMS313098-supplement-7	07_taggerone/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
-6	TaggerOne	s/NIHMS313098-supplement-9/tab_01	7001	883	28s	NIHMS313098-supplement-9	07_taggerone/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
-TOTAL	TOTAL	all	958400	94151	19m 54s		
+1	GROBID	main	26890	4152	3s	nihms313098	02_grobid/nihms313098.xml
+1	GROBID	s/NIHMS313098-supplement-1	39944	6159	2s	NIHMS313098-supplement-1	02_grobid/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
+1	GROBID	s/NIHMS313098-supplement-10/tab_01	5779	653	1s	NIHMS313098-supplement-10	02_grobid/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
+1	GROBID	s/NIHMS313098-supplement-2	40492	6309	2s	NIHMS313098-supplement-2	02_grobid/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
+1	GROBID	s/NIHMS313098-supplement-3/tab_01	1729	266	1s	NIHMS313098-supplement-3	02_grobid/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
+1	GROBID	s/NIHMS313098-supplement-4/tab_01	11016	1326	2s	NIHMS313098-supplement-4	02_grobid/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
+1	GROBID	s/NIHMS313098-supplement-7/tab_01	4813	552	1s	NIHMS313098-supplement-7	02_grobid/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
+1	GROBID	s/NIHMS313098-supplement-9/tab_01	7019	896	1s	NIHMS313098-supplement-9	02_grobid/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
+2	GNorm2	main	56855	5295	1m 48s	nihms313098	03_gnorm2/nihms313098.xml
+2	GNorm2	s/NIHMS313098-supplement-1	52318	6620	1s	NIHMS313098-supplement-1	03_gnorm2/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
+2	GNorm2	s/NIHMS313098-supplement-10/tab_01	15390	1030	1s	NIHMS313098-supplement-10	03_gnorm2/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
+2	GNorm2	s/NIHMS313098-supplement-2	90729	8250	3s	NIHMS313098-supplement-2	03_gnorm2/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
+2	GNorm2	s/NIHMS313098-supplement-3/tab_01	5282	391	1s	NIHMS313098-supplement-3	03_gnorm2/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
+2	GNorm2	s/NIHMS313098-supplement-4/tab_01	49106	2830	2s	NIHMS313098-supplement-4	03_gnorm2/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
+2	GNorm2	s/NIHMS313098-supplement-7/tab_01	15766	971	1s	NIHMS313098-supplement-7	03_gnorm2/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
+2	GNorm2	s/NIHMS313098-supplement-9/tab_01	7435	901	1s	NIHMS313098-supplement-9	03_gnorm2/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
+3	tmVar3	main	58704	5341	41s	nihms313098.xml.BioC	04_tmvar3/nihms313098.xml.BioC.XML
+3	tmVar3	s/NIHMS313098-supplement-1	54631	6676	18s	NIHMS313098-supplement-1.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml.BioC.XML
+3	tmVar3	s/NIHMS313098-supplement-10/tab_01	84715	2715	22m 41s	NIHMS313098-supplement-10.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml.BioC.XML
+3	tmVar3	s/NIHMS313098-supplement-3/tab_01	5492	397	1s	NIHMS313098-supplement-3.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml.BioC.XML
+3	tmVar3	s/NIHMS313098-supplement-4/tab_01	117106	4123	3m 47s	NIHMS313098-supplement-4.xml.BioC	04_tmvar3/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml.BioC.XML
+4	AIONER	main	84990	7453	16s	nihms313098	05_aioner/nihms313098.xml
+4	AIONER	s/NIHMS313098-supplement-1	83461	8589	2s	NIHMS313098-supplement-1	05_aioner/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
+4	AIONER	s/NIHMS313098-supplement-10/tab_01	52289	3251	0s	NIHMS313098-supplement-10	05_aioner/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
+4	AIONER	s/NIHMS313098-supplement-2	181669	14368	2s	NIHMS313098-supplement-2	05_aioner/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
+4	AIONER	s/NIHMS313098-supplement-3/tab_01	12736	886	0s	NIHMS313098-supplement-3	05_aioner/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
+4	AIONER	s/NIHMS313098-supplement-4/tab_01	80869	5276	0s	NIHMS313098-supplement-4	05_aioner/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
+4	AIONER	s/NIHMS313098-supplement-7/tab_01	36253	2304	0s	NIHMS313098-supplement-7	05_aioner/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
+4	AIONER	s/NIHMS313098-supplement-9/tab_01	12633	1213	0s	NIHMS313098-supplement-9	05_aioner/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
+5	NLMChem	main	27560	4184	0s	nihms313098	06_nlmchem/nihms313098.xml
+5	NLMChem	s/NIHMS313098-supplement-1	51302	6747	0s	NIHMS313098-supplement-1	06_nlmchem/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
+5	NLMChem	s/NIHMS313098-supplement-10/tab_01	5789	650	0s	NIHMS313098-supplement-10	06_nlmchem/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
+5	NLMChem	s/NIHMS313098-supplement-2	45935	6592	0s	NIHMS313098-supplement-2	06_nlmchem/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
+5	NLMChem	s/NIHMS313098-supplement-3/tab_01	4765	428	0s	NIHMS313098-supplement-3	06_nlmchem/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
+5	NLMChem	s/NIHMS313098-supplement-4/tab_01	11026	1323	6m 8s	NIHMS313098-supplement-4	06_nlmchem/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
+5	NLMChem	s/NIHMS313098-supplement-7/tab_01	4823	549	0s	NIHMS313098-supplement-7	06_nlmchem/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
+5	NLMChem	s/NIHMS313098-supplement-9/tab_01	7644	926	0s	NIHMS313098-supplement-9	06_nlmchem/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
+6	TaggerOne	main	43489	4648	9s	nihms313098	07_taggerone/nihms313098.xml
+6	TaggerOne	s/NIHMS313098-supplement-1	43330	6247	9s	NIHMS313098-supplement-1	07_taggerone/s/NIHMS313098-supplement-1/NIHMS313098-supplement-1.xml
+6	TaggerOne	s/NIHMS313098-supplement-10/tab_01	5424	634	18s	NIHMS313098-supplement-10	07_taggerone/s/NIHMS313098-supplement-10/tab_01/NIHMS313098-supplement-10.xml
+6	TaggerOne	s/NIHMS313098-supplement-2	44807	6444	21s	NIHMS313098-supplement-2	07_taggerone/s/NIHMS313098-supplement-2/NIHMS313098-supplement-2.xml
+6	TaggerOne	s/NIHMS313098-supplement-3/tab_01	2407	290	7s	NIHMS313098-supplement-3	07_taggerone/s/NIHMS313098-supplement-3/tab_01/NIHMS313098-supplement-3.xml
+6	TaggerOne	s/NIHMS313098-supplement-4/tab_01	12206	1348	1m 19s	NIHMS313098-supplement-4	07_taggerone/s/NIHMS313098-supplement-4/tab_01/NIHMS313098-supplement-4.xml
+6	TaggerOne	s/NIHMS313098-supplement-7/tab_01	4761	533	16s	NIHMS313098-supplement-7	07_taggerone/s/NIHMS313098-supplement-7/tab_01/NIHMS313098-supplement-7.xml
+6	TaggerOne	s/NIHMS313098-supplement-9/tab_01	7001	882	29s	NIHMS313098-supplement-9	07_taggerone/s/NIHMS313098-supplement-9/tab_01/NIHMS313098-supplement-9.xml
+TOTAL	TOTAL	all	1618380	151618	39m 15s		
