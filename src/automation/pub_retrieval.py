@@ -97,6 +97,41 @@ def pubid_in_bucket(bucket_name, pmid):
 EUTILS_BASE  = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 ESUMMARY_URL = f"{EUTILS_BASE}/esummary.fcgi?db=pubmed&retmode=json&id={{pmid}}"
 
+# NCBI/Unpaywall/PMC endpoints occasionally hang or reset mid-response (read
+# timeouts, connection resets) with no server-side indication of a real
+# problem — retrying after a short backoff reliably succeeds.
+_URLOPEN_RETRIES = 3
+_URLOPEN_BACKOFF = 5  # seconds; doubles on each retry
+
+
+def _urlopen_with_retry(url_or_req, timeout, description):
+    """
+    Wrapper around urllib.request.urlopen() that retries transient network
+    errors (timeouts, connection resets) with exponential backoff.
+
+    Returns the response body as bytes, or raises RuntimeError after
+    exhausting retries. HTTPError is not retried (re-raised immediately)
+    since callers may need to inspect the status code (e.g. 404s).
+    """
+    last_exc = None
+    for attempt in range(1, _URLOPEN_RETRIES + 1):
+        try:
+            with urllib.request.urlopen(url_or_req, timeout=timeout) as resp:
+                return resp.read()
+        except urllib.error.HTTPError:
+            raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
+            last_exc = exc
+            if attempt < _URLOPEN_RETRIES:
+                wait = _URLOPEN_BACKOFF * (2 ** (attempt - 1))
+                print(
+                    f"  ({description}: {exc}; retrying in {wait}s "
+                    f"[attempt {attempt}/{_URLOPEN_RETRIES}])",
+                    file=sys.stderr, flush=True,
+                )
+                time.sleep(wait)
+    raise RuntimeError(f"Error {description}: {last_exc}") from last_exc
+
 
 def fetch_pubmed_summary(pmid):
     """
@@ -107,10 +142,7 @@ def fetch_pubmed_summary(pmid):
     """
     url = ESUMMARY_URL.format(pmid=pmid)
     try:
-        with urllib.request.urlopen(url, timeout=15) as resp:
-            data = json.loads(resp.read().decode())
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"Network error fetching PubMed summary: {exc}") from exc
+        data = json.loads(_urlopen_with_retry(url, 15, "fetching PubMed summary").decode())
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Could not parse PubMed response as JSON: {exc}") from exc
 
@@ -153,14 +185,11 @@ def fetch_unpaywall(doi, email):
     url = UNPAYWALL_API.format(doi=doi, email=email)
     req = urllib.request.Request(url, headers={"User-Agent": "pub_retrieval/1.0"})
     try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return json.loads(resp.read().decode())
+        return json.loads(_urlopen_with_retry(req, 15, "reaching Unpaywall").decode())
     except urllib.error.HTTPError as exc:
         if exc.code == 404:
             raise RuntimeError(f"DOI {doi!r} not found in Unpaywall database.") from exc
         raise RuntimeError(f"Unpaywall HTTP error {exc.code}: {exc.reason}") from exc
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"Network error reaching Unpaywall: {exc}") from exc
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Could not parse Unpaywall response as JSON: {exc}") from exc
 
@@ -225,9 +254,8 @@ def get_pmc_id(pmid):
     """
     url = ELINK_URL.format(pmid=pmid)
     try:
-        with urllib.request.urlopen(url, timeout=15) as resp:
-            data = json.loads(resp.read().decode())
-    except (urllib.error.URLError, json.JSONDecodeError) as exc:
+        data = json.loads(_urlopen_with_retry(url, 15, "querying PMC elink").decode())
+    except json.JSONDecodeError as exc:
         raise RuntimeError(f"Error querying PMC elink: {exc}") from exc
 
     for linkset in data.get("linksets", []):
@@ -253,11 +281,9 @@ def get_pmc_files(pmc_id):
     Raises RuntimeError on network failure.
     """
     url = EFETCH_URL.format(pmc_id=pmc_id)
-    try:
-        with urllib.request.urlopen(url, timeout=30) as resp:
-            xml = resp.read().decode("utf-8", errors="replace")
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"Error fetching PMC XML for PMC{pmc_id}: {exc}") from exc
+    xml = _urlopen_with_retry(
+        url, 30, f"fetching PMC XML for PMC{pmc_id}"
+    ).decode("utf-8", errors="replace")
 
     # Main PDF: look for <self-uri content-type="pdf" xlink:href="...">
     pdf_match = re.search(
