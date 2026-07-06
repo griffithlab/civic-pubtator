@@ -70,6 +70,29 @@ def _esc(s):
     return (s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def fmt_seconds(s):
+    """Format integer seconds as 'Xh Ym', 'Xm Ys', or 'Xs'."""
+    if s is None:
+        return "N/A"
+    s = int(round(s))
+    h, rem = divmod(s, 3600)
+    m, sec = divmod(rem, 60)
+    if h > 0:
+        return f"{h}h {m}m" if m else f"{h}h"
+    if m > 0:
+        return f"{m}m {sec}s"
+    return f"{sec}s"
+
+
+def _median(values):
+    """Median of a sorted list; returns None for empty input."""
+    if not values:
+        return None
+    n = len(values)
+    mid = n // 2
+    return values[mid] if n % 2 else (values[mid - 1] + values[mid]) // 2
+
+
 # ── GCS helpers ───────────────────────────────────────────────────────────────
 
 def gcs_list_dirs(gcs_path):
@@ -216,16 +239,20 @@ def parse_pipeline_stats(path):
 
     Columns: step, step_name, label, chars, words, runtime, input_name, output_file
     The TOTAL row (step == 'TOTAL') contains aggregate chars/words/runtime.
-    Document count = number of rows with step == '1' (GROBID, one row per document).
+    Step-1 rows are GROBID runs; label 'main' = main article, 's/…' = supplementary.
 
     Returns:
-      doc_count        int
+      doc_count        int  (main + supplementary)
+      main_doc_count   int
+      supp_doc_count   int
+      has_supplements  bool
       total_chars      int or None
       total_words      int or None
       total_runtime_s  int or None   (seconds)
       total_runtime_str str
     """
-    doc_count = 0
+    main_doc_count = 0
+    supp_doc_count = 0
     total_chars = None
     total_words = None
     total_runtime_s = None
@@ -237,7 +264,11 @@ def parse_pipeline_stats(path):
             for row in reader:
                 step = (row.get("step") or "").strip()
                 if step == "1":
-                    doc_count += 1
+                    label = (row.get("label") or "").strip()
+                    if label.startswith("s/"):
+                        supp_doc_count += 1
+                    else:
+                        main_doc_count += 1
                 elif step == "TOTAL":
                     total_chars = _int_or_na(row.get("chars", ""))
                     total_words = _int_or_na(row.get("words", ""))
@@ -248,12 +279,44 @@ def parse_pipeline_stats(path):
         log.warning("Could not read %s: %s", path, exc)
 
     return {
-        "doc_count": doc_count,
-        "total_chars": total_chars,
-        "total_words": total_words,
-        "total_runtime_s": total_runtime_s,
+        "doc_count":       main_doc_count + supp_doc_count,
+        "main_doc_count":  main_doc_count,
+        "supp_doc_count":  supp_doc_count,
+        "has_supplements": supp_doc_count > 0,
+        "total_chars":     total_chars,
+        "total_words":     total_words,
+        "total_runtime_s":   total_runtime_s,
         "total_runtime_str": total_runtime_str,
     }
+
+
+def parse_manifest(path):
+    """
+    Parse MANIFEST.txt for original supplementary file extensions.
+
+    Returns {'supp_ext_counts': {ext_lowercase: count}}.
+    Only files listed under the 'Supplementary files' section are counted.
+    """
+    supp_ext_counts = defaultdict(int)
+    in_supp = False
+    if path is None:
+        return {"supp_ext_counts": {}}
+    try:
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                stripped = line.strip()
+                if stripped.startswith("Supplementary files"):
+                    in_supp = True
+                elif stripped.startswith("===") and in_supp:
+                    break
+                elif in_supp and stripped.startswith("s/"):
+                    fname = stripped.split()[0]   # e.g. "s/Table1.docx"
+                    ext = os.path.splitext(fname)[1].lstrip(".").lower()
+                    if ext:
+                        supp_ext_counts[ext] += 1
+    except OSError:
+        pass
+    return {"supp_ext_counts": dict(supp_ext_counts)}
 
 
 # ── CIViC metadata ────────────────────────────────────────────────────────────
@@ -368,10 +431,54 @@ h1 { padding: 1.2rem 1.5rem 0.6rem; font-size: 1.35rem; color: #1a3a5c; }
 .col-search::placeholder { color: rgba(255,255,255,.55); }
 .sort-ind { margin-left: 4px; font-size: 10px; }
 .footer {
-  margin: 0.5rem 1.5rem 2rem;
+  margin: 0.5rem 1.5rem 1rem;
   font-size: 11px; color: #666; line-height: 2;
 }
 .footer a { color: #1a3a5c; }
+/* ── Corpus stats panel ─────────────────────────────────── */
+.stats-panel { margin: 0 1rem 2rem; }
+.stats-panel > h2 {
+  font-size: 1rem; color: #1a3a5c; font-weight: 600;
+  border-top: 2px solid #1a3a5c;
+  padding-top: 0.75rem; margin-bottom: 0.75rem;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.65rem; margin-bottom: 0.65rem;
+}
+.stat-card {
+  background: #fff; border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.12);
+  padding: 0.55rem 0.8rem;
+}
+.stat-card h3 {
+  font-size: 0.68rem; color: #1a3a5c; text-transform: uppercase;
+  letter-spacing: 0.06em; border-bottom: 1px solid #d0d7e0;
+  padding-bottom: 0.3rem; margin-bottom: 0.3rem;
+}
+.stat-tbl { border-collapse: collapse; width: 100%; font-size: 12px; }
+.stat-tbl td { padding: 2px 0; }
+.stat-tbl td.sn {
+  text-align: right; font-weight: 600; padding-left: 0.5rem;
+  font-variant-numeric: tabular-nums; color: #1a3a5c;
+}
+.entity-bar { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.35rem; }
+.e-chip {
+  background: #f0f4f9; border: 1px solid #c8d4e3;
+  border-radius: 5px; padding: 0.25rem 0.55rem; min-width: 90px;
+}
+.e-chip .ec-lbl {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: #666; display: block;
+}
+.e-chip .ec-n {
+  font-size: 1.25rem; font-weight: 700; color: #1a3a5c;
+  line-height: 1.2; display: block;
+}
+.e-chip.e-total { background: #1a3a5c; border-color: #1a3a5c; }
+.e-chip.e-total .ec-lbl { color: #90afc8; }
+.e-chip.e-total .ec-n  { color: #fff; }
 </style>
 """
 
@@ -433,7 +540,109 @@ _JS = """
 """
 
 
-def render_html(rows, all_categories, input_dir, output_dir, generated_at):
+def render_stats_panel(corpus_stats, all_categories):
+    """Return the corpus statistics HTML section as a string."""
+
+    def _s(n):
+        return f"{n:,}" if isinstance(n, int) else str(n)
+
+    def srow(label, val):
+        return f'<tr><td>{_esc(label)}</td><td class="sn">{_esc(_s(val))}</td></tr>'
+
+    n_pubs          = corpus_stats.get("n_pubs", 0)
+    pubs_with_supp  = corpus_stats.get("pubs_with_supp", 0)
+    pubs_main_only  = corpus_stats.get("pubs_main_only", 0)
+    total_main_docs = corpus_stats.get("total_main_docs", 0)
+    total_supp_docs = corpus_stats.get("total_supp_docs", 0)
+    total_docs      = total_main_docs + total_supp_docs
+    entity_totals   = corpus_stats.get("entity_totals", {})
+    supp_exts       = corpus_stats.get("supp_ext_counts", {})
+
+    pub_card = (
+        '<div class="stat-card">'
+        '<h3>Publications</h3>'
+        '<table class="stat-tbl">'
+        + srow("Total processed", n_pubs)
+        + srow("Main article only", pubs_main_only)
+        + srow("With supplementary", pubs_with_supp)
+        + '</table></div>'
+    )
+
+    doc_card = (
+        '<div class="stat-card">'
+        '<h3>Documents</h3>'
+        '<table class="stat-tbl">'
+        + srow("Total documents", total_docs)
+        + srow("Main articles", total_main_docs)
+        + srow("Supplementary", total_supp_docs)
+        + '</table></div>'
+    )
+
+    rt_card = (
+        '<div class="stat-card">'
+        '<h3>Pipeline Runtime</h3>'
+        '<table class="stat-tbl">'
+        + srow("Median", fmt_seconds(corpus_stats.get("median_runtime")))
+        + srow("Mean",   fmt_seconds(corpus_stats.get("mean_runtime")))
+        + srow("Total compute", fmt_seconds(corpus_stats.get("total_runtime")))
+        + srow("Fastest", fmt_seconds(corpus_stats.get("min_runtime")))
+        + srow("Slowest", fmt_seconds(corpus_stats.get("max_runtime")))
+        + '</table></div>'
+    )
+
+    if supp_exts:
+        ext_rows = "".join(
+            srow(ext.upper(), cnt)
+            for ext, cnt in sorted(supp_exts.items(), key=lambda x: -x[1])
+        )
+        supp_card = (
+            '<div class="stat-card">'
+            '<h3>Supplementary File Types</h3>'
+            '<table class="stat-tbl">' + ext_rows + '</table></div>'
+        )
+    else:
+        supp_card = (
+            '<div class="stat-card">'
+            '<h3>Supplementary File Types</h3>'
+            '<p style="font-size:11px;color:#888;margin-top:0.3rem">None</p>'
+            '</div>'
+        )
+
+    display_cats = [c for c in all_categories if c in entity_totals]
+    display_cats += sorted(c for c in entity_totals if c not in all_categories)
+    total_entities = sum(entity_totals.values())
+    chips = "".join(
+        f'<div class="e-chip">'
+        f'<span class="ec-lbl">{_esc(cat)}</span>'
+        f'<span class="ec-n">{entity_totals[cat]:,}</span>'
+        f'</div>'
+        for cat in display_cats
+    )
+    chips += (
+        f'<div class="e-chip e-total">'
+        f'<span class="ec-lbl">Total</span>'
+        f'<span class="ec-n">{total_entities:,}</span>'
+        f'</div>'
+    )
+    entity_card = (
+        '<div class="stat-card" style="margin-top:0.65rem">'
+        '<h3>Entity Annotations — all publications combined</h3>'
+        '<div class="entity-bar">' + chips + '</div>'
+        '</div>'
+    )
+
+    return (
+        '<section class="stats-panel">'
+        '<h2>Corpus Statistics</h2>'
+        '<div class="stats-grid">'
+        + pub_card + doc_card + rt_card + supp_card
+        + '</div>'
+        + entity_card
+        + '</section>'
+    )
+
+
+def render_html(rows, all_categories, input_dir, output_dir, generated_at, corpus_stats=None):
     """
     Build corpus_summary.html as a string.
 
@@ -518,6 +727,8 @@ def render_html(rows, all_categories, input_dir, output_dir, generated_at):
         f'</div>'
     )
 
+    stats_html = render_stats_panel(corpus_stats, all_categories) if corpus_stats else ""
+
     return (
         "<!DOCTYPE html>\n"
         '<html lang="en">\n'
@@ -530,6 +741,7 @@ def render_html(rows, all_categories, input_dir, output_dir, generated_at):
         "<h1>civic-pubtator — corpus summary</h1>\n"
         '<div class="wrapper">\n' + table + "\n</div>\n"
         + footer + "\n"
+        + stats_html + "\n"
         + _JS
         + "\n</body>\n</html>\n"
     )
@@ -625,6 +837,9 @@ def main():
             stats_path = get_local_file(
                 args.input_dir, pubid, "pipeline_stats.tsv", tmp_dir
             )
+            manifest_path = get_local_file(
+                args.input_dir, pubid, "MANIFEST.txt", tmp_dir
+            )
 
             if report_path is None:
                 log.warning("Skipping %s — report_%s.tsv not found", pubid, pubid)
@@ -633,23 +848,28 @@ def main():
                 log.warning("Skipping %s — pipeline_stats.tsv not found", pubid)
                 continue
 
-            report_data = parse_report_tsv(report_path)
-            stats_data  = parse_pipeline_stats(stats_path)
+            report_data   = parse_report_tsv(report_path)
+            stats_data    = parse_pipeline_stats(stats_path)
+            manifest_data = parse_manifest(manifest_path)
             all_categories_seen.update(report_data["entity_counts"].keys())
 
             title, date = lookup_civic_metadata(pubid, pmid_map, pmcid_map)
 
             pub_rows.append({
-                "pubid":            pubid,
-                "title":            title,
-                "date":             date,
-                "doc_count":        stats_data["doc_count"],
-                "total_runtime_s":  stats_data["total_runtime_s"],
+                "pubid":             pubid,
+                "title":             title,
+                "date":              date,
+                "doc_count":         stats_data["doc_count"],
+                "main_doc_count":    stats_data["main_doc_count"],
+                "supp_doc_count":    stats_data["supp_doc_count"],
+                "has_supplements":   stats_data["has_supplements"],
+                "supp_ext_counts":   manifest_data["supp_ext_counts"],
+                "total_runtime_s":   stats_data["total_runtime_s"],
                 "total_runtime_str": stats_data["total_runtime_str"],
-                "total_words":      stats_data["total_words"],
-                "total_chars":      stats_data["total_chars"],
-                "total_entities":   sum(report_data["entity_counts"].values()),
-                "entity_counts":    report_data["entity_counts"],
+                "total_words":       stats_data["total_words"],
+                "total_chars":       stats_data["total_chars"],
+                "total_entities":    sum(report_data["entity_counts"].values()),
+                "entity_counts":     report_data["entity_counts"],
             })
 
             copy_html_report(args.input_dir, pubid, args.output_dir, tmp_dir)
@@ -660,9 +880,39 @@ def main():
             c for c in all_categories_seen if c not in PREFERRED_CATEGORIES
         )
 
+        # Corpus-level aggregate statistics
+        runtimes = sorted(
+            r["total_runtime_s"] for r in pub_rows
+            if isinstance(r.get("total_runtime_s"), int)
+        )
+        all_ext_counts: dict = defaultdict(int)
+        for r in pub_rows:
+            for ext, cnt in r.get("supp_ext_counts", {}).items():
+                all_ext_counts[ext] += cnt
+        entity_totals: dict = defaultdict(int)
+        for r in pub_rows:
+            for cat, cnt in r["entity_counts"].items():
+                entity_totals[cat] += cnt
+        n_rt = len(runtimes)
+        corpus_stats = {
+            "n_pubs":          len(pub_rows),
+            "pubs_with_supp":  sum(1 for r in pub_rows if r.get("has_supplements")),
+            "pubs_main_only":  sum(1 for r in pub_rows if not r.get("has_supplements")),
+            "total_main_docs": sum(r.get("main_doc_count", 0) for r in pub_rows),
+            "total_supp_docs": sum(r.get("supp_doc_count", 0) for r in pub_rows),
+            "median_runtime":  _median(runtimes),
+            "mean_runtime":    (sum(runtimes) // n_rt) if n_rt else None,
+            "total_runtime":   sum(runtimes) if runtimes else None,
+            "min_runtime":     runtimes[0]    if runtimes else None,
+            "max_runtime":     runtimes[-1]   if runtimes else None,
+            "entity_totals":   dict(entity_totals),
+            "supp_ext_counts": dict(all_ext_counts),
+        }
+
         generated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         html = render_html(
-            pub_rows, all_categories, args.input_dir, args.output_dir, generated_at
+            pub_rows, all_categories, args.input_dir, args.output_dir, generated_at,
+            corpus_stats=corpus_stats,
         )
 
         out_path = os.path.join(args.output_dir, "corpus_summary.html")
