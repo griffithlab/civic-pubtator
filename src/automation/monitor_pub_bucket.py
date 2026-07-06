@@ -114,25 +114,43 @@ def _gcs_rm(path):
 
 # ── Bucket enumeration ────────────────────────────────────────────────────────
 
-def list_pubids(bucket):
-    """Return a sorted list of publication IDs (top-level directories) in the bucket."""
-    lines, err = _gcs_ls(f"gs://{bucket}/")
+def scan_bucket(bucket):
+    """Return a frozenset of all object paths in the bucket via one recursive ls.
+
+    Directory header lines (ending with "/" or "/:") are excluded so the set
+    contains only concrete object paths.  Returns None if the listing fails.
+    This single call replaces the many individual ls calls previously needed for
+    pubid listing, is_processed checks, remediation inspection, and DS_Store scans.
+    """
+    log.info("Scanning bucket gs://%s/ ...", bucket)
+    lines, err = _gcs_ls(f"gs://{bucket}/", recursive=True)
     if lines is None:
-        log.warning("Failed to list bucket gs://%s/: %s", bucket, err)
-        return []
+        log.warning("Failed to scan bucket gs://%s/: %s", bucket, err)
+        return None
+    objects = frozenset(
+        line.strip() for line in lines
+        if line.strip()
+        and not line.strip().endswith("/")
+        and not line.strip().endswith("/:")
+    )
+    log.info("Bucket scan complete — %d object(s) across all publications.", len(objects))
+    return objects
+
+
+def pubids_from_scan(bucket, objects):
+    """Return a sorted list of pubids derived from a bucket scan."""
     prefix = f"gs://{bucket}/"
-    pubids = []
-    for line in lines:
-        line = line.strip()
-        if line.startswith(prefix) and line.endswith("/"):
-            pubid = line[len(prefix):].rstrip("/")
+    pubids = set()
+    for path in objects:
+        if path.startswith(prefix):
+            pubid = path[len(prefix):].split("/")[0]
             if pubid:
-                pubids.append(pubid)
+                pubids.add(pubid)
     return sorted(pubids)
 
 
-def is_processed(bucket, pubid):
-    """Return True only if all five expected pipeline output files exist in the bucket."""
+def is_processed(bucket, pubid, objects):
+    """Return True if all required pipeline output files exist in the bucket scan."""
     required = [
         f"gs://{bucket}/{pubid}/MANIFEST.txt",
         f"gs://{bucket}/{pubid}/pipeline_stats.log",
@@ -140,43 +158,31 @@ def is_processed(bucket, pubid):
         f"gs://{bucket}/{pubid}/report_{pubid}.html",
         f"gs://{bucket}/{pubid}/report_{pubid}.tsv",
     ]
-    for path in required:
-        result = subprocess.run(
-            ["gcloud", "storage", "ls", path],
-            check=False, capture_output=True, text=True,
-        )
-        if result.returncode != 0:
-            return False
-    return True
+    return all(path in objects for path in required)
 
 
 # ── Bucket remediation ────────────────────────────────────────────────────────
 
-def remediate_bucket(bucket, pubids):
-    """Inspect and fix structural issues in the bucket before processing."""
-    _fix_missing_01_source(bucket, pubids)
-    _remove_ds_store(bucket)
+def remediate_bucket(bucket, pubids, objects):
+    """Inspect and fix structural issues in the bucket using a pre-fetched scan."""
+    _fix_missing_01_source(bucket, pubids, objects)
+    _remove_ds_store(bucket, objects)
 
 
-def _fix_missing_01_source(bucket, pubids):
+def _fix_missing_01_source(bucket, pubids, objects):
     """
     For any pubid that lacks an 01_source/ subdirectory, move any top-level PDF
     and/or s/ directory into <pubid>/01_source/.
     """
     for pubid in pubids:
-        lines, err = _gcs_ls(f"gs://{bucket}/{pubid}/")
-        if lines is None:
-            log.warning("Could not list gs://%s/%s/: %s", bucket, pubid, err)
-            continue
-
         prefix = f"gs://{bucket}/{pubid}/"
+        # Derive the set of top-level names under this pubid from the scan.
         names = set()
-        for line in lines:
-            line = line.strip()
-            if line.startswith(prefix):
-                name = line[len(prefix):].rstrip("/")
-                if name:
-                    names.add(name)
+        for path in objects:
+            if path.startswith(prefix):
+                first = path[len(prefix):].split("/")[0]
+                if first:
+                    names.add(first)
 
         stray_pdfs = [n for n in names if n.lower().endswith(".pdf")]
         has_stray_s = "s" in names
@@ -199,36 +205,24 @@ def _fix_missing_01_source(bucket, pubids):
             moved_any = True
 
         if has_stray_s:
-            # Enumerate and move each object individually.  A single
-            # `gcloud storage mv s/ 01_source/s/` nests s/ *inside* the
-            # destination (POSIX mv semantics) → 01_source/s/s/; moving
-            # object-by-object avoids that.
-            s_lines, s_err = _gcs_ls(f"gs://{bucket}/{pubid}/s/", recursive=True)
-            if s_err:
-                log.warning("Could not list s/ under %s: %s", pubid, s_err)
-            else:
-                s_prefix = f"gs://{bucket}/{pubid}/s/"
-                for obj in (l.strip() for l in (s_lines or [])):
-                    if not obj or obj.endswith("/") or obj.endswith("/:"):
-                        continue  # skip directory markers (/ and /: forms)
-                    rel = obj[len(s_prefix):]
-                    _gcs_mv(obj, f"{prefix}01_source/s/{rel}")
+            # Move each s/ object individually — a single mv s/ 01_source/s/
+            # would nest it as 01_source/s/s/ (POSIX mv semantics).
+            s_prefix = f"gs://{bucket}/{pubid}/s/"
+            s_objects = [p for p in objects if p.startswith(s_prefix)]
+            for obj in s_objects:
+                rel = obj[len(s_prefix):]
+                _gcs_mv(obj, f"{prefix}01_source/s/{rel}")
             moved_any = True
 
         if moved_any:
             log.info("Remediation: restructured %s into 01_source/", pubid)
 
 
-def _remove_ds_store(bucket):
-    """Delete any .DS_Store files found anywhere in the bucket."""
-    lines, err = _gcs_ls(f"gs://{bucket}/", recursive=True)
-    if lines is None:
-        log.warning("Failed to list bucket recursively for .DS_Store scan: %s", err)
-        return
-
-    ds_files = [line.strip() for line in lines if line.strip().endswith(".DS_Store")]
-    for path in ds_files:
-        _gcs_rm(path)
+def _remove_ds_store(bucket, objects):
+    """Delete any .DS_Store files found in the bucket scan."""
+    for path in objects:
+        if path.endswith(".DS_Store"):
+            _gcs_rm(path)
 
 
 # ── Publication processing ────────────────────────────────────────────────────
@@ -408,10 +402,15 @@ def run_cycle(bucket, rerun=False, rerun_pubids=None, results_repo=None):
     label = " (rerun)" if rerun else ""
     log.info("=== Cycle start%s — bucket: gs://%s/ ===", label, bucket)
 
-    pubids = list_pubids(bucket)
+    objects = scan_bucket(bucket)
+    if objects is None:
+        log.error("Bucket scan failed — skipping this cycle.")
+        return
+
+    pubids = pubids_from_scan(bucket, objects)
     log.info("Found %d publication(s) in bucket.", len(pubids))
 
-    remediate_bucket(bucket, pubids)
+    remediate_bucket(bucket, pubids, objects)
 
     failures = load_failures()
 
@@ -424,7 +423,7 @@ def run_cycle(bucket, rerun=False, rerun_pubids=None, results_repo=None):
                     log.warning("--pubids: %s not found in bucket — skipping", p)
         targets = [
             p for p in candidates
-            if p in bucket_set and p not in failures and is_processed(bucket, p)
+            if p in bucket_set and p not in failures and is_processed(bucket, p, objects)
         ]
         log.info("%d publication(s) queued for rerun.", len(targets))
     else:
@@ -435,7 +434,7 @@ def run_cycle(bucket, rerun=False, rerun_pubids=None, results_repo=None):
                     "Skipping %s — previously failed on %s: %s",
                     pubid, failures[pubid]["timestamp"], failures[pubid]["reason"],
                 )
-            elif not is_processed(bucket, pubid):
+            elif not is_processed(bucket, pubid, objects):
                 targets.append(pubid)
         log.info("%d publication(s) pending processing.", len(targets))
 

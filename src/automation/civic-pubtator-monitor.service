@@ -10,7 +10,7 @@ User=mgriffit
 Group=mgriffit
 WorkingDirectory=/opt/civic-pubtator
 
-Environment=PATH=/opt/conda/bin:/opt/conda/condabin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
+Environment=PATH=/snap/bin:/opt/conda/bin:/opt/conda/condabin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Environment=HOME=/home/mgriffit
 Environment=PYTHONUNBUFFERED=1
 

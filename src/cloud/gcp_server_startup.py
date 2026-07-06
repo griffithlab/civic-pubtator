@@ -350,7 +350,7 @@ User=mgriffit
 Group=mgriffit
 WorkingDirectory={REPO_DIR}
 
-Environment=PATH={CONDA_PREFIX}/bin:{CONDA_PREFIX}/condabin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
+Environment=PATH=/snap/bin:{CONDA_PREFIX}/bin:{CONDA_PREFIX}/condabin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Environment=HOME=/home/mgriffit
 Environment=PYTHONUNBUFFERED=1
 
