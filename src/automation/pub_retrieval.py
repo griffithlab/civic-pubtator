@@ -833,7 +833,10 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
         <work_dir>/<pmid>/01_source/s/<filename>        ← supplementary files
 
     The main PDF is attempted from the publisher's journal page first (via DOI),
-    falling back to PMC if the publisher page yields no downloadable link.
+    falling back to PMC if the publisher page yields no downloadable link. If
+    the PMC fallback is what ultimately supplies the PDF, the session pauses
+    (same as the total-failure case) so the user can manually swap in the
+    publisher's version if they prefer it.
     Supplementary files are fetched from PMC when available; if PMC lists none,
     the publisher page is scanned for supplementary links as a fallback.
 
@@ -925,11 +928,14 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
 
         # 3b. Main PDF — publisher first
         print(f"\n  Main PDF ({pmid}.pdf):", flush=True)
+        pdf_source = None
         if doi:
             pdf_ok = _try_publisher_pdf(page, doi, pdf_dest, PWTimeout)
         else:
             print("    No DOI available — skipping publisher attempt.", flush=True)
             pdf_ok = False
+        if pdf_ok:
+            pdf_source = "publisher"
 
         # 3c. If PMC had no supplementary files, scan the publisher page while
         # we are still on it — the PMC-PDF fallback below would navigate away.
@@ -952,6 +958,8 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
             if pmc_pdf:
                 print(f"    Falling back to PMC: {pmc_pdf}", flush=True)
                 pdf_ok = _download_direct(page, pmc_pdf, pdf_dest, PWTimeout)
+                if pdf_ok:
+                    pdf_source = "pmc"
             else:
                 print("    No PMC PDF fallback available.", file=sys.stderr, flush=True)
 
@@ -976,17 +984,53 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
             print(f"    {pdf_dest}", flush=True)
             try:
                 input("\n  Press Enter when done … ")
-            except (KeyboardInterrupt, EOFError):
+            except KeyboardInterrupt:
+                print("\n  Cancelled — continuing …", flush=True)
+            except EOFError:
                 print(flush=True)
             if os.path.isfile(pdf_dest):
                 saved.append(pdf_dest)
                 size = os.path.getsize(pdf_dest)
                 print(f"  PDF confirmed: {size:,} bytes", flush=True)
 
+        # 3g. The PMC copy is a fallback of last resort — if it's what ended up
+        # saved, pause so the user can swap in the publisher's version instead,
+        # using the same journal page already open in their browser.
+        elif manual_browser_opened and pdf_source == "pmc":
+            print(f"\n  Main PDF came from PubMed Central (publisher download failed or was skipped).",
+                  flush=True)
+            print(f"  If you'd prefer the publisher's version, download it now in the browser",
+                  flush=True)
+            print(f"  and save over:", flush=True)
+            print(f"    {pdf_dest}", flush=True)
+            try:
+                input("\n  Press Enter to continue (replace the file first if desired) … ")
+            except KeyboardInterrupt:
+                print("\n  Cancelled — continuing …", flush=True)
+            except EOFError:
+                print(flush=True)
+            if os.path.isfile(pdf_dest):
+                size = os.path.getsize(pdf_dest)
+                print(f"  Using PDF: {size:,} bytes", flush=True)
+
         context.close()
 
     total = 1 + len(supp_downloads)
     print(f"\nDone — {len(saved)}/{total} file(s) saved.", flush=True)
+
+    # If nothing was saved at all — main PDF included — remove the (empty)
+    # directories created for this attempt rather than leaving empty clutter
+    # behind. Only removes dirs that are actually empty, so any pre-existing
+    # or partially-populated content is left untouched.
+    if not saved:
+        pub_dir = os.path.join(work_dir, pmid)
+        for d in (supp_dir, source_dir, pub_dir):
+            try:
+                if os.path.isdir(d) and not os.listdir(d):
+                    os.rmdir(d)
+            except OSError:
+                pass
+
     return len(saved)
 
 
