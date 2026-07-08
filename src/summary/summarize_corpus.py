@@ -655,18 +655,28 @@ def render_html(rows, all_categories, input_dir, output_dir, generated_at, corpu
     all_categories: ordered list of entity_category column names to include
     """
     # Column definitions: (key, header_label, is_text_searchable)
-    fixed_cols = [
-        ("pubid",            "Publication ID", True),
-        ("date",             "Date",           False),
-        ("title",            "Title",          True),
-        ("doc_count",        "Documents",      False),
-        ("total_runtime_s",  "Run Time (s)",   False),
-        ("total_words",      "Total Words",    False),
-        ("total_chars",      "Total Chars",    False),
-        ("total_entities",   "Total Entities", False),
+    # Layout: ID/Date/Title/Docs | entity counts (Total Entities injected after Organism) | Runtime/Words/Chars
+    head_cols = [
+        ("pubid",          "Publication ID", True),
+        ("date",           "Date",           False),
+        ("title",          "Title",          True),
+        ("doc_count",      "Documents",      False),
     ]
+    tail_cols = [
+        ("total_runtime_s", "Run Time (s)",  False),
+        ("total_words",     "Total Words",   False),
+        ("total_chars",     "Total Chars",   False),
+    ]
+    entities_col = [("total_entities", "Total Entities", False)]
+
     cat_cols = [(cat, f"N {CAT_DISPLAY_NAMES.get(cat, cat)}", False) for cat in all_categories]
-    columns = fixed_cols + cat_cols
+
+    # Insert Total Entities immediately after the Organism column (if present), else at end of cat cols.
+    insert_at = next(
+        (i + 1 for i, (cat, _, _) in enumerate(cat_cols) if cat == "Organism"),
+        len(cat_cols),
+    )
+    columns = head_cols + cat_cols[:insert_at] + entities_col + cat_cols[insert_at:] + tail_cols
 
     # --- thead ---
     th_cells = []
