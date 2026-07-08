@@ -35,7 +35,10 @@ from collections import defaultdict
 log = logging.getLogger(__name__)
 
 # Preferred display order for entity-category columns.
-PREFERRED_CATEGORIES = ["Gene", "Disease", "Chemical", "Variant", "Organism", "NER_AIONER"]
+PREFERRED_CATEGORIES = ["Variant", "Gene", "Chemical", "Disease", "Organism", "NER_AIONER"]
+
+# Override display labels for entity-category table columns.
+CAT_DISPLAY_NAMES = {"Chemical": "Drug"}
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -662,7 +665,7 @@ def render_html(rows, all_categories, input_dir, output_dir, generated_at, corpu
         ("total_chars",      "Total Chars",    False),
         ("total_entities",   "Total Entities", False),
     ]
-    cat_cols = [(cat, f"N {cat}", False) for cat in all_categories]
+    cat_cols = [(cat, f"N {CAT_DISPLAY_NAMES.get(cat, cat)}", False) for cat in all_categories]
     columns = fixed_cols + cat_cols
 
     # --- thead ---

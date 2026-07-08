@@ -1096,7 +1096,8 @@ def highlight_text(full_text, annotations):
         tooltip = html.escape(' | '.join(tip_parts))
         span_text = html.escape(full_text[start:end])
         parts.append(
-            f'<mark style="background:{style["bg"]};border-bottom:2px solid {style["border"]};'
+            f'<mark data-type="{html.escape(ann["type"])}" '
+            f'style="background:{style["bg"]};border-bottom:2px solid {style["border"]};'
             f'border-radius:2px;padding:0 2px;cursor:default" title="{tooltip}">'
             f'{span_text}</mark>'
         )
@@ -1304,23 +1305,34 @@ def build_annotation_legend(annotations):
         'Species', 'Genus', 'Strain', 'CellLine',
         'Chemical', 'Disease',
     ]
+    _chip_btn = (
+        'background:{bg};border:1px solid {border};border-radius:4px;'
+        'padding:3px 10px;font-size:0.82em;white-space:nowrap;'
+        'cursor:pointer;font-family:inherit;user-select:none'
+    )
     chips = []
     for etype in ordered:
         if etype not in types_present:
             continue
         style = ENTITY_STYLE.get(etype, VARIANT_DEFAULT_STYLE)
         chip_label = style["label"] if etype in ENTITY_STYLE else etype
+        btn_style = _chip_btn.format(bg=style["bg"], border=style["border"])
         chips.append(
-            f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
-            f'border-radius:4px;padding:3px 10px;font-size:0.82em;white-space:nowrap">'
-            f'{html.escape(chip_label)}</span>'
+            f'<button data-etype="{html.escape(etype)}" data-active="true" '
+            f'onclick="toggleAnnotationType(this,\'{html.escape(etype)}\')" '
+            f'title="Click to toggle {html.escape(chip_label)} highlights" '
+            f'style="{btn_style}">'
+            f'{html.escape(chip_label)}</button>'
         )
     for etype in sorted(types_present - set(ordered)):
         style = VARIANT_DEFAULT_STYLE
+        btn_style = _chip_btn.format(bg=style["bg"], border=style["border"])
         chips.append(
-            f'<span style="background:{style["bg"]};border:1px solid {style["border"]};'
-            f'border-radius:4px;padding:3px 10px;font-size:0.82em;white-space:nowrap">'
-            f'{html.escape(etype)}</span>'
+            f'<button data-etype="{html.escape(etype)}" data-active="true" '
+            f'onclick="toggleAnnotationType(this,\'{html.escape(etype)}\')" '
+            f'title="Click to toggle {html.escape(etype)} highlights" '
+            f'style="{btn_style}">'
+            f'{html.escape(etype)}</button>'
         )
     if not chips:
         return ''
@@ -1506,6 +1518,7 @@ body { margin: 0; font-family: system-ui, sans-serif; background: #f1f5f9; color
 .tab-btn.active { color: #1e293b; border-bottom-color: #2563eb; font-weight: 600; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
+mark.hl-hidden { background: transparent !important; border-bottom-color: transparent !important; }
 '''
 
 JS = '''
@@ -1588,6 +1601,23 @@ function switchTab(containerId, tabName) {
   var c = document.getElementById(containerId);
   c.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.tab === tabName); });
   c.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.toggle('active', p.dataset.tab === tabName); });
+}
+function toggleAnnotationType(btn, etype) {
+  var active = btn.getAttribute('data-active') !== 'false';
+  var section = btn.closest('.doc-section');
+  if (!section) return;
+  var marks = section.querySelectorAll('mark[data-type="' + etype + '"]');
+  if (active) {
+    btn.setAttribute('data-active', 'false');
+    btn.style.opacity = '0.35';
+    btn.style.textDecoration = 'line-through';
+    marks.forEach(function(m) { m.classList.add('hl-hidden'); });
+  } else {
+    btn.setAttribute('data-active', 'true');
+    btn.style.opacity = '';
+    btn.style.textDecoration = '';
+    marks.forEach(function(m) { m.classList.remove('hl-hidden'); });
+  }
 }
 function applyVariantFilters()  { applyTableFilters('variant-table',  'vfilter',            'variant-limit-select',  'variant-count-display'); }
 function applyGeneFilters()     { applyTableFilters('gene-table',     null,                 'gene-limit-select',     'gene-count-display'); }
