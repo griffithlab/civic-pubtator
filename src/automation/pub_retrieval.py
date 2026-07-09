@@ -479,6 +479,26 @@ def _wait_for_cloudflare_if_present(page):
     return False
 
 
+def _click_open_button_if_present(page, timeout=5_000):
+    """
+    Some Cloudflare-protected direct-download endpoints (e.g. ascopubs.org
+    /doi/pdf/... URLs) pass the JS challenge automatically but then render a
+    fallback page with an "Open" button/link — Cloudflare's redirect script
+    cannot itself trigger a file download without a genuine user gesture, so
+    it falls back to asking for one click. Click it automatically if present.
+    Returns True if a click was performed.
+    """
+    for role in ("button", "link"):
+        try:
+            el = page.get_by_role(role, name="Open", exact=True).first
+            if el.is_visible(timeout=timeout):
+                el.click()
+                return True
+        except Exception:
+            pass
+    return False
+
+
 def _download_direct(page, url, dest, PWTimeout):
     """
     Download a single file from a direct URL using Playwright's download event.
@@ -657,6 +677,11 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
                     if not _wait_for_cloudflare_if_present(page):
                         raise RuntimeError(
                             "Cloudflare challenge on PDF link not resolved"
+                        )
+                    if _click_open_button_if_present(page):
+                        print(
+                            "    Clicked \"Open\" on Cloudflare download fallback page",
+                            flush=True,
                         )
             except PWTimeout:
                 if stop is not None:
