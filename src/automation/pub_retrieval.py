@@ -58,16 +58,17 @@ _BOLD_BLUE = "\033[1;94m"
 _RESET     = "\033[0m"
 
 
-def _pub_banner(pmid):
+def _pub_banner(pmid, idx=None, n_total=None):
     bar = "═" * 70  # ══════ double-line box character
     tty = sys.stdout.isatty()
+    label = f"PMID {idx}/{n_total}: {pmid}" if idx is not None else f"PUBLICATION: PMID {pmid}"
     if tty:
         return (
             f"\n{_BOLD_BLUE}{bar}{_RESET}\n"
-            f"{_BOLD_BLUE}  PUBLICATION: PMID {pmid}{_RESET}\n"
+            f"{_BOLD_BLUE}  {label}{_RESET}\n"
             f"{_BOLD_BLUE}{bar}{_RESET}\n"
         )
-    return f"\n{'=' * 70}\n  PUBLICATION: PMID {pmid}\n{'=' * 70}\n"
+    return f"\n{'=' * 70}\n  {label}\n{'=' * 70}\n"
 
 
 # ── GCS helpers ───────────────────────────────────────────────────────────────
@@ -242,29 +243,29 @@ def report_unpaywall(doi, email):
 
 # ── PMC helpers ───────────────────────────────────────────────────────────────
 
-ELINK_URL  = f"{EUTILS_BASE}/elink.fcgi?dbfrom=pubmed&db=pmc&id={{pmid}}&retmode=json"
+IDCONV_URL = "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids={pmid}&format=json"
 EFETCH_URL = f"{EUTILS_BASE}/efetch.fcgi?db=pmc&id={{pmc_id}}&rettype=xml&retmode=xml"
 PMC_BASE   = "https://pmc.ncbi.nlm.nih.gov"
 
 
 def get_pmc_id(pmid):
     """
-    Return the PMC ID (as a string) for the given PMID, or None if not in PMC.
-    Raises RuntimeError on network failure.
+    Return the PMC ID (as a string, without the "PMC" prefix) for the given
+    PMID, or None if not in PMC. Raises RuntimeError on network failure.
     """
-    url = ELINK_URL.format(pmid=pmid)
+    url = IDCONV_URL.format(pmid=pmid)
     try:
-        data = json.loads(_urlopen_with_retry(url, 15, "querying PMC elink").decode())
+        data = json.loads(_urlopen_with_retry(url, 15, "querying PMC idconv").decode())
     except json.JSONDecodeError as exc:
-        raise RuntimeError(f"Error querying PMC elink: {exc}") from exc
+        raise RuntimeError(f"Error querying PMC idconv: {exc}") from exc
 
-    for linkset in data.get("linksets", []):
-        for db in linkset.get("linksetdbs", []):
-            if db.get("dbto") == "pmc" and db.get("linkname") == "pubmed_pmc":
-                links = db.get("links", [])
-                if links:
-                    return str(links[0])
-    return None
+    records = data.get("records", [])
+    if not records:
+        return None
+    pmcid = records[0].get("pmcid")
+    if not pmcid:
+        return None
+    return pmcid[3:] if pmcid.startswith("PMC") else pmcid
 
 
 def get_pmc_files(pmc_id):
@@ -491,9 +492,13 @@ def _click_open_button_if_present(page, timeout=5_000):
     for role in ("button", "link"):
         try:
             el = page.get_by_role(role, name="Open", exact=True).first
-            if el.is_visible(timeout=timeout):
-                el.click()
-                return True
+            # is_visible()'s timeout kwarg is a no-op in this Playwright
+            # version (deprecated, ignored) — it checks immediately and
+            # never actually waits. wait_for is what actually blocks until
+            # the fallback page has rendered the button.
+            el.wait_for(state="visible", timeout=timeout)
+            el.click()
+            return True
         except Exception:
             pass
     return False
@@ -590,9 +595,9 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
             ]:
                 try:
                     toggle = page.locator(toggle_sel).first
-                    if toggle.is_visible(timeout=3_000):
-                        toggle.click()
-                        break
+                    toggle.wait_for(state="visible", timeout=3_000)
+                    toggle.click()
+                    break
                 except Exception:
                     pass
             # Wait for the PDF option to become visible inside the dropdown.
@@ -950,23 +955,52 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
             except Exception as exc:
                 print(f"  (Could not open URL in browser: {exc})",
                       file=sys.stderr, flush=True)
+        elif not pmc_id:
+            # No DOI and no PMC entry — automation has no path to the PDF at
+            # all. Open the PubMed record so the user can hunt down the
+            # source manually; this also makes the "no PDF saved" pause below
+            # (3f) kick in instead of silently moving on to the next PMID.
+            pubmed_url = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/"
+            print(f"\n  ┌─ Manual download reference ────────────────────────────────",
+                  flush=True)
+            print(f"  │  No DOI and no PMC entry found for this PMID.",
+                  flush=True)
+            print(f"  │  PubMed URL  : {pubmed_url}", flush=True)
+            print(f"  │  Save PDF to : {pdf_dest}", flush=True)
+            print(f"  │  Filename    : {pmid}.pdf", flush=True)
+            print(f"  └────────────────────────────────────────────────────────────",
+                  flush=True)
+            try:
+                subprocess.run(["open", pubmed_url], check=True)
+                manual_browser_opened = True
+            except Exception as exc:
+                print(f"  (Could not open URL in browser: {exc})",
+                      file=sys.stderr, flush=True)
 
-        # 3b. Main PDF — publisher first
-        print(f"\n  Main PDF ({pmid}.pdf):", flush=True)
-        pdf_source = None
-        if doi:
-            pdf_ok = _try_publisher_pdf(page, doi, pdf_dest, PWTimeout)
-        else:
-            print("    No DOI available — skipping publisher attempt.", flush=True)
-            pdf_ok = False
-        if pdf_ok:
-            pdf_source = "publisher"
-
-        # 3c. If PMC had no supplementary files, scan the publisher page while
-        # we are still on it — the PMC-PDF fallback below would navigate away.
+        # 3b. If PMC had no supplementary files, scan the publisher page for
+        # them first, on a separate tab. The main-PDF attempt below often
+        # navigates the primary tab away from the article landing page (e.g.
+        # clicking ascopubs.org's PDF link takes it to /doi/pdf/..., which
+        # has no supplementary links at all) — scanning afterward on that
+        # same tab would silently find nothing.
+        pub_supps = []
         if not supp_downloads and doi:
             print("\n  Scanning publisher page for supplementary files …", flush=True)
-            pub_supps = _scan_publisher_supplementary(page)
+            supp_page = context.new_page()
+            try:
+                supp_page.goto(f"https://doi.org/{doi}",
+                                wait_until="domcontentloaded", timeout=60_000)
+                try:
+                    supp_page.wait_for_load_state("networkidle", timeout=8_000)
+                except Exception:
+                    pass
+                _wait_for_cloudflare_if_present(supp_page)
+                pub_supps = _scan_publisher_supplementary(supp_page)
+            except Exception as exc:
+                print(f"  Could not load publisher page: {exc}",
+                      file=sys.stderr, flush=True)
+            finally:
+                supp_page.close()
             if pub_supps:
                 print(
                     f"  Found {len(pub_supps)} supplementary file(s) on publisher page:",
@@ -977,6 +1011,17 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
                     supp_downloads.append((os.path.join(supp_dir, filename), url))
             else:
                 print("  No supplementary files found on publisher page.", flush=True)
+
+        # 3c. Main PDF — publisher first
+        print(f"\n  Main PDF ({pmid}.pdf):", flush=True)
+        pdf_source = None
+        if doi:
+            pdf_ok = _try_publisher_pdf(page, doi, pdf_dest, PWTimeout)
+        else:
+            print("    No DOI available — skipping publisher attempt.", flush=True)
+            pdf_ok = False
+        if pdf_ok:
+            pdf_source = "publisher"
 
         # 3d. PMC fallback if publisher PDF failed
         if not pdf_ok:
@@ -1001,10 +1046,11 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
                     saved.append(dest)
 
         # 3f. If automation could not save the PDF but the user's browser is
-        # open on the journal page, pause so they can download it manually.
+        # open on a reference page (journal or PubMed), pause so they can
+        # download or locate it manually.
         if manual_browser_opened and pdf_dest not in saved:
             print(f"\n  Automation did not save a PDF.", flush=True)
-            print(f"  Please download from the journal page in your browser and save to:",
+            print(f"  Please locate/download it manually in your browser and save to:",
                   flush=True)
             print(f"    {pdf_dest}", flush=True)
             try:
@@ -1193,12 +1239,7 @@ def main():
     n_failed  = 0
 
     for idx, pmid in enumerate(pmids, 1):
-        if n_total > 1:
-            print(f"\n{'═' * 60}", flush=True)
-            print(f"  PMID {idx}/{n_total}: {pmid}", flush=True)
-            print(f"{'═' * 60}", flush=True)
-
-        print(_pub_banner(pmid), flush=True)
+        print(_pub_banner(pmid, idx if n_total > 1 else None, n_total), flush=True)
 
         # ── 2. Check for existing publication directory in bucket ──────────────
         print(f"Checking for existing publication directory gs://{bucket}/{pmid}/ …",
