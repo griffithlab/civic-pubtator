@@ -40,9 +40,11 @@ Examples:
 """
 
 import argparse
+import hashlib
 import json
 import os
 import re
+import select
 import shutil
 import subprocess
 import sys
@@ -84,13 +86,29 @@ def bucket_exists(bucket_name):
     return True, None
 
 
-def pubid_in_bucket(bucket_name, pmid):
-    """Return True if gs://<bucket>/<pmid>/ already exists."""
+def list_bucket_pubids(bucket_name):
+    """
+    Return the set of PMIDs already present as top-level "directories" in
+    gs://<bucket_name>/, via a single listing call. Replaces one gcloud
+    invocation per PMID (a per-publication existence check), which becomes
+    very slow once the bucket holds hundreds of publications.
+    """
     result = subprocess.run(
-        ["gcloud", "storage", "ls", f"gs://{bucket_name}/{pmid}/"],
+        ["gcloud", "storage", "ls", f"gs://{bucket_name}/"],
         check=False, capture_output=True, text=True,
     )
-    return result.returncode == 0
+    if result.returncode != 0:
+        return set()
+    prefix = f"gs://{bucket_name}/"
+    pubids = set()
+    for line in result.stdout.splitlines():
+        line = line.strip()
+        if not line.startswith(prefix):
+            continue
+        name = line[len(prefix):].strip("/")
+        if name and "/" not in name:
+            pubids.add(name)
+    return pubids
 
 
 # ── PubMed helpers ────────────────────────────────────────────────────────────
@@ -385,6 +403,18 @@ def _launch_browser(pw, headless, profile_dir):
         user_data_dir=profile_dir,
         headless=headless,
         accept_downloads=True,
+        # Playwright's default SIGINT/SIGTERM/SIGHUP handling tears down the
+        # browser on Ctrl+C — but we deliberately use Ctrl+C in-band (e.g. to
+        # abandon a stuck Cloudflare wait) and expect the browser to keep
+        # running afterward, so disable it here in favor of our own
+        # try/except KeyboardInterrupt handling at each wait point.
+        handle_sigint=False,
+        handle_sigterm=False,
+        handle_sighup=False,
+        # Playwright defaults chromium_sandbox to False (adds --no-sandbox),
+        # which triggers Chrome's "unsupported command-line flag" warning
+        # banner. The real, signed Chrome on macOS supports sandboxing fine.
+        chromium_sandbox=True,
         args=[
             "--disable-blink-features=AutomationControlled",
             "--disable-automation",
@@ -446,33 +476,39 @@ def _wait_for_cloudflare_if_present(page):
     print a prompt and poll every second with a live countdown until the
     challenge is solved or the timeout expires.
     Returns True once the challenge is gone (or if there was none).
-    Returns False and prints an error if the wait times out.
+    Returns False and prints an error if the wait times out or is abandoned
+    (Ctrl+C) — e.g. once it's clear the challenge isn't going to pass.
     """
     if "just a moment" not in (page.title() or "").lower():
         return True
     print(
-        "    Cloudflare challenge — please click the verification box in the browser.",
+        "    Cloudflare challenge — please click the verification box in the browser.\n"
+        "    (Ctrl+C to give up early and move on, instead of waiting out the timeout)",
         flush=True,
     )
     deadline = time.time() + _CF_TIMEOUT
-    while time.time() < deadline:
-        remaining = int(deadline - time.time())
-        print(f"\r    Waiting for challenge to be solved: {remaining:3d}s remaining ",
-              end="", flush=True)
-        try:
-            resolved = page.evaluate(
-                "() => !document.title.toLowerCase().includes('just a moment')"
-            )
-            if resolved:
-                print(f"\r    Challenge passed — continuing.{' ' * 20}", flush=True)
-                try:
-                    page.wait_for_load_state("networkidle", timeout=10_000)
-                except Exception:
-                    pass
-                return True
-        except Exception:
-            pass  # page may be mid-navigation; keep polling
-        time.sleep(1)
+    try:
+        while time.time() < deadline:
+            remaining = int(deadline - time.time())
+            print(f"\r    Waiting for challenge to be solved: {remaining:3d}s remaining ",
+                  end="", flush=True)
+            try:
+                resolved = page.evaluate(
+                    "() => !document.title.toLowerCase().includes('just a moment')"
+                )
+                if resolved:
+                    print(f"\r    Challenge passed — continuing.{' ' * 20}", flush=True)
+                    try:
+                        page.wait_for_load_state("networkidle", timeout=10_000)
+                    except Exception:
+                        pass
+                    return True
+            except Exception:
+                pass  # page may be mid-navigation; keep polling
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print(f"\r    Abandoned by user.{' ' * 25}", file=sys.stderr, flush=True)
+        return False
     print(
         f"\r    Timed out waiting for Cloudflare challenge.{' ' * 15}",
         file=sys.stderr, flush=True,
@@ -501,6 +537,17 @@ def _click_open_button_if_present(page, timeout=5_000):
             return True
         except Exception:
             pass
+    # Fall back to a plain visible-text match — some fallback pages render
+    # the clickable element without proper button/link ARIA semantics (e.g.
+    # a styled <div>/<span> with a click handler), which the exact role
+    # match above won't find at all.
+    try:
+        el = page.locator('button:has-text("Open"), a:has-text("Open")').first
+        el.wait_for(state="visible", timeout=timeout)
+        el.click()
+        return True
+    except Exception:
+        pass
     return False
 
 
@@ -713,6 +760,7 @@ def _try_publisher_pdf(page, doi, dest, PWTimeout):
 _SUPP_EXTENSIONS = frozenset([
     '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx',
     '.zip', '.csv', '.txt', '.fasta', '.sdf',
+    '.tif', '.tiff', '.png', '.jpg', '.jpeg', '.gif',
 ])
 
 
@@ -726,6 +774,7 @@ def _scan_publisher_supplementary(page):
     Only links with a recognised file extension are returned.
     """
     import posixpath
+    from urllib.parse import urlsplit, parse_qs
 
     _SUPP_URL_TOKENS = [
         'supplement', '/supp', 'supp-', 'supp_', 'suppl',
@@ -760,11 +809,30 @@ def _scan_publisher_supplementary(page):
         if href in seen_urls:
             continue
 
-        # Require a recognisable downloadable file extension
-        path_part = href.split('?')[0].split('#')[0]
+        # Require a recognisable downloadable file extension. Usually that's
+        # on the URL path, but some download endpoints (e.g. Wiley's
+        # action/downloadSupplement?...&file=name.doc) encode the real
+        # filename in a query parameter instead — fall back to that.
+        parsed = urlsplit(href)
+        path_part = parsed.path
         _, ext = posixpath.splitext(path_part)
+        filename = posixpath.basename(path_part)
+
         if ext.lower() not in _SUPP_EXTENSIONS:
-            continue
+            query_filename = None
+            if parsed.query:
+                qs = parse_qs(parsed.query)
+                for key in ('file', 'filename'):
+                    if qs.get(key):
+                        query_filename = qs[key][0]
+                        break
+            if not query_filename:
+                continue
+            _, q_ext = posixpath.splitext(query_filename)
+            if q_ext.lower() not in _SUPP_EXTENSIONS:
+                continue
+            ext = q_ext
+            filename = query_filename
 
         href_lower    = href.lower()
         combined_text = (text + ' ' + title).lower()
@@ -775,11 +843,267 @@ def _scan_publisher_supplementary(page):
         if not (has_supp_url or has_supp_text):
             continue
 
-        filename = posixpath.basename(path_part) or f"supplement_{len(found) + 1}{ext.lower()}"
+        filename = filename or f"supplement_{len(found) + 1}{ext.lower()}"
         seen_urls.add(href)
         found.append((filename, href, text or title or filename))
 
     return found
+
+
+# ── Staging-dir download watcher ──────────────────────────────────────────────
+#
+# Some publishers' Cloudflare protection flags the Playwright-controlled
+# browser as automated no matter what (even a manual click in that window
+# fails), while the same click in the user's ordinary, non-automated browser
+# passes every time. Rather than fight that detection, we let the user do the
+# challenge + download normally in their own browser (already opened as a
+# manual reference — see run_download step 3a) and watch a staging directory
+# for the finished file(s), then file them into place automatically.
+
+_STAGING_IGNORE_SUFFIXES = (".crdownload", ".download", ".part", ".tmp")
+
+
+def _clear_staging_dir(staging_dir):
+    """
+    Remove all files directly inside staging_dir (not subdirectories) so that
+    a stale download from a previous publication — or an unrelated file the
+    user's browser happened to save there — can't be mistaken for this
+    publication's files. Only ever touches the exact directory the user
+    configured as their browser's download location.
+    """
+    os.makedirs(staging_dir, exist_ok=True)
+    removed = 0
+    for name in os.listdir(staging_dir):
+        path = os.path.join(staging_dir, name)
+        if os.path.isfile(path):
+            try:
+                os.remove(path)
+                removed += 1
+            except OSError:
+                pass
+    if removed:
+        print(f"  Cleared {removed} pre-existing file(s) from staging dir: {staging_dir}",
+              flush=True)
+
+
+def _list_staging_files(staging_dir):
+    """Return full paths of non-hidden, non-partial-download files in staging_dir."""
+    out = []
+    for name in os.listdir(staging_dir):
+        if name.startswith('.') or name.endswith(_STAGING_IGNORE_SUFFIXES):
+            continue
+        path = os.path.join(staging_dir, name)
+        if os.path.isfile(path):
+            out.append(path)
+    return out
+
+
+def _wait_for_staging_files(staging_dir, poll_interval=1.0, stable_secs=2.0):
+    """
+    Let the user download as many files as they want into staging_dir,
+    showing a live count of how many are fully written (size unchanged for
+    stable_secs, so an in-progress download isn't grabbed mid-write), until
+    they press Enter to say they're done. There's no way to reliably guess
+    in advance how many files they intend to provide, so this waits for an
+    explicit "done" signal rather than trying to count.
+
+    Ctrl+C is treated the same as Enter — both conclude with whatever is
+    currently staged (which may be empty) rather than discarding progress
+    already made.
+    """
+    print(f"    Waiting for file(s) to appear in: {staging_dir}", flush=True)
+    print("    Download normally in the browser window already open, then "
+          "press Enter here when done.", flush=True)
+    last_size = {}
+    stable_since = {}
+    ready = []
+    try:
+        while True:
+            now = time.time()
+            seen = set(_list_staging_files(staging_dir))
+            ready = []
+            for f in seen:
+                try:
+                    size = os.path.getsize(f)
+                except OSError:
+                    continue
+                if last_size.get(f) == size:
+                    stable_since.setdefault(f, now)
+                    if now - stable_since[f] >= stable_secs:
+                        ready.append(f)
+                else:
+                    stable_since[f] = now
+                last_size[f] = size
+            for f in list(last_size):
+                if f not in seen:
+                    last_size.pop(f, None)
+                    stable_since.pop(f, None)
+            print(f"\r    {len(ready)} file(s) ready — press Enter when done ",
+                  end="", flush=True)
+            r, _, _ = select.select([sys.stdin], [], [], poll_interval)
+            if r:
+                sys.stdin.readline()
+                break
+    except KeyboardInterrupt:
+        pass
+    print(flush=True)
+    return sorted(ready)
+
+
+def _sha256(path):
+    h = hashlib.sha256()
+    with open(path, 'rb') as fh:
+        for chunk in iter(lambda: fh.read(1 << 16), b''):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+# Filename tokens that suggest a staged file is (or isn't) the main article
+# PDF, vs. supplementary material. Used only to order the disambiguation
+# prompt so the most likely candidate is listed first — never to
+# auto-select without the user's explicit confirmation.
+_MAIN_PDF_POSITIVE_TOKENS = ('main', 'manuscript', 'article', 'fulltext', 'full-text', 'full_text')
+# Short substrings on purpose: publishers commonly abbreviate these in
+# filenames (e.g. AACR/CCR's "<doi>-sup-tab1.pdf", "-sup-fig2.pdf"), so
+# matching only the spelled-out forms ("supp", "table", "figure") missed
+# them entirely. 'sup' catches supp/supplement/sup-tab/sup-fig; 'tab' and
+# 'fig' catch table(s)/figure(s) either spelled out or abbreviated;
+# 'append' catches appendix.
+_MAIN_PDF_NEGATIVE_TOKENS = (
+    'sup', 'append', 'protocol', 'tab', 'fig', 'checklist', 'consort',
+    'prisma', 'cover', 'response', 'reviewer', 'disclosure',
+)
+
+
+def _main_pdf_score(path):
+    """
+    Higher is more likely to be the main article PDF. Returns (keyword_score,
+    size) so that when filenames give no keyword signal at all (e.g. a bare
+    "2584.pdf"), the larger file — typically the full manuscript vs. a single
+    supplementary table/figure — sorts first instead of falling back to
+    arbitrary listing order.
+    """
+    name = os.path.basename(path).lower()
+    score = 0
+    for tok in _MAIN_PDF_POSITIVE_TOKENS:
+        if tok in name:
+            score += 2
+    for tok in _MAIN_PDF_NEGATIVE_TOKENS:
+        if tok in name:
+            score -= 1
+    try:
+        size = os.path.getsize(path)
+    except OSError:
+        size = 0
+    return (score, size)
+
+
+def _place_staged_files(staged_paths, pdf_dest, need_pdf, supp_dir, expected_supp_names):
+    """
+    File each path in staged_paths into place:
+      1. A staged file whose basename exactly matches one of
+         expected_supp_names (supplementary files automation already knew
+         about but couldn't download itself) is moved straight to
+         <supp_dir>/<that name>.
+      2. If need_pdf, the main article PDF is resolved from whatever's left:
+         automatically if exactly one file remains, otherwise the user is
+         asked which one it is.
+      3. Any further leftover file is dropped into supp_dir under its own
+         name, as bonus supplementary material automation didn't know about.
+
+    Before any file is placed into supp_dir, its content is hashed and
+    compared against files already there — e.g. the same supplementary PDF
+    fetched automatically from PMC and again by hand from the publisher,
+    under a different filename. An exact content match is discarded rather
+    than saved as a duplicate.
+
+    Returns (pdf_saved: bool, supp_saved: list[str]).
+    """
+    remaining = list(staged_paths)
+    supp_saved = []
+    os.makedirs(supp_dir, exist_ok=True)
+
+    existing_hashes = {}
+    for name in os.listdir(supp_dir):
+        path = os.path.join(supp_dir, name)
+        if os.path.isfile(path):
+            try:
+                existing_hashes[_sha256(path)] = path
+            except OSError:
+                pass
+
+    def _move_into_supp(path, label):
+        try:
+            digest = _sha256(path)
+        except OSError:
+            digest = None
+        if digest is not None and digest in existing_hashes:
+            print(f"    Skipped {os.path.basename(path)} — identical content "
+                  f"already saved as {os.path.basename(existing_hashes[digest])}",
+                  flush=True)
+            os.remove(path)
+            return None
+        base = os.path.basename(path)
+        dest = os.path.join(supp_dir, base)
+        if os.path.exists(dest):
+            root, ext = os.path.splitext(base)
+            n = 2
+            while os.path.exists(dest):
+                dest = os.path.join(supp_dir, f"{root}_{n}{ext}")
+                n += 1
+        shutil.move(path, dest)
+        size = os.path.getsize(dest)
+        print(f"    {label} → {dest}  ({size:,} bytes)", flush=True)
+        if digest is not None:
+            existing_hashes[digest] = dest
+        return dest
+
+    for path in list(remaining):
+        base = os.path.basename(path)
+        if base in expected_supp_names:
+            dest = _move_into_supp(path, f"Matched {base}")
+            if dest:
+                supp_saved.append(dest)
+            remaining.remove(path)
+
+    pdf_saved = False
+    if need_pdf and remaining:
+        if len(remaining) == 1:
+            choice = remaining[0]
+        else:
+            # List the candidate most likely to be the main article PDF
+            # first (e.g. "main"/"manuscript" in the name ranks above
+            # "supp"/"appendix"/"protocol"/"table") so it's easy to spot —
+            # the user still has to pick a number, nothing is auto-selected.
+            remaining.sort(key=_main_pdf_score, reverse=True)
+            print("\n    Multiple unmatched files found in staging dir:", flush=True)
+            for i, path in enumerate(remaining, 1):
+                size = os.path.getsize(path)
+                print(f"      [{i}] {os.path.basename(path)}  ({size:,} bytes)", flush=True)
+            choice = None
+            try:
+                sel = input(
+                    "    Which number is the main article PDF? (Enter to skip) … "
+                ).strip()
+                if sel:
+                    idx = int(sel) - 1
+                    if 0 <= idx < len(remaining):
+                        choice = remaining[idx]
+            except (KeyboardInterrupt, EOFError, ValueError):
+                choice = None
+        if choice:
+            shutil.move(choice, pdf_dest)
+            size = os.path.getsize(pdf_dest)
+            print(f"    Saved main PDF → {pdf_dest}  ({size:,} bytes)", flush=True)
+            pdf_saved = True
+            remaining.remove(choice)
+
+    for path in remaining:
+        dest = _move_into_supp(path, "Extra file")
+        if dest:
+            supp_saved.append(dest)
+
+    return pdf_saved, supp_saved
 
 
 # ── Browser dependency check ──────────────────────────────────────────────────
@@ -855,7 +1179,8 @@ def sync_to_bucket(bucket, pmid, work_dir):
 
 # ── Download orchestration ────────────────────────────────────────────────────
 
-def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFILE_DIR):
+def run_download(pmid, doi, work_dir, staging_dir, headless=False,
+                  profile_dir=DEFAULT_PROFILE_DIR):
     """
     Download the main PDF and supplementary files for pmid into:
 
@@ -870,6 +1195,13 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
     Supplementary files are fetched from PMC when available; if PMC lists none,
     the publisher page is scanned for supplementary links as a fallback.
 
+    Anything automation could not save is resolved via staging_dir: the user
+    downloads it normally in their own (non-automated) browser — already
+    opened as a manual reference — and the script watches staging_dir for the
+    finished file(s) and files them into place. staging_dir is cleared at the
+    start of each call so a stale download from a previous publication can't
+    be mistaken for this one's.
+
     All downloads share a single browser session so CAPTCHA cookies carry across.
     """
     try:
@@ -883,6 +1215,8 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
 
     source_dir = os.path.join(work_dir, pmid, "01_source")
     supp_dir   = os.path.join(source_dir, "s")
+
+    _clear_staging_dir(staging_dir)
 
     # 1. Resolve PMC ID (needed for supplementary files)
     print(f"\nLooking up PMC entry for PMID {pmid} …", flush=True)
@@ -934,7 +1268,9 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
     saved = []
     with sync_playwright() as pw:
         context = _launch_browser(pw, headless, profile_dir)
-        page    = context.new_page()
+        # Reuse the blank tab Chrome always opens with instead of leaving it
+        # sitting there unused and opening a second tab for real navigation.
+        page = context.pages[0] if context.pages else context.new_page()
 
         # 3a. Open the journal page in the user's personal browser immediately
         # so they can follow along and manually download if automation fails.
@@ -1045,48 +1381,90 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
                 if _download_direct(page, url, dest, PWTimeout):
                     saved.append(dest)
 
-        # 3f. If automation could not save the PDF but the user's browser is
-        # open on a reference page (journal or PubMed), pause so they can
-        # download or locate it manually.
-        if manual_browser_opened and pdf_dest not in saved:
-            print(f"\n  Automation did not save a PDF.", flush=True)
-            print(f"  Please locate/download it manually in your browser and save to:",
-                  flush=True)
-            print(f"    {pdf_dest}", flush=True)
-            try:
-                input("\n  Press Enter when done … ")
-            except KeyboardInterrupt:
-                print("\n  Cancelled — continuing …", flush=True)
-            except EOFError:
-                print(flush=True)
-            if os.path.isfile(pdf_dest):
-                saved.append(pdf_dest)
-                size = os.path.getsize(pdf_dest)
-                print(f"  PDF confirmed: {size:,} bytes", flush=True)
+        # 3f. Resolve anything automation could not save (main PDF and/or
+        # supplementary files) via the staging-dir watcher: the user solves
+        # any Cloudflare challenge and downloads normally in the browser
+        # window already open (3a) — which passes challenges that the
+        # automated browser can't, even with a manual click there — and the
+        # script picks up the finished file(s) automatically instead of
+        # requiring manual copy/rename/placement. Every file _place_staged_
+        # files is handed gets moved somewhere (matched supplement, chosen
+        # PDF, or bonus supplementary material) — nothing is ever discarded,
+        # and the staging dir is only ever swept clean at the *start* of the
+        # next publication (see _clear_staging_dir call above), not here.
+        missing_supp = [
+            (dest, os.path.basename(dest)) for dest, _url in supp_downloads
+            if dest not in saved
+        ]
+        need_pdf    = pdf_dest not in saved
+        swap_offer  = pdf_source == "pmc"
+        expected_names = {name for _, name in missing_supp}
+
+        if manual_browser_opened and (need_pdf or missing_supp):
+            parts = []
+            if need_pdf:
+                parts.append("the main PDF")
+            if missing_supp:
+                parts.append(f"{len(missing_supp)} supplementary file(s)")
+            print(f"\n  Automation did not save {' and '.join(parts)}.", flush=True)
+            print(f"  Download {'them' if len(parts) > 1 else 'it'} normally "
+                  f"in the browser window already open.", flush=True)
+            staged = _wait_for_staging_files(staging_dir)
+            if staged:
+                pdf_saved, supp_saved = _place_staged_files(
+                    staged, pdf_dest, need_pdf or swap_offer, supp_dir, expected_names,
+                )
+                if pdf_saved:
+                    if pdf_dest not in saved:
+                        saved.append(pdf_dest)
+                    pdf_source = "manual"
+                saved.extend(s for s in supp_saved if s not in saved)
+            need_pdf   = pdf_dest not in saved
+            swap_offer = pdf_source == "pmc"
 
         # 3g. The PMC copy is a fallback of last resort — if it's what ended up
-        # saved, pause so the user can swap in the publisher's version instead,
-        # using the same journal page already open in their browser.
-        elif manual_browser_opened and pdf_source == "pmc":
+        # saved, offer to swap in the publisher's version instead, using the
+        # same journal page already open in the browser. Optional, so this
+        # only waits for an explicit Enter rather than polling indefinitely.
+        if manual_browser_opened and swap_offer:
             print(f"\n  Main PDF came from PubMed Central (publisher download failed or was skipped).",
                   flush=True)
             print(f"  If you'd prefer the publisher's version, download it now in the browser",
                   flush=True)
-            print(f"  and save over:", flush=True)
-            print(f"    {pdf_dest}", flush=True)
+            print(f"  (into {staging_dir}), or press Enter to keep the PMC copy.", flush=True)
             try:
-                input("\n  Press Enter to continue (replace the file first if desired) … ")
+                input("\n  Press Enter to continue … ")
             except KeyboardInterrupt:
                 print("\n  Cancelled — continuing …", flush=True)
             except EOFError:
                 print(flush=True)
-            if os.path.isfile(pdf_dest):
+            staged = _list_staging_files(staging_dir)
+            if staged:
+                pdf_saved, supp_saved = _place_staged_files(
+                    staged, pdf_dest, True, supp_dir, expected_names,
+                )
+                if pdf_saved:
+                    size = os.path.getsize(pdf_dest)
+                    print(f"  Replaced with publisher PDF → {pdf_dest}  ({size:,} bytes)",
+                          flush=True)
+                    pdf_source = "manual"
+                saved.extend(s for s in supp_saved if s not in saved)
+            else:
                 size = os.path.getsize(pdf_dest)
-                print(f"  Using PDF: {size:,} bytes", flush=True)
+                print(f"  Keeping PMC copy: {size:,} bytes", flush=True)
 
-        context.close()
+        try:
+            context.close()
+        except Exception as exc:
+            # The browser may already be gone by this point (crashed, or
+            # closed by the user after abandoning a Cloudflare wait or
+            # relying entirely on the staging-dir fallback) — we already
+            # have whatever we're going to get, so don't let a moot cleanup
+            # failure crash the whole batch run.
+            print(f"  (Browser context close warning: {exc})",
+                  file=sys.stderr, flush=True)
 
-    total = 1 + len(supp_downloads)
+    total = max(1 + len(supp_downloads), len(saved))
     print(f"\nDone — {len(saved)}/{total} file(s) saved.", flush=True)
 
     # If nothing was saved at all — main PDF included — remove the (empty)
@@ -1101,6 +1479,14 @@ def run_download(pmid, doi, work_dir, headless=False, profile_dir=DEFAULT_PROFIL
                     os.rmdir(d)
             except OSError:
                 pass
+    else:
+        # Even when the main PDF was saved, an empty s/ (no supplementary
+        # files found or downloaded) is just clutter — remove it.
+        try:
+            if os.path.isdir(supp_dir) and not os.listdir(supp_dir):
+                os.rmdir(supp_dir)
+        except OSError:
+            pass
 
     return len(saved)
 
@@ -1179,6 +1565,21 @@ def main():
         ),
     )
     parser.add_argument(
+        "--staging-dir",
+        metavar="DIR",
+        help=(
+            "Required with --download. Directory to watch for manually-"
+            "downloaded files — set your browser's download location to "
+            "this folder. When automation can't save a file itself (e.g. a "
+            "publisher's Cloudflare check flags the automated browser even "
+            "on a manual click), download it normally in the reference "
+            "browser window that's already opened, and the script will pick "
+            "the finished file(s) up from here automatically. Cleared at "
+            "the start of each publication so stale/unrelated files already "
+            "in this folder aren't mistaken for the current one's."
+        ),
+    )
+    parser.add_argument(
         "--profile-dir",
         metavar="DIR",
         default=DEFAULT_PROFILE_DIR,
@@ -1208,6 +1609,9 @@ def main():
         parser.error("--email is required when using --check-download")
     if args.bucket_sync and not args.download:
         parser.error("--bucket-sync requires --download")
+    if args.download and not args.staging_dir:
+        parser.error("--staging-dir is required when using --download")
+    staging_dir = os.path.expanduser(args.staging_dir) if args.staging_dir else None
 
     # ── Resolve PMID list ─────────────────────────────────────────────────────
     if args.pmid:
@@ -1228,6 +1632,10 @@ def main():
         sys.exit(1)
     print(f"  Bucket gs://{bucket}/ is accessible.", flush=True)
 
+    print(f"Listing existing publications in gs://{bucket}/ …", flush=True)
+    existing_pubids = list_bucket_pubids(bucket)
+    print(f"  Found {len(existing_pubids)} existing publication(s) in bucket.", flush=True)
+
     if args.download and not check_browser_dependencies():
         sys.exit(1)
 
@@ -1242,9 +1650,7 @@ def main():
         print(_pub_banner(pmid, idx if n_total > 1 else None, n_total), flush=True)
 
         # ── 2. Check for existing publication directory in bucket ──────────────
-        print(f"Checking for existing publication directory gs://{bucket}/{pmid}/ …",
-              flush=True)
-        if pubid_in_bucket(bucket, pmid):
+        if pmid in existing_pubids:
             print(
                 f"WARNING: gs://{bucket}/{pmid}/ already exists. "
                 "Skipping to avoid overwriting existing data.",
@@ -1252,7 +1658,7 @@ def main():
             )
             n_skipped += 1
             continue
-        print("  Not yet present — safe to proceed.", flush=True)
+        print(f"  gs://{bucket}/{pmid}/ not yet present — safe to proceed.", flush=True)
 
         # ── 3. Fetch PubMed metadata ───────────────────────────────────────────
         print(f"\nQuerying PubMed for PMID {pmid} …", flush=True)
@@ -1289,7 +1695,7 @@ def main():
 
         # ── 5. Download files (optional) ──────────────────────────────────────
         if args.download:
-            n_saved = run_download(pmid, doi, work_dir,
+            n_saved = run_download(pmid, doi, work_dir, staging_dir,
                                    headless=args.headless, profile_dir=profile_dir)
             if not n_saved:
                 n_failed += 1
