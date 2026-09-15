@@ -48,6 +48,7 @@ Per-publication directory structure:
 ```
 <pub_dir>/01_source/        ← source PDFs (+ s/ subdir for supplementary)
 <pub_dir>/02_grobid/        ← GROBID BioC XML output
+<pub_dir>/02_grobid/figures/<stem>/ ← figure PNGs cropped via GROBID coords + figures.json
 <pub_dir>/03_gnorm2/        ← GNorm2 annotated BioC XML (gene + species)
 <pub_dir>/04_tmvar3/        ← tmVar3 BioC XML + PubTator files (variant + gene)
 <pub_dir>/05_aioner/        ← AIONER NER-annotated BioC XML (all 6 entity types)
