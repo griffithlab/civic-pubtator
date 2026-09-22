@@ -374,25 +374,30 @@ def lookup_civic_metadata(pubid, pmid_map, pmcid_map):
 
 # ── HTML report copy ──────────────────────────────────────────────────────────
 
-def copy_html_report(input_dir, pubid, output_dir, tmp_dir):
+def copy_pub_reports(input_dir, pubid, output_dir, tmp_dir):
     """
-    Copy report_<pubid>.html to output_dir/pub-reports/.  Returns True on success.
+    Copy report_<pubid>.html and report_<pubid>.tsv to output_dir/pub-reports/.
+    Returns True if the HTML was copied successfully (TSV failure is non-fatal).
     """
-    filename = f"report_{pubid}.html"
-    dst = os.path.join(output_dir, "pub-reports", filename)
-    if is_gcs(input_dir):
-        src = get_local_file(input_dir, pubid, filename, tmp_dir)
-        if src is None:
-            log.warning("HTML report not found in GCS for %s", pubid)
-            return False
-        shutil.copy2(src, dst)
-    else:
-        src = os.path.join(input_dir, pubid, filename)
-        if not os.path.isfile(src):
-            log.warning("HTML report not found: %s", src)
-            return False
-        shutil.copy2(src, dst)
-    return True
+    dest_dir = os.path.join(output_dir, "pub-reports")
+    html_ok = False
+    for filename in (f"report_{pubid}.html", f"report_{pubid}.tsv"):
+        dst = os.path.join(dest_dir, filename)
+        if is_gcs(input_dir):
+            src = get_local_file(input_dir, pubid, filename, tmp_dir)
+            if src is None:
+                log.warning("%s not found in GCS for %s", filename, pubid)
+                continue
+            shutil.copy2(src, dst)
+        else:
+            src = os.path.join(input_dir, pubid, filename)
+            if not os.path.isfile(src):
+                log.warning("%s not found: %s", filename, src)
+                continue
+            shutil.copy2(src, dst)
+        if filename.endswith(".html"):
+            html_ok = True
+    return html_ok
 
 
 # ── HTML rendering ────────────────────────────────────────────────────────────
@@ -879,7 +884,7 @@ def main():
                 "entity_counts":     report_data["entity_counts"],
             })
 
-            copy_html_report(args.input_dir, pubid, args.output_dir, tmp_dir)
+            copy_pub_reports(args.input_dir, pubid, args.output_dir, tmp_dir)
 
         # Ordered category columns: preferred first, then any others alphabetically
         all_categories = [c for c in PREFERRED_CATEGORIES if c in all_categories_seen]
