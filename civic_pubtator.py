@@ -583,6 +583,8 @@ def run_grobid_for_group(label, pdf_dir, grobid_out, args, log_path, tsv_path, b
     grobid_cmd = [sys.executable, os.path.join(STEPS_DIR, "pdf_to_bioc.py"), pdf_dir, grobid_out]
     if supplementary:
         grobid_cmd += ["--supplementary", "--pymupdf-threshold", str(args.pymupdf_threshold)]
+    if not args.save_figures:
+        grobid_cmd.append("--no-figures")
     t0 = time.time()
     run(f"GROBID  [{label}]", grobid_cmd)
     source_wc = collect_source_word_counts(pdf_dir)
@@ -1238,6 +1240,10 @@ def main():
                         help="For supplementary PDFs, fall back to PyMuPDF extraction when "
                              "GROBID captures less than this fraction of PyMuPDF word count "
                              "(0.0 = always use GROBID, 1.0 = always use PyMuPDF; default: 0.66)")
+    parser.add_argument("--no-figures", dest="save_figures", action="store_false",
+                        help="Do not crop figure images out of source PDFs during the GROBID "
+                             "step (by default PNGs and a figures.json are written to "
+                             "02_grobid/figures/<stem>/)")
     parser.add_argument("--quiet-tf", action="store_true",
                         help="Suppress TensorFlow and HuggingFace Transformers "
                              "informational messages (sets TF_CPP_MIN_LOG_LEVEL=3, "

@@ -241,6 +241,7 @@ my_run/
 │       ├── sup2.docx
 │       └── sup3.pptx
 ├── 02_grobid/          ← GROBID BioC XML output (created automatically)
+│   └── figures/<stem>/ ← cropped figure PNGs + figures.json
 ├── 03_gnorm2/          ← GNorm2 output (created automatically)
 ├── 04_tmvar3/          ← tmVar3 output (created automatically)
 ├── 05_aioner/          ← AIONER output (created automatically)
@@ -291,7 +292,7 @@ usage: civic_pubtator.py [-h] [--clean] [--no-clear-intermediates]
                              [--gnorm2-python PATH_OR_ENV]
                              [--aioner-python PATH_OR_ENV]
                              [--taggerone-model PATH]
-                             [--nlmchem-python PATH_OR_ENV]
+                             [--nlmchem-python PATH_OR_ENV] [--no-figures]
                              input_dirs [input_dirs ...]
 ```
 
@@ -307,6 +308,7 @@ usage: civic_pubtator.py [-h] [--clean] [--no-clear-intermediates]
 | `--pymupdf-threshold FRAC` | `0.66` | For supplementary PDFs, fall back to PyMuPDF when GROBID captures less than this fraction of PyMuPDF word count (`0.0` = always GROBID, `1.0` = always PyMuPDF) |
 | `--taggerone-model PATH` | `tools/TaggerOne/output/model_DISE.bin` | Path to a trained TaggerOne model; set to empty string to skip TaggerOne |
 | `--nlmchem-python PATH_OR_ENV` | `nlmchem-py39` conda env | Python interpreter or conda env name for NLMChem |
+| `--no-figures` | off | Skip cropping figure images out of source PDFs during the GROBID step |
 
 ---
 
@@ -334,6 +336,16 @@ also be regenerated manually:
 ```bash
 python3 src/pipeline_steps/report_civic_pubtator.py /data/pub-data/28783719/
 ```
+
+### `02_grobid/figures/<stem>/`
+
+During the GROBID step each figure (not table) is cropped out of the source PDF
+using the coordinates GROBID reports (`teiCoordinates=figure`) and saved as a
+200 DPI PNG named `<figure_id>_p<page>.png`. A `figures.json` alongside lists
+each figure's label, caption, page, bounding box, and whether the crop came from
+GROBID's detected graphic region (`graphic`), the whole figure block (`figure`),
+or could not be made (`none`). Supplementary PDFs get the same treatment under
+`02_grobid/s/<rel>/figures/<stem>/`. Disable with `--no-figures`.
 
 ### `MANIFEST.txt`
 
