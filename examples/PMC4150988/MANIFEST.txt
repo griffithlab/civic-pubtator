@@ -2,7 +2,7 @@
 MANIFEST — civic-pubtator pipeline
 ======================================================================
 Tool version:    2.0
-Run timestamp:   2026-07-02 00:29:39
+Run timestamp:   2026-09-25 16:32:57
 Input directory: /opt/civic-pubtator/examples/PMC4150988
 Source dir:      /opt/civic-pubtator/examples/PMC4150988/01_source
 

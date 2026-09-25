@@ -1,0 +1,69 @@
+{
+  "pdf": "41388_2014_Article_BFonc2013581.pdf",
+  "dpi": 200,
+  "figures": [
+    {
+      "id": "fig_0",
+      "label": "1",
+      "head": "Figure 1 .",
+      "caption": "Figure 1. Somatic RIT1 mutations in lung adenocarcinoma. (a) 2D protein structure schematics of RIT1 and KRAS with major protein domains shaded as indicated. Numbers indicate amino-acid positions. Each box represents an independent somatic RIT1 mutation with missense and in-frame indel mutations represented in black or blue, respectively. Arrows indicate two mutational hotspots in KRAS. (b) Predicted protein structure of RIT1. A homology model of RIT1was generated from an alignment with HRAS (1AGP) using SWISS model and displayed using PYMOL. Amino acids near the switch II domain found mutated in this study are highlighted in yellow, in addition to Q79, which is shown for reference.",
+      "source": "graphic",
+      "images": [
+        {
+          "file": "fig_0_p2.png",
+          "page": 2,
+          "bbox": [
+            38.07,
+            55.3,
+            282.14,
+            390.19
+          ],
+          "width_px": 679,
+          "height_px": 931
+        }
+      ]
+    },
+    {
+      "id": "fig_1",
+      "label": "2",
+      "head": "Figure 2 .",
+      "caption": "Figure 2. Mutated RIT1 induces cellular transformation via activation of MEK and PI3K. (a) Soft agar transformation assay in NIH3T3 cells. Cells were transduced with retrovirus to ectopically express wild-type (WT) or mutated RIT1 constructs or empty vector (control), then plated in soft agar (Methods). Colonies were visualized at 14 days and quantified using CellProfiler. Top panel, data shown are mean \u00fe s.e.m. of triplicate wells. Data shown are representative of at least three independent experiments. *Po0.05 by two-tailed t-test. Bottom panels, western blot showing expression of RIT1 or vinculin (loading control). 'INS' , T76_insTLDT. (b) Tumor growth of xenografts of NIH3T3 cells with or without expression of RIT1. Data shown is mean \u00fe s.e.m. of nine replicates per construct. *Po0.01 by two-tailed t-test. Data shown are representative of at least two independent experiments per construct. (c) Western blot of PC6 cell lysates following transfection of wild-type or mutant RIT1 or vector control ('Emp'). Data shown is representative of at least three independent experiments. (d) Western blot of PC6 lysates following transfection of FLAG-RIT1 constructs or vector control ('Emp') in the presence or absence of 10 mM PD98059. Cells were serum starved for 5 h prior to lysis. (e) Western blot of PC6 cell lysates generated after transfection of FLAG-RIT1 mutant constructs in the presence or absence of 10 mM LY294002. Cells were serum starved for 5 h prior to lysis. (f ) Soft agar colony formation of NIH3T3 cells stably expressing RIT1 M90I or RIT1 Q79L in the presence or absence of 1 mM erlotinib, GDC-0941, AZD-6244 or GDC-0941/AZD-6244 or vehicle control (dimethylsulfoxide). 5 \u00c2 10 3 cells were suspended in a top agar solution together with each respective drug to a final concentration of 1 mM in triplicate. After 15 days, colonies were photographed and quantified using CellProfiler. *Po0.05.",
+      "source": "graphic",
+      "images": [
+        {
+          "file": "fig_1_p3.png",
+          "page": 3,
+          "bbox": [
+            140.57,
+            55.3,
+            464.8,
+            427.33
+          ],
+          "width_px": 902,
+          "height_px": 1035
+        }
+      ]
+    },
+    {
+      "id": "fig_2",
+      "label": "3",
+      "head": "Figure 3 .",
+      "caption": "Figure 3. Endogenous mutated RIT1 regulates MEK and PI3K in NCI-H2110 cells. (a) Sanger sequencing of RIT1 RT-PCR products generated from NCI-H1993 or NCI-H2110 cell line cDNA. Numbering in black bold refers to amino-acid positions and colored letters refer to nucleotide sequence. An arrow indicates the position of a heterozygous p.M90I mutation. (b) Western blot of lysates from NCI-H1299 and NCI-H2110 following expression of shRNA hairpins targeting RIT1 (shRIT1-1, -2 and -3) or non-targeting hairpin control (shlacZ). (c) Tumor volume of NCI-H2110 xenografts in nude mice. 2 \u00c2 10 6 cells were injected subcutaneously into the flanks of nude mice. When tumors reached B100 mm 3 , drug treatment was initiated (day 0). Mice were treated daily with 150 mg/kg GDC-0941 or vehicle control by oral gavage. *Po0.05. n \u00bc 9 tumors per condition. (d) Weight of tumors from NCI-H2110 xenografts shown in b. At day 18, animals were euthanized and tumors excised and weighed.",
+      "source": "graphic",
+      "images": [
+        {
+          "file": "fig_2_p4.png",
+          "page": 4,
+          "bbox": [
+            131.1,
+            55.3,
+            455.22,
+            358.39
+          ],
+          "width_px": 901,
+          "height_px": 843
+        }
+      ]
+    }
+  ]
+}

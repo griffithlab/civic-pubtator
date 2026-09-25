@@ -1,0 +1,69 @@
+{
+  "pdf": "41388_2014_BFonc2013581_MOESM15_ESM.pdf",
+  "dpi": 200,
+  "figures": [
+    {
+      "id": "fig_0",
+      "label": "2",
+      "head": "Supplementary Figure 2 |",
+      "caption": "Mutual exclusivity of RIT1 and other driver mutations in lung adenocarcinoma. a, Depiction of mutation data from 230 samples from The Cancer Genome Atlas lung adenocarcinoma sequencing study, displayed using the MSKCC cBio portal (http://cbio.mskcc.org). Each column represents a sample; each row corresponds to a different gene. Samples lacking alterations in the genes shown are not displayed. Green box: missense mutation present, purple box: in-frame insertion/deletion, orange triangles: fusion event, blue box: MET exon 14 skipping. For all genes except RIT1, only mutations of known significance are displayed. Numbers indicate the percentage of samples in the cohort with mutation in the respective gene. b, Data from 183 lung adenocarcinomas described in Imielinski et al.",
+      "source": "figure",
+      "images": [
+        {
+          "file": "fig_0_p2.png",
+          "page": 2,
+          "bbox": [
+            9.38,
+            26.41,
+            750.75,
+            576.03
+          ],
+          "width_px": 2060,
+          "height_px": 1528
+        }
+      ]
+    },
+    {
+      "id": "fig_1",
+      "label": "3",
+      "head": "Supplementary Figure 3 |",
+      "caption": "Transforming capability of somatic RIT1 mutants. NIH3T3 cells were transduced with retrovirus to induce expression of wild-type RIT1 (WT), mutated RIT1, empty vector, or known oncogenic mutations (KRAS G12V, EGFR L858R) as positive controls. After selection with puromycin, cells were expanded and 2x10 5 cells injected per site subcutaneously into the flanks of nude mice. Beginning at day 7 post-injection, tumors were measured every three days with a digital caliper. Data shown is mean+SEM at each timepoint, n = 9 injection sites per condition.",
+      "source": "figure",
+      "images": [
+        {
+          "file": "fig_1_p3.png",
+          "page": 3,
+          "bbox": [
+            65.33,
+            20.07,
+            604.8,
+            744.03
+          ],
+          "width_px": 1499,
+          "height_px": 2012
+        }
+      ]
+    },
+    {
+      "id": "fig_2",
+      "label": "",
+      "head": "",
+      "caption": "expression (RMA, log2) H2110 p.M90I RIT1 mut Supplementary Figure 4 | RNA expression of RIT1 in driver-negative non-squamous NSCLC lines. We queried genotype data from the Cancer Cell Line Encyclopedia (CCLE) and identified 35 driver-negative non-squamous NSCLC lines with gene expression data (Supplementary Table",
+      "source": "figure",
+      "images": [
+        {
+          "file": "fig_2_p4.png",
+          "page": 4,
+          "bbox": [
+            80.0,
+            155.57,
+            518.63,
+            505.69
+          ],
+          "width_px": 1219,
+          "height_px": 973
+        }
+      ]
+    }
+  ]
+}
