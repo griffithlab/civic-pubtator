@@ -17,6 +17,7 @@
 set -euo pipefail
 
 LOCAL="/data/pub-data"
+EXCLUDE='.*/\.DS_Store$|^\.DS_Store$'
 
 die()  { echo "ERROR: $*" >&2; exit 1; }
 info() { echo "[sync_pub_data] $*"; }
@@ -86,20 +87,20 @@ if [[ $# -gt 0 ]]; then
 
         if [[ "$DIRECTION" == "down" ]]; then
             info "Downloading ${pmid}: ${gcs_path} → ${local_dir}/"
-            gcloud storage rsync -r "$gcs_path" "${local_dir}/"
+            gcloud storage rsync -r --exclude="$EXCLUDE" "$gcs_path" "${local_dir}/"
         else
             info "Uploading ${pmid}: ${local_dir}/ → ${gcs_path}"
-            gcloud storage rsync -r "${local_dir}/" "$gcs_path"
+            gcloud storage rsync -r --exclude="$EXCLUDE" "${local_dir}/" "$gcs_path"
         fi
     done
 else
     # Sync entire pub-data directory
     if [[ "$DIRECTION" == "down" ]]; then
         info "Downloading all pub-data: ${BUCKET}/ → ${LOCAL}/"
-        gcloud storage rsync -r "${BUCKET}/" "${LOCAL}/"
+        gcloud storage rsync -r --exclude="$EXCLUDE" "${BUCKET}/" "${LOCAL}/"
     else
         info "Uploading all pub-data: ${LOCAL}/ → ${BUCKET}/"
-        gcloud storage rsync -r "${LOCAL}/" "${BUCKET}/"
+        gcloud storage rsync -r --exclude="$EXCLUDE" "${LOCAL}/" "${BUCKET}/"
     fi
 fi
 
