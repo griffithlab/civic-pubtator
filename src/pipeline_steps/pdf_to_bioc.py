@@ -109,7 +109,9 @@ def extract_figures_and_tables(tei_xml):
     return passages
 
 
-MIN_FIGURE_PT = 30   # skip crops narrower/shorter than this (PDF points)
+MIN_FIGURE_PT = 30   # skip figure crops narrower/shorter than this (PDF points);
+                     # filters spurious tiny detections (icons/logos misread as figures)
+MIN_TABLE_PT = 10    # tables are legitimately small; only guard against degenerate boxes
 FIGURE_PAD_PT = 4    # padding added around each crop (PDF points)
 
 def parse_coords(coords):
@@ -183,7 +185,8 @@ def save_figure_images(tei_xml, pdf_path, fig_dir, dpi=200):
                 x0, y0, x1, y1 = by_page[page_no]
                 rect = fitz.Rect(x0 - FIGURE_PAD_PT, y0 - FIGURE_PAD_PT,
                                  x1 + FIGURE_PAD_PT, y1 + FIGURE_PAD_PT) & page.rect
-                if rect.width < MIN_FIGURE_PT or rect.height < MIN_FIGURE_PT:
+                min_pt = MIN_TABLE_PT if is_table else MIN_FIGURE_PT
+                if rect.width < min_pt or rect.height < min_pt:
                     continue
                 pix = page.get_pixmap(clip=rect, dpi=dpi)
                 fname = f"{fig_id}_p{page_no}.png"

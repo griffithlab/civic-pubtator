@@ -58,14 +58,17 @@ for tei in sorted(glob.glob(os.path.join(root, "**", "*.tei.xml.gz"), recursive=
     rel = os.path.relpath(tei, root)
     pub = rel.split(os.sep)[0] if not rel.startswith("backfill") else "bf/" + rel.split(os.sep)[1]
     stem = os.path.basename(tei)[: -len(".tei.xml.gz")]
-    text = gzip.open(tei, "rt", encoding="utf-8").read()
+    with gzip.open(tei, "rt", encoding="utf-8") as fh:
+        text = fh.read()
     body = ET.fromstring(text).find(f".//{T}body")
     n = lambda tag: len(body.findall(f".//{T}{tag}")) if body is not None else 0
     refs = len([r for r in body.iter(f"{T}ref") if r.get("type") in ("figure", "table")]) if body is not None else 0
     fj = os.path.join(os.path.dirname(tei), "figures", stem, "figures.json")
     figs = tabs = []
     if os.path.exists(fj):
-        d = json.load(open(fj)); figs, tabs = d.get("figures", []), d.get("tables")
+        with open(fj) as fh:
+            d = json.load(fh)
+        figs, tabs = d.get("figures", []), d.get("tables")
     tabs_s = "MISSING" if tabs is None else str(len(tabs))
     pngs = lambda recs: sum(len(r["images"]) for r in (recs or []))
     print(f"{pub:<14}{stem[:32]:<34}{n('head'):>6}{n('p'):>6}{refs:>5}{len(figs):>5}{tabs_s:>5}"
