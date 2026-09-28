@@ -1,7 +1,21 @@
 #!/usr/bin/env python3
-import argparse, hashlib, json, os, shutil, sys, requests, unicodedata
+import argparse, gzip, hashlib, json, os, shutil, sys, requests, unicodedata
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape
+
+# The raw GROBID TEI is kept next to the BioC as <stem>.tei.xml.gz. The BioC
+# flattens it (one body blob, ASCII-only, no section headings or figure/table
+# positions); the TEI keeps all of that for consumers that want the structure.
+# Deliberately NOT a plain ".xml": every downstream step, enforce_max_chars and
+# the capture stats treat any *.xml in a 02_grobid dir as a BioC document.
+TEI_SUFFIX = ".tei.xml.gz"
+
+def save_tei(tei_xml, output_dir, stem):
+    """Write the untouched GROBID TEI to <output_dir>/<stem>.tei.xml.gz."""
+    path = os.path.join(output_dir, stem + TEI_SUFFIX)
+    with gzip.open(path, "wt", encoding="utf-8") as fh:
+        fh.write(tei_xml)
+    return path
 
 GROBID_BASE = "http://localhost:8070"
 GROBID_URL = f"{GROBID_BASE}/api/processFulltextDocument"
@@ -95,7 +109,9 @@ def extract_figures_and_tables(tei_xml):
     return passages
 
 
-MIN_FIGURE_PT = 30   # skip crops narrower/shorter than this (PDF points)
+MIN_FIGURE_PT = 30   # skip figure crops narrower/shorter than this (PDF points);
+                     # filters spurious tiny detections (icons/logos misread as figures)
+MIN_TABLE_PT = 10    # tables are legitimately small; only guard against degenerate boxes
 FIGURE_PAD_PT = 4    # padding added around each crop (PDF points)
 
 def parse_coords(coords):
@@ -115,13 +131,17 @@ def parse_coords(coords):
     return boxes
 
 def save_figure_images(tei_xml, pdf_path, fig_dir, dpi=200):
-    """Crop each figure (not table) out of the PDF using GROBID's TEI coordinates.
+    """Crop each figure and table out of the PDF using GROBID's TEI coordinates.
 
     Prefers <graphic> boxes (the bitmap/vector region GROBID detected); falls
-    back to the <figure> box when no graphic was found. Boxes are unioned per
-    page, so a figure spanning two pages yields two PNGs. Writes
-    <fig_dir>/<figure_id>_p<page>.png plus figures.json (label, caption, source
-    of the box, page, bbox). Returns the number of PNGs written.
+    back to the <figure> box when no graphic was found (the usual case for
+    tables, whose box covers the table plus its caption). Boxes are unioned per
+    page, so an item spanning two pages yields two PNGs. Writes
+    <fig_dir>/<id>_p<page>.png plus figures.json (label, caption, source of the
+    box, page, bbox): figures under "figures", tables under "tables". IDs are
+    the TEI xml:ids (fig_N / tab_N), so the JSON joins back to the saved TEI.
+    figures.json is always written, even when empty, so it doubles as a
+    "this document has been cropped" marker. Returns the number of PNGs written.
     """
     import fitz
     ns = {"tei": "http://www.tei-c.org/ns/1.0"}
@@ -131,14 +151,13 @@ def save_figure_images(tei_xml, pdf_path, fig_dir, dpi=200):
     if os.path.isdir(fig_dir):
         shutil.rmtree(fig_dir)
 
-    records = []
+    records = {"figures": [], "tables": []}
     n_images = 0
     doc = fitz.open(pdf_path)
     try:
         for i, figure in enumerate(root.findall(".//tei:figure", ns)):
-            if figure.get("type") == "table":
-                continue
-            fig_id = figure.get(xml_id) or f"fig_{i}"
+            is_table = figure.get("type") == "table"
+            fig_id = figure.get(xml_id) or (f"tab_{i}" if is_table else f"fig_{i}")
             head  = figure.find("tei:head", ns)
             label = figure.find("tei:label", ns)
             desc  = figure.find("tei:figDesc", ns)
@@ -166,7 +185,8 @@ def save_figure_images(tei_xml, pdf_path, fig_dir, dpi=200):
                 x0, y0, x1, y1 = by_page[page_no]
                 rect = fitz.Rect(x0 - FIGURE_PAD_PT, y0 - FIGURE_PAD_PT,
                                  x1 + FIGURE_PAD_PT, y1 + FIGURE_PAD_PT) & page.rect
-                if rect.width < MIN_FIGURE_PT or rect.height < MIN_FIGURE_PT:
+                min_pt = MIN_TABLE_PT if is_table else MIN_FIGURE_PT
+                if rect.width < min_pt or rect.height < min_pt:
                     continue
                 pix = page.get_pixmap(clip=rect, dpi=dpi)
                 fname = f"{fig_id}_p{page_no}.png"
@@ -177,7 +197,7 @@ def save_figure_images(tei_xml, pdf_path, fig_dir, dpi=200):
                                "bbox": [round(v, 2) for v in rect],
                                "width_px": pix.width, "height_px": pix.height})
 
-            records.append({
+            records["tables" if is_table else "figures"].append({
                 "id":      fig_id,
                 "label":   " ".join(label.itertext()).strip() if label is not None else "",
                 "head":    " ".join(head.itertext()).strip() if head is not None else "",
@@ -188,11 +208,10 @@ def save_figure_images(tei_xml, pdf_path, fig_dir, dpi=200):
     finally:
         doc.close()
 
-    if records:
-        os.makedirs(fig_dir, exist_ok=True)
-        with open(os.path.join(fig_dir, "figures.json"), "w", encoding="utf-8") as fh:
-            json.dump({"pdf": os.path.basename(pdf_path), "dpi": dpi, "figures": records},
-                      fh, indent=2)
+    os.makedirs(fig_dir, exist_ok=True)
+    with open(os.path.join(fig_dir, "figures.json"), "w", encoding="utf-8") as fh:
+        json.dump({"pdf": os.path.basename(pdf_path), "dpi": dpi, **records},
+                  fh, indent=2)
     return n_images
 
 
@@ -289,6 +308,7 @@ def process_folder(input_dir, output_dir, supplementary=False, pymupdf_threshold
         print(f"Processing {fname}...")
         try:
             tei_xml = extract_with_grobid(pdf_path)
+            save_tei(tei_xml, output_dir, stem)
 
             if supplementary:
                 grobid_title, body = tei_to_sections_supp(tei_xml)
@@ -334,7 +354,7 @@ def process_folder(input_dir, output_dir, supplementary=False, pymupdf_threshold
                 fig_dir = os.path.join(output_dir, "figures", stem)
                 try:
                     n_imgs = save_figure_images(tei_xml, pdf_path, fig_dir, dpi=figure_dpi)
-                    print(f"  → {n_imgs} figure image(s) in {fig_dir}")
+                    print(f"  → {n_imgs} figure/table image(s) in {fig_dir}")
                 except Exception as e:
                     print(f"  WARNING: figure image extraction failed for {fname}: {e}")
 
@@ -358,7 +378,7 @@ def main():
                         help="Fall back to PyMuPDF when GROBID captures less than this "
                              "fraction of PyMuPDF word count (supplementary only, default: 0.66)")
     parser.add_argument("--no-figures", dest="save_figures", action="store_false",
-                        help="Skip cropping figure images out of the PDF "
+                        help="Skip cropping figure/table images out of the PDF "
                              "(default: write PNGs to <output_dir>/figures/<stem>/)")
     parser.add_argument("--figure-dpi", type=int, default=200, metavar="DPI",
                         help="Resolution of cropped figure PNGs (default: 200)")

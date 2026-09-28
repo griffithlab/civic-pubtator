@@ -241,7 +241,8 @@ my_run/
 │       ├── sup2.docx
 │       └── sup3.pptx
 ├── 02_grobid/          ← GROBID BioC XML output (created automatically)
-│   └── figures/<stem>/ ← cropped figure PNGs + figures.json
+│   ├── <stem>.tei.xml.gz ← raw GROBID TEI (full structure, Unicode)
+│   └── figures/<stem>/ ← cropped figure + table PNGs + figures.json
 ├── 03_gnorm2/          ← GNorm2 output (created automatically)
 ├── 04_tmvar3/          ← tmVar3 output (created automatically)
 ├── 05_aioner/          ← AIONER output (created automatically)
@@ -339,13 +340,25 @@ python3 src/pipeline_steps/report_civic_pubtator.py /data/pub-data/28783719/
 
 ### `02_grobid/figures/<stem>/`
 
-During the GROBID step each figure (not table) is cropped out of the source PDF
+During the GROBID step each figure and table is cropped out of the source PDF
 using the coordinates GROBID reports (`teiCoordinates=figure`) and saved as a
-200 DPI PNG named `<figure_id>_p<page>.png`. A `figures.json` alongside lists
-each figure's label, caption, page, bounding box, and whether the crop came from
-GROBID's detected graphic region (`graphic`), the whole figure block (`figure`),
-or could not be made (`none`). Supplementary PDFs get the same treatment under
-`02_grobid/s/<rel>/figures/<stem>/`. Disable with `--no-figures`.
+200 DPI PNG named `<id>_p<page>.png` (`fig_N` / `tab_N`, the TEI `xml:id`s). A
+`figures.json` alongside lists each item's label, caption, page, bounding box,
+and whether the crop came from GROBID's detected graphic region (`graphic`), the
+whole figure/table block (`figure`), or could not be made (`none`) — figures
+under `"figures"`, tables under `"tables"`. Supplementary PDFs get the same
+treatment under `02_grobid/s/<rel>/figures/<stem>/`. Disable with `--no-figures`.
+
+### `02_grobid/<stem>.tei.xml.gz`
+
+The untouched GROBID TEI for every PDF (main and supplementary). The BioC XML
+flattens it for the annotation tools (one body passage, ASCII-only, no section
+headings or figure/table positions); the TEI keeps sections, paragraphs,
+`<ref type="figure|table">` citations, table cells, the abstract structure and
+back matter. It is gzipped and not named `.xml` so the annotation steps never
+mistake it for a BioC input. For publications processed before this was added,
+`src/pipeline_steps/backfill_figures.py <pub-data-root>` fills in the TEI and
+table crops without re-running any annotation step.
 
 ### `MANIFEST.txt`
 

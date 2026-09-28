@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """
-backfill_figures.py — Fill in 02_grobid/figures/<stem>/ for publications that
-were processed before figure-image cropping was added (see pdf_to_bioc.py /
-save_figure_images).
+backfill_figures.py — Fill in the GROBID extras for publications that were
+processed before they existed (see pdf_to_bioc.py):
+  02_grobid/<stem>.tei.xml.gz    raw GROBID TEI (save_tei)
+  02_grobid/figures/<stem>/      figure AND table crops + figures.json
+                                 (save_figure_images; tables under "tables")
 
 For each publication directory this only re-runs the cheap GROBID call (with
-teiCoordinates=figure) and crops figures out of the already-downloaded source
-PDF; it does not touch 02_grobid/*.xml or any of 03_gnorm2 .. 07_taggerone /
-the report, and does not re-run any of those steps. Safe to re-run: a
-publication/PDF already backfilled (figures.json present) is skipped unless
---force is given.
+teiCoordinates=figure), saves the TEI and crops figures/tables out of the
+already-downloaded source PDF; it does not touch 02_grobid/*.xml (BioC) or any
+of 03_gnorm2 .. 07_taggerone / the report, and does not re-run any of those
+steps. Safe to re-run: a PDF is skipped when its TEI exists and its
+figures.json already has a "tables" key (i.e. was written by the current
+cropper), unless --force is given.
 
 civic_pubtator.py's default run deletes the *prepared* PDFs it converts
 supplementary .docx/.xlsx/.pptx files into (01_source/s/<stem>/...), keeping
@@ -35,7 +38,8 @@ REPO_DIR = os.path.dirname(os.path.dirname(STEPS_DIR))
 sys.path.insert(0, STEPS_DIR)
 sys.path.insert(0, REPO_DIR)
 
-from pdf_to_bioc import check_grobid, extract_with_grobid, save_figure_images  # noqa: E402
+from pdf_to_bioc import (check_grobid, extract_with_grobid, save_figure_images,  # noqa: E402
+                         save_tei, TEI_SUFFIX)
 from civic_pubtator import find_supplement_leaf_dirs, IGNORED_FILES  # noqa: E402
 
 import json  # noqa: E402
@@ -120,6 +124,17 @@ def iter_groups(pub_dir):
         yield rel, abs_path, os.path.join(grobid_root, rel)
 
 
+def is_done(figures_json, tei_path):
+    """TEI saved and figures.json written by the table-aware cropper."""
+    if not os.path.exists(tei_path) or not os.path.exists(figures_json):
+        return False
+    try:
+        with open(figures_json, encoding="utf-8") as fh:
+            return "tables" in json.load(fh)
+    except (OSError, ValueError):
+        return False
+
+
 def backfill_group(pdf_dir, grobid_out, dpi, force, dry_run, stats):
     if not os.path.isdir(grobid_out):
         stats["groups_skipped_no_grobid"] += 1
@@ -143,25 +158,21 @@ def backfill_group(pdf_dir, grobid_out, dpi, force, dry_run, stats):
 
         fig_dir = os.path.join(grobid_out, "figures", stem)
         figures_json = os.path.join(fig_dir, "figures.json")
-        if os.path.exists(figures_json) and not force:
+        tei_path = os.path.join(grobid_out, stem + TEI_SUFFIX)
+        if is_done(figures_json, tei_path) and not force:
             stats["docs_already_done"] += 1
             continue
 
         if dry_run:
-            print(f"  WOULD BACKFILL {pdf_path} -> {fig_dir}")
+            print(f"  WOULD BACKFILL {pdf_path} -> {tei_path}, {fig_dir}")
             stats["docs_would_backfill"] += 1
             continue
 
         try:
             tei_xml = extract_with_grobid(pdf_path)
+            save_tei(tei_xml, grobid_out, stem)
             n_imgs = save_figure_images(tei_xml, pdf_path, fig_dir, dpi=dpi)
-            if not os.path.exists(figures_json):
-                # No <figure> elements at all in the TEI — write a sentinel
-                # so this file isn't re-fetched from GROBID on the next run.
-                os.makedirs(fig_dir, exist_ok=True)
-                with open(figures_json, "w", encoding="utf-8") as fh:
-                    json.dump({"pdf": fname, "dpi": dpi, "figures": []}, fh, indent=2)
-            print(f"  {pdf_path} -> {n_imgs} figure image(s) in {fig_dir}")
+            print(f"  {pdf_path} -> TEI + {n_imgs} figure/table image(s) in {fig_dir}")
             stats["docs_backfilled"] += 1
             stats["images_written"] += n_imgs
         except Exception as e:
@@ -178,7 +189,7 @@ def main():
     parser.add_argument("--figure-dpi", type=int, default=200, metavar="DPI",
                         help="Resolution of cropped figure PNGs (default: 200)")
     parser.add_argument("--force", action="store_true",
-                        help="Re-crop even if figures.json already exists for a document")
+                        help="Re-fetch the TEI and re-crop even if a document is already backfilled")
     parser.add_argument("--dry-run", action="store_true",
                         help="List what would be backfilled without calling GROBID or "
                              "writing any files")
@@ -232,7 +243,7 @@ def main():
     else:
         print(f"Pubs with supplementary PDFs regenerated: {stats['pubs_regenerated']}")
         print(f"Docs backfilled this run:    {stats['docs_backfilled']}")
-        print(f"Figure images written:       {stats['images_written']}")
+        print(f"Figure/table images written: {stats['images_written']}")
     print(f"Docs already backfilled:     {stats['docs_already_done']}")
     print(f"Docs failed:                  {stats['docs_failed']}")
     print(f"Docs skipped (no BioC yet):   {stats['docs_skipped_no_bioc']}")
