@@ -30,6 +30,20 @@ Options:
                            GCS bucket via src/cloud/sync_pub_data.sh
     --headless             Run browser without a visible window (not recommended;
                            headed mode passes reCAPTCHA more reliably)
+    --reset-profile-history
+                           Standalone maintenance action (no PMID needed): renames
+                           away the profile's Chrome History database and exits.
+                           Normally you shouldn't need this — --download already
+                           resets History automatically before every browser
+                           launch, working around a known Chrome crash where a
+                           History database containing even one publication's
+                           worth of download records makes headed Chrome die the
+                           moment it tries to record/re-process them (symptom:
+                           the browser window vanishes mid-run and every
+                           subsequent step fails with "Target page, context or
+                           browser has been closed"). Use this flag only to
+                           inspect/reset the profile without running a download.
+                           Cookies/logins are untouched either way.
 
 Examples:
     python src/automation/pub_retrieval.py --pmid 20407015
@@ -37,6 +51,7 @@ Examples:
     python src/automation/pub_retrieval.py --pmid 20407015 --download
     python src/automation/pub_retrieval.py --pmid 20407015 --download --output-dir /tmp/test/
     python src/automation/pub_retrieval.py --pmid 20407015 --download --profile-dir ~/my-chrome-profile/
+    python src/automation/pub_retrieval.py --reset-profile-history
 """
 
 import argparse
@@ -71,6 +86,82 @@ def _pub_banner(pmid, idx=None, n_total=None):
             f"{_BOLD_BLUE}{bar}{_RESET}\n"
         )
     return f"\n{'=' * 70}\n  {label}\n{'=' * 70}\n"
+
+
+def _prompt_continue_or_abort(n_done, n_total, n_skipped, n_failed):
+    """
+    Pause between publications in a multi-PMID batch so problems (e.g. a
+    crashed browser) can be caught and inspected before moving on, instead of
+    burning through the rest of the list unattended.
+    """
+    try:
+        resp = input(
+            f"\n[{n_done}/{n_total} done — {n_skipped} skipped, {n_failed} failed] "
+            "Press Enter to continue to the next publication, or type 'q' to abort: "
+        ).strip().lower()
+    except EOFError:
+        return
+    if resp in ("q", "quit", "abort"):
+        print(f"\nAborted after {n_done}/{n_total} publication(s) "
+              f"({n_skipped} skipped, {n_failed} failed).", flush=True)
+        sys.exit(0)
+
+
+# A network/API call that exhausted _urlopen_with_retry's automatic backoff
+# (see _call_with_retry_prompt) is not something to silently log and move
+# past — unlike a routine "no DOI" or "already in bucket" skip, it likely
+# means something is actually wrong (rate limiting, an outage, a bad network)
+# that will probably recur on the very next PMID too, so it's worth an
+# explicit, deliberate decision each time rather than auto-continuing.
+_SKIP_SENTINEL = object()
+
+
+def _prompt_retry_skip_abort(message):
+    """
+    Print `message` (the error) and ask whether to retry the operation that
+    just failed, skip this publication and continue the batch, or abort the
+    batch entirely. Returns "retry" or "skip"; choosing abort exits directly.
+
+    Chooses "skip" on EOF (no interactive terminal) rather than hanging,
+    consistent with _prompt_continue_or_abort's EOF handling — but in an
+    interactive terminal, nothing is chosen without the user explicitly
+    typing it.
+    """
+    print(message, file=sys.stderr, flush=True)
+    while True:
+        try:
+            resp = input(
+                "  [r]etry this PMID / [s]kip and continue / [a]bort: "
+            ).strip().lower()
+        except EOFError:
+            print(flush=True)
+            return "skip"
+        if resp in ("r", "retry"):
+            return "retry"
+        if resp in ("s", "skip"):
+            return "skip"
+        if resp in ("a", "abort", "q", "quit"):
+            print("\nAborted.", flush=True)
+            sys.exit(0)
+        print("  Please enter 'r' (retry), 's' (skip), or 'a' (abort).", flush=True)
+
+
+def _call_with_retry_prompt(fn, args, error_prefix=""):
+    """
+    Call fn(*args); on RuntimeError, ask via _prompt_retry_skip_abort whether
+    to retry right now, skip this publication, or abort the batch, instead
+    of silently logging the error and moving on.
+
+    Returns fn's result, or _SKIP_SENTINEL if the user chose to skip.
+    """
+    while True:
+        try:
+            return fn(*args)
+        except RuntimeError as exc:
+            action = _prompt_retry_skip_abort(f"{error_prefix}{exc}")
+            if action == "retry":
+                continue
+            return _SKIP_SENTINEL
 
 
 # ── GCS helpers ───────────────────────────────────────────────────────────────
@@ -122,23 +213,47 @@ ESUMMARY_URL = f"{EUTILS_BASE}/esummary.fcgi?db=pubmed&retmode=json&id={{pmid}}"
 _URLOPEN_RETRIES = 3
 _URLOPEN_BACKOFF = 5  # seconds; doubles on each retry
 
+# HTTP status codes worth retrying: 429 (rate limit — NCBI's E-utilities are
+# limited to 3 req/s without an API key and this fires easily in a batch run)
+# and transient server-side errors. Anything else (404, 403, ...) is a
+# permanent result no retry will fix, so it's re-raised immediately instead.
+_RETRYABLE_HTTP_CODES = {429, 500, 502, 503, 504}
+
 
 def _urlopen_with_retry(url_or_req, timeout, description):
     """
     Wrapper around urllib.request.urlopen() that retries transient network
-    errors (timeouts, connection resets) with exponential backoff.
+    errors (timeouts, connection resets, and HTTP 429/5xx) with exponential
+    backoff — honoring the server's Retry-After header when given.
 
     Returns the response body as bytes, or raises RuntimeError after
-    exhausting retries. HTTPError is not retried (re-raised immediately)
-    since callers may need to inspect the status code (e.g. 404s).
+    exhausting retries. A non-retryable HTTPError (e.g. 404) is re-raised
+    immediately, unconverted, since callers may need to inspect the status
+    code (e.g. fetch_unpaywall's 404-means-"not in database" handling).
     """
     last_exc = None
     for attempt in range(1, _URLOPEN_RETRIES + 1):
         try:
             with urllib.request.urlopen(url_or_req, timeout=timeout) as resp:
                 return resp.read()
-        except urllib.error.HTTPError:
-            raise
+        except urllib.error.HTTPError as exc:
+            if exc.code not in _RETRYABLE_HTTP_CODES:
+                raise
+            last_exc = exc
+            if attempt < _URLOPEN_RETRIES:
+                retry_after = exc.headers.get("Retry-After") if exc.headers else None
+                try:
+                    wait = float(retry_after) if retry_after is not None else None
+                except ValueError:
+                    wait = None  # Retry-After can also be an HTTP-date; not worth parsing
+                if wait is None:
+                    wait = _URLOPEN_BACKOFF * (2 ** (attempt - 1))
+                print(
+                    f"  ({description}: HTTP {exc.code} {exc.reason}; retrying in "
+                    f"{wait:g}s [attempt {attempt}/{_URLOPEN_RETRIES}])",
+                    file=sys.stderr, flush=True,
+                )
+                time.sleep(wait)
         except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
             last_exc = exc
             if attempt < _URLOPEN_RETRIES:
@@ -162,6 +277,8 @@ def fetch_pubmed_summary(pmid):
     url = ESUMMARY_URL.format(pmid=pmid)
     try:
         data = json.loads(_urlopen_with_retry(url, 15, "fetching PubMed summary").decode())
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(f"PubMed eSummary HTTP error {exc.code}: {exc.reason}") from exc
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Could not parse PubMed response as JSON: {exc}") from exc
 
@@ -274,6 +391,8 @@ def get_pmc_id(pmid):
     url = IDCONV_URL.format(pmid=pmid)
     try:
         data = json.loads(_urlopen_with_retry(url, 15, "querying PMC idconv").decode())
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(f"PMC idconv HTTP error {exc.code}: {exc.reason}") from exc
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Error querying PMC idconv: {exc}") from exc
 
@@ -300,9 +419,12 @@ def get_pmc_files(pmc_id):
     Raises RuntimeError on network failure.
     """
     url = EFETCH_URL.format(pmc_id=pmc_id)
-    xml = _urlopen_with_retry(
-        url, 30, f"fetching PMC XML for PMC{pmc_id}"
-    ).decode("utf-8", errors="replace")
+    try:
+        xml = _urlopen_with_retry(
+            url, 30, f"fetching PMC XML for PMC{pmc_id}"
+        ).decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(f"PMC efetch HTTP error {exc.code}: {exc.reason}") from exc
 
     # Main PDF: look for <self-uri content-type="pdf" xlink:href="...">
     pdf_match = re.search(
@@ -395,6 +517,57 @@ def _ensure_pdf_preference(profile_dir):
 
     with open(prefs_file, "w") as fh:
         json.dump(prefs, fh)
+
+
+def _reset_profile_history(profile_dir, quiet=False):
+    """
+    Remove the persistent Chrome profile's History database and its journal,
+    so Chrome rebuilds a fresh one on next launch.
+
+    A History database containing even a handful of download records (from a
+    single publication's worth of downloads is enough) reliably crashes
+    headed Chrome (SIGSEGV/SIGTRAP inside Chrome itself, not this script) the
+    moment it tries to record — or, on the next launch, re-process — those
+    entries, even though `sqlite3 PRAGMA integrity_check` reports the file as
+    clean. Symptom: the browser window disappears mid-run and every
+    subsequent action fails with "Target page, context or browser has been
+    closed". Cookies, saved logins, and all other profile state are left
+    untouched, so publisher sessions survive the reset.
+
+    Because the crash threshold is reached within a single publication's
+    downloads, run_download() calls this quietly before every browser launch
+    rather than requiring the manual --reset-profile-history flag between
+    each publication. quiet=True skips the backup (this runs on every
+    download now, so timestamped backups would just pile up) and prints one
+    short line instead of the verbose explanation the standalone flag gives.
+    """
+    default_dir = os.path.join(profile_dir, "Default")
+    history_file = os.path.join(default_dir, "History")
+    journal_file = os.path.join(default_dir, "History-journal")
+
+    if not os.path.isfile(history_file):
+        if not quiet:
+            print(f"  No History file found at {history_file} — nothing to reset.",
+                  flush=True)
+        return
+
+    if quiet:
+        for f in (history_file, journal_file):
+            if os.path.isfile(f):
+                os.remove(f)
+        print("  Reset browser History (works around a known Chrome crash — "
+              "see --reset-profile-history --help for details).", flush=True)
+        return
+
+    ts = time.strftime("%Y%m%d-%H%M%S")
+    for src in (history_file, journal_file):
+        if os.path.isfile(src):
+            dst = f"{src}.corrupted-{ts}"
+            os.rename(src, dst)
+            print(f"  Moved {src}\n    -> {dst}", flush=True)
+
+    print("  Done. Chrome will rebuild a fresh History file on next launch; "
+          "cookies and saved logins are untouched.", flush=True)
 
 
 def _launch_browser(pw, headless, profile_dir):
@@ -862,37 +1035,45 @@ def _scan_publisher_supplementary(page):
 
 _STAGING_IGNORE_SUFFIXES = (".crdownload", ".download", ".part", ".tmp")
 
+# Manually-downloaded supplementary files can be placed in this subdirectory
+# of staging_dir, mirroring the pipeline's own 01_source/s/ layout, so they
+# aren't lumped in with (or mistaken for) the main article PDF.
+_STAGING_SUPP_SUBDIR = "s"
+
 
 def _clear_staging_dir(staging_dir):
     """
-    Remove all files directly inside staging_dir (not subdirectories) so that
-    a stale download from a previous publication — or an unrelated file the
-    user's browser happened to save there — can't be mistaken for this
-    publication's files. Only ever touches the exact directory the user
-    configured as their browser's download location.
+    Remove all files directly inside staging_dir and inside its "s"
+    subdirectory (see _STAGING_SUPP_SUBDIR) so that a stale download from a
+    previous publication — or an unrelated file the user's browser happened
+    to save there — can't be mistaken for this publication's files. Only
+    ever touches those two directories, nothing deeper.
     """
-    os.makedirs(staging_dir, exist_ok=True)
     removed = 0
-    for name in os.listdir(staging_dir):
-        path = os.path.join(staging_dir, name)
-        if os.path.isfile(path):
-            try:
-                os.remove(path)
-                removed += 1
-            except OSError:
-                pass
+    for d in (staging_dir, os.path.join(staging_dir, _STAGING_SUPP_SUBDIR)):
+        os.makedirs(d, exist_ok=True)
+        for name in os.listdir(d):
+            path = os.path.join(d, name)
+            if os.path.isfile(path):
+                try:
+                    os.remove(path)
+                    removed += 1
+                except OSError:
+                    pass
     if removed:
         print(f"  Cleared {removed} pre-existing file(s) from staging dir: {staging_dir}",
               flush=True)
 
 
-def _list_staging_files(staging_dir):
-    """Return full paths of non-hidden, non-partial-download files in staging_dir."""
+def _list_staging_files(directory):
+    """Return full paths of non-hidden, non-partial-download files directly inside directory."""
+    if not os.path.isdir(directory):
+        return []
     out = []
-    for name in os.listdir(staging_dir):
+    for name in os.listdir(directory):
         if name.startswith('.') or name.endswith(_STAGING_IGNORE_SUFFIXES):
             continue
-        path = os.path.join(staging_dir, name)
+        path = os.path.join(directory, name)
         if os.path.isfile(path):
             out.append(path)
     return out
@@ -900,45 +1081,62 @@ def _list_staging_files(staging_dir):
 
 def _wait_for_staging_files(staging_dir, poll_interval=1.0, stable_secs=2.0):
     """
-    Let the user download as many files as they want into staging_dir,
-    showing a live count of how many are fully written (size unchanged for
-    stable_secs, so an in-progress download isn't grabbed mid-write), until
-    they press Enter to say they're done. There's no way to reliably guess
-    in advance how many files they intend to provide, so this waits for an
-    explicit "done" signal rather than trying to count.
+    Let the user download as many files as they want into staging_dir — or
+    into its "s" subdirectory for supplementary files, mirroring the
+    01_source/s/ layout — showing a live count of how many are fully written
+    (size unchanged for stable_secs, so an in-progress download isn't
+    grabbed mid-write), until they press Enter to say they're done. There's
+    no way to reliably guess in advance how many files they intend to
+    provide, so this waits for an explicit "done" signal rather than trying
+    to count.
 
     Ctrl+C is treated the same as Enter — both conclude with whatever is
     currently staged (which may be empty) rather than discarding progress
     already made.
+
+    Returns (top_ready, supp_ready): files staged directly in staging_dir
+    remain candidates for the main PDF (as before); files staged in its "s"
+    subdirectory are always treated as supplementary — the caller should
+    never offer them as a main-PDF candidate.
     """
+    supp_watch_dir = os.path.join(staging_dir, _STAGING_SUPP_SUBDIR)
     print(f"    Waiting for file(s) to appear in: {staging_dir}", flush=True)
+    print(f"      (supplementary files can go in {supp_watch_dir} instead)",
+          flush=True)
     print("    Download normally in the browser window already open, then "
           "press Enter here when done.", flush=True)
-    last_size = {}
-    stable_since = {}
-    ready = []
+
+    def _poll_ready(directory, last_size, stable_since, now):
+        seen = set(_list_staging_files(directory))
+        ready = []
+        for f in seen:
+            try:
+                size = os.path.getsize(f)
+            except OSError:
+                continue
+            if last_size.get(f) == size:
+                stable_since.setdefault(f, now)
+                if now - stable_since[f] >= stable_secs:
+                    ready.append(f)
+            else:
+                stable_since[f] = now
+            last_size[f] = size
+        for f in list(last_size):
+            if f not in seen:
+                last_size.pop(f, None)
+                stable_since.pop(f, None)
+        return ready
+
+    top_last_size, top_stable = {}, {}
+    supp_last_size, supp_stable = {}, {}
+    top_ready, supp_ready = [], []
     try:
         while True:
             now = time.time()
-            seen = set(_list_staging_files(staging_dir))
-            ready = []
-            for f in seen:
-                try:
-                    size = os.path.getsize(f)
-                except OSError:
-                    continue
-                if last_size.get(f) == size:
-                    stable_since.setdefault(f, now)
-                    if now - stable_since[f] >= stable_secs:
-                        ready.append(f)
-                else:
-                    stable_since[f] = now
-                last_size[f] = size
-            for f in list(last_size):
-                if f not in seen:
-                    last_size.pop(f, None)
-                    stable_since.pop(f, None)
-            print(f"\r    {len(ready)} file(s) ready — press Enter when done ",
+            top_ready  = _poll_ready(staging_dir, top_last_size, top_stable, now)
+            supp_ready = _poll_ready(supp_watch_dir, supp_last_size, supp_stable, now)
+            total = len(top_ready) + len(supp_ready)
+            print(f"\r    {total} file(s) ready — press Enter when done ",
                   end="", flush=True)
             r, _, _ = select.select([sys.stdin], [], [], poll_interval)
             if r:
@@ -947,7 +1145,7 @@ def _wait_for_staging_files(staging_dir, poll_interval=1.0, stable_secs=2.0):
     except KeyboardInterrupt:
         pass
     print(flush=True)
-    return sorted(ready)
+    return sorted(top_ready), sorted(supp_ready)
 
 
 def _sha256(path):
@@ -998,7 +1196,8 @@ def _main_pdf_score(path):
     return (score, size)
 
 
-def _place_staged_files(staged_paths, pdf_dest, need_pdf, supp_dir, expected_supp_names):
+def _place_staged_files(staged_paths, pdf_dest, need_pdf, supp_dir, expected_supp_names,
+                         staged_supp_paths=None):
     """
     File each path in staged_paths into place:
       1. A staged file whose basename exactly matches one of
@@ -1010,6 +1209,11 @@ def _place_staged_files(staged_paths, pdf_dest, need_pdf, supp_dir, expected_sup
          asked which one it is.
       3. Any further leftover file is dropped into supp_dir under its own
          name, as bonus supplementary material automation didn't know about.
+
+    staged_supp_paths — files the user placed in staging_dir's "s"
+    subdirectory — are handled the same way as steps 1 and 3 above (matched
+    by name, else saved as bonus material), but are never candidates for the
+    main PDF in step 2, since the user explicitly filed them as supplementary.
 
     Before any file is placed into supp_dir, its content is hashed and
     compared against files already there — e.g. the same supplementary PDF
@@ -1057,6 +1261,15 @@ def _place_staged_files(staged_paths, pdf_dest, need_pdf, supp_dir, expected_sup
         if digest is not None:
             existing_hashes[digest] = dest
         return dest
+
+    # Files explicitly staged as supplementary (the "s" subdirectory) — never
+    # a main-PDF candidate, regardless of what's left over below.
+    for path in list(staged_supp_paths or []):
+        base = os.path.basename(path)
+        label = f"Matched {base}" if base in expected_supp_names else "Extra file"
+        dest = _move_into_supp(path, label)
+        if dest:
+            supp_saved.append(dest)
 
     for path in list(remaining):
         base = os.path.basename(path)
@@ -1220,10 +1433,8 @@ def run_download(pmid, doi, work_dir, staging_dir, headless=False,
 
     # 1. Resolve PMC ID (needed for supplementary files)
     print(f"\nLooking up PMC entry for PMID {pmid} …", flush=True)
-    try:
-        pmc_id = get_pmc_id(pmid)
-    except RuntimeError as exc:
-        print(f"  ERROR: {exc}", file=sys.stderr, flush=True)
+    pmc_id = _call_with_retry_prompt(get_pmc_id, (pmid,), "  ERROR: ")
+    if pmc_id is _SKIP_SENTINEL:
         return
 
     if pmc_id:
@@ -1236,10 +1447,11 @@ def run_download(pmid, doi, work_dir, staging_dir, headless=False,
     pmc_files = None
     if pmc_id:
         print("  Fetching file list from PMC efetch XML …", flush=True)
-        try:
-            pmc_files = get_pmc_files(pmc_id)
-        except RuntimeError as exc:
-            print(f"  ERROR fetching PMC file list: {exc}", file=sys.stderr, flush=True)
+        pmc_files = _call_with_retry_prompt(
+            get_pmc_files, (pmc_id,), "  ERROR fetching PMC file list: ",
+        )
+        if pmc_files is _SKIP_SENTINEL:
+            pmc_files = None
 
     pdf_dest  = os.path.join(source_dir, f"{pmid}.pdf")
     pmc_pdf   = pmc_files["pdf_url"] if pmc_files else None
@@ -1262,6 +1474,7 @@ def run_download(pmid, doi, work_dir, staging_dir, headless=False,
     # 3. Download everything in one browser session
     mode = "headless" if headless else "headed"
     print(f"\nStarting {mode} browser session …", flush=True)
+    _reset_profile_history(profile_dir, quiet=True)
     _ensure_pdf_preference(profile_dir)
     print(f"  Using browser profile: {profile_dir}", flush=True)
 
@@ -1409,10 +1622,11 @@ def run_download(pmid, doi, work_dir, staging_dir, headless=False,
             print(f"\n  Automation did not save {' and '.join(parts)}.", flush=True)
             print(f"  Download {'them' if len(parts) > 1 else 'it'} normally "
                   f"in the browser window already open.", flush=True)
-            staged = _wait_for_staging_files(staging_dir)
-            if staged:
+            staged, staged_supp = _wait_for_staging_files(staging_dir)
+            if staged or staged_supp:
                 pdf_saved, supp_saved = _place_staged_files(
                     staged, pdf_dest, need_pdf or swap_offer, supp_dir, expected_names,
+                    staged_supp_paths=staged_supp,
                 )
                 if pdf_saved:
                     if pdf_dest not in saved:
@@ -1439,9 +1653,11 @@ def run_download(pmid, doi, work_dir, staging_dir, headless=False,
             except EOFError:
                 print(flush=True)
             staged = _list_staging_files(staging_dir)
-            if staged:
+            staged_supp = _list_staging_files(os.path.join(staging_dir, _STAGING_SUPP_SUBDIR))
+            if staged or staged_supp:
                 pdf_saved, supp_saved = _place_staged_files(
                     staged, pdf_dest, True, supp_dir, expected_names,
+                    staged_supp_paths=staged_supp,
                 )
                 if pdf_saved:
                     size = os.path.getsize(pdf_dest)
@@ -1513,7 +1729,7 @@ def main():
         description="Validate a GCS bucket, look up a PubMed publication, "
                     "assess download feasibility, and download files.",
     )
-    pmid_group = parser.add_mutually_exclusive_group(required=True)
+    pmid_group = parser.add_mutually_exclusive_group(required=False)
     pmid_group.add_argument("--pmid", help="PubMed ID of the publication")
     pmid_group.add_argument(
         "--pmid-file",
@@ -1574,9 +1790,13 @@ def main():
             "publisher's Cloudflare check flags the automated browser even "
             "on a manual click), download it normally in the reference "
             "browser window that's already opened, and the script will pick "
-            "the finished file(s) up from here automatically. Cleared at "
-            "the start of each publication so stale/unrelated files already "
-            "in this folder aren't mistaken for the current one's."
+            "the finished file(s) up from here automatically. A file placed "
+            "directly in this folder is treated as a main-PDF candidate; a "
+            f"file placed in its '{_STAGING_SUPP_SUBDIR}' subdirectory "
+            "(mirroring the 01_source/s/ layout) is always treated as "
+            "supplementary instead. Both locations are cleared at the start "
+            "of each publication so stale/unrelated files already there "
+            "aren't mistaken for the current one's."
         ),
     )
     parser.add_argument(
@@ -1596,6 +1816,24 @@ def main():
              "Headed mode is more reliable for sites with reCAPTCHA or Cloudflare.",
     )
     parser.add_argument(
+        "--reset-profile-history",
+        action="store_true",
+        help=(
+            "Standalone maintenance action, not a PMID lookup: rename away "
+            "the persistent Chrome profile's History database (and journal) "
+            "and exit. Normally unnecessary — --download already does this "
+            "automatically before every browser launch, working around a "
+            "known Chrome crash where a History database containing even "
+            "one publication's worth of download records makes headed "
+            "Chrome die the moment it tries to record/re-process them "
+            "(symptom: the browser window disappears mid-run and every "
+            "subsequent step fails with 'Target page, context or browser "
+            "has been closed'). Use this flag only to inspect/reset the "
+            "profile without running a download. Cookies/logins are "
+            "untouched either way."
+        ),
+    )
+    parser.add_argument(
         "--bucket-sync",
         action="store_true",
         help=(
@@ -1605,6 +1843,12 @@ def main():
     )
     args = parser.parse_args()
 
+    if args.reset_profile_history:
+        _reset_profile_history(os.path.expanduser(args.profile_dir))
+        sys.exit(0)
+
+    if not args.pmid and not args.pmid_file:
+        parser.error("one of --pmid, --pmid-file, or --reset-profile-history is required")
     if args.check_download and not args.email:
         parser.error("--email is required when using --check-download")
     if args.bucket_sync and not args.download:
@@ -1647,6 +1891,11 @@ def main():
     n_failed  = 0
 
     for idx, pmid in enumerate(pmids, 1):
+        # Bucket-exists skips are automatic and instant — nothing to
+        # troubleshoot — so they never trigger the continue/abort prompt,
+        # whether as the thing just finished or the thing coming up next.
+        if idx > 1 and pmid not in existing_pubids:
+            _prompt_continue_or_abort(idx - 1, n_total, n_skipped, n_failed)
         print(_pub_banner(pmid, idx if n_total > 1 else None, n_total), flush=True)
 
         # ── 2. Check for existing publication directory in bucket ──────────────
@@ -1662,10 +1911,8 @@ def main():
 
         # ── 3. Fetch PubMed metadata ───────────────────────────────────────────
         print(f"\nQuerying PubMed for PMID {pmid} …", flush=True)
-        try:
-            article = fetch_pubmed_summary(pmid)
-        except RuntimeError as exc:
-            print(f"ERROR: {exc}", file=sys.stderr, flush=True)
+        article = _call_with_retry_prompt(fetch_pubmed_summary, (pmid,), "ERROR: ")
+        if article is _SKIP_SENTINEL:
             n_failed += 1
             continue
 
