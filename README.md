@@ -348,6 +348,8 @@ and whether the crop came from GROBID's detected graphic region (`graphic`), the
 whole figure/table block (`figure`), or could not be made (`none`) — figures
 under `"figures"`, tables under `"tables"`. Supplementary PDFs get the same
 treatment under `02_grobid/s/<rel>/figures/<stem>/`. Disable with `--no-figures`.
+GROBID only boxes embedded bitmaps, so vector figures (charts, survival curves)
+usually come out as caption strips; see [Re-cropped figures](#re-cropped-figures-recrop_figurespy).
 
 ### `02_grobid/<stem>.tei.xml.gz`
 
@@ -359,6 +361,51 @@ back matter. It is gzipped and not named `.xml` so the annotation steps never
 mistake it for a BioC input. For publications processed before this was added,
 `src/pipeline_steps/backfill_figures.py <pub-data-root>` fills in the TEI and
 table crops without re-running any annotation step.
+
+### Re-cropped figures (`recrop_figures.py`)
+
+`02_grobid/figures/` crops a figure from GROBID's `<graphic>` box when there is
+one, else from the `<figure>` box. GROBID reports `<graphic>` boxes only for
+embedded bitmaps, and the `<figure>` box covers the caption rather than the
+drawing, so vector figures (most charts, survival curves, forest plots) come
+out as caption strips, or not at all. `src/pipeline_steps/recrop_figures.py` is
+an optional standalone step (not run by `civic_pubtator.py`) that re-crops
+figures from the saved `02_grobid/<stem>.tei.xml.gz` and the source PDF:
+
+- **`<graphic>` box:** cropped as before, widened to take in touching vector
+  panels and labels (axis titles, panel letters). `--no-expand-graphic` turns
+  this off.
+- **No `<graphic>` box:** the caption is located in the PDF and the vector
+  drawings and images next to it are cropped (`source: "layout"`).
+- **Layout search fails:** GROBID's `<figure>` box is kept as before
+  (`source: "figure_fallback"`) unless it is mostly text (text blocks cover at
+  least 35% of it and graphics under 5%). Then no image is written
+  (`source: "none"`).
+
+Tables are cropped exactly as in `02_grobid/figures/`. It needs no GROBID server
+and never writes inside the publication directories: everything goes under
+`--out`, which must be outside the inputs.
+
+```bash
+python3 src/pipeline_steps/recrop_figures.py /data/pub-data --out /data/recrop --review
+python3 src/pipeline_steps/recrop_figures.py /data/pub-data/10088816 --out recrop
+```
+
+| Option | Default | Description |
+|---|---|---|
+| `--include-supplementary` | off | Also re-crop supplementary PDFs (`02_grobid/s/...`) |
+| `--review` | off | Write `<out>/review.html` comparing old and new crops for every figure without a `<graphic>` box, or whose box was widened |
+| `--review-limit N` | all | Random sample of N figures in `review.html` (`--seed` fixes the sample) |
+| `--workers N` | half the CPUs | Documents processed in parallel |
+| `--force` | off | Redo documents already re-cropped by the current cropper version |
+| `--figure-dpi DPI` | `200` | PNG resolution |
+| `--no-expand-graphic` | off | Crop `<graphic>` boxes as-is |
+
+Output: `<out>/<pub_id>/[<rel>/]<stem>/<id>_p<page>.png` plus a `figures.json`
+with the same layout and schema as `02_grobid/figures/`, plus per item
+`grobid_box` (the box the old cropper used), `reason` and `caption_bbox`.
+`<out>/recrop_summary.tsv` has one row per figure/table. On Windows, keep
+`--out` short to stay under the 260-character path limit.
 
 ### `MANIFEST.txt`
 

@@ -40,7 +40,7 @@ PDFs → GROBID → 02_grobid/ (BioC XML)
 All tools run in **batch mode** — all documents across all groups (main + supplementary) are processed in a single tool invocation to amortize model-loading startup costs. The orchestrating script is `civic_pubtator.py`.
 
 The `src/` directory is organised into three subdirectories:
-- `src/pipeline_steps/` — per-step wrapper scripts invoked by the orchestrator (`pdf_to_bioc.py`, `prepare_supplementary.py`, `run_gnorm2.py`, `run_tmvar.py`, `run_aioner.py`, `run_nlmchem.py`, `run_taggerone.py`, `report_civic_pubtator.py`)
+- `src/pipeline_steps/` — per-step wrapper scripts invoked by the orchestrator (`pdf_to_bioc.py`, `prepare_supplementary.py`, `run_gnorm2.py`, `run_tmvar.py`, `run_aioner.py`, `run_nlmchem.py`, `run_taggerone.py`, `report_civic_pubtator.py`), plus standalone figure tools the orchestrator does not run (`backfill_figures.py`, `recrop_figures.py`)
 - `src/setup_conda_envs/` — one-time environment setup scripts (`setup_gnorm2_conda.sh`, `setup_aioner_conda.sh`, `setup_nlmchem_conda.sh`, `check_gpu.py`)
 - `src/cloud/` and `src/mac/` — infrastructure and platform-specific helpers
 
@@ -50,6 +50,8 @@ Per-publication directory structure:
 <pub_dir>/02_grobid/        ← GROBID BioC XML output
 <pub_dir>/02_grobid/<stem>.tei.xml.gz ← raw GROBID TEI (gzipped, not *.xml so steps ignore it)
 <pub_dir>/02_grobid/figures/<stem>/ ← figure + table PNGs cropped via GROBID coords + figures.json
+                                    (vector figures are often caption strips; src/pipeline_steps/recrop_figures.py
+                                     re-crops them from the saved TEI into a separate --out dir, never into <pub_dir>)
 <pub_dir>/03_gnorm2/        ← GNorm2 annotated BioC XML (gene + species)
 <pub_dir>/04_tmvar3/        ← tmVar3 BioC XML + PubTator files (variant + gene)
 <pub_dir>/05_aioner/        ← AIONER NER-annotated BioC XML (all 6 entity types)
